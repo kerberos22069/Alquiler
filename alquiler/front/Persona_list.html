@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+        <!-- Sweet Alert -->
+    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    
+
+    
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+     
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox ">
+                    <div class="ibox-title"> 
+                         <div style="text-align: center; color: black" >
+            <h1><b>Listar  Usuarios</b></h1>
+                        
+                        </div>
+                        <div class="ibox-tools">
+
+                            <!--     <button type="button" class="btn btn-primary" data-toggle="modal" 
+                                         data-target="#myModal5" data-backdrop="static" data-keyboard="false">
+                                          + Agregar
+                                      </button>-->
+
+                            <button type="button" class="btn btn-primary" onclick="Persona_Registrar()">
+                                + Agregar
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped" >
+                           <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
+                                <thead>
+                                    <tr>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Id</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cédula</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Nombres y Apellidos</th>
+                                       
+                                       
+                                       <th style=" color:#FFFFFF; background-color: #616161  !important">Cargo</th>
+                                      
+                                       <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
+                                        <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-edit"></i></th>
+                                <!--        <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>-->
+                                      
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody id="EmpleadoList">
+
+                                </tbody>
+                   
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de Registrar Empleado -->
+       <div class="modal  inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog modal-lg mdialTamanio">
+                                    <div id="menumodal1" class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                                            <h4 class="modal-title" style="color: black  ; text-shadow: 5px 5px 5px #aaa;">Detalles Empleado</h4>
+                                           
+                                        </div>
+                                        <div class="modal-body"> <!-- Abrri Contenio-->
+                                            
+                                 
+                                        
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    <!-- finaliza modal de Empleado Registrar-->
+    
+    
+    
+<!-- Modal de Expedicion -->
+<div class="modal fade" id="expedicionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <select disabled  id="departamentos" onchange="cargarCiudades(this.value);">
+          <option value="-1">Seleccionar</option>
+        </select>
+         <select disabled  id="ciudades" onchange="cargarContenido();">
+          <option value="-1">Seleccionar</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE CARGOS -->
+<div class="modal fade" id="cargosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <form role="form" id="CargoInsert">
+            <div class="form-group">
+                <input type="hidden" name="id" class="form-control" id="Inputid" placeholder="id" required>
+             </div>
+            <div class="form-group">
+                <input type="hidden" name="fecha_ingreso" class="form-control" id="Inputfecha_ingreso" placeholder="fecha_ingreso">
+             </div>
+            <div class="form-group">
+                <label for="Inputempresa_idempresa">empresa_idempresa</label>
+                 <select disabled  name="empresa_idempresa" class="form-control" id="Inputempresa_idempresa" onchange="cargarAreas(this.value);">
+                                
+                </select> 
+             </div>
+            <div class="form-group">
+                <label for="Inputarea_empresa_idarea_emp">area_empresa_idarea_emp</label>
+                 <select disabled  name="area_empresa_idarea_emp" class="form-control" id="Inputarea_empresa_idarea_emp" onchange="cargarCargos(this.value);">
+
+                </select>
+             </div>
+            <div class="form-group">
+                <label for="Inputcargo_empreso_idcargo">cargo_empreso_idcargo</label>
+                 <select disabled  name="cargo_empreso_idcargo" class="form-control" id="Inputcargo_empreso_idcargo">
+                                               
+                </select>
+             </div>
+            <div class="form-group">
+                <input type="hidden" name="puesto_idpuesto" class="form-control" id="Inputpuesto_idpuesto" placeholder="puesto_idpuesto">
+             </div>  
+             <button>dd</button>           
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE BARRIOS -->
+<div class="modal fade" id="barriosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" id="BarrioInsert">
+          <div class="form-group">
+              <label for="Inputciudad_idciudad">ciudad_idciudad</label>
+               <select disabled  name="ciudad_idciudad" class="form-control" id="Inputciudad_idciudad" onchange="cargarBarrios(this.value);">
+                <option>Seleccione</option>
+                <option value="832">cucuta</option>
+                <option value="846">zulia</option>
+                <option value="853">patios</option>
+                <option value="871">Villa del Rosario</option>
+                <option value="1374">urena</option>
+                <option value="1357">San Antonio</option>
+              </select>
+          </div> 
+          <div class="form-group">
+              <label for="Inputidbarrio">idbarrio</label>
+                <select disabled  name="idbarrio" class="form-control" id="Inputidbarrio" onchange="setBarrios(this.value);">
+              </select>
+           </div>                     
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE FAMILIARES -->
+
+<div class="modal inmodal" id="familiaresModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <form id="familiaressss"> 
+                <div class="modal-body">
+                    <div class="step-content">
+                        <div class="text-left m-t-md">                            
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label style="color: #000000">Nombre y apellido</label>
+                                        <input type="text" id="nombreParen"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label style="color: #000000">Celular</label>
+                                        <input type="text" id="celularParen"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label style="color: #000000">Parentesco</label>
+                                         <select disabled  name="Parentesco" id="tipoParen">
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="cuerpoFamiliar()">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    
+
+
+    
+ <script src="js/plugins/dataTables/datatables.min.js"></script>
+    <script src="js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
+    
+      
+<script src="js/plugins/steps/jquery.steps.min.js"></script>
+<!-- Jquery Validate -->
+<script src="js/plugins/validate/jquery.validate.min.js"></script>
+<script src="js/Ajax.js "></script>
+<script src="js/ViewManager.js "></script>
+<script src="js/HtmlBuilder.js "></script>
+
+
+    <!-- Sweet alert -->
+    <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+            
+       
+            
+            
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
+
+
+
+
+ <script type="text/javascript">
+
+//-----------------------------------------------------------------------------------------------
+
+
+     
+      
+   
+      function agregarFamiliar(){
+         $.get('../../../generales/back/controller/tipo_familiar/Tipo_familiarList.php',function(depa){
+          var mySelect=document.getElementById("tipoParen");
+          removeAllChildren(mySelect);
+         // mySelect.appendChild(createOPTION(-1,'SELECCIONE'));
+          depa = JSON.parse(depa);
+         for (var i = 1 ; i < depa.length; i++) {
+              mySelect.appendChild(createOPTION(depa[i].idtipo_familiar,depa[i].tipo_familiar_descripcion));
+            }  
+        });
+          $('#familiaresModal').modal(); 
+      }
+
+  
+
+   
+
+   
+     
+   
+
+   
+//------------------------------------------------------------------------------------------------
+      
+    
+   
+   
+   
+//--------------------------------------------------------------------
+ 
+//---------------------------------------------------------------------
+  
+   function cargarEmpresas(){      
+        $.get('../back/controller/empresa/EmpresaList.php',function(depa){
+          var mySelect=document.getElementById("Inputempresa_idempresa");
+          removeAllChildren(mySelect);
+          depa = JSON.parse(depa);
+         for (var i = 1 ; i < depa.length; i++) {
+              mySelect.appendChild(createOPTION(depa[i].idempresa,depa[i].nombre_empresa));
+            }  
+          
+        });
+        $('#cargosModal').modal();  
+      }
+
+
+   function cargarAreas(empresa){      
+        $.get('../back/controller/area_empresa/Area_empresaList.php',{'empresa':empresa},function(depa){
+          var mySelect=document.getElementById("Inputarea_empresa_idarea_emp");
+          removeAllChildren(mySelect);
+          depa = JSON.parse(depa);         
+         for (var i = 1 ; i < depa.length; i++) {
+              mySelect.appendChild(createOPTION(depa[i].idarea_emp,depa[i].nom_area));
+            }  
+          
+        });
+      }
+
+      function cargarCargos(Area){      
+        $.get('../back/controller/cargo_empreso/Cargo_empresoList.php',{'area':Area},function(depa){      
+          
+          var mySelect=document.getElementById("Inputcargo_empreso_idcargo");
+          removeAllChildren(mySelect);
+         // mySelect.appendChild(createOPTION(-1,'SELECCIONE'));
+          depa = JSON.parse(depa);
+         for (var i = 1 ; i < depa.length; i++) {
+              mySelect.appendChild(createOPTION(depa[i].idcargo,depa[i].nom_cargo));
+            }  
+          
+        }); 
+      }
+    
+        
+
+    </script>
+
+
+  <script>
+            var mimodal = null;
+            var SUPER_GLOBAL;
+            var SUPER_GLOBAL_IDCARGO;
+            function mostrarActualizar(id, nombre) {
+                
+                empleado_update(id);
+                SUPER_GLOBAL = id;
+ 
+            }
+            function mostrarEliminar(id2, nombre2) {
+               // console.log(id);
+                      var a1=''+id2;
+                var b2=''+nombre2;
+               
+                   $("#idArea2").val(a1);
+                $("#InputArea2").val(b2);
+               $('#myModal5').modal({show: true});
+
+    
+            }
+            
+ function mostrarTodo(idp) {
+   
+document.getElementById("familiaressss").reset();
+
+              // console.log(idp);
+               cargarSelects();
+                  //    var a1=''+id2;
+               // var b2=''+nombre2;
+             //  console.log('id persona mostrar detalles'+idp);
+               cargarPersona(idp);
+         
+                 
+                
+              
+               $('#myModal5').addClass(' data-backdrop="static" data-keyboard="false"');
+               $('#myModal5').modal({show: true});
+
+          
+            }
+            var IDSUBIRARCHIVOS;
+ function mostrarSubirFile(idp,cedula) {
+              // console.log(idp);
+              IDSUBIRARCHIVOS=cedula;
+              
+           
+                  //    var a1=''+id2;
+               // var b2=''+nombre2;
+              empleado_archivos(cedula);
+         
+
+            }
+            
+ function mostrarCargo(idp,cargo,nombre,apellido) {
+         
+            SUPER_GLOBAL=idp;
+            SUPER_GLOBAL_IDCARGO=cargo;
+            SUPER_GLOBAL_NOMBRE=nombre+" "+apellido;
+        
+           cargo_RegistrarTodo();
+             
+  
+      
+            }
+        </script>  
+        
+       <script>
+
+    $(document).ready(function () {
+
+        $('.demo1').click(function(){
+            swal({
+                title: "Welcome in Alerts",
+                text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            });
+        });
+
+        $('.demo2').click(function(){
+            swal({
+                title: "Good job!",
+                text: "You clicked the button!",
+                type: "success"
+            });
+        });
+
+        $('.demo3').click(function () {
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function () {
+                swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            });
+        });
+
+        $('.demo4').click(function () {
+            swal({
+                        title: "Are you sure?",
+                        text: "Your will not be able to recover this imaginary file!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "No, cancel plx!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        } else {
+                            swal("Cancelled", "Your imaginary file is safe :)", "error");
+                        }
+                    });
+        });
+
+
+    });
+
+</script>                         
+
+
+<!--//****************************************************************************************************//-->
+
+
+<script>  
+    function Edad(FechaNacimiento) {
+
+    var fechaNace = new Date(FechaNacimiento);
+
+    var fechaActual = new Date()
+
+    var mes = fechaActual.getMonth();
+
+    var dia = fechaActual.getDate();
+
+    var año = fechaActual.getFullYear();
+
+    fechaActual.setDate(dia);
+
+    fechaActual.setMonth(mes);
+
+    fechaActual.setFullYear(año);
+
+    edad = Math.floor(((fechaActual - fechaNace) / (1000 * 60 * 60 * 24) / 365));
+
+    return edad;
+
+}
+
+</script>  
+
+
+
+
+
+
+
+
+
+<!--//****************************************************************************************************//-->
+
+
+ <script type="text/javascript">
+
+
+
+    </script>
+
+
+
+
+
+    <!-- That´s all folks! -->
+</html>
