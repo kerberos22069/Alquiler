@@ -13,8 +13,8 @@
                                     <input type="text" name="persona_cedula" class="form-control" id="Inputpersona_cedula" placeholder="Cedula" required>
                                 </div> 
                             </div>
-                            <div class="col-sm-2" style="padding-top: -45px">
-                                <div class="form-group" style="padding-top: -45px">
+                            <div class="col-sm-2" >
+                                <div class="form-group" >
                                     <label for="Inputpersona_cedula">    </label>
                                     <button type="button" class="btn btn-primary" onclick="buscarcedula()">Buscar </button>
                                 </div>
@@ -43,18 +43,18 @@
         <div class="form-group  row">
             <label class="col-sm-2 col-form-label"><b>Nombre y Apellido :</b></label>
 
-                                    <div class="col-sm-10">
-                                        <input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control"></div>
+                                    <div class="col-sm-10 p-xs border-bottom">
+                                        <input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
                                 </div>
         <div class="form-group  row">
             <label class="col-sm-2 col-form-label"><b>Cedula :</b></label>
 
-                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcc" name="cc" class="form-control"></div>
+                                    <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcc" name="cc" class="form-control" readonly></div>
                                 </div>
         <div class="form-group  row">
             <label class="col-sm-2 col-form-label"><b>Telefono :</b></label>
 
-                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcc" name="cc" class="form-control"></div>
+                                    <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
                                 </div>
    
                         
@@ -74,12 +74,12 @@
      <div class="form-group  row">
          <label class="col-sm-2 col-form-label"><b>Direccion :</b></label>
 
-                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputdireccion" name="direccion" class="form-control"></div>
+                                    <div class="col-sm-10 p-xs border-bottom"><input  style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputdireccion" name="direccion" class="form-control" readonly></div>
                                 </div>
         <div class="form-group  row">
             <label class="col-sm-2 col-form-label"><b>Correo :</b></label>
 
-                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcorreo" name="correo" class="form-control"></div>
+                                    <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
                                 </div>
 
                     </div>
