@@ -278,8 +278,10 @@ function preProductoList(container){
 
             for(var i=1; i < Object.keys(json).length; i++) {   
                 var Producto = json[i];
+                 Producto.viewHrefB = 'mostrarTodo("' + Producto.idprod + '");';
+                Producto.deleteHrefB = 'mostrarEliminar("' + Producto.idprod + '");';
                 //----------------- Para una tabla -----------------------
-                document.getElementById("ProductoList").appendChild(createTR(Producto));
+                document.getElementById("ProductosList_2").appendChild(createTR(Producto));
                 //-------- Para otras opciones ver htmlBuilder.js ---------
             }
          }else{

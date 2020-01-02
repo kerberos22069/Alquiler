@@ -17,7 +17,7 @@ class Producto {
   private $prod_stock;
   private $prod_disponible;
   private $prod_reparacion;
-  private $prod_daÃÂ±ado;
+  private $prod_danado;
 
     /**
      * Constructor de Producto
@@ -130,19 +130,19 @@ class Producto {
       $this->prod_reparacion = $prod_reparacion;
   }
     /**
-     * Devuelve el valor correspondiente a prod_daÃÂ±ado
-     * @return prod_daÃÂ±ado
+     * Devuelve el valor correspondiente a prod_danado
+     * @return prod_danado
      */
-  public function getProd_daÃÂ±ado(){
-      return $this->prod_daÃÂ±ado;
+  public function getProd_danado(){
+      return $this->prod_danado;
   }
 
     /**
-     * Modifica el valor correspondiente a prod_daÃÂ±ado
-     * @param prod_daÃÂ±ado
+     * Modifica el valor correspondiente a prod_danado
+     * @param prod_danado
      */
-  public function setProd_daÃÂ±ado($prod_daÃÂ±ado){
-      $this->prod_daÃÂ±ado = $prod_daÃÂ±ado;
+  public function setProd_danado($prod_danado){
+      $this->prod_danado = $prod_danado;
   }
 
 

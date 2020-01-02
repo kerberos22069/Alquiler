@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title"> 
-                        <div style="text-align: center; color: black" >
+                        <div style="text-align: center; color: white" >
                             <h1><b>Listado de Productos</b></h1>
 
                         </div>
@@ -41,13 +41,11 @@
                                     <tr>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Id</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Nombre</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Unidad de medida</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">codigo interno</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad en stock</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Marca</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Precio de Compra</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Precio de Venta</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Dias de Garantia</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Detalle</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Precio Alquiler</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cant | Total</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cant | stock</th>
+                                     
 
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>
@@ -76,7 +74,7 @@
             <div id="menumodal1" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                    <h4 class="modal-title" style="color: black  ; text-shadow: 5px 5px 5px #aaa;">Detalles Producto</h4>
+                    <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Detalles Producto</h4>
 
                 </div>
                 <div class="modal-body"> <!-- Abrri Contenio-->
@@ -84,74 +82,54 @@
                         <div class="panel panel-default">
                             <!--        <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>-->
                             <div align=center class="panel-body">
-                                <form role="form" id="ClientesReset">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <br>
-                                                <label for="Inputnombres">nombre</label>
-                                                <input type="text" name="nombre" class="form-control" id="Inputnombres" placeholder="nombres">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Inputunidmedida">Unidad de Medida</label>
-                                                <input type="text" name="unidad_medida" class="form-control" id="Inputunidmedida" placeholder="unidad de medida">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Inputcodigo">Codigo Interno</label>
-                                                <input type="text" name="codigo_interno" class="form-control" id="Inputcodigo" placeholder="Codigo Interno">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Inputgarantia">Dias de Garantia</label>
-                                                <input type="text" name="dias_garantia" class="form-control" id="Inputgarantia" placeholder="Dias de Garantia">
-                                            </div>
+                                <form role="form" id="Product_update_2">
+                                   <div class="row">
+                        <div class="col-lg-6">
+                            
+                            <div class="form-group">
+                          <label for="Inputidprod">idalquiler</label>
+                          <input type="text" name="idprod" class="form-control" id="Inputidprod" placeholder="idalquiler" required>
+                       </div>
+                            
+                            <div class="form-group">
+                          <label for="Inputprod_nombre">producto nombre</label>
+                          <input type="text" name="prod_nombre" class="form-control" id="Inputprod_nombre" placeholder="prod_nombre">
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputprod_descripcion">producto descripcion</label>
+                          <input type="text" name="prod_descripcion" class="form-control" id="Inputprod_descripcion" placeholder="prod_descripcion">
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputprod_precio">producto precio alquiler</label>
+                          <input type="text" name="prod_precio" class="form-control" id="Inputprod_precio" placeholder="prod_precio" value="0">
+                       </div>
+                            <div class="form-group">
+                                <label for="Inputfoto">Foto</label>
+                                <input id="imagen" name="imagen" class="form-control" type="file">
+                            </div>
+                        </div>
 
-                                            <div class="form-group">
-                                                <label for="Inputcantidad">Cantidad en Stock</label>
-                                                <input type="text" name="cantidad_en_stock" class="form-control" id="Inputcantidad" placeholder="Cantidad en Stock">
-                                            </div>
-                                        </div>
 
 
-                                        <div class="col-lg-6">
-                                            <div align=center class="panel-body" style="background-color: gainsboro ; box-shadow: 0.5px 0.5px 0.5px 0.5px #999;">
-                                                <br>
-                                                <br>
-                                                <span>
-                                                    <img alt="image" id="imgfoto" class="img" src="" width="40%" height="85%"/>
-                                                </span>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="Inputmarca">Marca</label>
-                                                <input type="text" name="marca" class="form-control" id="Inputmarca" placeholder="Marca">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Inputprecompra">Precio Compra</label>
-                                                <input type="text" name="precio_compra" class="form-control" id="Inputprecompra" placeholder="Precio Compra">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Inputpreventa">Precio Venta</label>
-                                                <input type="text" name="precio_venta" class="form-control" id="Inputpreventa" placeholder="Precio Venta">
-                                            </div>
-
-                                            <div style="display: none" class="form-group">
-                                                <label for="Inputid_servicio">id_servicio_id</label>
-                                                <input type="text" name="id_servicio" class="form-control" id="Inputid_servicio" placeholder="Precio Venta" readonly>
-                                            </div>
-
-                                            <div style="display: none" class="form-group">
-                                                <label for="Inputid_proveedor">id_proveedor_id</label>
-                                                <input type="text" name="id_proveedor" class="form-control" id="Inputid_proveedor" placeholder="Precio Venta" readonly>
-                                            </div>
-
-                                            <div style="display: none" class="form-group">
-                                                <label for="Inputid_producto">id_productos_id</label>
-                                                <input type="text" name="id" class="form-control" id="Inputid_producto" placeholder="Precio Venta" readonly>
-                                            </div>
-
-                                        </div>
-
-                                    </div><!-- panel-body -->
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                          <label for="Inputprod_stock">producto stock</label>
+                          <input type="text" name="prod_stock" class="form-control" id="Inputprod_stock" placeholder="prod_stock" value="0">
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputprod_disponible">producto disponible</label>
+                          <input type="text" name="prod_disponible" class="form-control" id="Inputprod_disponible" placeholder="prod_disponible" value="0">
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputprod_reparacion">producto reparacion</label>
+                          <input type="text" name="prod_reparacion" class="form-control" id="Inputprod_reparacion" placeholder="prod_reparacion" value="0">
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputprod_danado">producto dañado</label>
+                          <input type="text" name="prod_danado" class="form-control" id="Inputprod_danado" placeholder="prod_dañado" value="0">
+                       </div>
+                        </div>
+                    </div>
                                 </form>
                             </div> <!-- panel -->
                         </div>
@@ -173,30 +151,6 @@
 
 
 
-            <!-- Modal de Expedicion -->
-            <div class="modal fade" id="expedicionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <select disabled  id="departamentos" onchange="cargarCiudades(this.value);">
-                                <option value="-1">Seleccionar</option>
-                            </select>
-                            <select disabled  id="ciudades" onchange="cargarContenido();">
-                                <option value="-1">Seleccionar</option>
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             
            <script src="js/plugins/dataTables/datatables.min.js"></script>
             <script src="js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
@@ -251,34 +205,31 @@
                 function mostrarTodo(idp) {
 
                     // console.log(idp);
-                    cargarCliente(idp);
+                    cargarPrdoc(idp);
                     $('#myModalDetalles').addClass(' data-backdrop="static" data-keyboard="false"');
                     $('#myModalDetalles').modal({show: true});
 
                 }
 
-                function cargarCliente(empresa) {
+                function cargarPrdoc(empresa) {
                     //              console.log(empresa);
                     //  document.getElementById("ClientesReset").reset();
                     //  $("#ClientesReset").reset();
 
-                    $.get('../back/controller/Productos_Detalles.php', {'empresa': empresa}, function (depa) {
+                    $.get('../back/controller/Producto_detalles.php', {'empresa': empresa}, function (depa) {
 
                         depa = JSON.parse(depa);
 
 
-                        $("#Inputnombres").val(depa[1].nombre);
-                        $("#Inputunidmedida").val(depa[1].unidad_medida);
-                        $("#Inputcodigo").val(depa[1].codigo_interno);
-                        $("#Inputcantidad").val(depa[1].cantidad_en_stock);
-                        $("#Inputmarca").val(depa[1].marca);
-                        $("#Inputgarantia").val(depa[1].dias_garantia);
-                        $("#Inputprecompra").val(depa[1].precio_compra);
-                        $("#Inputpreventa").val(depa[1].precio_venta);
-                        $("#Inputid_servicio").val(depa[1].id_servicio_id);
-                        $("#Inputid_proveedor").val(depa[1].id_proveedor_id);
-                        $("#Inputid_producto").val(depa[1].id);
-                        $("#imgfoto").attr("src","../imagenes/"+depa[1].codigo_interno+".png");
+                        $("#Inputidprod").val(depa[1].idprod);
+                        $("#Inputprod_nombre").val(depa[1].prod_nombre);
+                        $("#Inputprod_descripcion").val(depa[1].prod_descripcion);
+                        $("#Inputprod_precio").val(depa[1].prod_precio);
+                        $("#Inputprod_stock").val(depa[1].prod_stock);
+                        $("#Inputprod_disponible").val(depa[1].prod_disponible);
+                        $("#Inputprod_reparacion").val(depa[1].prod_reparacion);
+                        $("#Inputprod_danado").val(depa[1].prod_danado);
+                        $("#imgfoto").attr("src","../imagenes/"+depa[1].foto);
                         //$("#imgfoto").attr("src","");
 
 
@@ -301,7 +252,7 @@
                                         closeOnCancel: false},
                                             function (isConfirm) {
                                                 if (isConfirm) {
-                                                    $.get('../back/controller/Productos_Eliminar.php', {'empresa': empresa}, function (depa) {
+                                                    $.get('../back/controller/Producto_delete.php', {'empresa': empresa}, function (depa) {
                                                     });
                                                     Productos_Listar();
 
@@ -318,14 +269,15 @@
 
                 function Productos_Actualizar() {
 
-                    var url1 = "../back/controller/Productos_Update.php";
+                    var url1 = "../back/controller/Producto_update.php";
 
-                    $("#ClientesReset").serialize();
+                   console.log($("#Product_update_2").serialize()) ;
 
                     $.ajax({
                         type: "POST",
                         url: url1,
-                        data: $("#ClientesReset").serialize(),
+                        data: $("#Product_update_2").serialize(),
+                       
 
                         success: function (data) {
 

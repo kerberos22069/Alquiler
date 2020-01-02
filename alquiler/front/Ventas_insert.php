@@ -17,22 +17,33 @@
                     </div></div>
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" style="font-size: 10px;">
                         <div class="form-group" style="display: none" >
                             <label for="Inputid">id</label>
-                            <input type="text" name="id" class="form-control" id="Inputid" placeholder="id" required>
+                            <input style="background-color: white; border:1px solid #ffffff;" type="text" name="id" class="form-control" id="Inputid" placeholder="id" required>
                         </div>
+                        
+        <div class="form-group  row">
+            <label class="col-sm-2 col-form-label">Nombre y Apellido</label>
 
-                        <div class="form-group">
-                            <label for="Inputpersona_nombre">Nombre y Apellido</label>
-                            <input type="text" name="nombres" class="form-control" id="Inputnombres" placeholder="Nombre y Apellido" readonly >
-                        </div>
+                                    <div class="col-sm-10">
+                                        <input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control"></div>
+                                </div>
+        <div class="form-group  row">
+            <label class="col-sm-2 col-form-label">Direccion</label>
+
+                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control"></div>
+                                </div>
+        <div class="form-group  row">
+            <label class="col-sm-2 col-form-label">Correo</label>
+
+                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control"></div>
+                                </div>
+                        
+                     
 
 
-                        <div class="form-group">
-                            <label for="Inputproductos">Direccion</label>
-                            <input type="text" name="created_at" class="form-control" id="Inputcreated_at" placeholder="Direccion" readonly>
-                        </div>        
+                          
 
                         <div style="display:none" class="form-group">
                             <label for="Inputcorreo">Correo</label>
@@ -117,7 +128,7 @@
             empresa = document.getElementById("Inputpersona_cedula").value;
 //          alert(empresa);
 
-            $.get('../back/controller/Clientes_Detalles_1.php', {'empresa': empresa}, function (depa) {
+            $.get('../back/controller/Cliente_Detalles.php', {'empresa': empresa}, function (depa) {
 
                 depa = JSON.parse(depa);
 //                        console.log(depa);

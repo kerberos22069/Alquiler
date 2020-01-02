@@ -12,31 +12,22 @@
         <div class="panel panel-default">
             <div align=center class="panel-heading"><h3 class="panel-title">Registrar Productos</h3></div>
             <div align=center class="panel-body">
-                <form method="post" enctype="multipart/form-data" role="form" id="ClientesInsert">
+                <form method="post" enctype="multipart/form-data" role="form" id="ProductoInsert_1">
 
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="Inputnombre">Nombre</label>
-                                <input type="text" name="nombre" class="form-control" id="Inputnombre" placeholder="Nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="Inputunidad_medida">Unidad de Medida</label>
-                                <input type="text" name="unidad_medida" class="form-control" id="Inputunidad_medida" placeholder="Unidad de Medida">
-                            </div>
-                            <div class="form-group">
-                                <label for="Inputcodigo_interno">Codigo Interno</label>
-                                <input type="text" name="codigo_interno" class="form-control" id="Inputcodigo_interno" placeholder="Codigo Interno">
-                            </div>
-                            <div class="form-group">
-                                <label for="Inputcantidad_en_stock">Cantidad En Stock</label>
-                                <input type="text" name="cantidad_en_stock" class="form-control" id="Inputcantidad_en_stock" placeholder="Cantidad En Stock">
-                            </div>
-                            <div class="form-group">
-                                <label for="Inputmarca">Marca</label>
-                                <input type="text" name="marca" class="form-control" id="Inputmarca" placeholder="Marca">
-                            </div>
-
+                          <label for="Inputprod_nombre">producto nombre</label>
+                          <input type="text" name="prod_nombre" class="form-control" id="Inputprod_nombre" placeholder="prod_nombre">
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputprod_descripcion">producto descripcion</label>
+                          <input type="text" name="prod_descripcion" class="form-control" id="Inputprod_descripcion" placeholder="prod_descripcion">
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputprod_precio">producto precio alquiler</label>
+                          <input type="text" name="prod_precio" class="form-control" id="Inputprod_precio" placeholder="prod_precio" value="0">
+                       </div>
                             <div class="form-group">
                                 <label for="Inputfoto">Foto</label>
                                 <input id="imagen" name="imagen" class="form-control" type="file">
@@ -46,36 +37,26 @@
 
 
                         <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="Inputprecio_compra">Precio Compra</label>
-                                <input type="text" name="precio_compra" class="form-control" id="Inputprecio_compra" placeholder="Precio Compra">
-                            </div>
-                            <div class="form-group">
-                                <label for="Inputprecio_venta">Precio Venta</label>
-                                <input type="text" name="precio_venta" class="form-control" id="Inputprecio_venta" placeholder="Precio Venta">
-                            </div>
-                            <div class="form-group">
-                                <label for="Inputdias_garantia">Dias de Garantia</label>
-                                <input type="text" name="dias_garantia" class="form-control" id="Inputdias_garantia" placeholder="Dias de Garantia">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Inputid_servicio">Servicio</label>
-                                <select name="id_servicio" class="form-control" id="Inputid_servicio">
-
-                                </select> 
-                            </div> 
-
-                            <div class="form-group">
-                                <label for="Inputid_proveedor">Proveedor</label>
-                                <select name="id_proveedor" class="form-control" id="Inputid_proveedor">
-
-                                </select> 
-                            </div> 
+                          <div class="form-group">
+                          <label for="Inputprod_stock">producto stock</label>
+                          <input type="text" name="prod_stock" class="form-control" id="Inputprod_stock" placeholder="prod_stock" value="0">
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputprod_disponible">producto disponible</label>
+                          <input type="text" name="prod_disponible" class="form-control" id="Inputprod_disponible" placeholder="prod_disponible" value="0">
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputprod_reparacion">producto reparacion</label>
+                          <input type="text" name="prod_reparacion" class="form-control" id="Inputprod_reparacion" placeholder="prod_reparacion" value="0">
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputprod_danado">producto dañado</label>
+                          <input type="text" name="prod_danado" class="form-control" id="Inputprod_danado" placeholder="prod_dañado" value="0">
+                       </div>
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-primary" onclick="registraraCliente()">Registrar</button>
+                    <button type="button" class="btn btn-primary" onclick="registrar_Producto()">Registrar</button>
                 </form>
             </div><!-- panel-body -->
         </div> <!-- panel -->
@@ -100,11 +81,11 @@
 
     <script>
         
-        function registraraCliente() {
-            var formData = new FormData(document.getElementById('ClientesInsert'));
+        function registrar_Producto() {
+            var formData = new FormData(document.getElementById('ProductoInsert_1'));
             formData.append('action', 'InsertNew');
 
-            EnviarPost(formData, '../back/controller/Productos_Insert.php', function (result, state) {
+            EnviarPost(formData, '../back/controller/Producto_insert.php', function (result, state) {
             });
         }
 

@@ -38,18 +38,18 @@ class ProductoFacade {
    * @param prod_stock
    * @param prod_disponible
    * @param prod_reparacion
-   * @param prod_daÃÂ±ado
+   * @param prod_danado
    */
-  public static function insert( $idprod,  $prod_nombre,  $prod_descripcion,  $prod_precio,  $prod_stock,  $prod_disponible,  $prod_reparacion,  $prod_daÃÂ±ado){
+  public static function insert(   $prod_nombre,  $prod_descripcion,  $prod_precio,  $prod_stock,  $prod_disponible,  $prod_reparacion,  $prod_danado){
       $producto = new Producto();
-      $producto->setIdprod($idprod); 
+//      $producto->setIdprod($idprod); 
       $producto->setProd_nombre($prod_nombre); 
       $producto->setProd_descripcion($prod_descripcion); 
       $producto->setProd_precio($prod_precio); 
       $producto->setProd_stock($prod_stock); 
       $producto->setProd_disponible($prod_disponible); 
       $producto->setProd_reparacion($prod_reparacion); 
-      $producto->setProd_daÃÂ±ado($prod_daÃÂ±ado); 
+      $producto->setProd_danado($prod_danado); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
@@ -85,9 +85,9 @@ class ProductoFacade {
    * @param prod_stock
    * @param prod_disponible
    * @param prod_reparacion
-   * @param prod_daÃÂ±ado
+   * @param prod_danado
    */
-  public static function update($idprod, $prod_nombre, $prod_descripcion, $prod_precio, $prod_stock, $prod_disponible, $prod_reparacion, $prod_daÃÂ±ado){
+  public static function update($idprod, $prod_nombre, $prod_descripcion, $prod_precio, $prod_stock, $prod_disponible, $prod_reparacion, $prod_danado){
       $producto = self::select($idprod);
       $producto->setProd_nombre($prod_nombre); 
       $producto->setProd_descripcion($prod_descripcion); 
@@ -95,11 +95,19 @@ class ProductoFacade {
       $producto->setProd_stock($prod_stock); 
       $producto->setProd_disponible($prod_disponible); 
       $producto->setProd_reparacion($prod_reparacion); 
-      $producto->setProd_daÃÂ±ado($prod_daÃÂ±ado); 
+      $producto->setProd_danado($prod_danado); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
      $productoDao->update($producto);
+     $productoDao->close();
+  }
+  
+  public static function update_delete($idprod){
+      $producto = self::select($idprod);
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
+     $productoDao->update_delete($producto);
      $productoDao->close();
   }
 
@@ -127,6 +135,13 @@ class ProductoFacade {
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
      $result = $productoDao->listAll();
+     $productoDao->close();
+     return $result;
+  }
+  public static function list_detalles($id_prod){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
+     $result = $productoDao->list_detalles($id_prod);
      $productoDao->close();
      return $result;
   }

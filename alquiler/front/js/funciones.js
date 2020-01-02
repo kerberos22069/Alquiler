@@ -102,7 +102,7 @@ function Productos_Listar() {  /**  tabla de datos  */
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);
 //enviar(formData, rutaBack ,postClientesList); 
-    enviar("", '../back/controller/Productos_List_all.php',postProductosList);
+    enviar("", '../back/controller/Producto_list.php',postProductoList);
 }
 
 function Ventas_Listar() {  /**  tabla de datos  */

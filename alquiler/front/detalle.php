@@ -4,7 +4,7 @@
                         <div class="ibox ">
                             <div class="ibox-title">
                                 <span class="label label-success float-right">Monthly</span>
-                                <h5>Income</h5>
+                                <h5>Clientes</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">40 886,200</h1>

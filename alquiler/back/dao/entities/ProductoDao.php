@@ -28,18 +28,18 @@ private $cn;
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function insert($producto){
-      $idprod=$producto->getIdprod();
+//      $idprod=$producto->getIdprod();
 $prod_nombre=$producto->getProd_nombre();
 $prod_descripcion=$producto->getProd_descripcion();
 $prod_precio=$producto->getProd_precio();
 $prod_stock=$producto->getProd_stock();
 $prod_disponible=$producto->getProd_disponible();
 $prod_reparacion=$producto->getProd_reparacion();
-$prod_daÃÂ±ado=$producto->getProd_daÃÂ±ado();
+$prod_danado=$producto->getProd_danado();
 
       try {
-          $sql= "INSERT INTO `producto`( `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_daÃÂ±ado`)"
-          ."VALUES ('$idprod','$prod_nombre','$prod_descripcion','$prod_precio','$prod_stock','$prod_disponible','$prod_reparacion','$prod_daÃÂ±ado')";
+          $sql= "INSERT INTO `producto`(  `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`)"
+          ."VALUES ('$prod_nombre','$prod_descripcion','$prod_precio','$prod_stock','$prod_disponible','$prod_reparacion','$prod_danado')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -56,7 +56,7 @@ $prod_daÃÂ±ado=$producto->getProd_daÃÂ±ado();
       $idprod=$producto->getIdprod();
 
       try {
-          $sql= "SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_daÃÂ±ado`"
+          $sql= "SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`"
           ."FROM `producto`"
           ."WHERE `idprod`='$idprod'";
           $data = $this->ejecutarConsulta($sql);
@@ -68,7 +68,7 @@ $prod_daÃÂ±ado=$producto->getProd_daÃÂ±ado();
           $producto->setProd_stock($data[$i]['prod_stock']);
           $producto->setProd_disponible($data[$i]['prod_disponible']);
           $producto->setProd_reparacion($data[$i]['prod_reparacion']);
-          $producto->setProd_daÃÂ±ado($data[$i]['prod_daÃÂ±ado']);
+          $producto->setProd_danado($data[$i]['prod_danado']);
 
           }
       return $producto;      } catch (SQLException $e) {
@@ -91,10 +91,24 @@ $prod_precio=$producto->getProd_precio();
 $prod_stock=$producto->getProd_stock();
 $prod_disponible=$producto->getProd_disponible();
 $prod_reparacion=$producto->getProd_reparacion();
-$prod_daÃÂ±ado=$producto->getProd_daÃÂ±ado();
+$prod_danado=$producto->getProd_danado();
 
       try {
-          $sql= "UPDATE `producto` SET`idprod`='$idprod' ,`prod_nombre`='$prod_nombre' ,`prod_descripcion`='$prod_descripcion' ,`prod_precio`='$prod_precio' ,`prod_stock`='$prod_stock' ,`prod_disponible`='$prod_disponible' ,`prod_reparacion`='$prod_reparacion' ,`prod_daÃÂ±ado`='$prod_daÃÂ±ado' WHERE `idprod`='$idprod' ";
+          $sql= "UPDATE `producto` SET `prod_nombre`='$prod_nombre' ,`prod_descripcion`='$prod_descripcion' ,`prod_precio`='$prod_precio' ,`prod_stock`='$prod_stock' ,`prod_disponible`='$prod_disponible' ,`prod_reparacion`='$prod_reparacion' ,`prod_danado`='$prod_danado' WHERE `idprod`='$idprod' ";
+          var_dump($sql);
+         return $this->insertarConsulta($sql);
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      }
+  }
+  
+  public function update_delete($producto){
+      $idprod=$producto->getIdprod();
+
+
+      try {
+          $sql= "UPDATE `producto` SET `prod_stado`='0'  WHERE `idprod`='$idprod' ";
+
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -126,9 +140,9 @@ $prod_daÃÂ±ado=$producto->getProd_daÃÂ±ado();
   public function listAll(){
       $lista = array();
       try {
-          $sql ="SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_daÃÂ±ado`"
+          $sql ="SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`"
           ."FROM `producto`"
-          ."WHERE 1";
+          ."WHERE `prod_stado`=1";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $producto= new Producto();
@@ -139,7 +153,34 @@ $prod_daÃÂ±ado=$producto->getProd_daÃÂ±ado();
           $producto->setProd_stock($data[$i]['prod_stock']);
           $producto->setProd_disponible($data[$i]['prod_disponible']);
           $producto->setProd_reparacion($data[$i]['prod_reparacion']);
-          $producto->setProd_daÃÂ±ado($data[$i]['prod_daÃÂ±ado']);
+          $producto->setProd_danado($data[$i]['prod_danado']);
+
+          array_push($lista,$producto);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+  
+  public function list_detalles($id_prod){
+      $lista = array();
+      try {
+          $sql ="SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`"
+          ."FROM `producto`"
+          ."WHERE  `idprod` ='$id_prod'";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $producto= new Producto();
+          $producto->setIdprod($data[$i]['idprod']);
+          $producto->setProd_nombre($data[$i]['prod_nombre']);
+          $producto->setProd_descripcion($data[$i]['prod_descripcion']);
+          $producto->setProd_precio($data[$i]['prod_precio']);
+          $producto->setProd_stock($data[$i]['prod_stock']);
+          $producto->setProd_disponible($data[$i]['prod_disponible']);
+          $producto->setProd_reparacion($data[$i]['prod_reparacion']);
+          $producto->setProd_danado($data[$i]['prod_danado']);
 
           array_push($lista,$producto);
           }
