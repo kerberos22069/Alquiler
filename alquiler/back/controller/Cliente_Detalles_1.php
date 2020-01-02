@@ -11,12 +11,12 @@ include_once realpath('../facade/ClienteFacade.php');
 
 $id= $_GET['empresa'];
 
-     $list=ClienteFacade::list_x_Id($id);
+     $list=ClienteFacade::list_x_CC($id);
         $rta="";
         foreach ($list as $obj => $Cliente) {	
 	       $rta.="{
 	    \"idcliente\":\"{$Cliente->getidcliente()}\",
-	    	    \"cliente_nombre\":\"{$Cliente->getcliente_nombre()}\",
+	    \"cliente_nombre\":\"{$Cliente->getcliente_nombre()}\",
 	    \"cliente_apellido\":\"{$Cliente->getcliente_apellido()}\",
 	    \"cliente_cc\":\"{$Cliente->getcliente_cc()}\",
 	    \"cliente_correo\":\"{$Cliente->getcliente_correo()}\",
@@ -26,13 +26,13 @@ $id= $_GET['empresa'];
 	       },";
         }
 
+       
+        
         if($rta!=""){
 	       $rta = substr($rta, 0, -1);
 	       $msg="{\"msg\":\"exito\"}";
         }else{
-	       $msg="{\"msg\":\"MANEJO DE EXCEPCIONES AQUÍ\"}";
-	       $rta="{\"result\":\"No se encontraron registros.\"}";	
+	       $msg="{\"msg\":\"error\"}";
+	       $rta="{\"result\":\"error\"}";	
         }
         echo "[{$msg},{$rta}]";
-        
-        

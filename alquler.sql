@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-12-2019 a las 05:44:32
+-- Tiempo de generación: 02-01-2020 a las 21:45:22
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -65,7 +65,7 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `cliente_cc`, `cliente_correo`, `cliente_telefono`, `cliente_direccion`, `cliente_stado`) VALUES
 (1, 'Poncho', 'Martinez', '1234', 'asdasd@asdas.com', '520', 'asdasd adasdas', 1),
-(2, 'Diego', 'Ilario', '1234', 'eswasa@gmasd.com', '5412541', 'asasdas asd asd as das d as', 1),
+(2, 'Diego', 'Ilario', '12345', 'eswasa@gmasd.com', '5412541', 'asasdas asd asd as das d as', 1),
 (3, 'Edward', 'Martinez', '214234235235', 'dasdasd@gmail.com', '3168274086', '540006zxvzczxc', 1);
 
 -- --------------------------------------------------------
@@ -104,8 +104,19 @@ CREATE TABLE `producto` (
   `prod_stock` varchar(45) DEFAULT NULL,
   `prod_disponible` varchar(45) DEFAULT NULL,
   `prod_reparacion` varchar(45) DEFAULT NULL,
-  `prod_dañado` varchar(45) DEFAULT NULL
+  `prod_danado` varchar(45) DEFAULT NULL,
+  `prod_stado` int(11) NOT NULL DEFAULT '1',
+  `foto` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
+(1, 'Tablones', 'Tablones 4 mts', '7', '10', '10', '0', '0', 0, ''),
+(2, 'zxczczx', 'sdfsdfsdfsdf', '5', '20', '10', '0', '0', 1, ''),
+(3, 'cruceta', 'grande', '1000', '5', '5', '0', '0', 0, '');
 
 -- --------------------------------------------------------
 
@@ -190,7 +201,7 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas

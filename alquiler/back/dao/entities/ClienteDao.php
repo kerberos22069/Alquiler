@@ -188,6 +188,33 @@ $cliente_direccion=$cliente->getCliente_direccion();
       return null;
       }
   }
+  
+    public function list_x_CC($id){
+      $lista = array();
+      try {
+          $sql ="SELECT `idcliente`, `cliente_nombre`, `cliente_apellido`, `cliente_cc`, `cliente_correo`, `cliente_telefono`, `cliente_direccion`"
+          ."FROM `cliente`"
+          ."WHERE `cliente_cc`='$id' ";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $cliente= new Cliente();
+          $cliente->setIdcliente($data[$i]['idcliente']);
+          $cliente->setCliente_nombre($data[$i]['cliente_nombre']);
+          $cliente->setCliente_apellido($data[$i]['cliente_apellido']);
+          $cliente->setCliente_cc($data[$i]['cliente_cc']);
+          $cliente->setCliente_correo($data[$i]['cliente_correo']);
+          $cliente->setCliente_telefono($data[$i]['cliente_telefono']);
+          $cliente->setCliente_direccion($data[$i]['cliente_direccion']);
+          
+
+          array_push($lista,$cliente);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
 
 
       public function insertarConsulta($sql){

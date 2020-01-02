@@ -5,7 +5,24 @@
             <div align=center class="panel-body">
                 <!--<form role="form" id="PersonaInsert">-->
                 <div class="row">
-                    <div class="col-lg-6"></div>
+                    <div class="col-lg-6">
+                                 <div class="row">
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                   
+                                    <input type="text" name="persona_cedula" class="form-control" id="Inputpersona_cedula" placeholder="Cedula" required>
+                                </div> 
+                            </div>
+                            <div class="col-sm-2" style="padding-top: -45px">
+                                <div class="form-group" style="padding-top: -45px">
+                                    <label for="Inputpersona_cedula">    </label>
+                                    <button type="button" class="btn btn-primary" onclick="buscarcedula()">Buscar </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
                     <div class="col-lg-4"></div>
                     <div class="col-lg-2">  
 
@@ -17,71 +34,53 @@
                     </div></div>
 
                 <div class="row">
-                    <div class="col-lg-6" style="font-size: 10px;">
-                        <div class="form-group" style="display: none" >
+                    <div class="col-lg-6" style="font-size: 12px; font-weight: bold; " >
+                        <div class="form-group"  style="display: none">
                             <label for="Inputid">id</label>
                             <input style="background-color: white; border:1px solid #ffffff;" type="text" name="id" class="form-control" id="Inputid" placeholder="id" required>
                         </div>
                         
         <div class="form-group  row">
-            <label class="col-sm-2 col-form-label">Nombre y Apellido</label>
+            <label class="col-sm-2 col-form-label"><b>Nombre y Apellido :</b></label>
 
                                     <div class="col-sm-10">
                                         <input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control"></div>
                                 </div>
         <div class="form-group  row">
-            <label class="col-sm-2 col-form-label">Direccion</label>
+            <label class="col-sm-2 col-form-label"><b>Cedula :</b></label>
 
-                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control"></div>
+                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcc" name="cc" class="form-control"></div>
                                 </div>
         <div class="form-group  row">
-            <label class="col-sm-2 col-form-label">Correo</label>
+            <label class="col-sm-2 col-form-label"><b>Telefono :</b></label>
 
-                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control"></div>
+                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcc" name="cc" class="form-control"></div>
                                 </div>
+   
                         
                      
 
 
                           
-
-                        <div style="display:none" class="form-group">
-                            <label for="Inputcorreo">Correo</label>
-                            <input type="text" name="Inputcorreo" class="form-control" id="Inputcorreo" readonly>
-                        </div>        
+       
 
 
                     </div>
 
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" style="font-size: 12px; font-weight: bold; ">
                         <!--<div class="container">-->
 
+     <div class="form-group  row">
+         <label class="col-sm-2 col-form-label"><b>Direccion :</b></label>
 
-                        <div class="row">
-                            <div class="col-sm-10">
-                                <div class="form-group">
-                                    <label for="Inputpersona_cedula">Cedula</label>
-                                    <input type="text" name="persona_cedula" class="form-control" id="Inputpersona_cedula" placeholder="Cedula" required>
-                                </div> 
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="Inputpersona_cedula">    </label>
-                                    <button type="button" class="btn btn-primary" onclick="buscarcedula()">Buscar </button>
+                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputdireccion" name="direccion" class="form-control"></div>
                                 </div>
+        <div class="form-group  row">
+            <label class="col-sm-2 col-form-label"><b>Correo :</b></label>
 
-                            </div>
-
-                        </div>
-                        <!--</div>-->
-
-
-
-                        <div class="form-group">
-                            <label for="Inputpersona_tel_contacto">Tel_Contacto</label>
-                            <input type="text" name="telefono" class="form-control" id="Inputtelefono" placeholder="Telefono contacto" readonly>
-                        </div>
+                                    <div class="col-sm-10"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcorreo" name="correo" class="form-control"></div>
+                                </div>
 
                     </div>
 
@@ -128,20 +127,21 @@
             empresa = document.getElementById("Inputpersona_cedula").value;
 //          alert(empresa);
 
-            $.get('../back/controller/Cliente_Detalles.php', {'empresa': empresa}, function (depa) {
+            $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': empresa}, function (depa) {
 
                 depa = JSON.parse(depa);
 //                        console.log(depa);
                 if (depa[1].result == 'error') {
                     alert('NO existe debe registra el Cliente ');
-                    Clientes_Listar();
+                    Clientes_Registrar();
                 } else {
 
-                    $("#Inputid").val(depa[1].id);
-                    $("#Inputnombres").val(depa[1].nombres + " " + depa[1].nombres);
-                    $("#Inputcreated_at").val(depa[1].created_at);//direccion
-                    $("#Inputtelefono").val(depa[1].telefono);
-                    $("#Inputcorreo").val(depa[1].correo);
+                    $("#Inputid").val(depa[1].idcliente);   
+                     $("#Inputnombres").val(depa[1].cliente_nombre + " " + depa[1].cliente_apellido);
+                    $("#Inputcc").val(depa[1].cliente_cc);//direccion
+                    $("#Inputtelefono").val(depa[1].cliente_telefono);
+                    $("#Inputcorreo").val(depa[1].cliente_correo);
+                    $("#Inputdireccion").val(depa[1].cliente_direccion);
 
                     emp = 0;
                     Productos_Vender(emp);

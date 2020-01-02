@@ -146,6 +146,13 @@ class ClienteFacade {
      $clienteDao->close();
      return $result;
   }
+  public static function list_x_CC($id){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $clienteDao =$FactoryDao->getclienteDao(self::getDataBaseDefault());
+     $result = $clienteDao->list_x_CC($id);
+     $clienteDao->close();
+     return $result;
+  }
 
 
 }
