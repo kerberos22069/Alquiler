@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    Lo sé porque lo sabe Fredy  \\
+//    Caminante no hay camino, se hace camino al andar  \\
 include_once realpath('../facade/Libro_diarioFacade.php');
 
 

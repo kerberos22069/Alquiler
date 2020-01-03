@@ -33,7 +33,7 @@ $prod_nombre=$producto->getProd_nombre();
 $prod_descripcion=$producto->getProd_descripcion();
 $prod_precio=$producto->getProd_precio();
 $prod_stock=$producto->getProd_stock();
-$prod_disponible=$producto->getProd_disponible();
+$prod_disponible=$producto->getProd_alquilado();
 $prod_reparacion=$producto->getProd_reparacion();
 $prod_danado=$producto->getProd_danado();
 
@@ -89,7 +89,7 @@ $prod_nombre=$producto->getProd_nombre();
 $prod_descripcion=$producto->getProd_descripcion();
 $prod_precio=$producto->getProd_precio();
 $prod_stock=$producto->getProd_stock();
-$prod_disponible=$producto->getProd_disponible();
+$prod_disponible=$producto->getProd_alquilado();
 $prod_reparacion=$producto->getProd_reparacion();
 $prod_danado=$producto->getProd_danado();
 
@@ -140,7 +140,7 @@ $prod_danado=$producto->getProd_danado();
   public function listAll(){
       $lista = array();
       try {
-          $sql ="SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`"
+          $sql ="SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`"
           ."FROM `producto`"
           ."WHERE `prod_stado`=1";
           $data = $this->ejecutarConsulta($sql);
@@ -151,7 +151,7 @@ $prod_danado=$producto->getProd_danado();
           $producto->setProd_descripcion($data[$i]['prod_descripcion']);
           $producto->setProd_precio($data[$i]['prod_precio']);
           $producto->setProd_stock($data[$i]['prod_stock']);
-          $producto->setProd_disponible($data[$i]['prod_disponible']);
+          $producto->setProd_alquilado($data[$i]['prod_alquilado']);
           $producto->setProd_reparacion($data[$i]['prod_reparacion']);
           $producto->setProd_danado($data[$i]['prod_danado']);
 

@@ -5,12 +5,13 @@
               ------------------------
  */
 
-//    Has encontrado la frase #1024 ¡Felicidades! Ahora tu proyecto funcionará a la primera  \\
+//    Ella no te quiere </3 mejor ponte a programar  \\
 
 require_once realpath('../facade/GlobalController.php');
 require_once realpath('../dao/interfaz/IFactoryDao.php');
 require_once realpath('../dto/Factura.php');
 require_once realpath('../dao/interfaz/IFacturaDao.php');
+require_once realpath('../dto/Cliente.php');
 
 class FacturaFacade {
 
@@ -34,12 +35,14 @@ class FacturaFacade {
    * @param idfactura
    * @param fecha
    * @param fac_descueto
+   * @param cliente_idcliente
    */
-  public static function insert( $idfactura,  $fecha,  $fac_descueto){
+  public static function insert( $idfactura,  $fecha,  $fac_descueto,  $cliente_idcliente){
       $factura = new Factura();
       $factura->setIdfactura($idfactura); 
       $factura->setFecha($fecha); 
       $factura->setFac_descueto($fac_descueto); 
+      $factura->setCliente_idcliente($cliente_idcliente); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
@@ -71,11 +74,13 @@ class FacturaFacade {
    * @param idfactura
    * @param fecha
    * @param fac_descueto
+   * @param cliente_idcliente
    */
-  public static function update($idfactura, $fecha, $fac_descueto){
+  public static function update($idfactura, $fecha, $fac_descueto, $cliente_idcliente){
       $factura = self::select($idfactura);
       $factura->setFecha($fecha); 
       $factura->setFac_descueto($fac_descueto); 
+      $factura->setCliente_idcliente($cliente_idcliente); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());

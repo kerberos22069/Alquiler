@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    Un tequila, antes de que empiecen los trancazos  \\
+//    In Anarchy we trust  \\
 include_once realpath('../facade/TransporteFacade.php');
 
 

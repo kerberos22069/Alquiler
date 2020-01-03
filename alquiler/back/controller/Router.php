@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    Ahora con 25% menos groserías  \\
+//    Ya no la quiero, es cierto, pero tal vez la quiero. Es tan corto el amor, y es tan largo el olvido.  \\
 include_once realpath('AlquilerController.php');
 include_once realpath('ClienteController.php');
 include_once realpath('FacturaController.php');
