@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-01-2020 a las 21:45:22
+-- Tiempo de generación: 03-01-2020 a las 21:12:53
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -31,7 +31,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `alquiler` (
   `idalquiler` int(11) NOT NULL,
   `fecha_inicio` datetime NOT NULL,
-  `cliente_idcliente` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL DEFAULT '1',
   `valor` int(11) NOT NULL,
   `pagado` tinyint(4) NOT NULL DEFAULT '0',
@@ -66,7 +65,8 @@ CREATE TABLE `cliente` (
 INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `cliente_cc`, `cliente_correo`, `cliente_telefono`, `cliente_direccion`, `cliente_stado`) VALUES
 (1, 'Poncho', 'Martinez', '1234', 'asdasd@asdas.com', '520', 'asdasd adasdas', 1),
 (2, 'Diego', 'Ilario', '12345', 'eswasa@gmasd.com', '5412541', 'asasdas asd asd as das d as', 1),
-(3, 'Edward', 'Martinez', '214234235235', 'dasdasd@gmail.com', '3168274086', '540006zxvzczxc', 1);
+(3, 'Edward', 'Martinez', '214234235235', 'dasdasd@gmail.com', '3168274086', '540006zxvzczxc', 1),
+(4, 'fredy paolo', 'jaramillo', '12345687', 'fredyjaramillo@gmail.com', '3168274086', 'av 3 25 65 brr san mateo', 1);
 
 -- --------------------------------------------------------
 
@@ -77,7 +77,8 @@ INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `clien
 CREATE TABLE `factura` (
   `idfactura` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
-  `fac_descueto` varchar(45) DEFAULT NULL
+  `fac_descueto` varchar(45) DEFAULT NULL,
+  `cliente_idcliente` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -140,7 +141,6 @@ CREATE TABLE `transporte` (
 --
 ALTER TABLE `alquiler`
   ADD PRIMARY KEY (`idalquiler`),
-  ADD KEY `fk_alquiler_cliente1_idx` (`cliente_idcliente`),
   ADD KEY `fk_alquiler_producto1_idx` (`producto_idprod`),
   ADD KEY `fk_alquiler_factura1_idx` (`factura_idfactura`);
 
@@ -154,7 +154,8 @@ ALTER TABLE `cliente`
 -- Indices de la tabla `factura`
 --
 ALTER TABLE `factura`
-  ADD PRIMARY KEY (`idfactura`);
+  ADD PRIMARY KEY (`idfactura`),
+  ADD KEY `fk_factura_cliente1_idx` (`cliente_idcliente`);
 
 --
 -- Indices de la tabla `libro_diario`
@@ -189,7 +190,7 @@ ALTER TABLE `alquiler`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
@@ -211,9 +212,14 @@ ALTER TABLE `producto`
 -- Filtros para la tabla `alquiler`
 --
 ALTER TABLE `alquiler`
-  ADD CONSTRAINT `fk_alquiler_cliente1` FOREIGN KEY (`cliente_idcliente`) REFERENCES `cliente` (`idcliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_alquiler_factura1` FOREIGN KEY (`factura_idfactura`) REFERENCES `factura` (`idfactura`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_alquiler_producto1` FOREIGN KEY (`producto_idprod`) REFERENCES `producto` (`idprod`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `factura`
+--
+ALTER TABLE `factura`
+  ADD CONSTRAINT `fk_factura_cliente1` FOREIGN KEY (`cliente_idcliente`) REFERENCES `cliente` (`idcliente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `transporte`
