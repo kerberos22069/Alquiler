@@ -5,14 +5,13 @@
               ------------------------
  */
 
-//    Lolita, luz de mi vida, fuego de mis entrañas. Pecado mío, alma mía.  \\
+//    A vote for Bart is a vote for Anarchy!  \\
 
 
 class Alquiler {
 
   private $idalquiler;
   private $fecha_inicio;
-  private $cliente_idcliente;
   private $cantidad;
   private $valor;
   private $pagado;
@@ -56,21 +55,6 @@ class Alquiler {
      */
   public function setFecha_inicio($fecha_inicio){
       $this->fecha_inicio = $fecha_inicio;
-  }
-    /**
-     * Devuelve el valor correspondiente a cliente_idcliente
-     * @return cliente_idcliente
-     */
-  public function getCliente_idcliente(){
-      return $this->cliente_idcliente;
-  }
-
-    /**
-     * Modifica el valor correspondiente a cliente_idcliente
-     * @param cliente_idcliente
-     */
-  public function setCliente_idcliente($cliente_idcliente){
-      $this->cliente_idcliente = $cliente_idcliente;
   }
     /**
      * Devuelve el valor correspondiente a cantidad

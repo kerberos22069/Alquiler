@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    ¿Sabías que hay una vida afuera de tu cuarto?  \\
+//    Únicamente cuando se pierde todo somos libres para actuar.  \\
 
 
 class Libro_diario {

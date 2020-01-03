@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    Esta es tu vida y se acaba a cada minuto.  \\
+//    ¿Documentaqué?  \\
 
 
 class Producto {
@@ -15,9 +15,11 @@ class Producto {
   private $prod_descripcion;
   private $prod_precio;
   private $prod_stock;
-  private $prod_disponible;
+  private $prod_alquilado;
   private $prod_reparacion;
   private $prod_danado;
+  private $prod_stado;
+  private $foto;
 
     /**
      * Constructor de Producto
@@ -100,19 +102,19 @@ class Producto {
       $this->prod_stock = $prod_stock;
   }
     /**
-     * Devuelve el valor correspondiente a prod_disponible
-     * @return prod_disponible
+     * Devuelve el valor correspondiente a prod_alquilado
+     * @return prod_alquilado
      */
-  public function getProd_disponible(){
-      return $this->prod_disponible;
+  public function getProd_alquilado(){
+      return $this->prod_alquilado;
   }
 
     /**
-     * Modifica el valor correspondiente a prod_disponible
-     * @param prod_disponible
+     * Modifica el valor correspondiente a prod_alquilado
+     * @param prod_alquilado
      */
-  public function setProd_disponible($prod_disponible){
-      $this->prod_disponible = $prod_disponible;
+  public function setProd_alquilado($prod_alquilado){
+      $this->prod_alquilado = $prod_alquilado;
   }
     /**
      * Devuelve el valor correspondiente a prod_reparacion
@@ -143,6 +145,36 @@ class Producto {
      */
   public function setProd_danado($prod_danado){
       $this->prod_danado = $prod_danado;
+  }
+    /**
+     * Devuelve el valor correspondiente a prod_stado
+     * @return prod_stado
+     */
+  public function getProd_stado(){
+      return $this->prod_stado;
+  }
+
+    /**
+     * Modifica el valor correspondiente a prod_stado
+     * @param prod_stado
+     */
+  public function setProd_stado($prod_stado){
+      $this->prod_stado = $prod_stado;
+  }
+    /**
+     * Devuelve el valor correspondiente a foto
+     * @return foto
+     */
+  public function getFoto(){
+      return $this->foto;
+  }
+
+    /**
+     * Modifica el valor correspondiente a foto
+     * @param foto
+     */
+  public function setFoto($foto){
+      $this->foto = $foto;
   }
 
 

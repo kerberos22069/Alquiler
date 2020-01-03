@@ -5,13 +5,12 @@
               ------------------------
  */
 
-//    ¡¡Bienvenido al mundo del mañana!!  \\
+//    Ahora con 25% menos groserías  \\
 
 require_once realpath('../facade/GlobalController.php');
 require_once realpath('../dao/interfaz/IFactoryDao.php');
 require_once realpath('../dto/Alquiler.php');
 require_once realpath('../dao/interfaz/IAlquilerDao.php');
-require_once realpath('../dto/Cliente.php');
 require_once realpath('../dto/Producto.php');
 require_once realpath('../dto/Factura.php');
 
@@ -36,7 +35,6 @@ class AlquilerFacade {
    * Puede recibir NullPointerException desde los métodos del Dao
    * @param idalquiler
    * @param fecha_inicio
-   * @param cliente_idcliente
    * @param cantidad
    * @param valor
    * @param pagado
@@ -46,11 +44,10 @@ class AlquilerFacade {
    * @param alq_stado
    * @param alq_devuelto
    */
-  public static function insert( $idalquiler,  $fecha_inicio,  $cliente_idcliente,  $cantidad,  $valor,  $pagado,  $fechafin,  $producto_idprod,  $factura_idfactura,  $alq_stado,  $alq_devuelto){
+  public static function insert( $idalquiler,  $fecha_inicio,  $cantidad,  $valor,  $pagado,  $fechafin,  $producto_idprod,  $factura_idfactura,  $alq_stado,  $alq_devuelto){
       $alquiler = new Alquiler();
       $alquiler->setIdalquiler($idalquiler); 
       $alquiler->setFecha_inicio($fecha_inicio); 
-      $alquiler->setCliente_idcliente($cliente_idcliente); 
       $alquiler->setCantidad($cantidad); 
       $alquiler->setValor($valor); 
       $alquiler->setPagado($pagado); 
@@ -89,7 +86,6 @@ class AlquilerFacade {
    * Puede recibir NullPointerException desde los métodos del Dao
    * @param idalquiler
    * @param fecha_inicio
-   * @param cliente_idcliente
    * @param cantidad
    * @param valor
    * @param pagado
@@ -99,10 +95,9 @@ class AlquilerFacade {
    * @param alq_stado
    * @param alq_devuelto
    */
-  public static function update($idalquiler, $fecha_inicio, $cliente_idcliente, $cantidad, $valor, $pagado, $fechafin, $producto_idprod, $factura_idfactura, $alq_stado, $alq_devuelto){
+  public static function update($idalquiler, $fecha_inicio, $cantidad, $valor, $pagado, $fechafin, $producto_idprod, $factura_idfactura, $alq_stado, $alq_devuelto){
       $alquiler = self::select($idalquiler);
       $alquiler->setFecha_inicio($fecha_inicio); 
-      $alquiler->setCliente_idcliente($cliente_idcliente); 
       $alquiler->setCantidad($cantidad); 
       $alquiler->setValor($valor); 
       $alquiler->setPagado($pagado); 

@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    La gente siempre me pregunta si conozco a Tyler Durden.  \\
+//    Don´t call me gringo you f%&ing beanner  \\
 include_once realpath('../facade/ClienteFacade.php');
 
 

@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    Los animales, asombrados, pasaron su mirada del cerdo al hombre, y del hombre al cerdo; y, nuevamente, del cerdo al hombre; pero ya era imposible distinguir quién era uno y quién era otro.  \\
+//    Somos los amish del software  \\
 
 require_once realpath('../facade/GlobalController.php');
 require_once realpath('../dao/interfaz/IFactoryDao.php');
@@ -36,20 +36,24 @@ class ProductoFacade {
    * @param prod_descripcion
    * @param prod_precio
    * @param prod_stock
-   * @param prod_disponible
+   * @param prod_alquilado
    * @param prod_reparacion
    * @param prod_danado
+   * @param prod_stado
+   * @param foto
    */
-  public static function insert(   $prod_nombre,  $prod_descripcion,  $prod_precio,  $prod_stock,  $prod_disponible,  $prod_reparacion,  $prod_danado){
+  public static function insert( $idprod,  $prod_nombre,  $prod_descripcion,  $prod_precio,  $prod_stock,  $prod_alquilado,  $prod_reparacion,  $prod_danado,  $prod_stado,  $foto){
       $producto = new Producto();
-//      $producto->setIdprod($idprod); 
+      $producto->setIdprod($idprod); 
       $producto->setProd_nombre($prod_nombre); 
       $producto->setProd_descripcion($prod_descripcion); 
       $producto->setProd_precio($prod_precio); 
       $producto->setProd_stock($prod_stock); 
-      $producto->setProd_disponible($prod_disponible); 
+      $producto->setProd_alquilado($prod_alquilado); 
       $producto->setProd_reparacion($prod_reparacion); 
       $producto->setProd_danado($prod_danado); 
+      $producto->setProd_stado($prod_stado); 
+      $producto->setFoto($foto); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
@@ -83,31 +87,27 @@ class ProductoFacade {
    * @param prod_descripcion
    * @param prod_precio
    * @param prod_stock
-   * @param prod_disponible
+   * @param prod_alquilado
    * @param prod_reparacion
    * @param prod_danado
+   * @param prod_stado
+   * @param foto
    */
-  public static function update($idprod, $prod_nombre, $prod_descripcion, $prod_precio, $prod_stock, $prod_disponible, $prod_reparacion, $prod_danado){
+  public static function update($idprod, $prod_nombre, $prod_descripcion, $prod_precio, $prod_stock, $prod_alquilado, $prod_reparacion, $prod_danado, $prod_stado, $foto){
       $producto = self::select($idprod);
       $producto->setProd_nombre($prod_nombre); 
       $producto->setProd_descripcion($prod_descripcion); 
       $producto->setProd_precio($prod_precio); 
       $producto->setProd_stock($prod_stock); 
-      $producto->setProd_disponible($prod_disponible); 
+      $producto->setProd_alquilado($prod_alquilado); 
       $producto->setProd_reparacion($prod_reparacion); 
       $producto->setProd_danado($prod_danado); 
+      $producto->setProd_stado($prod_stado); 
+      $producto->setFoto($foto); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
      $productoDao->update($producto);
-     $productoDao->close();
-  }
-  
-  public static function update_delete($idprod){
-      $producto = self::select($idprod);
-     $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
-     $productoDao->update_delete($producto);
      $productoDao->close();
   }
 
@@ -135,13 +135,6 @@ class ProductoFacade {
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
      $result = $productoDao->listAll();
-     $productoDao->close();
-     return $result;
-  }
-  public static function list_detalles($id_prod){
-     $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
-     $result = $productoDao->list_detalles($id_prod);
      $productoDao->close();
      return $result;
   }

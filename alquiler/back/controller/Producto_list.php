@@ -17,7 +17,7 @@ include_once realpath('../facade/ProductoFacade.php');
 	    \"prod_descripcion\":\"{$Producto->getprod_descripcion()}\",
 	    \"prod_precio\":\"{$Producto->getprod_precio()}\",
 	    \"prod_stock\":\"{$Producto->getprod_stock()}\",
-	    \"prod_disponible\":\"{$Producto->getprod_disponible()}\"
+	   \"prod_alquilado\":\"{$Producto->getprod_alquilado()}\"
 	   
 	       },";
         }

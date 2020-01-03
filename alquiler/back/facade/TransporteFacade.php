@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    Yo a tu edad hacía calculadoras en visualBasic  \\
+//    Antes que me hubiera apasionado por mujer alguna, jugué mi corazón al azar y me lo ganó la Violencia.  \\
 
 require_once realpath('../facade/GlobalController.php');
 require_once realpath('../dao/interfaz/IFactoryDao.php');

@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    Ahora con 25% menos groserías  \\
+//    Mátalos a todos, y que dios elija  \\
 include_once realpath('../facade/FacturaFacade.php');
 
 
@@ -15,7 +15,10 @@ class FacturaController {
         $idfactura = strip_tags($_POST['idfactura']);
         $fecha = strip_tags($_POST['fecha']);
         $fac_descueto = strip_tags($_POST['fac_descueto']);
-        FacturaFacade::insert($idfactura, $fecha, $fac_descueto);
+        $Cliente_idcliente = strip_tags($_POST['cliente_idcliente']);
+        $cliente= new Cliente();
+        $cliente->setIdcliente($Cliente_idcliente);
+        FacturaFacade::insert($idfactura, $fecha, $fac_descueto, $cliente);
 return true;
     }
 
@@ -26,7 +29,8 @@ return true;
 	       $rta.="{
 	    \"idfactura\":\"{$Factura->getidfactura()}\",
 	    \"fecha\":\"{$Factura->getfecha()}\",
-	    \"fac_descueto\":\"{$Factura->getfac_descueto()}\"
+	    \"fac_descueto\":\"{$Factura->getfac_descueto()}\",
+	    \"cliente_idcliente_idcliente\":\"{$Factura->getcliente_idcliente()->getidcliente()}\"
 	       },";
         }
 

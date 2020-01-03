@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    La gente siempre me pregunta si conozco a Tyler Durden.  \\
+//    ¿Sabías que Anarchy se generó a sí mismo?  \\
 include_once realpath('../facade/AlquilerFacade.php');
 
 
@@ -14,9 +14,6 @@ class AlquilerController {
     public static function insert(){
         $idalquiler = strip_tags($_POST['idalquiler']);
         $fecha_inicio = strip_tags($_POST['fecha_inicio']);
-        $Cliente_idcliente = strip_tags($_POST['cliente_idcliente']);
-        $cliente= new Cliente();
-        $cliente->setIdcliente($Cliente_idcliente);
         $cantidad = strip_tags($_POST['cantidad']);
         $valor = strip_tags($_POST['valor']);
         $pagado = strip_tags($_POST['pagado']);
@@ -29,7 +26,7 @@ class AlquilerController {
         $factura->setIdfactura($Factura_idfactura);
         $alq_stado = strip_tags($_POST['alq_stado']);
         $alq_devuelto = strip_tags($_POST['alq_devuelto']);
-        AlquilerFacade::insert($idalquiler, $fecha_inicio, $cliente, $cantidad, $valor, $pagado, $fechafin, $producto, $factura, $alq_stado, $alq_devuelto);
+        AlquilerFacade::insert($idalquiler, $fecha_inicio, $cantidad, $valor, $pagado, $fechafin, $producto, $factura, $alq_stado, $alq_devuelto);
 return true;
     }
 
@@ -40,7 +37,6 @@ return true;
 	       $rta.="{
 	    \"idalquiler\":\"{$Alquiler->getidalquiler()}\",
 	    \"fecha_inicio\":\"{$Alquiler->getfecha_inicio()}\",
-	    \"cliente_idcliente_idcliente\":\"{$Alquiler->getcliente_idcliente()->getidcliente()}\",
 	    \"cantidad\":\"{$Alquiler->getcantidad()}\",
 	    \"valor\":\"{$Alquiler->getvalor()}\",
 	    \"pagado\":\"{$Alquiler->getpagado()}\",

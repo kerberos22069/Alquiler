@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    ¡Oh! (°o° ) ¡es Fredy Arciniegas, el intelectualoide millonario!  \\
+//    Ya están los patrones implementados, ahora sí viene lo chido...  \\
 include_once realpath('../facade/ProductoFacade.php');
 
 
@@ -17,10 +17,12 @@ class ProductoController {
         $prod_descripcion = strip_tags($_POST['prod_descripcion']);
         $prod_precio = strip_tags($_POST['prod_precio']);
         $prod_stock = strip_tags($_POST['prod_stock']);
-        $prod_disponible = strip_tags($_POST['prod_disponible']);
+        $prod_alquilado = strip_tags($_POST['prod_alquilado']);
         $prod_reparacion = strip_tags($_POST['prod_reparacion']);
-        $prod_daÃÂ±ado = strip_tags($_POST['prod_daÃÂ±ado']);
-        ProductoFacade::insert($idprod, $prod_nombre, $prod_descripcion, $prod_precio, $prod_stock, $prod_disponible, $prod_reparacion, $prod_daÃÂ±ado);
+        $prod_danado = strip_tags($_POST['prod_danado']);
+        $prod_stado = strip_tags($_POST['prod_stado']);
+        $foto = strip_tags($_POST['foto']);
+        ProductoFacade::insert($idprod, $prod_nombre, $prod_descripcion, $prod_precio, $prod_stock, $prod_alquilado, $prod_reparacion, $prod_danado, $prod_stado, $foto);
 return true;
     }
 
@@ -34,9 +36,11 @@ return true;
 	    \"prod_descripcion\":\"{$Producto->getprod_descripcion()}\",
 	    \"prod_precio\":\"{$Producto->getprod_precio()}\",
 	    \"prod_stock\":\"{$Producto->getprod_stock()}\",
-	    \"prod_disponible\":\"{$Producto->getprod_disponible()}\",
+	    \"prod_alquilado\":\"{$Producto->getprod_alquilado()}\",
 	    \"prod_reparacion\":\"{$Producto->getprod_reparacion()}\",
-	    \"prod_daÃÂ±ado\":\"{$Producto->getprod_daÃÂ±ado()}\"
+	    \"prod_danado\":\"{$Producto->getprod_danado()}\",
+	    \"prod_stado\":\"{$Producto->getprod_stado()}\",
+	    \"foto\":\"{$Producto->getfoto()}\"
 	       },";
         }
 

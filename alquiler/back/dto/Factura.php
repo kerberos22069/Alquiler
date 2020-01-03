@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    ¿Documentaqué?  \\
+//    Vine a Comala porque me dijeron que acá vivía mi padre, un tal Pedro Páramo.  \\
 
 
 class Factura {
@@ -13,6 +13,7 @@ class Factura {
   private $idfactura;
   private $fecha;
   private $fac_descueto;
+  private $cliente_idcliente;
 
     /**
      * Constructor de Factura
@@ -63,6 +64,21 @@ class Factura {
      */
   public function setFac_descueto($fac_descueto){
       $this->fac_descueto = $fac_descueto;
+  }
+    /**
+     * Devuelve el valor correspondiente a cliente_idcliente
+     * @return cliente_idcliente
+     */
+  public function getCliente_idcliente(){
+      return $this->cliente_idcliente;
+  }
+
+    /**
+     * Modifica el valor correspondiente a cliente_idcliente
+     * @param cliente_idcliente
+     */
+  public function setCliente_idcliente($cliente_idcliente){
+      $this->cliente_idcliente = $cliente_idcliente;
   }
 
 

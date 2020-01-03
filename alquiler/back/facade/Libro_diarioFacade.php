@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    Todo lo que alguna vez amaste te rechazará o morirá.  \\
+//    Esta es una frase no referenciada  \\
 
 require_once realpath('../facade/GlobalController.php');
 require_once realpath('../dao/interfaz/IFactoryDao.php');
