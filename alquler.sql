@@ -1,120 +1,233 @@
--- MySQL Workbench Forward Engineering
+-- phpMyAdmin SQL Dump
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 03-01-2020 a las 21:12:53
+-- Versión del servidor: 10.1.35-MariaDB
+-- Versión de PHP: 7.2.9
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema alquiler
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema alquiler
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `alquiler` DEFAULT CHARACTER SET utf8 ;
-USE `alquiler` ;
-
--- -----------------------------------------------------
--- Table `producto`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `producto` (
-  `producto_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `producto_nombre` VARCHAR(45) NOT NULL,
-  `producto_descripcion` TINYTEXT NULL DEFAULT NULL,
-  `producto_precio` DECIMAL NOT NULL DEFAULT 0.0 COMMENT 'El costo de alquilar este producto por un dia.',
-  `producto_stock` INT NULL DEFAULT 0 COMMENT 'Indica la cantidad de productos totales sin importar el estado en que se encuentren.',
-  `producto_disponible` INT NULL DEFAULT 0 COMMENT 'Indica la cantidad de productos disponibles para alquilar a los clientes.',
-  `producto_reparacion` INT NULL DEFAULT 0 COMMENT 'Indica la cantida de productos que se encuentran en proceso de reparacion.',
-  `producto_danado` INT NULL DEFAULT 0 COMMENT 'Indica la cantidad de productos que se encuentran danados e inutilizables.',
-  PRIMARY KEY (`producto_id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
--- -----------------------------------------------------
--- Table `cliente`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `cliente` (
-  `cliente_id` INT(11) NOT NULL,
-  `cliente_nombre` VARCHAR(45) NULL DEFAULT NULL,
-  `cliente_apellido` VARCHAR(45) NULL DEFAULT NULL,
-  `cliente_cc` VARCHAR(45) NULL DEFAULT NULL,
-  `cliente_correo` VARCHAR(45) NULL DEFAULT NULL,
-  `cliente_direccion` TINYTEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`cliente_id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Base de datos: `alquiler`
+--
 
--- -----------------------------------------------------
--- Table `factura`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `factura` (
-  `factura_id` INT(11) NOT NULL,
-  `factura_fecha` DATETIME NULL DEFAULT NULL COMMENT 'Es la fecha en que se genero el corte de la factura. Al principio es null, pero una vez se haya decidido cerrarla se inserta la fecha.',
-  `factura_descuento` DECIMAL NULL DEFAULT 0.0 COMMENT 'Representa el porcentaje total de descuento que se aplicara a la factura total. Por defecto este campo iniciara en 0.0',
-  `cliente_cliente_id` INT(11) NOT NULL,
-  PRIMARY KEY (`factura_id`),
-  INDEX `fk_factura_cliente1_idx` (`cliente_cliente_id` ASC) ,
-  CONSTRAINT `fk_factura_cliente1`
-    FOREIGN KEY (`cliente_cliente_id`)
-    REFERENCES `cliente` (`cliente_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `alquiler`
+--
 
--- -----------------------------------------------------
--- Table `alquiler`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `alquiler` (
-  `alquiler_id` INT(11) NOT NULL,
-  `alquiler_fecha_inicio` DATETIME NOT NULL COMMENT 'Representa el momento en que se decidio alquilar el producto ',
-  `alquiler_cantidad` INT NOT NULL DEFAULT 1 COMMENT 'Indica la cantidad de objetos que decidieron alquilarse del producto relacionado con esta misma fila.',
-  `alquiler_valor` DECIMAL NOT NULL COMMENT 'Representa el coste total del alquiler para el producto relacionado con esta fila. Cabe recordar que este precio no esta atado al precio real del producto, lo cual significa que valor indicado en este campo se calculara externamente. No conservamos el porcentaje de cambio aplicado.',
-  `alquiler_pagado` TINYINT NOT NULL DEFAULT 0 COMMENT 'Indica si el costo total del alquiler ha sido pagado en su totalidad. En ningun momento se tienen en cuenta abonos o cualquier otro adelanto.',
-  `alquiler_fecha_fin` DATETIME NULL DEFAULT NULL COMMENT 'Indica la fecha de reposicion total o parcial del producto; es decir, el último momento en que entregaron \'n\' cantidad de productos alquilados.',
-  `alquiler_cantidad_devolucion` INT NOT NULL DEFAULT 0 COMMENT 'Representa la cantidad de productos que se han devuelto. ',
-  `producto_id` INT(11) NOT NULL,
-  `factura_id` INT(11) NOT NULL,
-  PRIMARY KEY (`alquiler_id`),
-  INDEX `fk_alquiler_producto1_idx` (`producto_id` ASC) ,
-  INDEX `fk_alquiler_factura1_idx` (`factura_id` ASC) ,
-  CONSTRAINT `fk_alquiler_producto1`
-    FOREIGN KEY (`producto_id`)
-    REFERENCES `producto` (`producto_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_alquiler_factura1`
-    FOREIGN KEY (`factura_id`)
-    REFERENCES `factura` (`factura_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE `alquiler` (
+  `idalquiler` int(11) NOT NULL,
+  `fecha_inicio` datetime NOT NULL,
+  `cantidad` int(11) NOT NULL DEFAULT '1',
+  `valor` int(11) NOT NULL,
+  `pagado` tinyint(4) NOT NULL DEFAULT '0',
+  `fechafin` date DEFAULT NULL,
+  `producto_idprod` int(11) NOT NULL,
+  `factura_idfactura` int(11) NOT NULL,
+  `alq_stado` int(11) DEFAULT NULL,
+  `alq_devuelto` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `transporte`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `transporte` (
-  `transporte_id` INT NOT NULL,
-  `transporte_flete` DECIMAL NOT NULL DEFAULT 0.0 COMMENT 'Indica el costo de un viaje toral por parte del conductor. El viaje es independiente del producto alquilado; eso significa que, el precio indicado representa un costo total determinado de forma externa. El precio no lo controlamos nosotros.',
-  `transporte_conductor` VARCHAR(100) NOT NULL COMMENT 'Representa el nombre del conductor responsable de un tranporte.',
-  `factura_factura_id` INT(11) NOT NULL,
-  PRIMARY KEY (`transporte_id`),
-  INDEX `fk_transporte_factura1_idx` (`factura_factura_id` ASC) ,
-  CONSTRAINT `fk_transporte_factura1`
-    FOREIGN KEY (`factura_factura_id`)
-    REFERENCES `factura` (`factura_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+--
+-- Estructura de tabla para la tabla `cliente`
+--
 
+CREATE TABLE `cliente` (
+  `idcliente` int(11) NOT NULL,
+  `cliente_nombre` varchar(45) DEFAULT NULL,
+  `cliente_apellido` varchar(45) DEFAULT NULL,
+  `cliente_cc` varchar(45) DEFAULT NULL,
+  `cliente_correo` varchar(45) DEFAULT NULL,
+  `cliente_telefono` varchar(100) NOT NULL,
+  `cliente_direccion` varchar(45) DEFAULT NULL,
+  `cliente_stado` int(11) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `cliente_cc`, `cliente_correo`, `cliente_telefono`, `cliente_direccion`, `cliente_stado`) VALUES
+(1, 'Poncho', 'Martinez', '1234', 'asdasd@asdas.com', '520', 'asdasd adasdas', 1),
+(2, 'Diego', 'Ilario', '12345', 'eswasa@gmasd.com', '5412541', 'asasdas asd asd as das d as', 1),
+(3, 'Edward', 'Martinez', '214234235235', 'dasdasd@gmail.com', '3168274086', '540006zxvzczxc', 1),
+(4, 'fredy paolo', 'jaramillo', '12345687', 'fredyjaramillo@gmail.com', '3168274086', 'av 3 25 65 brr san mateo', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `factura`
+--
+
+CREATE TABLE `factura` (
+  `idfactura` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `fac_descueto` varchar(45) DEFAULT NULL,
+  `cliente_idcliente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `libro_diario`
+--
+
+CREATE TABLE `libro_diario` (
+  `idlibro_diario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto`
+--
+
+CREATE TABLE `producto` (
+  `idprod` int(11) NOT NULL,
+  `prod_nombre` varchar(45) NOT NULL,
+  `prod_descripcion` varchar(45) DEFAULT NULL,
+  `prod_precio` varchar(45) DEFAULT NULL,
+  `prod_stock` varchar(45) DEFAULT NULL,
+  `prod_disponible` varchar(45) DEFAULT NULL,
+  `prod_reparacion` varchar(45) DEFAULT NULL,
+  `prod_danado` varchar(45) DEFAULT NULL,
+  `prod_stado` int(11) NOT NULL DEFAULT '1',
+  `foto` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
+(1, 'Tablones', 'Tablones 4 mts', '7', '10', '10', '0', '0', 0, ''),
+(2, 'zxczczx', 'sdfsdfsdfsdf', '5', '20', '10', '0', '0', 1, ''),
+(3, 'cruceta', 'grande', '1000', '5', '5', '0', '0', 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `transporte`
+--
+
+CREATE TABLE `transporte` (
+  `idtransporte` int(11) NOT NULL,
+  `transporte_flete` varchar(45) DEFAULT NULL,
+  `factura_idfactura` int(11) NOT NULL,
+  `transporte_conductor` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `alquiler`
+--
+ALTER TABLE `alquiler`
+  ADD PRIMARY KEY (`idalquiler`),
+  ADD KEY `fk_alquiler_producto1_idx` (`producto_idprod`),
+  ADD KEY `fk_alquiler_factura1_idx` (`factura_idfactura`);
+
+--
+-- Indices de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`idcliente`);
+
+--
+-- Indices de la tabla `factura`
+--
+ALTER TABLE `factura`
+  ADD PRIMARY KEY (`idfactura`),
+  ADD KEY `fk_factura_cliente1_idx` (`cliente_idcliente`);
+
+--
+-- Indices de la tabla `libro_diario`
+--
+ALTER TABLE `libro_diario`
+  ADD PRIMARY KEY (`idlibro_diario`);
+
+--
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`idprod`);
+
+--
+-- Indices de la tabla `transporte`
+--
+ALTER TABLE `transporte`
+  ADD PRIMARY KEY (`idtransporte`),
+  ADD KEY `fk_transporte_factura1_idx` (`factura_idfactura`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `alquiler`
+--
+ALTER TABLE `alquiler`
+  MODIFY `idalquiler` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `factura`
+--
+ALTER TABLE `factura`
+  MODIFY `idfactura` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `alquiler`
+--
+ALTER TABLE `alquiler`
+  ADD CONSTRAINT `fk_alquiler_factura1` FOREIGN KEY (`factura_idfactura`) REFERENCES `factura` (`idfactura`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_alquiler_producto1` FOREIGN KEY (`producto_idprod`) REFERENCES `producto` (`idprod`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `factura`
+--
+ALTER TABLE `factura`
+  ADD CONSTRAINT `fk_factura_cliente1` FOREIGN KEY (`cliente_idcliente`) REFERENCES `cliente` (`idcliente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `transporte`
+--
+ALTER TABLE `transporte`
+  ADD CONSTRAINT `fk_transporte_factura1` FOREIGN KEY (`factura_idfactura`) REFERENCES `factura` (`idfactura`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
