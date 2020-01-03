@@ -1,3 +1,19 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema alquiler
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema alquiler
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `alquiler` DEFAULT CHARACTER SET utf8 ;
+USE `alquiler` ;
+
 -- -----------------------------------------------------
 -- Table `producto`
 -- -----------------------------------------------------
@@ -41,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `factura` (
   `factura_descuento` DECIMAL NULL DEFAULT 0.0 COMMENT 'Representa el porcentaje total de descuento que se aplicara a la factura total. Por defecto este campo iniciara en 0.0',
   `cliente_cliente_id` INT(11) NOT NULL,
   PRIMARY KEY (`factura_id`),
-  INDEX `fk_factura_cliente1_idx` (`cliente_cliente_id` ASC) VISIBLE,
+  INDEX `fk_factura_cliente1_idx` (`cliente_cliente_id` ASC) ,
   CONSTRAINT `fk_factura_cliente1`
     FOREIGN KEY (`cliente_cliente_id`)
     REFERENCES `cliente` (`cliente_id`)
@@ -65,8 +81,8 @@ CREATE TABLE IF NOT EXISTS `alquiler` (
   `producto_id` INT(11) NOT NULL,
   `factura_id` INT(11) NOT NULL,
   PRIMARY KEY (`alquiler_id`),
-  INDEX `fk_alquiler_producto1_idx` (`producto_id` ASC) VISIBLE,
-  INDEX `fk_alquiler_factura1_idx` (`factura_id` ASC) VISIBLE,
+  INDEX `fk_alquiler_producto1_idx` (`producto_id` ASC) ,
+  INDEX `fk_alquiler_factura1_idx` (`factura_id` ASC) ,
   CONSTRAINT `fk_alquiler_producto1`
     FOREIGN KEY (`producto_id`)
     REFERENCES `producto` (`producto_id`)
@@ -90,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `transporte` (
   `transporte_conductor` VARCHAR(100) NOT NULL COMMENT 'Representa el nombre del conductor responsable de un tranporte.',
   `factura_factura_id` INT(11) NOT NULL,
   PRIMARY KEY (`transporte_id`),
-  INDEX `fk_transporte_factura1_idx` (`factura_factura_id` ASC) VISIBLE,
+  INDEX `fk_transporte_factura1_idx` (`factura_factura_id` ASC) ,
   CONSTRAINT `fk_transporte_factura1`
     FOREIGN KEY (`factura_factura_id`)
     REFERENCES `factura` (`factura_id`)
