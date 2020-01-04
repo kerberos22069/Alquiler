@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-01-2020 a las 21:39:14
--- Versión del servidor: 10.1.30-MariaDB
--- Versión de PHP: 7.2.2
+-- Tiempo de generación: 04-01-2020 a las 03:11:29
+-- Versión del servidor: 10.1.35-MariaDB
+-- Versión de PHP: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -64,10 +64,10 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `cliente_cc`, `cliente_correo`, `cliente_telefono`, `cliente_direccion`, `cliente_stado`) VALUES
 (1, 'Poncho', 'Martinez', '1234', 'asdasd@asdas.com', '520', 'asdasd adasdas', 0),
-(2, 'Diego', 'Ilario', '12345', 'eswasa@gmasd.com', '5412541', 'asasdas asd asd as das d as', 1),
+(2, 'Diego', 'Ilario', '12345', 'eswasa@gmasd.com', '5412541', 'asasdas asd asd as das d as', 0),
 (3, 'Edward', 'Martinez', '214234235235', 'dasdasd@gmail.com', '3168274086', '540006zxvzczxc', 0),
 (4, 'fredy paolo', 'jaramillo', '12345687', 'fredyjaramillo@gmail.com', '3168274086', 'av 3 25 65 brr san mateo', 1),
-(5, 'Ponchito', 'Martinelli', '1234', 'ponchito@NC.com', '33233545', 'La modelo', 1);
+(5, 'Ponchito', 'Martinelli', '1234', 'ponchito@NC.com', '33233545', 'La modelo', 0);
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE `producto` (
   `prod_reparacion` int(11) DEFAULT NULL,
   `prod_danado` int(11) DEFAULT NULL,
   `prod_stado` int(11) NOT NULL DEFAULT '1',
-  `foto` varchar(100) NOT NULL
+  `foto` int(10) NOT NULL DEFAULT '7'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -116,10 +116,12 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
-(1, 'Tablones', 'Tablones 4 mts', 7, 10, 10, 0, 0, 0, ''),
-(2, 'zxczczx', 'sdfsdfsdfsdf', 5, 20, 10, 0, 0, 1, ''),
-(3, 'cruceta', 'grande', 1000, 5, 5, 0, 0, 0, ''),
-(4, 'Formaleta', 'Un cuadrado de metal sin valor', 330, 4, 3, 1, 0, 1, '');
+(1, 'asdasda', '84s5d4fsdf', 14, 5, 541, 5212, 554, 0, 7),
+(2, 'zxczczx', 'sdfsdfsdfsdf', 5, 20, 10, 0, 0, 1, 7),
+(3, 'cruceta', 'grande', 1000, 5, 5, 0, 0, 1, 7),
+(4, 'Formaleta', 'Un cuadrado de metal sin valor', 330, 4, 3, 1, 0, 1, 7),
+(5, 'fgnfgnfg', 'dfgdfgfdg', 544, 5, 24, 22, 2, 1, 7),
+(6, 'asdasd', 'asdsad', 14, 1, 1, 1, 1, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -204,7 +206,7 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

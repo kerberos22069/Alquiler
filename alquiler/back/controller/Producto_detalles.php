@@ -19,9 +19,10 @@ $id_prod= $_GET['empresa'];
 	    \"prod_descripcion\":\"{$Producto->getprod_descripcion()}\",
 	    \"prod_precio\":\"{$Producto->getprod_precio()}\",
 	    \"prod_stock\":\"{$Producto->getprod_stock()}\",
-	    \"prod_disponible\":\"{$Producto->getprod_disponible()}\",
+	    \"prod_alquilado\":\"{$Producto->getprod_alquilado()}\",
 	    \"prod_reparacion\":\"{$Producto->getprod_reparacion()}\",
-	    \"prod_danado\":\"{$Producto->getprod_danado()}\"
+	    \"prod_danado\":\"{$Producto->getprod_danado()}\",
+             \"foto\":\"{$Producto->getfoto()}\"
 	   
 	       },";
         }

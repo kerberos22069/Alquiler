@@ -4556,7 +4556,8 @@ video {
   padding: 0 20px;
 }
 .wrapper-content {
-  padding: 20px 10px 40px;
+/*  padding: 20px 10px 40px; original editado altura de la tabla*/
+  padding: 5px 10px 40px;
 }
 #page-wrapper {
   padding: 0 15px;
@@ -4753,11 +4754,12 @@ body.body-small .footer.fixed {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  border-top: 1px solid #e7eaec;
+  /*border-top: 1px solid #e7eaec; editado*/
+  border-top: 1px solid #19587f;
   line-height: 1.42857;
   padding: 8px;
   vertical-align: top;
-  font-size: 12px;/*editado*//
+  font-size: 12px;/*editado*/
 }
 /* PANELS */
 .panel.blank-panel {

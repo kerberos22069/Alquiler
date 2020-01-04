@@ -237,6 +237,7 @@
 
                             $.get('../back/controller/Cliente_delete.php', {'empresa': empresa}, function (depa) {
                             });
+                            console.log('recargar');
                             Clientes_Listar();
 
                         } else {

@@ -226,7 +226,7 @@
                         $("#Inputprod_descripcion").val(depa[1].prod_descripcion);
                         $("#Inputprod_precio").val(depa[1].prod_precio);
                         $("#Inputprod_stock").val(depa[1].prod_stock);
-                        $("#Inputprod_disponible").val(depa[1].prod_disponible);
+                        $("#Inputprod_disponible").val(depa[1].prod_alquilado);
                         $("#Inputprod_reparacion").val(depa[1].prod_reparacion);
                         $("#Inputprod_danado").val(depa[1].prod_danado);
                         $("#imgfoto").attr("src","../imagenes/"+depa[1].foto);
@@ -254,7 +254,7 @@
                                                 if (isConfirm) {
                                                     $.get('../back/controller/Producto_delete.php', {'empresa': empresa}, function (depa) {
                                                     });
-                                                    Productos_Listar();
+                                                     Productos_Listar();
 
                                                 } else {
                                                     swal("Cancelado", "Se ha cancelado la operación :)", "error");

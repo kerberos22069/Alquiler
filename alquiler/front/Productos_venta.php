@@ -39,16 +39,20 @@
 
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped" >
+                            <table id="mytable" class="table table-striped" >
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
                                     <tr>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Id</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">codigo</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Nombre</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Descripcion</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Precio</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Desc</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Valor Total</th>
+                    
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Dias Prestamo</th>
+                    
 
 
 <!--                                        <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
@@ -80,8 +84,11 @@
         <div class="col-sm">
    
         </div>
+        <!--<hr>-->   
         <div class="col-sm">
+               <hr>  
                                    <div class="form-group" >
+                                          <!--<hr>-->  
                           <label for="Inputpersona_nombre">TOTAL </label>
                           <input type="text" name="total_fact" class=" form-control" id="Inputtotal_fact" placeholder="Nombre y Apellido" value="0">
                        </div>
@@ -141,59 +148,51 @@
                           
                 
                                             
-                                            <div class="form-group" >
-                          <label for="Inputpersona_nombre">Nombre </label>
-                          <input type="text" name="num_factu" class="form-control" id="Inputnum_factu" placeholder="Nombre y Apellido" required>
+                                            <div class="form-group" style="display: none">
+                          <label for="Inputprodc_referencia">N# Ref </label>
+                          <input type="text" name="prodc_referencia" class="form-control" id="Inputprodc_referencia" placeholder="referencia" required>
                        </div>
                                             
                       <div class="form-group">
-                          <label for="Inputpersona_nombre">Nombre </label>
-                          <input type="text" name="nom_factura" class="form-control" id="Inputnom_factura" placeholder="Nombre y Apellido" required>
+                          <label for="Inputproduc_nombre">Nombre </label>
+                          <input type="text" name="produc_nombre" class="form-control" id="Inputproduc_nombre" placeholder="Nombre y Apellido" required>
                        </div>
                                                         <div class="form-group">
-                          <label for="Inputpersona_direccion">codigo_interno</label>
-                          <input type="text" name="cod_factura" class="form-control" id="Inputcod_factura" placeholder="persona_direccion">
+                          <label for="Inputprodc_descr">Descripcion</label>
+                          <input type="text" name="prodc_descr" class="form-control" id="Inputprodc_descr" placeholder="persona_direccion">
                        </div>
-                      <div class="form-group">
-                          <label for="Inputpersona_cedula">Precio</label>
-                          <input type="text" name="precio_unitario" class="form-control" id="Inputprecio_unitario" placeholder="Cedula" value=0 onChange="multiplicar();" >
-                       </div>
-                       
-                                   <div class="form-group">
-                          <label for="Inputpersona_direccion">precio Total</label>
-                          <input type="text" name="precio_total" class="form-control" id="Inputprecio_total" placeholder="persona_direccion" value="0">
-                       </div>
-                              
-                       
-           
-            
-                                            
-      
-             
-                
-                       <div class="form-group">
-                          <label for="Inputpersona_tel_contacto">dias_garantia</label>
-                          <input type="text" name="persona_tel_contacto" class="form-control" id="Inputgarantia" placeholder="Telefono contacto" required>
-                       </div>                   
-                                         
+                      
+                           <div class="form-group">
+                          <label for="Inputproc_dias">Dias Prestamo</label>
+                          <input type="text" name="proc_dias" class="form-control" id="Inputproc_dias" placeholder="Telefono contacto" required>
+                       </div>                  
                                             
                                   </div>
                           
                           
                           
                                         <div class="col-lg-6">
+                                          <div class="form-group">
+                          <label for="Inputproct_stock">Stock</label>
+                          <input type="text" name="proct_stock" class="form-control" id="Inputproct_stock" placeholder="Telefono contacto" required>
+                       </div>       
                                             
-                               <div align=center class="panel-body" style="background-color: gainsboro ; box-shadow: 2px 2px 5px #999;">
-                                  <br>
-                                  <br>
-                                   <span>
-                                    <img alt="image" class="img" id="Inputimagen" src="" width="100%" height="100%"/>
-                                </span>
-                              </div>
-     <div class="form-group">
-                          <label for="Inputpersona_tel_contacto">Stock</label>
-                          <input type="text" name="cantidad" class="form-control" id="Inputcantidad" placeholder="Telefono contacto" required>
-                       </div>    
+                                            
+                                                         <div class="form-group">
+                          <label for="Inputpersona_cedula">Precio</label>
+                          <input type="text" name="precio_unitario" class="form-control" id="Inputprecio_unitario" placeholder="Cedula" value=0 onChange="multiplicar();" >
+                       </div>
+                       
+                                   <div class="form-group">
+                          <label for="Inputdescuento">Descuento</label>
+                          <input type="text" name="descuento" class="form-control" id="Inputdescuento" placeholder="persona_direccion" value="0"  onChange="des();">
+                       </div>
+                                   <div class="form-group">
+                          <label for="Inputprecio_total">precio Total</label>
+                          <input type="text" name="precio_total" class="form-control" id="Inputprecio_total" placeholder="persona_direccion" value="0">
+                       </div>
+                              
+  
                                         </div>
                           
                                     </div>
@@ -203,7 +202,8 @@
       </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button name="editar" id="editar" type="button" class="btn btn-primary" onclick="registraraProducto()">Agregar</button>
+                                            <button name="editar" id="adicionar"type="button" class="btn btn-primary" >Agregar</button>
+<!--                                            <button name="editar" id="editar" type="button" class="btn btn-primary" onclick="registraraProducto()">Agregar</button>-->
                                             <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                                     
                                            
@@ -225,6 +225,9 @@
 //            cargarNac();
 //            cargarRol();
 cargareNum_Factura2();
+
+ i = 1; //contador para asignar id al boton que borrara la fila
+
       });
       </script>
 
@@ -241,11 +244,11 @@ cargareNum_Factura2();
         
         }); 
       }
-               function ActivarEditar(){
-        
-      document.getElementById('editar').disabled=false;
-
-};
+//               function ActivarEditar(){
+//        
+//      document.getElementById('editar').disabled=false;
+//
+//};
 
         
         
@@ -260,14 +263,14 @@ cargarProductos();
     function cargarProductos(){      
         ActivarEditar();
 //       alert();
-          $.get('../back/controller/Productos_Detalles_1.php',function(depa){   
+          $.get('../back/controller/Producto_list.php',function(depa){   
          
           var mySelect=document.getElementById("Inputproducto");
           removeAllChildren(mySelect);
            mySelect.appendChild(createOPTION(-1,'SELECCIONE'));
           depa = JSON.parse(depa);
          for (var i = 1 ; i < depa.length; i++) {
-              mySelect.appendChild(createOPTION(depa[i].id,depa[i].nombre));
+              mySelect.appendChild(createOPTION(depa[i].idprod,depa[i].prod_nombre));
             }  
           
         }); 
@@ -277,7 +280,7 @@ cargarProductos();
         
 //        alert(empresa);
         
-        $.get('../back/controller/Productos_Detalles.php', {'empresa': empresa}, function (depa) {     
+        $.get('../back/controller/Producto_detalles.php', {'empresa': empresa}, function (depa) {     
               
           
           
@@ -285,13 +288,14 @@ cargarProductos();
                         
                         
                       
-                        $("#Inputnom_factura").val(depa[1].nombre);
-                        $("#Inputcod_factura").val(depa[1].codigo_interno);
-                        $("#Inputprecio_unitario").val(depa[1].precio_compra);
-                        $("#Inputprecio_final").val(depa[1].precio_venta);
-                        $("#Inputgarantia").val(depa[1].dias_garantia);
-                        $("#Inputcantidad").val(depa[1].cantidad_en_stock);
-                        $("#Inputimagen").attr("src","../imagenes/"+depa[1].codigo_interno+".png");
+                        $("#Inputprodc_referencia").val(depa[1].idprod);
+                        $("#Inputproduc_nombre").val(depa[1].prod_nombre);
+                        $("#Inputprodc_descr").val(depa[1].prod_descripcion);
+                        $("#Inputprecio_unitario").val(depa[1].prod_precio);
+                        $("#Inputproct_stock").val(depa[1].prod_stock);
+                        $("#Inputproc_dias").val(depa[1].foto);
+                       
+                    
                        
           
           
@@ -308,7 +312,7 @@ cargarProductos();
 //   
 
     
-    function registraraProducto(){
+    function registraraProducto3(){
       
       emp=document.getElementById("Inputnum_factu").value;
   
@@ -450,12 +454,26 @@ cargarProductos();
 function multiplicar(){
     can=0;
     m1=0;
-   can=document.getElementById("Inputcantidad").value;  
+//   can=document.getElementById("Inputcantidad").value;  
    m1 = document.getElementById("Inputcanti").value;  
    
          
   m2 = document.getElementById("Inputprecio_unitario").value;
   r = m1*m2;
+  document.getElementById("Inputprecio_total").value = r;
+   
+    
+
+};
+function Descuento(){
+    can=0;
+    m1=0;
+//   can=document.getElementById("Inputcantidad").value;  
+   m1 = document.getElementById("Inputprecio_total").value;  
+   
+         
+  m2 = document.getElementById("descuento").value;
+  r = m1-m2;
   document.getElementById("Inputprecio_total").value = r;
    
     
@@ -514,6 +532,54 @@ function multiplicar(){
         
       }
 
+</script>
+<script>
+     $(document).ready(function() {
+//obtenemos el valor de los input
+
+
+$('#adicionar').click(function() {
+  var idref = document.getElementById("Inputprodc_referencia").value;
+  var nombre = document.getElementById("Inputproduc_nombre").value;
+  var descripcion = document.getElementById("Inputprodc_descr").value;
+  var v_unit = document.getElementById("Inputprecio_unitario").value;
+  var canti = document.getElementById("Inputcanti").value;
+  var descuen = document.getElementById("Inputdescuento").value;
+  var precio_total = document.getElementById("Inputprecio_total").value;
+  var alquiler = document.getElementById("Inputproc_dias").value;
+ 
+  var fila = '<tr id="row' + i + '">\n\
+<td>' + idref + '</td><td>' + nombre + '</td><td>' + descripcion + '</td>\n\
+<td>' + v_unit + '</td><td>' + canti + '</td><td>' + descuen + '</td><td>' + precio_total + '</td><td>' + alquiler + '</td>\n\
+<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+
+  i++;
+
+  $('#mytable tr:first').after(fila);
+    $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+    var nFilas = $("#mytable tr").length;
+    $("#adicionados").append(nFilas - 1);
+    //le resto 1 para no contar la fila del header
+    document.getElementById("Inputprodc_referencia").value ="";
+    document.getElementById("Inputproduc_nombre").value = "";
+    document.getElementById("Inputprodc_descr").value = "";
+    document.getElementById("Inputprecio_unitario").value = "0";
+    document.getElementById("Inputcanti").value = "0";
+    document.getElementById("Inputprecio_total").value = "0";
+    document.getElementById("Inputproc_dias").value = "0";
+    document.getElementById("Inputproducto").value = "-1";
+    document.getElementById("Inputproducto").focus();
+  });
+$(document).on('click', '.btn_remove', function() {
+  var button_id = $(this).attr("id");
+    //cuando da click obtenemos el id del boton
+    $('#row' + button_id + '').remove(); //borra la fila
+    //limpia el para que vuelva a contar las filas de la tabla
+    $("#adicionados").text("");
+    var nFilas = $("#mytable tr").length;
+    $("#adicionados").append(nFilas - 1);
+  });
+});
 </script>
     
 <!-- function  enviarFactura(){

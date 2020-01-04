@@ -42,9 +42,9 @@ class ProductoFacade {
    * @param prod_stado
    * @param foto
    */
-  public static function insert( $idprod,  $prod_nombre,  $prod_descripcion,  $prod_precio,  $prod_stock,  $prod_alquilado,  $prod_reparacion,  $prod_danado,  $prod_stado,  $foto){
+  public static function insert( $prod_nombre,  $prod_descripcion,  $prod_precio,  $prod_stock,  $prod_alquilado,  $prod_reparacion,  $prod_danado){
       $producto = new Producto();
-      $producto->setIdprod($idprod); 
+//      $producto->setIdprod($idprod); 
       $producto->setProd_nombre($prod_nombre); 
       $producto->setProd_descripcion($prod_descripcion); 
       $producto->setProd_precio($prod_precio); 
@@ -52,8 +52,8 @@ class ProductoFacade {
       $producto->setProd_alquilado($prod_alquilado); 
       $producto->setProd_reparacion($prod_reparacion); 
       $producto->setProd_danado($prod_danado); 
-      $producto->setProd_stado($prod_stado); 
-      $producto->setFoto($foto); 
+//      $producto->setProd_stado($prod_stado); 
+//      $producto->setFoto($foto); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
@@ -93,7 +93,7 @@ class ProductoFacade {
    * @param prod_stado
    * @param foto
    */
-  public static function update($idprod, $prod_nombre, $prod_descripcion, $prod_precio, $prod_stock, $prod_alquilado, $prod_reparacion, $prod_danado, $prod_stado, $foto){
+  public static function update($idprod, $prod_nombre, $prod_descripcion, $prod_precio, $prod_stock, $prod_alquilado, $prod_reparacion, $prod_danado){
       $producto = self::select($idprod);
       $producto->setProd_nombre($prod_nombre); 
       $producto->setProd_descripcion($prod_descripcion); 
@@ -102,12 +102,21 @@ class ProductoFacade {
       $producto->setProd_alquilado($prod_alquilado); 
       $producto->setProd_reparacion($prod_reparacion); 
       $producto->setProd_danado($prod_danado); 
-      $producto->setProd_stado($prod_stado); 
-      $producto->setFoto($foto); 
+//      $producto->setProd_stado($prod_stado); 
+//      $producto->setFoto($foto); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
      $productoDao->update($producto);
+     $productoDao->close();
+  }
+  public static function update_delete($id_prod){
+//      $producto = self::select($id_prod);
+   
+
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
+     $productoDao->update_delete($id_prod);
      $productoDao->close();
   }
 
@@ -135,6 +144,13 @@ class ProductoFacade {
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
      $result = $productoDao->listAll();
+     $productoDao->close();
+     return $result;
+  }
+  public static function list_detalles($id_prod){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
+     $result = $productoDao->list_detalles($id_prod);
      $productoDao->close();
      return $result;
   }

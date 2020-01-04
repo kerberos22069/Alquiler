@@ -33,13 +33,13 @@ $prod_nombre=$producto->getProd_nombre();
 $prod_descripcion=$producto->getProd_descripcion();
 $prod_precio=$producto->getProd_precio();
 $prod_stock=$producto->getProd_stock();
-$prod_disponible=$producto->getProd_alquilado();
+$prod_alquilado=$producto->getProd_alquilado();
 $prod_reparacion=$producto->getProd_reparacion();
 $prod_danado=$producto->getProd_danado();
 
       try {
-          $sql= "INSERT INTO `producto`(  `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`)"
-          ."VALUES ('$prod_nombre','$prod_descripcion','$prod_precio','$prod_stock','$prod_disponible','$prod_reparacion','$prod_danado')";
+          $sql= "INSERT INTO `producto`(  `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`)"
+          ."VALUES ('$prod_nombre','$prod_descripcion','$prod_precio','$prod_stock','$prod_alquilado','$prod_reparacion','$prod_danado')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -56,7 +56,7 @@ $prod_danado=$producto->getProd_danado();
       $idprod=$producto->getIdprod();
 
       try {
-          $sql= "SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`"
+          $sql= "SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`"
           ."FROM `producto`"
           ."WHERE `idprod`='$idprod'";
           $data = $this->ejecutarConsulta($sql);
@@ -66,7 +66,7 @@ $prod_danado=$producto->getProd_danado();
           $producto->setProd_descripcion($data[$i]['prod_descripcion']);
           $producto->setProd_precio($data[$i]['prod_precio']);
           $producto->setProd_stock($data[$i]['prod_stock']);
-          $producto->setProd_disponible($data[$i]['prod_disponible']);
+          $producto->setProd_alquilado($data[$i]['prod_alquilado']);
           $producto->setProd_reparacion($data[$i]['prod_reparacion']);
           $producto->setProd_danado($data[$i]['prod_danado']);
 
@@ -89,12 +89,12 @@ $prod_nombre=$producto->getProd_nombre();
 $prod_descripcion=$producto->getProd_descripcion();
 $prod_precio=$producto->getProd_precio();
 $prod_stock=$producto->getProd_stock();
-$prod_disponible=$producto->getProd_alquilado();
+$prod_alquilado=$producto->getProd_alquilado();
 $prod_reparacion=$producto->getProd_reparacion();
 $prod_danado=$producto->getProd_danado();
 
       try {
-          $sql= "UPDATE `producto` SET `prod_nombre`='$prod_nombre' ,`prod_descripcion`='$prod_descripcion' ,`prod_precio`='$prod_precio' ,`prod_stock`='$prod_stock' ,`prod_disponible`='$prod_disponible' ,`prod_reparacion`='$prod_reparacion' ,`prod_danado`='$prod_danado' WHERE `idprod`='$idprod' ";
+          $sql= "UPDATE `producto` SET `prod_nombre`='$prod_nombre' ,`prod_descripcion`='$prod_descripcion' ,`prod_precio`='$prod_precio' ,`prod_stock`='$prod_stock' ,`prod_alquilado`='$prod_alquilado' ,`prod_reparacion`='$prod_reparacion' ,`prod_danado`='$prod_danado' WHERE `idprod`='$idprod' ";
           var_dump($sql);
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
@@ -102,12 +102,12 @@ $prod_danado=$producto->getProd_danado();
       }
   }
   
-  public function update_delete($producto){
-      $idprod=$producto->getIdprod();
+  public function update_delete($id_prod){
+//      $idprod=$producto->getIdprod();
 
 
       try {
-          $sql= "UPDATE `producto` SET `prod_stado`='0'  WHERE `idprod`='$idprod' ";
+          $sql= "UPDATE `producto` SET `prod_stado`='0'  WHERE `idprod`='$id_prod' ";
 
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
@@ -167,7 +167,7 @@ $prod_danado=$producto->getProd_danado();
   public function list_detalles($id_prod){
       $lista = array();
       try {
-          $sql ="SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`"
+          $sql ="SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado` ,`foto`"
           ."FROM `producto`"
           ."WHERE  `idprod` ='$id_prod'";
           $data = $this->ejecutarConsulta($sql);
@@ -178,9 +178,10 @@ $prod_danado=$producto->getProd_danado();
           $producto->setProd_descripcion($data[$i]['prod_descripcion']);
           $producto->setProd_precio($data[$i]['prod_precio']);
           $producto->setProd_stock($data[$i]['prod_stock']);
-          $producto->setProd_disponible($data[$i]['prod_disponible']);
+          $producto->setProd_alquilado($data[$i]['prod_alquilado']);
           $producto->setProd_reparacion($data[$i]['prod_reparacion']);
           $producto->setProd_danado($data[$i]['prod_danado']);
+          $producto->setFoto($data[$i]['foto']);
 
           array_push($lista,$producto);
           }

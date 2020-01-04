@@ -2,7 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
             <file>file:/C:/xampp1/htdocs/alquiler/front/Productos_venta.php</file>
             <file>file:/C:/xampp1/htdocs/alquiler/front/js/funciones.js</file>
@@ -12,8 +11,5 @@
             <file>file:/C:/xampp1/htdocs/alquiler/back/controller/Producto_insert.php</file>
             <file>file:/C:/xampp1/htdocs/alquiler/back/dao/entities/ProductoDao.php</file>
         </group>
-=======
-        <group/>
->>>>>>> 84e7204efd0ccd91770b5d09022611897881813d
     </open-files>
 </project-private>
