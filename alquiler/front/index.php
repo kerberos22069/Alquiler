@@ -80,10 +80,20 @@
                     </li>
         
                     
-                    <li>
+                <!--    <li>
                         <a onclick="facturas_listas()"><i class="fa fa-laptop"></i> <span class="nav-label">Facturas</span></a>
-                    </li>
+                    </li>-->
+                                 <li>
+                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Facturas</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a onclick="facturas_listas()">Recibos</a></li>
+                            <li><a onclick="Reporte_cc_fecha()">Reintegros</a></li>
+                            <!--<li><a onclick="Reporte_fecha()">Reporte por Fecha</a></li>-->
+                            
 
+
+                        </ul>
+                    </li>
 
                 </ul>
 

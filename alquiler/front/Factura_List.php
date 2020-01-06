@@ -12,7 +12,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title"> 
-                        <div style="text-align: center; color: black" >
+                        <div style="text-align: center; color: white" >
                             <h1><b>Listado de Facturas</b></h1>
 
                         </div>
@@ -36,18 +36,31 @@
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
                                     <tr>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Id</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Nombres y Apellidos</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Servicio</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Responsable</th>
-
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Valor</th>
+                                                                   <th style=" color:#FFFFFF; background-color: #616161  !important">Id_Fact</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cliente</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Fecha</th>
-                                
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Valor</th>
+
+                                       
+                                        <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
+                                          <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-edit"></i></th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>
 
                                     </tr>
                                 </thead>
                                 <tbody id="FacturasList">
+                                <tr class="gradeX footable-even" style="">
+                                    <td class="footable-visible footable-first-column"><span class="footable-toggle"></span>01</td>
+                                    <td class="footable-visible">Pedro Perez
+                                       
+                                    </td>
+                                    <td class="footable-visible">01/01/2020</td>
+                                    <td class="center footable-visible">80000</td>
+                                    <td class="footable-visible footable-last-column"><a onclick="mostrar_Productos_d()"><i class="fa fa-check text-navy"></i></a></td>
+                                    <td class="footable-visible footable-last-column"><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                                    <td class="footable-visible footable-last-column"><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+<!--                                    <td class="center footable-visible footable-last-column">X</td>-->
+                                </tr>    
 
                                 </tbody>
 
@@ -61,6 +74,79 @@
     </div>
 
  
+    
+    
+    <!-- Modal ddetalles del alquiler -->
+    <div class="modal  inmodal fade" id="myModalDetalles" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-lg mdialTamanio">
+            <div id="menumodal1" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                    <h4 class="modal-title" style="color: black  ; text-shadow: 5px 5px 5px #aaa;">Detalles Cliente</h4>
+
+                </div>
+                <div class="modal-body"> <!-- Abrri Contenio-->
+                    <div>
+                        <div class="panel panel-default">
+                            <!--        <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>-->
+                            <div align=center class="panel-body">
+                           
+                                        <div class="ibox-content">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                           <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
+                                <thead>
+                                    <tr>
+                                                             
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">#</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Nombre</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Descripcion</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Precio</th>
+
+                                       
+                                      
+
+                                    </tr>
+                                </thead>
+                                <tbody id="FacturasList">
+                                <tr class="gradeX footable-even" style="">
+                                    <td class="footable-visible footable-first-column"><span class="footable-toggle"></span>01</td>
+                                    <td class="footable-visible">Taladro
+                                       
+                                    </td>
+                                    <td class="footable-visible">42"</td>
+                                    <td class="center footable-visible">2</td>
+                                    <td class="center footable-visible">12000</td>
+                                   
+<!--                                    <td class="center footable-visible footable-last-column">X</td>-->
+                                </tr>    
+
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                                
+                            </div> <!-- panel -->
+                        </div>
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="Cliente_Actualizar()">Actualizar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- finaliza modal de Empleado Registrar-->
+
 
 
 
@@ -146,7 +232,7 @@
     </script>
 
     <script>
-        function mostrarTodo(idp) {
+        function mostrar_Productos_d(idp) {
 
             // console.log(idp);
             cargarCliente(idp);
