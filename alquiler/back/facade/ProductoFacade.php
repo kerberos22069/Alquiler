@@ -110,6 +110,35 @@ class ProductoFacade {
      $productoDao->update($producto);
      $productoDao->close();
   }
+  
+  public static function alquilar($idprod,$cantidad){
+      $producto = self::select($idprod);
+      $nuevoStock = $producto->getProd_stock() - $cantidad;
+      $producto->setProd_stock($nuevoStock); 
+      
+      $nuevoAlquilado = $producto->getProd_alquilado() + $cantidad;
+      $producto->setProd_alquilado($nuevoAlquilado); 
+
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
+     $productoDao->update($producto);
+     $productoDao->close();
+  }
+  
+  public static function devolver($idprod,$cantidad){
+      $producto = self::select($idprod);
+      $nuevoStock = $producto->getProd_stock() + $cantidad;
+      $producto->setProd_stock($nuevoStock); 
+      
+      $nuevoAlquilado = $producto->getProd_alquilado() - $cantidad;
+      $producto->setProd_alquilado($nuevoAlquilado); 
+
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
+     $productoDao->update($producto);
+     $productoDao->close();
+  }
+  
   public static function update_delete($id_prod){
 //      $producto = self::select($id_prod);
    
