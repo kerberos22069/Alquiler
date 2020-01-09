@@ -111,7 +111,7 @@ $fac_descueto=$factura->getFac_descueto();
   public function listAll(){
       $lista = array();
       try {
-          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`"
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`"
           ."FROM `factura`"
           ."WHERE 1";
           $data = $this->ejecutarConsulta($sql);
@@ -120,6 +120,7 @@ $fac_descueto=$factura->getFac_descueto();
           $factura->setIdfactura($data[$i]['idfactura']);
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
+          $factura->setCliente_idcliente($data[$i]['cliente_idcliente']);
 
           array_push($lista,$factura);
           }
@@ -133,9 +134,32 @@ $fac_descueto=$factura->getFac_descueto();
   public function listRange($fecha_ini, $fecha_fin){
       $lista = array();
       try {
-          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`"
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`"
           ."FROM `factura`"
           ."WHERE `fecha` BETWEEN ".$fecha_ini." AND ".$fecha_fin;
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $factura= new Factura();
+          $factura->setIdfactura($data[$i]['idfactura']);
+          $factura->setFecha($data[$i]['fecha']);
+          $factura->setFac_descueto($data[$i]['fac_descueto']);
+          $factura->setCliente_idcliente($data[$i]['cliente_idcliente']);
+
+          array_push($lista,$factura);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+  
+  public function listByCliente($Cliente_idcliente){
+      $lista = array();
+      try {
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`"
+          ."FROM `factura`"
+          ."WHERE `cliente_idcliente` = ".$Cliente_idcliente;
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $factura= new Factura();
