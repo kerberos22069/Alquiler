@@ -115,6 +115,14 @@ class FacturaFacade {
      $facturaDao->close();
      return $result;
   }
+  
+  public static function listRange($fecha_ini, $fecha_fin){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
+     $result = $facturaDao->listRange($fecha_ini, $fecha_fin);
+     $facturaDao->close();
+     return $result;
+  }
 
 
 }

@@ -170,6 +170,42 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
       return null;
       }
   }
+  
+  public function listByFactura($factura_id){
+      $lista = array();
+      try {
+          $sql ="SELECT `idalquiler`, `fecha_inicio`, `cliente_idcliente`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`"
+          ."FROM `alquiler`"
+          ."WHERE `factura_idfactura` = ".$factura_id;
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $alquiler= new Alquiler();
+          $alquiler->setIdalquiler($data[$i]['idalquiler']);
+          $alquiler->setFecha_inicio($data[$i]['fecha_inicio']);
+           $cliente = new Cliente();
+           $cliente->setIdcliente($data[$i]['cliente_idcliente']);
+           $alquiler->setCliente_idcliente($cliente);
+          $alquiler->setCantidad($data[$i]['cantidad']);
+          $alquiler->setValor($data[$i]['valor']);
+          $alquiler->setPagado($data[$i]['pagado']);
+          $alquiler->setFechafin($data[$i]['fechafin']);
+           $producto = new Producto();
+           $producto->setIdprod($data[$i]['producto_idprod']);
+           $alquiler->setProducto_idprod($producto);
+           $factura = new Factura();
+           $factura->setIdfactura($data[$i]['factura_idfactura']);
+           $alquiler->setFactura_idfactura($factura);
+          $alquiler->setAlq_stado($data[$i]['alq_stado']);
+          $alquiler->setAlq_devuelto($data[$i]['alq_devuelto']);
+
+          array_push($lista,$alquiler);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
 
       public function insertarConsulta($sql){
           $this->cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

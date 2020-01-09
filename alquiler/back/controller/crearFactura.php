@@ -27,7 +27,7 @@ try{
     $alquileres = strip_tags($_POST['alquileres']);
     $alquileres = json_decode($alquileres);
 
-    foreach ($alquileres as $alquiler) {
+    foreach ($alquileres as $obj => $alquiler) {
         $cantidad = $alquiler->cantidad;
         $valor = $alquiler->valor;
         $Producto_idprod = $alquiler->producto_id;

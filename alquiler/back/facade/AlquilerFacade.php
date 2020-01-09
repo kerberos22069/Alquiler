@@ -135,6 +135,14 @@ class AlquilerFacade {
      $alquilerDao->close();
      return $result;
   }
+  
+  public static function listByFactura($factura_id){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $alquilerDao =$FactoryDao->getalquilerDao(self::getDataBaseDefault());
+     $result = $alquilerDao->listByFactura($factura_id);
+     $alquilerDao->close();
+     return $result;
+  }
 
 
 }
