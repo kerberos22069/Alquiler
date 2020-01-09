@@ -31,24 +31,18 @@ private $cn;
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function insert($alquiler){
-      $idalquiler=$alquiler->getIdalquiler();
 $fecha_inicio=$alquiler->getFecha_inicio();
-$cliente_idcliente=$alquiler->getCliente_idcliente()->getIdcliente();
 $cantidad=$alquiler->getCantidad();
 $valor=$alquiler->getValor();
-$pagado=$alquiler->getPagado();
-$fechafin=$alquiler->getFechafin();
 $producto_idprod=$alquiler->getProducto_idprod()->getIdprod();
 $factura_idfactura=$alquiler->getFactura_idfactura()->getIdfactura();
-$alq_stado=$alquiler->getAlq_stado();
-$alq_devuelto=$alquiler->getAlq_devuelto();
 
       try {
-          $sql= "INSERT INTO `alquiler`( `idalquiler`, `fecha_inicio`, `cliente_idcliente`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`)"
-          ."VALUES ('$idalquiler','$fecha_inicio','$cliente_idcliente','$cantidad','$valor','$pagado','$fechafin','$producto_idprod','$factura_idfactura','$alq_stado','$alq_devuelto')";
+          $sql= "INSERT INTO `alquiler`(`fecha_inicio`, `cantidad`, `valor`, `producto_idprod`, `factura_idfactura`)"
+          ."VALUES ('$fecha_inicio','$cantidad','$valor','$producto_idprod','$factura_idfactura')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
-          throw new Exception('Primary key is null');
+          throw new Exception('Primary key is null \n' . $e->getMessage());
       }
   }
 

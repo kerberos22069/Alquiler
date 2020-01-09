@@ -17,4 +17,12 @@
    */    
     define("DEFAULT_DBNAME", "alquiler");
 
+    class GlobalController{
+    
+    static function getGeneralDaoInstance(){
+        return FactoryDao::getGeneralDao(DEFAULT_DBNAME);
+    }
+    
+    }
+    
 //That`s all folks!

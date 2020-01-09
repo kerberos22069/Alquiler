@@ -44,18 +44,13 @@ class AlquilerFacade {
    * @param alq_stado
    * @param alq_devuelto
    */
-  public static function insert( $idalquiler,  $fecha_inicio,  $cantidad,  $valor,  $pagado,  $fechafin,  $producto_idprod,  $factura_idfactura,  $alq_stado,  $alq_devuelto){
+  public static function insert($fecha_inicio,  $cantidad,  $valor,  $producto_idprod,  $factura_idfactura){
       $alquiler = new Alquiler();
-      $alquiler->setIdalquiler($idalquiler); 
       $alquiler->setFecha_inicio($fecha_inicio); 
       $alquiler->setCantidad($cantidad); 
       $alquiler->setValor($valor); 
-      $alquiler->setPagado($pagado); 
-      $alquiler->setFechafin($fechafin); 
       $alquiler->setProducto_idprod($producto_idprod); 
-      $alquiler->setFactura_idfactura($factura_idfactura); 
-      $alquiler->setAlq_stado($alq_stado); 
-      $alquiler->setAlq_devuelto($alq_devuelto); 
+      $alquiler->setFactura_idfactura($factura_idfactura);  
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $alquilerDao =$FactoryDao->getalquilerDao(self::getDataBaseDefault());

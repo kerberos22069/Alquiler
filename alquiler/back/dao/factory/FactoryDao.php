@@ -70,6 +70,10 @@ class FactoryDao implements IFactoryDao{
      public function getTransporteDao($dbName){
         return new TransporteDao($this->conn->obtener($dbName));
     }
+    
+    public static function getGeneralDao($dbName){
+        return new GeneralDao($this->conn->obtener($dbName));
+    }
 
 }
 //That`s all folks!
