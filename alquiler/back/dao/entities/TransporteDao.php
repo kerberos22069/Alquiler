@@ -29,14 +29,13 @@ private $cn;
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function insert($transporte){
-      $idtransporte=$transporte->getIdtransporte();
 $transporte_flete=$transporte->getTransporte_flete();
 $factura_idfactura=$transporte->getFactura_idfactura()->getIdfactura();
 $transporte_conductor=$transporte->getTransporte_conductor();
 
       try {
-          $sql= "INSERT INTO `transporte`( `idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`)"
-          ."VALUES ('$idtransporte','$transporte_flete','$factura_idfactura','$transporte_conductor')";
+          $sql= "INSERT INTO `transporte`( `transporte_flete`, `factura_idfactura`, `transporte_conductor`)"
+          ."VALUES ('$transporte_flete','$factura_idfactura','$transporte_conductor')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');

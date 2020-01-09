@@ -37,9 +37,8 @@ class TransporteFacade {
    * @param factura_idfactura
    * @param transporte_conductor
    */
-  public static function insert( $idtransporte,  $transporte_flete,  $factura_idfactura,  $transporte_conductor){
+  public static function insert($transporte_flete,  $factura_idfactura,  $transporte_conductor){
       $transporte = new Transporte();
-      $transporte->setIdtransporte($idtransporte); 
       $transporte->setTransporte_flete($transporte_flete); 
       $transporte->setFactura_idfactura($factura_idfactura); 
       $transporte->setTransporte_conductor($transporte_conductor); 

@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp1/htdocs/alquiler/front/Productos_venta.php</file>
-            <file>file:/C:/xampp1/htdocs/alquiler/front/js/funciones.js</file>
-            <file>file:/C:/xampp1/htdocs/alquiler/back/controller/Producto_list.php</file>
-            <file>file:/C:/xampp1/htdocs/alquiler/back/dto/Producto.php</file>
-            <file>file:/C:/xampp1/htdocs/alquiler/front/Ventas_insert.php</file>
-            <file>file:/C:/xampp1/htdocs/alquiler/back/controller/Producto_insert.php</file>
-            <file>file:/C:/xampp1/htdocs/alquiler/back/dao/entities/ProductoDao.php</file>
+            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/FacturaController.php</file>
+            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/AlquilerController.php</file>
+            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/Alquiler_insert.php</file>
+            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/Producto_detalles.php</file>
+            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/crearFactura.php</file>
+            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/TransporteController.php</file>
         </group>
     </open-files>
 </project-private>
