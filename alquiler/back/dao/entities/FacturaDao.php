@@ -33,8 +33,8 @@ $fecha=$factura->getFecha();
 $fac_descueto=$factura->getFac_descueto();
 
       try {
-          $sql= "INSERT INTO `factura`( `idfactura`, `fecha`, `fac_descueto`)"
-          ."VALUES ('$idfactura','$fecha','$fac_descueto')";
+          $sql= "INSERT INTO `factura`( `idfactura`, `fecha`, `fac_descueto`, `abonos`)"
+          ."VALUES ('$idfactura','$fecha','$fac_descueto','[]')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -51,7 +51,7 @@ $fac_descueto=$factura->getFac_descueto();
       $idfactura=$factura->getIdfactura();
 
       try {
-          $sql= "SELECT `idfactura`, `fecha`, `fac_descueto`"
+          $sql= "SELECT `idfactura`, `fecha`, `fac_descueto`, `abonos`"
           ."FROM `factura`"
           ."WHERE `idfactura`='$idfactura'";
           $data = $this->ejecutarConsulta($sql);
@@ -59,6 +59,7 @@ $fac_descueto=$factura->getFac_descueto();
           $factura->setIdfactura($data[$i]['idfactura']);
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
+          $factura->setAbonos($data[$i]['abonos']);
 
           }
       return $factura;      } catch (SQLException $e) {
@@ -77,9 +78,9 @@ $fac_descueto=$factura->getFac_descueto();
       $idfactura=$factura->getIdfactura();
 $fecha=$factura->getFecha();
 $fac_descueto=$factura->getFac_descueto();
-
+$abonos = $factura->getAbonos();
       try {
-          $sql= "UPDATE `factura` SET`idfactura`='$idfactura' ,`fecha`='$fecha' ,`fac_descueto`='$fac_descueto' WHERE `idfactura`='$idfactura' ";
+          $sql= "UPDATE `factura` SET`idfactura`='$idfactura' ,`fecha`='$fecha' ,`fac_descueto`='$fac_descueto' , `abonos`='$abonos' WHERE `idfactura`='$idfactura' ";
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -111,7 +112,7 @@ $fac_descueto=$factura->getFac_descueto();
   public function listAll(){
       $lista = array();
       try {
-          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`"
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`, `abonos`"
           ."FROM `factura`"
           ."WHERE 1";
           $data = $this->ejecutarConsulta($sql);
@@ -121,6 +122,7 @@ $fac_descueto=$factura->getFac_descueto();
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
           $factura->setCliente_idcliente($data[$i]['cliente_idcliente']);
+          $factura->setAbonos($data[$i]['abonos']);
 
           array_push($lista,$factura);
           }
@@ -134,7 +136,7 @@ $fac_descueto=$factura->getFac_descueto();
   public function listRange($fecha_ini, $fecha_fin){
       $lista = array();
       try {
-          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`"
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`, `abonos`"
           ."FROM `factura`"
           ."WHERE `fecha` BETWEEN ".$fecha_ini." AND ".$fecha_fin;
           $data = $this->ejecutarConsulta($sql);
@@ -144,6 +146,7 @@ $fac_descueto=$factura->getFac_descueto();
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
           $factura->setCliente_idcliente($data[$i]['cliente_idcliente']);
+          $factura->setAbonos($data[$i]['abonos']);
 
           array_push($lista,$factura);
           }
@@ -157,7 +160,7 @@ $fac_descueto=$factura->getFac_descueto();
   public function listByCliente($Cliente_idcliente){
       $lista = array();
       try {
-          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`"
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `abonos`"
           ."FROM `factura`"
           ."WHERE `cliente_idcliente` = ".$Cliente_idcliente;
           $data = $this->ejecutarConsulta($sql);
@@ -166,6 +169,7 @@ $fac_descueto=$factura->getFac_descueto();
           $factura->setIdfactura($data[$i]['idfactura']);
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
+          $factura->setAbonos($data[$i]['abonos']);
 
           array_push($lista,$factura);
           }
