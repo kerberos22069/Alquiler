@@ -2,7 +2,6 @@
 
 //Este no fue hecho por Anarchy, pero las frases manuales también son chidas
 
-//include_once realpath('../dao/entities/GeneralDao.php');
 require_once realpath('../facade/GlobalController.php');
 $generalDao = GlobalController::getGeneralDaoInstance();
 $generalDao->comenzarTransaccion();

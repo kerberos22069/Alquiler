@@ -4,6 +4,7 @@
 // Haciendo comentarios estúpidos desde el 98
 
 include_once realpath('../facade/AlquilerFacade.php');
+include_once realpath('../facade/ProductoFacade.php');
 
 $factura_id = strip_tags($_POST['factura_id']);
 
@@ -13,6 +14,7 @@ foreach ($alquileres as $objx => $Alquiler) {
     //Sacrifico rendimiento por simpleza de desarrollo
     //si algún día molesta, se duplica el método en el dao con un Join y ya
     $producto = ProductoFacade::select($Alquiler->getProducto_idprod()->getIdprod());
+    $myAlquiler = new stdClass();
     $myAlquiler->producto_nombre = $producto->getprod_nombre();
 
     $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();

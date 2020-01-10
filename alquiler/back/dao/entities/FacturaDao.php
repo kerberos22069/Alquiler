@@ -151,6 +151,28 @@ $fac_descueto=$factura->getFac_descueto();
       return null;
       }
   }
+  
+  public function listByCliente($cliente_id){
+      $lista = array();
+      try {
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto` "
+          ."FROM `factura`"
+          ."WHERE `cliente_idcliente` = ".$cliente_id;
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $factura= new Factura();
+          $factura->setIdfactura($data[$i]['idfactura']);
+          $factura->setFecha($data[$i]['fecha']);
+          $factura->setFac_descueto($data[$i]['fac_descueto']);
+
+          array_push($lista,$factura);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
 
       public function insertarConsulta($sql){
           $this->cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
