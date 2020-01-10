@@ -8,7 +8,7 @@ include_once realpath('../facade/FacturaFacade.php');
 
 $my_json_input = json_decode(file_get_contents('php://input'), true);
 
-$facturas = FacturaFacade::listarFacturaCliente($my_json_input['cliente_id']);
+$facturas = FacturaFacade::listByCliente($my_json_input['cliente_id']);
 
 $rta = array();
 
