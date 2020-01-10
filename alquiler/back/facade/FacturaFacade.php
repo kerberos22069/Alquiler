@@ -14,7 +14,7 @@ require_once realpath('../dao/interfaz/IFacturaDao.php');
 require_once realpath('../dto/Cliente.php');
 
 class FacturaFacade {
-
+ 
   /**
    * Para su comodidad, defina aquí el gestor de conexión predilecto para esta entidad
    * @return idGestor Devuelve el identificador del gestor de conexión
@@ -130,6 +130,15 @@ class FacturaFacade {
      $result = $facturaDao->listByCliente($Cliente_idcliente);
      $facturaDao->close();
      return $result;
+  }
+
+  public static function listarFacturaCliente($cliente_id){
+    $FactoryDao=new FactoryDao(self::getGestorDefault());
+    $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
+    $result = $facturaDao->listarFacturaCliente($cliente_id);
+    $facturaDao->close();
+    return $result;
+
   }
 
 }
