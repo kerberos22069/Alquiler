@@ -42,5 +42,6 @@ try{
     echo "{factura_id : ".$factura_id."}";
 }catch(Exception $e){
     $generalDao->rollback();
-    echo "{factura_id : -1}";
+    echo "{factura_id : -1}\n";
+    echo $e->getMessage();
 }
