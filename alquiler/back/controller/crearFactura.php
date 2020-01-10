@@ -8,7 +8,8 @@ $generalDao->comenzarTransaccion();
 try{
 
     include_once realpath('../facade/FacturaFacade.php');
-    $factura_id = obtenerUltimoConsecutivo();
+    //$factura_id = obtenerUltimoConsecutivo();
+    $factura_id = strip_tags($_POST['factura_id']);
     $fecha = date("Y-m-d H:i:s");
     $fac_descueto = strip_tags($_POST['descuento']);
     $Cliente_idcliente = strip_tags($_POST['cliente_id ']);
