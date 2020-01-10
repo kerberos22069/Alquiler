@@ -14,6 +14,7 @@ class Factura {
   private $fecha;
   private $fac_descueto;
   private $cliente_idcliente;
+  private $abonos;
 
     /**
      * Constructor de Factura
@@ -81,6 +82,13 @@ class Factura {
       $this->cliente_idcliente = $cliente_idcliente;
   }
 
+  public function getAbonos(){
+      return $this->abonos;
+  }
+  
+  public function setAbonos($abonos){
+      $this->abonos = $abonos;
+  }
 
 }
 //That`s all folks!
