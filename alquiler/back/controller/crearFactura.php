@@ -26,17 +26,17 @@ try{
         TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor);
     }
 
-//    $alquileres = strip_tags($_POST['alquileres']);
-//    $alquileres = json_decode($alquileres);
+    $alquileres = strip_tags($_POST['alquileres']);
+    $alquileres = json_decode($alquileres);
 
-//    foreach ($alquileres as $obj => $alquiler) {
-//        $cantidad = $alquiler->cantidad;
-//        $valor = $alquiler->valor;
-//        $Producto_idprod = $alquiler->producto_id;
-//                $producto= new Producto();
-//                $producto->setIdprod($Producto_idprod);
-//        AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);
-//    }
+    foreach ($alquileres as $obj => $alquiler) {
+        $cantidad = $alquiler->cantidad;
+        $valor = $alquiler->valor;
+        $Producto_idprod = $alquiler->producto_id;
+                $producto= new Producto();
+                $producto->setIdprod($Producto_idprod);
+        AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);
+    }
     
     $generalDao->confirmarTransaccion();
     echo "{factura_id : ".$factura_id."}";
