@@ -19,10 +19,12 @@ try{
 
     include_once realpath('../facade/TransporteFacade.php');
     $transporte_flete = strip_tags($_POST['transporte_flete']);
-    $factura= new Factura();
-            $factura->setIdfactura($factura_id);
-    $transporte_conductor = strip_tags($_POST['conductor_nombre']);
-    TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor);
+    if($transporte_flete != NULL && $transporte_flete != ""){
+        $factura= new Factura();
+                $factura->setIdfactura($factura_id);
+        $transporte_conductor = strip_tags($_POST['conductor_nombre']);
+        TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor);
+    }
 
     $alquileres = strip_tags($_POST['alquileres']);
     $alquileres = json_decode($alquileres);
