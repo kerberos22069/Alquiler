@@ -1,10 +1,11 @@
 <?php
 
-// Hecho a mano por el benévolo señor Arciniegas
-// Haciendo comentarios estúpidos desde el 98
+//Hecho por el benévolo señor Arciniegas
+//Cada segundo de mi vida es una agonía
 
 include_once realpath('../facade/AlquilerFacade.php');
 include_once realpath('../facade/ProductoFacade.php');
+include_once realpath('../facade/ClienteFacade.php');
 
 $factura_id = strip_tags($_POST['factura_id']);
 
@@ -18,6 +19,14 @@ foreach ($alquileres as $objx => $Alquiler) {
     $myAlquiler = new stdClass();
     $myAlquiler->producto_nombre = $producto->getprod_nombre();
 
+    $cliente = ClienteFacade::select($Factura->getcliente_idcliente()->getidcliente()); //por esto es que odio el formato workbench...
+    $myCliente = new stdClass();
+    $myCliente->cliente_id=$cliente->getidcliente();
+    $myCliente->cliente_cedula=$cliente->getcliente_cc();
+    $myCliente->cliente_nombre=$cliente->getcliente_nombre().$cliente->getcliente_apellido();
+    
+    $myFactura->cliente = $myCliente;
+    
     $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();
 
     $myAlquiler->cantidad = $Alquiler->getCantidad();
@@ -31,3 +40,4 @@ foreach ($alquileres as $objx => $Alquiler) {
 }
 
 echo json_encode($myFactura);
+
