@@ -19,7 +19,7 @@ try{
 
     include_once realpath('../facade/TransporteFacade.php');
     $transporte_flete = strip_tags($_POST['transporte_flete']);
-    if($transporte_flete != NULL && $transporte_flete != ""){
+    if($transporte_flete != NULL && $transporte_flete != "" && $transporte_flete != 0){
         $factura= new Factura();
                 $factura->setIdfactura($factura_id);
         $transporte_conductor = strip_tags($_POST['conductor_nombre']);
