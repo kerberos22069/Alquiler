@@ -4940,7 +4940,8 @@ code {
   color: #ffffff;
   /*color: inherit;*/
   margin-bottom: 0;
-  padding: 15px 90px 48px 15px;
+  padding: 15px 90px 8px 15px;
+  /*padding: 15px 90px 48px 15px;*/
   min-height: 48px;
   position: relative;
   clear: both;
@@ -4951,8 +4952,10 @@ code {
   /*background-color: #696c6e;*/
   /*background-color: #ffffff;editado*/
   color: #000000;
-  /*color: inherit;editado*/
-  padding: 15px 20px 20px 20px;
+  /*color: inherit;editado
+   padding: 15px 20px 20px 20px;*/
+  padding: 15px 20px 0px 20px;
+ 
   border-color: #e7eaec;
   border-image: none;
   border-style: solid solid none;
@@ -5289,9 +5292,12 @@ a.close-canvas-menu:hover {
 /* MARGINS & PADDINGS */
 .p-xxs {
   padding: 5px;
+  
 }
 .p-xs {
-  padding: 10px;
+    
+  /*padding: 10px; editado*/
+  padding: -1px;
 }
 .p-sm {
   padding: 15px;

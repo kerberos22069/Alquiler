@@ -36,15 +36,15 @@
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
                                     <tr>
-                                                                   <th style=" color:#FFFFFF; background-color: #616161  !important">Id_Fact</th>
+                                       <th style=" color:#FFFFFF; background-color: #616161  !important">Id_Fact</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Cliente</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Fecha</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Valor</th>
 
                                        
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
-                                          <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-edit"></i></th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>
+                                        <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-edit"></i></th>
+<!--                                        <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>-->
 
                                     </tr>
                                 </thead>
@@ -58,7 +58,7 @@
                                     <td class="center footable-visible">80000</td>
                                     <td class="footable-visible footable-last-column"><a onclick="mostrar_Productos_d()"><i class="fa fa-check text-navy"></i></a></td>
                                     <td class="footable-visible footable-last-column"><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                    <td class="footable-visible footable-last-column"><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                                   
 <!--                                    <td class="center footable-visible footable-last-column">X</td>-->
                                 </tr>    
 
@@ -82,7 +82,7 @@
             <div id="menumodal1" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                    <h4 class="modal-title" style="color: black  ; text-shadow: 5px 5px 5px #aaa;">Detalles Cliente</h4>
+                    <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Detalles Productos</h4>
 
                 </div>
                 <div class="modal-body"> <!-- Abrri Contenio-->
@@ -94,7 +94,7 @@
                                         <div class="ibox-content">
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <table class="table table-striped" >
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
                                     <tr>

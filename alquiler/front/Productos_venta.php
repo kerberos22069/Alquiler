@@ -423,16 +423,7 @@ cargarProductos();
    
 };
 
-    function cargareTotal_Factura(emp){    
-           
-         $.get('../back/controller/Ventas_total_Factura.php',{'emp':emp}, function (depa) {      
-    
-          depa = JSON.parse(depa);
-          
-            $("#Inputtotal_fact").val(depa[1].precio_total);//direccion
-        
-        }); 
-      }
+
 
 /* Sumar dos números. */
 //function sumar (valor) {
@@ -517,7 +508,7 @@ function Descuento(){
         $.get('../back/controller/Factura_insert.php', {'enviar': enviar},function(depa){      
     
 //          depa = JSON.parse(depa);
-           aceptarPersona();
+//           aceptarPersona();
 //            if(depa[1].result=='error'){
 ////                            alert('Exitoso');
 //                               emp=document.getElementById("Inputnum_factu").value;        

@@ -1,3 +1,6 @@
+<?php $fcha = date("Y-m-d");?>
+
+
 <html>
     <div>
         <div class="panel panel-default">
@@ -14,48 +17,62 @@
                                 </div> 
                             </div>
                             <div class="col-sm-2" >
-                                <div class="form-group" >
+                               <div class="form-group" >
                                     <label for="Inputpersona_cedula">    </label>
-                                    <button type="button" class="btn btn-primary" onclick="buscarcedula()">Buscar </button>
-                                </div>
+                                    <button  style="padding-right: 4px;" type="button" class="btn btn-primary" onclick="buscarcedula()">Buscar </button>
+                            </div>
 
                             </div>
 
                         </div>
                     </div>
-                    <div class="col-lg-4"></div>
+                    <div class="col-lg-4">
+                       <div class=" row">
+            <label class="col-sm-3 col-form-label"><b>Fecha :</b></label>
+
+                                    <div class="col-sm-9 p-xs ">
+                                        <input value="<?php echo $fcha;?>"style="font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" type="text"  class="form-control" readonly></div>
+                                </div>
+                     
+                    </div>
                     <div class="col-lg-2">  
 
-                        <div class="form-group row"><label class="col-lg-2 col-form-label" style="color: red; font-size: 24">Num</label>
+                        <div class="form-group row"><label class="col-lg-2 col-form-label" style="color: red; font-size: 24"><b>Num</b></label>
 
-                            <div class="col-lg-6"><input  name="num_factura" id="Inputnum_factura" type="text" placeholder="0" class="form-control" style="color: red; font-size: 24">
+                            <div class="col-lg-6"><input  name="num_factura" id="Inputnum_factura" type="text" placeholder="0" class="form-control" style="color: red; font-size: 28 ; font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" readonly>
                             </div>
                         </div>         
                     </div></div>
 
                 <div class="row">
                     <div class="col-lg-6" style="font-size: 12px; font-weight: bold; " >
+                      
                         <div class="form-group"  style="display: none">
                             <label for="Inputid">id</label>
                             <input style="background-color: white; border:1px solid #ffffff;" type="text" name="id" class="form-control" id="Inputid" placeholder="id" required>
                         </div>
                         
-        <div class="form-group  row">
+        <div class=" row ">
             <label class="col-sm-2 col-form-label"><b>Nombre y Apellido :</b></label>
 
                                     <div class="col-sm-10 p-xs border-bottom">
                                         <input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
                                 </div>
-        <div class="form-group  row">
+                        
+                        
+                        
+                        
+        <div class="  row">
             <label class="col-sm-2 col-form-label"><b>Cedula :</b></label>
 
                                     <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcc" name="cc" class="form-control" readonly></div>
                                 </div>
-        <div class="form-group  row">
+        <div class="  row">
             <label class="col-sm-2 col-form-label"><b>Telefono :</b></label>
 
                                     <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
                                 </div>
+      
    
                         
                      
@@ -71,15 +88,20 @@
                     <div class="col-lg-6" style="font-size: 12px; font-weight: bold; ">
                         <!--<div class="container">-->
 
-     <div class="form-group  row">
-         <label class="col-sm-2 col-form-label"><b>Direccion :</b></label>
+     <div class=" row">
+         <label class="col-sm-2 col-form-label"><b>Direccion:</b></label>
 
                                     <div class="col-sm-10 p-xs border-bottom"><input  style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputdireccion" name="direccion" class="form-control" readonly></div>
                                 </div>
-        <div class="form-group  row">
+        <div class="  row">
             <label class="col-sm-2 col-form-label"><b>Correo :</b></label>
 
                                     <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
+                                </div>
+                          <div class="  row">
+            <label class="col-sm-2 col-form-label"><b>Flete :</b></label>
+
+                                    <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputflete" name="flete" class="form-control" readonly></div>
                                 </div>
 
                     </div>
@@ -121,9 +143,13 @@
         <div class="col-sm">
             
             
+<!--              <button type="button" id="agregarProd" class="btn btn-primary" onclick="recorrerTabla()"  >
+                                + Enviar Factura
+                            </button>-->
               <button type="button" id="agregarProd" class="btn btn-primary" onclick="enviarFactura()"  >
                                 + Enviar Factura
                             </button>
+
         </div>
     </div>
                         
@@ -134,7 +160,7 @@
 
                         </div>
                         <div class="table-responsive">
-                            <table id="mytable" class="table table-striped" >
+                            <table id="mytable"   class="table table-striped" >
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
                                     <tr>
@@ -158,7 +184,19 @@
                                     </tr>
                                 </thead>
                                 <tbody id="Ventas_factList">
-
+                           <tr>
+                                    
+                               <th style="padding: 1px;" ></th>
+                               <th style="padding: 1px;" ></th>
+                               <th style="padding: 1px;" ></th>
+                               <th style="padding: 1px;" ></th>
+                               <th style="padding: 1px;" ></th>
+                               <th style="padding: 1px;" ></th>
+                               <th style="padding: 1px;" ></th>
+                               <th style="padding: 1px;" ></th>
+                               <th style="padding: 1px;" ></th>
+                                 
+                          </tr>
                                 </tbody>
 
                             </table>
@@ -312,6 +350,49 @@
             <script src="js/HtmlBuilder.js "></script> 
 
     <script>
+        
+       $(document).ready(function () {
+
+
+            cargareNum_Factura();
+//              emp=0;
+//             Productos_Vender(emp);
+        });
+
+
+        function cargareNum_Factura() {
+
+           $.get('../back/controller/Factura_id.php', function (depa) {
+
+                depa = JSON.parse(depa);
+
+                $("#Inputnum_factura").val(depa[1].idfactura);//direccion
+
+            });
+        }    
+        
+        
+    var prod_alq = [];    
+        
+           function enviarFactura(){    
+          recorrerTabla();     
+             
+             
+      var clienete=document.getElementById("Inputid").value;
+      var correo=document.getElementById("Inputcorreo").value;
+      var nombre=document.getElementById("Inputnombres").value;
+      var nun_factura=document.getElementById("Inputnum_factura").value;
+      var tablanombre=prod_alq;
+      
+      var enviar = nun_factura+"-"+clienete+"-"+nombre+"-"+correo+"-"+tablanombre;
+      
+      
+           alert(enviar);
+//        $.get('../back/controller/Factura_insert.php', {'enviar': enviar},function(depa){      
+//           }
+//        }); 
+
+      }
 //        $(document).ready(function () {
 //
 //
@@ -333,18 +414,52 @@
   }
 });
 
+ function recorrerTabla() {
+//     alert();
+     $("#mytable tbody tr").each(function (index) {
+//         alert(index);
+//         console.log( $(this));
+var text = '{ "productos" : [' ;
+var text3 = ']}' ;
+if(index!=0){
+//    alert('asdasd');
+          var campo1, campo2, campo3;
+             $(this).children("td").each(function (index2) {
+                  switch (index2) {
+                     case 0:
+                         campo1 = $(this).text();
+                          break;
+                     case 4:
+                        campo2 = $(this).text();
+                        break;
+                     case 6:
+                         campo3 = $(this).text();
+                         break;
+                 }
+               $(this).css("background-color", "#ECF8E0");
+            })
+            
+//         alert(campo1 + ' - ' + campo2 + ' - ' + campo3);
+var text2='{ "id_producto":"'+campo1+'" , "cantidad":"'+campo2+'", "valor":"'+campo3+'" },';
+
+       prod_alq.push(text2)
+
+//alert(text2);
+}
+
+//  prod_alq.push('{" id_producto":"'+campo1+"cantidad:"+campo2+"valor:"+campo3+" }") ;
+       
+         })
+      };
+  
 
 
-        function cargareNum_Factura() {
 
-            $.get('../back/controller/Ventas_Num_Factura.php', function (depa) {
 
-                depa = JSON.parse(depa);
 
-                $("#Inputnum_factura").val(depa[1].precio_total);//direccion
 
-            });
-        }
+
+    
 
         function buscarcedula() {
 
@@ -366,6 +481,7 @@
                     $("#Inputtelefono").val(depa[1].cliente_telefono);
                     $("#Inputcorreo").val(depa[1].cliente_correo);
                     $("#Inputdireccion").val(depa[1].cliente_direccion);
+//                    $("#Inputdireccion")..text(depa[1].cliente_direccion); para un label
 
                     emp = 0;
 //                    Productos_Vender(emp);
@@ -379,17 +495,28 @@ Activar_tabla();
 function multiplicar(){
     can=0;
     m1=0;
-//   can=document.getElementById("Inputcantidad").value;  
-   m1 = document.getElementById("Inputcanti").value;  
-   
-         
+    canti=0;
+    stock1=0;
+    
+       canti = document.getElementById("Inputcanti").value;  
+       stock1 = document.getElementById("Inputproct_stock").value;  
+       if(stock1<canti){
+           alert('LA CANTIDAD SUPERA EL STOCK');
+          
+              document.getElementById("Inputcanti").value=""+ stock1;
+//           console.log(stock1);
+           return ;
+       }else{
+             m1 = document.getElementById("Inputcanti").value;  
+  
   m2 = document.getElementById("Inputprecio_unitario").value;
   r = m1*m2;
   document.getElementById("Inputprecio_total").value = r;
-   
-    
+       }
 
 };
+
+
 function Descuento(){
     can=0;
     m1=0;
@@ -505,10 +632,12 @@ $('#adicionar').click(function() {
 
   i++;
 
-  $('#mytable tr:first').after(fila);
+  $('#Ventas_factList tr:first').after(fila);
+//  $('#mytable tr:first').after(fila);
     $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
-    var nFilas = $("#mytable tr").length;
-    $("#adicionados").append(nFilas - 1);
+//    var nFilas = $("#mytable tr").length;
+    var nFilas = $("#Ventas_factList tr").length;
+    $("#adicionados").append(nFilas  -1);
     //le resto 1 para no contar la fila del header
     document.getElementById("Inputprodc_referencia").value ="";
     document.getElementById("Inputproduc_nombre").value = "";
@@ -527,7 +656,7 @@ $(document).on('click', '.btn_remove', function() {
     $('#row' + button_id + '').remove(); //borra la fila
     //limpia el para que vuelva a contar las filas de la tabla
     $("#adicionados").text("");
-    var nFilas = $("#mytable tr").length;
+    var nFilas = $("#Ventas_factList tr").length;
     $("#adicionados").append(nFilas - 1);
   });
 });

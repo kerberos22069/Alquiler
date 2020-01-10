@@ -175,6 +175,25 @@ $fac_descueto=$factura->getFac_descueto();
       return null;
       }
   }
+  
+  
+    public function Count_fact(){
+      $lista = array();
+      try {
+          $sql ="SELECT COUNT(*)+1 as idfactura FROM `factura` WHERE 1";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $factura= new Factura();
+           $factura->setIdfactura($data[$i]['idfactura']);
+         
+          array_push($lista,$factura);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
 
       public function insertarConsulta($sql){
           $this->cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

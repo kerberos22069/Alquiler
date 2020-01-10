@@ -19,6 +19,14 @@ function facturas_listas() {
      enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
 }
 
+function facturas_Devolucion() {  
+    var url = "resportes_cc.php";
+    var datos = {};
+    var rta = "#mostrarcontenido";
+    ajax(url, datos, rta);
+     enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
+}
+
 //function ValidarNit(nit) {
 //    var url = "./php/validarnit.php?nit=" + nit;
 //    var datos = {};

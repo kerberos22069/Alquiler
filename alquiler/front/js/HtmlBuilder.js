@@ -23,7 +23,8 @@
 
 function createTR(obj) {
     var tr = document.createElement("TR");
-    var tooltip = "";
+    var tooltip = ''
+    var aligntext = ''
     for (var attb in obj) {
         var td = document.createElement("TD");
         if (attb == "updateHref") {
@@ -57,8 +58,13 @@ function createTR(obj) {
             var span = document.createElement('SPAN');
             span.classList.add("glyphicon");
             span.classList.add("glyphicon-zoom-in");
-            a.appendChild(span);
-            tooltip = "ver";
+            
+            aligntext = 'text-center'
+            tooltip = 'Editar'
+            a.appendChild(span)
+            
+//            a.appendChild(span);
+//            tooltip = "ver";
             td.appendChild(a);
         } else if (attb == "deleteHrefB") {
             var a = document.createElement('A');
@@ -182,4 +188,265 @@ function removeAllChildren(obj) {
     }
 }
 
+
+function createTR1(obj, id, limit) {
+    var cont = 0
+    var tooltip = ''
+    var aligntext = ''
+    var tr = document.createElement('TR')
+    tr.setAttribute('role', 'row')
+
+    for (var attb in obj) {
+        cont++
+        var td = document.createElement('TD')
+        if (attb == 'updateHref') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.setAttribute('href', obj[attb])
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-pencil')
+            aligntext = 'text-center'
+            tooltip = 'Editar'
+            a.appendChild(span)
+            td.appendChild(a)
+        } else if (attb == 'deleteHref') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.setAttribute('href', obj[attb])
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-remove')
+            aligntext = 'text-center'
+            tooltip = 'Eliminar'
+            a.appendChild(span)
+            td.appendChild(a)
+        } else if (attb == 'updateHrefB') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.setAttribute('onclick', obj[attb])
+            a.id = id
+            if (obj[attb] !== '') {
+                // a.style = 'color:#F6102C;'
+            }
+            // a.style = ''
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-edit')
+            aligntext = 'text-center'
+            tooltip = 'Editar'
+            a.appendChild(span)
+            td.appendChild(a)
+        } else if (attb == 'viewHrefB') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.setAttribute('onclick', obj[attb])
+            a.id = id
+            a.style = ''
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+                // span.classList.add('glyphicon-zoom-in')
+            span.classList.add('glyphicon-eye-open')
+            aligntext = 'text-center'
+            tooltip = 'Ver'
+            a.appendChild(span)
+            td.appendChild(a)
+        } else if (attb == 'deleteHrefB') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.setAttribute('onclick', obj[attb])
+            a.id = id
+            a.style = ''
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-trash')
+            aligntext = 'text-center'
+            tooltip = 'Eliminar'
+            a.appendChild(span)
+            td.appendChild(a)
+        } else if (attb == 'fileHrefB') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.id = id
+            a.style = ''
+            a.setAttribute('onclick', obj[attb])
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-cloud-upload')
+            aligntext = 'text-center'
+            tooltip = 'Subir'
+            a.appendChild(span)
+            td.appendChild(a)
+        } else if (attb == 'hiddenHrefB') {
+            td.style = 'padding-right:20px;'
+            var div = document.createElement('DIV')
+                // div.setAttribute('visible', 'false')
+            var a = document.createElement('A')
+            a.id = id
+            a.style = ''
+            a.setAttribute('onclick', obj[attb])
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-cloud-upload')
+            aligntext = 'text-center'
+            tooltip = 'Subir'
+            a.appendChild(span)
+            div.appendChild(a)
+            td.appendChild(div)
+        } else {
+            if (limit != 0) {
+                if (cont !== limit) {
+                    aligntext = 'text-left'
+                    var textNode = document.createTextNode(obj[attb])
+                    td.appendChild(textNode)
+                }
+            } else {
+                aligntext = 'text-left'
+                var textNode = document.createTextNode(obj[attb])
+                td.appendChild(textNode)
+            }
+        }
+        if (limit != 0) {
+            if (cont !== limit) {
+                td.className = '' + aligntext
+                td.setAttribute('data-toggle', 'tooltip')
+                td.setAttribute('data-placement', 'right')
+                td.setAttribute('title', tooltip)
+                td.setAttribute('data-original-title', tooltip)
+                tr.appendChild(td)
+            }
+        } else {
+            td.className = '' + aligntext
+            td.setAttribute('data-toggle', 'tooltip')
+            td.setAttribute('data-placement', 'right')
+            td.setAttribute('title', tooltip)
+            td.setAttribute('data-original-title', tooltip)
+            tr.appendChild(td)
+        }
+    }
+
+    return tr
+}
+
+function createTR2(obj, id, limit) {
+    var cont = 0
+    var tooltip = ''
+    var aligntext = ''
+    var tr = document.createElement('TR')
+    tr.setAttribute('role', 'row')
+    for (var attb in obj) {
+        cont++
+        var td = document.createElement('TD')
+        if (attb == 'updateHref') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.setAttribute('href', obj[attb])
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-pencil')
+            aligntext = 'text-center'
+            tooltip = 'Editar'
+            a.appendChild(span)
+                // td.appendChild(a)
+        } else if (attb == 'deleteHref') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.setAttribute('href', obj[attb])
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-remove')
+            aligntext = 'text-center'
+            tooltip = 'Eliminar'
+            a.appendChild(span)
+                // td.appendChild(a)
+        } else if (attb == 'updateHrefB') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.setAttribute('onclick', obj[attb])
+            a.id = id
+            if (obj[attb] !== '') {
+                // a.style = 'color:#F6102C;'
+            }
+            // a.style = ''
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-edit')
+            aligntext = 'text-center'
+            tooltip = 'Editar'
+            a.appendChild(span)
+                // td.appendChild(a)
+        } else if (attb == 'viewHrefB') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.setAttribute('onclick', obj[attb])
+            a.id = id
+            a.style = ''
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+                // span.classList.add('glyphicon-zoom-in')
+            span.classList.add('glyphicon-eye-open')
+            aligntext = 'text-center'
+            tooltip = 'Ver'
+            a.appendChild(span)
+                // td.appendChild(a)
+        } else if (attb == 'deleteHrefB') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.setAttribute('onclick', obj[attb])
+            a.id = id
+            a.style = ''
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-trash')
+            aligntext = 'text-center'
+            tooltip = 'Eliminar'
+            a.appendChild(span)
+                // td.appendChild(a)
+        } else if (attb == 'fileHrefB') {
+            td.style = 'padding-right:20px;'
+            var a = document.createElement('A')
+            a.id = id
+            a.style = ''
+            a.setAttribute('onclick', obj[attb])
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-cloud-upload')
+            aligntext = 'text-center'
+            tooltip = 'Subir'
+            a.appendChild(span)
+                // td.appendChild(a)
+        } else if (attb == 'hiddenHrefB') {
+            td.style = 'padding-right:20px;'
+            var div = document.createElement('DIV')
+                // div.setAttribute('visible', 'false')
+            var a = document.createElement('A')
+            a.id = id
+            a.style = ''
+            a.setAttribute('onclick', obj[attb])
+            var span = document.createElement('SPAN')
+            span.classList.add('glyphicon')
+            span.classList.add('glyphicon-cloud-upload')
+            aligntext = 'text-center'
+            tooltip = 'Subir'
+            a.appendChild(span)
+            div.appendChild(a)
+                // td.appendChild(div)
+        } else {
+            if (cont !== limit) {
+                aligntext = 'text-left'
+                var textNode = document.createTextNode(obj[attb])
+                td.appendChild(textNode)
+            }
+        }
+        if (cont !== limit) {
+            td.className = '' + aligntext
+            td.setAttribute('data-toggle', 'tooltip')
+            td.setAttribute('data-placement', 'right')
+            td.setAttribute('title', tooltip)
+            td.setAttribute('data-original-title', tooltip)
+            tr.appendChild(td)
+        }
+    }
+    return tr
+}
 //That`s all folks!
