@@ -125,14 +125,25 @@ class ProductoFacade {
      $productoDao->close();
   }
   
-  public static function devolver($idprod,$cantidad){
+  public static function devolver($idprod,$cantidad, $estado = 0){
       $producto = self::select($idprod);
-      $nuevoStock = $producto->getProd_stock() + $cantidad;
-      $producto->setProd_stock($nuevoStock); 
-      
+      switch ($estado){
+          case 0:{
+                $nuevoStock = $producto->getProd_stock() + $cantidad;
+                $producto->setProd_stock($nuevoStock); 
+          }
+          //case 1:{}Reservado para alquilado, pero este método no lo toca
+          case 2:{
+                $nuevoRep = $producto->getProd_reparacion() + $cantidad;
+                $producto->setProd_reparacion($nuevoRep); 
+          }
+          case 3:{
+                $nuevoDan = $producto->getProd_danado() + $cantidad;
+                $producto->setProd_danado($nuevoDan); 
+          }
+      }
       $nuevoAlquilado = $producto->getProd_alquilado() - $cantidad;
       $producto->setProd_alquilado($nuevoAlquilado); 
-
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
      $productoDao->update($producto);
