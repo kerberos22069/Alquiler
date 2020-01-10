@@ -13,6 +13,7 @@ $Cliente_idcliente = strip_tags($_POST['cliente_id']);
 $facturas =FacturaFacade::listByCliente($Cliente_idcliente);
 
 foreach ($facturas as $obj => $Factura) {
+    $myFactura = new stdClass();
     $myFactura->id=$Factura->getidfactura();
     $myFactura->fecha=$Factura->getfecha();
     
@@ -25,6 +26,7 @@ foreach ($facturas as $obj => $Factura) {
         //Sacrifico rendimiento por simpleza de desarrollo
         //si algún día molesta, se duplica el método en el dao con un Join y ya
         $producto = ProductoFacade::select($Alquiler->getProducto_idprod()->getIdprod());
+        $myAlquiler = new stdClass();
         $myAlquiler->producto_nombre = $producto->getprod_nombre();
         
         $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();
