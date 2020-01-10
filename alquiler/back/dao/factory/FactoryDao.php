@@ -9,6 +9,7 @@
 
 include_once realpath('../dao/conexion/Conexion.php');
 include_once realpath('../dao/interfaz/IFactoryDao.php');
+include_once realpath('../dao/entities/GeneralDao.php');
 
 class FactoryDao implements IFactoryDao{
 	
