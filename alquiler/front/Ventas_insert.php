@@ -31,7 +31,7 @@
             <label class="col-sm-3 col-form-label"><b>Fecha :</b></label>
 
                                     <div class="col-sm-9 p-xs ">
-                                        <input value="<?php echo $fcha;?>"style="font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" type="text"  class="form-control" readonly></div>
+                                        <input id="inputfecha_inicio"value="<?php echo $fcha;?>"style="font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" type="text"  class="form-control" readonly></div>
                                 </div>
                      
                     </div>
@@ -374,33 +374,51 @@
         
     var prod_alq = [];    
         
-           function enviarFactura(){    
-          recorrerTabla();     
-             
-             
-      var clienete=document.getElementById("Inputid").value;
-      var correo=document.getElementById("Inputcorreo").value;
-      var nombre=document.getElementById("Inputnombres").value;
-      var nun_factura=document.getElementById("Inputnum_factura").value;
-      var tablanombre=prod_alq;
-      
-      var enviar = nun_factura+"-"+clienete+"-"+nombre+"-"+correo+"-"+tablanombre;
-      
-      
-           alert(enviar);
-//        $.get('../back/controller/Factura_insert.php', {'enviar': enviar},function(depa){      
-//           }
-//        }); 
+    function enviarFactura(){    
+        recorrerTabla();            
+        var nun_factura=document.getElementById("Inputnum_factura").value;      
+        var clienete=document.getElementById("Inputid").value;
+        var correo=document.getElementById("Inputcorreo").value;
+        var nombre=document.getElementById("Inputnombres").value;
+  //      var flete=document.getElementById("Inputflete").value;
+        var flete='0';
+        var fecha=document.getElementById("inputfecha_inicio").value;
+        var descuent='0';
+        var tablanombre=prod_alq;
+      var parametros = {
+                "factura_id" : nun_factura,
+                "fecha_inicio" : fecha,
+                "descuento" : descuent,
+                "cliente_id" : clienete,
+                "transporte_flete" : flete
+        };
+        console.log(parametros);
+        $.ajax({
+                data:  parametros, //datos que se envian a traves de ajax
+                url:   '../back/controller/crearFactura.php', //archivo que recibe la peticion
+                type:  'post', //método de envio
+                beforeSend: function () {
+                        $("#resultado").html("Procesando, espere por favor...");
+                },
+                success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                        $("#resultado").html(response);
+                        console.log(response);
+                },
+                error:function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                        $("#resultado").html(response);
+                }
+        });
 
-      }
-//        $(document).ready(function () {
-//
-//
-//            cargareNum_Factura();
-////              emp=0;
-////             Productos_Vender(emp);
-//        });
-        
+
+
+
+      };
+      
+
+
+
+
+
         
         $('#visibilityHidden').click(function(e) {
   
