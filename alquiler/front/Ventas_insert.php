@@ -372,8 +372,8 @@
         }    
         
         
-    var prod_alq = [];    
-        
+    var prod_alq = [];   
+ 
     function enviarFactura(){    
         recorrerTabla();            
         var nun_factura=document.getElementById("Inputnum_factura").value;      
@@ -384,7 +384,12 @@
         var flete='0';
         var fecha=document.getElementById("inputfecha_inicio").value;
         var descuent='0';
-        var tablanombre=prod_alq;
+        
+        var tablanombre='{alquileres:['+prod_alq+']};';
+        
+
+        alert(tablanombre);
+        
       var parametros = {
                 "factura_id" : nun_factura,
                 "fecha_inicio" : fecha,
@@ -437,8 +442,8 @@
      $("#mytable tbody tr").each(function (index) {
 //         alert(index);
 //         console.log( $(this));
-var text = '{ "productos" : [' ;
-var text3 = ']}' ;
+
+
 if(index!=0){
 //    alert('asdasd');
           var campo1, campo2, campo3;
@@ -458,9 +463,10 @@ if(index!=0){
             })
             
 //         alert(campo1 + ' - ' + campo2 + ' - ' + campo3);
-var text2='{ "id_producto":"'+campo1+'" , "cantidad":"'+campo2+'", "valor":"'+campo3+'" },';
+var text2='{ "id_producto":"'+campo1+'" , "cantidad":"'+campo2+'", "valor":"'+campo3+'" }';
 
-       prod_alq.push(text2)
+
+         prod_alq.push(text2)   ;
 
 //alert(text2);
 }
