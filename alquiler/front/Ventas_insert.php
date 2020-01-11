@@ -45,7 +45,7 @@
                     </div></div>
 
                 <div class="row">
-                    <div class="col-lg-6" style="font-size: 12px; font-weight: bold; " >
+                    <div class="col-lg-4" style="font-size: 12px; font-weight: bold; " >
                       
                         <div class="form-group"  style="display: none">
                             <label for="Inputid">id</label>
@@ -85,7 +85,7 @@
                     </div>
 
 
-                    <div class="col-lg-6" style="font-size: 12px; font-weight: bold; ">
+                    <div class="col-lg-4" style="font-size: 12px; font-weight: bold; ">
                         <!--<div class="container">-->
 
      <div class=" row">
@@ -104,6 +104,10 @@
                                     <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputflete" name="flete" class="form-control" readonly></div>
                                 </div>
 
+                    </div>
+                    
+                    <div class="col-lg-4" style="font-size: 12px; font-weight: bold; ">
+                        
                     </div>
 
                 </div>
@@ -388,7 +392,7 @@
         var tablanombre='{alquileres:['+prod_alq+']};';
         
 
-        alert(tablanombre);
+//        alert(tablanombre);
         
       var parametros = {
                 "factura_id" : nun_factura,
@@ -404,6 +408,7 @@
                 type:  'post', //método de envio
                 beforeSend: function () {
                         $("#resultado").html("Procesando, espere por favor...");
+                       
                 },
                 success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
                         $("#resultado").html(response);
@@ -521,7 +526,9 @@ function multiplicar(){
     m1=0;
     canti=0;
     stock1=0;
-    
+    if(canti>0){
+        
+    }
        canti = document.getElementById("Inputcanti").value;  
        stock1 = document.getElementById("Inputproct_stock").value;  
        if(stock1<canti){
