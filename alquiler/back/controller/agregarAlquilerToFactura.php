@@ -23,4 +23,5 @@ $generalDao->confirmarTransaccion();
     echo $e->getMessage();
 }
 
+//comentario estúpido XD
 
