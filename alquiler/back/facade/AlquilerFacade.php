@@ -163,5 +163,13 @@ class AlquilerFacade {
      $alquilerDao->close();
   }
 
+  public static function editarAlquiler($alquiler){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $alquilerDao =$FactoryDao->getalquilerDao(self::getDataBaseDefault());
+     $rta = $alquilerDao->editarAlquiler($alquiler);
+     $alquilerDao->close();
+     return $rta;
+  }
+
 }
 //That`s all folks!
