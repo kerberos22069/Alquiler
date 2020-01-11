@@ -23,5 +23,5 @@ $generalDao->confirmarTransaccion();
     echo $e->getMessage();
 }
 
-//comentario estúpido XD
+//comentario estúpido XD npumero 2
 
