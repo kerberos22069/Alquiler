@@ -115,13 +115,6 @@ class FacturaFacade {
      $facturaDao->close();
      return $result;
   }
-  public static function Count_fact(){
-     $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
-     $result = $facturaDao->Count_fact();
-     $facturaDao->close();
-     return $result;
-  }
   
   public static function listRange($fecha_ini, $fecha_fin){
      $FactoryDao=new FactoryDao(self::getGestorDefault());
@@ -137,15 +130,6 @@ class FacturaFacade {
      $result = $facturaDao->listByCliente($Cliente_idcliente);
      $facturaDao->close();
      return $result;
-  }
-
-  public static function listarFacturaCliente($cliente_id){
-    $FactoryDao=new FactoryDao(self::getGestorDefault());
-    $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
-    $result = $facturaDao->listarFacturaCliente($cliente_id);
-    $facturaDao->close();
-    return $result;
-
   }
 
 }

@@ -81,6 +81,11 @@ class Factura {
       $this->cliente_idcliente = $cliente_idcliente;
   }
 
+  public function get_data_formated(){
+    return  array('idfactura' => $this->idfactura,
+                  'fecha' => $this->fecha,
+                  'fac_descueto' => $this->fac_descueto);
+  }
 
 }
 //That`s all folks!
