@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-01-2020 a las 21:12:53
+-- Tiempo de generación: 10-01-2020 a las 23:18:23
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -38,7 +38,7 @@ CREATE TABLE `alquiler` (
   `producto_idprod` int(11) NOT NULL,
   `factura_idfactura` int(11) NOT NULL,
   `alq_stado` int(11) DEFAULT NULL,
-  `alq_devuelto` int(11) DEFAULT NULL
+  `alq_devuelto` text COMMENT 'Contiene el json con la informacion de las devoluciones'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -51,11 +51,11 @@ CREATE TABLE `cliente` (
   `idcliente` int(11) NOT NULL,
   `cliente_nombre` varchar(45) DEFAULT NULL,
   `cliente_apellido` varchar(45) DEFAULT NULL,
-  `cliente_cc` varchar(45) DEFAULT NULL,
+  `cliente_cc` varchar(15) DEFAULT NULL,
   `cliente_correo` varchar(45) DEFAULT NULL,
-  `cliente_telefono` varchar(100) NOT NULL,
+  `cliente_telefono` varchar(25) NOT NULL,
   `cliente_direccion` varchar(45) DEFAULT NULL,
-  `cliente_stado` int(11) DEFAULT '1'
+  `cliente_stado` int(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -63,10 +63,11 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `cliente_cc`, `cliente_correo`, `cliente_telefono`, `cliente_direccion`, `cliente_stado`) VALUES
-(1, 'Poncho', 'Martinez', '1234', 'asdasd@asdas.com', '520', 'asdasd adasdas', 1),
-(2, 'Diego', 'Ilario', '12345', 'eswasa@gmasd.com', '5412541', 'asasdas asd asd as das d as', 1),
-(3, 'Edward', 'Martinez', '214234235235', 'dasdasd@gmail.com', '3168274086', '540006zxvzczxc', 1),
-(4, 'fredy paolo', 'jaramillo', '12345687', 'fredyjaramillo@gmail.com', '3168274086', 'av 3 25 65 brr san mateo', 1);
+(1, 'Poncho', 'Martinez', '1234', 'asdasd@asdas.com', '520', 'asdasd adasdas', 0),
+(2, 'Diego', 'Ilario', '12345', 'eswasa@gmasd.com', '5412541', 'asasdas asd asd as das d as', 0),
+(3, 'Edward', 'Martinez', '214234235235', 'dasdasd@gmail.com', '3168274086', '540006zxvzczxc', 0),
+(4, 'fredy paolo', 'jaramillo', '12345687', 'fredyjaramillo@gmail.com', '3168274086', 'av 3 25 65 brr san mateo', 1),
+(5, 'Ponchito', 'Martinelli', '1234', 'ponchito@NC.com', '33233545', 'La modelo', 0);
 
 -- --------------------------------------------------------
 
@@ -77,8 +78,10 @@ INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `clien
 CREATE TABLE `factura` (
   `idfactura` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
-  `fac_descueto` varchar(45) DEFAULT NULL,
-  `cliente_idcliente` int(11) NOT NULL
+  `fac_descueto` int(11) NOT NULL DEFAULT '0',
+  `cliente_idcliente` int(11) NOT NULL,
+  `abonos` text,
+  `estado` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -100,24 +103,27 @@ CREATE TABLE `libro_diario` (
 CREATE TABLE `producto` (
   `idprod` int(11) NOT NULL,
   `prod_nombre` varchar(45) NOT NULL,
-  `prod_descripcion` varchar(45) DEFAULT NULL,
-  `prod_precio` varchar(45) DEFAULT NULL,
-  `prod_stock` varchar(45) DEFAULT NULL,
-  `prod_disponible` varchar(45) DEFAULT NULL,
-  `prod_reparacion` varchar(45) DEFAULT NULL,
-  `prod_danado` varchar(45) DEFAULT NULL,
+  `prod_descripcion` varchar(250) DEFAULT NULL,
+  `prod_precio` int(11) DEFAULT NULL,
+  `prod_stock` int(11) DEFAULT NULL,
+  `prod_alquilado` int(11) DEFAULT NULL,
+  `prod_reparacion` int(11) DEFAULT NULL,
+  `prod_danado` int(11) DEFAULT NULL,
   `prod_stado` int(11) NOT NULL DEFAULT '1',
-  `foto` varchar(100) NOT NULL
+  `foto` int(10) NOT NULL DEFAULT '7'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_disponible`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
-(1, 'Tablones', 'Tablones 4 mts', '7', '10', '10', '0', '0', 0, ''),
-(2, 'zxczczx', 'sdfsdfsdfsdf', '5', '20', '10', '0', '0', 1, ''),
-(3, 'cruceta', 'grande', '1000', '5', '5', '0', '0', 0, '');
+INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
+(1, 'asdasda', '84s5d4fsdf', 14, 5, 541, 5212, 554, 0, 7),
+(2, 'zxczczx', 'sdfsdfsdfsdf', 5, 20, 10, 0, 0, 1, 7),
+(3, 'cruceta', 'grande', 1000, 5, 5, 0, 0, 1, 7),
+(4, 'Formaleta', 'Un cuadrado de metal sin valor', 330, 4, 3, 1, 0, 1, 7),
+(5, 'fgnfgnfg', 'dfgdfgfdg', 544, 5, 24, 22, 2, 1, 7),
+(6, 'asdasd', 'asdsad', 14, 1, 1, 1, 1, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -127,7 +133,7 @@ INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_preci
 
 CREATE TABLE `transporte` (
   `idtransporte` int(11) NOT NULL,
-  `transporte_flete` varchar(45) DEFAULT NULL,
+  `transporte_flete` int(11) DEFAULT '0',
   `factura_idfactura` int(11) NOT NULL,
   `transporte_conductor` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -190,19 +196,13 @@ ALTER TABLE `alquiler`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `factura`
---
-ALTER TABLE `factura`
-  MODIFY `idfactura` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

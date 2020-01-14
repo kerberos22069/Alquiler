@@ -2,14 +2,14 @@
 
 //Este no fue hecho por Anarchy, pero las frases manuales también son chidas
 
-//include_once realpath('../dao/entities/GeneralDao.php');
 require_once realpath('../facade/GlobalController.php');
 $generalDao = GlobalController::getGeneralDaoInstance();
 $generalDao->comenzarTransaccion();
 try{
 
     include_once realpath('../facade/FacturaFacade.php');
-    $factura_id = obtenerUltimoConsecutivo();
+    //$factura_id = obtenerUltimoConsecutivo();
+    $factura_id = strip_tags($_POST['factura_id']);
     $fecha = date("Y-m-d H:i:s");
     $fac_descueto = strip_tags($_POST['descuento']);
     $Cliente_idcliente = strip_tags($_POST['cliente_id ']);
@@ -19,10 +19,12 @@ try{
 
     include_once realpath('../facade/TransporteFacade.php');
     $transporte_flete = strip_tags($_POST['transporte_flete']);
-    $factura= new Factura();
-            $factura->setIdfactura($factura_id);
-    $transporte_conductor = strip_tags($_POST['conductor_nombre']);
-    TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor);
+    if($transporte_flete != NULL && $transporte_flete != ""){
+        $factura= new Factura();
+                $factura->setIdfactura($factura_id);
+        $transporte_conductor = strip_tags($_POST['conductor_nombre']);
+        TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor);
+    }
 
     $alquileres = strip_tags($_POST['alquileres']);
     $alquileres = json_decode($alquileres);

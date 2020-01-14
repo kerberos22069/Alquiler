@@ -31,7 +31,7 @@
             <label class="col-sm-3 col-form-label"><b>Fecha :</b></label>
 
                                     <div class="col-sm-9 p-xs ">
-                                        <input value="<?php echo $fcha;?>"style="font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" type="text"  class="form-control" readonly></div>
+                                        <input id="inputfecha_inicio"value="<?php echo $fcha;?>"style="font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" type="text"  class="form-control" readonly></div>
                                 </div>
                      
                     </div>
@@ -45,7 +45,7 @@
                     </div></div>
 
                 <div class="row">
-                    <div class="col-lg-6" style="font-size: 12px; font-weight: bold; " >
+                    <div class="col-lg-4" style="font-size: 12px; font-weight: bold; " >
                       
                         <div class="form-group"  style="display: none">
                             <label for="Inputid">id</label>
@@ -85,7 +85,7 @@
                     </div>
 
 
-                    <div class="col-lg-6" style="font-size: 12px; font-weight: bold; ">
+                    <div class="col-lg-4" style="font-size: 12px; font-weight: bold; ">
                         <!--<div class="container">-->
 
      <div class=" row">
@@ -104,6 +104,10 @@
                                     <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputflete" name="flete" class="form-control" readonly></div>
                                 </div>
 
+                    </div>
+                    
+                    <div class="col-lg-4" style="font-size: 12px; font-weight: bold; ">
+                        
                     </div>
 
                 </div>
@@ -372,35 +376,59 @@
         }    
         
         
-    var prod_alq = [];    
+    var prod_alq = [];   
+ 
+    function enviarFactura(){    
+        recorrerTabla();            
+        var nun_factura=document.getElementById("Inputnum_factura").value;      
+        var clienete=document.getElementById("Inputid").value;
+        var correo=document.getElementById("Inputcorreo").value;
+        var nombre=document.getElementById("Inputnombres").value;
+  //      var flete=document.getElementById("Inputflete").value;
+        var flete='0';
+        var fecha=document.getElementById("inputfecha_inicio").value;
+        var descuent='0';
         
-           function enviarFactura(){    
-          recorrerTabla();     
-             
-             
-      var clienete=document.getElementById("Inputid").value;
-      var correo=document.getElementById("Inputcorreo").value;
-      var nombre=document.getElementById("Inputnombres").value;
-      var nun_factura=document.getElementById("Inputnum_factura").value;
-      var tablanombre=prod_alq;
-      
-      var enviar = nun_factura+"-"+clienete+"-"+nombre+"-"+correo+"-"+tablanombre;
-      
-      
-           alert(enviar);
-//        $.get('../back/controller/Factura_insert.php', {'enviar': enviar},function(depa){      
-//           }
-//        }); 
+        var tablanombre='{alquileres:['+prod_alq+']};';
+        
 
-      }
-//        $(document).ready(function () {
-//
-//
-//            cargareNum_Factura();
-////              emp=0;
-////             Productos_Vender(emp);
-//        });
+//        alert(tablanombre);
         
+      var parametros = {
+                "factura_id" : nun_factura,
+                "fecha_inicio" : fecha,
+                "descuento" : descuent,
+                "cliente_id" : clienete,
+                "transporte_flete" : flete
+        };
+        console.log(parametros);
+        $.ajax({
+                data:  parametros, //datos que se envian a traves de ajax
+                url:   '../back/controller/crearFactura.php', //archivo que recibe la peticion
+                type:  'post', //método de envio
+                beforeSend: function () {
+                        $("#resultado").html("Procesando, espere por favor...");
+                       
+                },
+                success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                        $("#resultado").html(response);
+                        console.log(response);
+                },
+                error:function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                        $("#resultado").html(response);
+                }
+        });
+
+
+
+
+      };
+      
+
+
+
+
+
         
         $('#visibilityHidden').click(function(e) {
   
@@ -419,8 +447,8 @@
      $("#mytable tbody tr").each(function (index) {
 //         alert(index);
 //         console.log( $(this));
-var text = '{ "productos" : [' ;
-var text3 = ']}' ;
+
+
 if(index!=0){
 //    alert('asdasd');
           var campo1, campo2, campo3;
@@ -440,9 +468,10 @@ if(index!=0){
             })
             
 //         alert(campo1 + ' - ' + campo2 + ' - ' + campo3);
-var text2='{ "id_producto":"'+campo1+'" , "cantidad":"'+campo2+'", "valor":"'+campo3+'" },';
+var text2='{ "id_producto":"'+campo1+'" , "cantidad":"'+campo2+'", "valor":"'+campo3+'" }';
 
-       prod_alq.push(text2)
+
+         prod_alq.push(text2)   ;
 
 //alert(text2);
 }
@@ -497,7 +526,9 @@ function multiplicar(){
     m1=0;
     canti=0;
     stock1=0;
-    
+    if(canti>0){
+        
+    }
        canti = document.getElementById("Inputcanti").value;  
        stock1 = document.getElementById("Inputproct_stock").value;  
        if(stock1<canti){

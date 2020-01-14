@@ -195,6 +195,45 @@ $fac_descueto=$factura->getFac_descueto();
       }
   }
 
+  public function consultarProductoNoDevueltosByFactura($factura_id){
+    try {
+      //Consulto el id de los productos, la cantidad alquilada y el json con la informacion de devolucion.
+      //La idea es iterar sobre el Json para contar la cantidad de productos anexados y compararla con la cantidad alquilada
+      $sql = "SELECT `idalquiler`, `producto_idprod`, `prod_nombre`, `cantidad`, `alq_devuelto` 
+              FROM `alquiler`
+              INNER JOIN `producto`
+              ON  `alquiler`.`producto_idprod` = `producto`.`idprod`
+              WHERE `factura_idfactura` = $factura_id";
+      $data = $this->ejecutarConsulta($sql);
+      $rta = array();
+      for ($i=0; $i < count($data) ; $i++) {      
+        if(!empty($data[$i]['alq_devuelto'])){
+          // Formatear el text en un json [ { cantidad: "", fecha: "", estado: "" },{...}]
+          $alq_devuelto = json_decode($data[$i]['alq_devuelto']);
+          // cantidad de productos devueltos
+          $cant_devuelto = 0;
+          // Itero cada devolucion y sumo la cantidad de cada devolucion
+          foreach ($alq_devuelto as $devolucion) {
+            $cant_devuelto = $cant_devuelto + $devolucion['cantidad'];
+          }
+          //Cuando la cantidad devuelto sea menor que la cantidad alquilada significa que todavia faltan por entregar
+          if( $cant_devuelto < $data[$i]['cantidad'] ){
+            array_push($rta, array( 'alquiler_id' => $data[$i]['idalquiler'], 
+                                    'producto_nombre' => $data[$i]['prod_nombre'],
+                                    'devoluciones' => $alq_devuelto,
+                                    'cant_faltante' => ($data[$i]['cantidad'] - $cant_devuelto)
+                                  )
+                      );
+          }
+        }       
+      }
+      return $rta;
+    } catch (SQLException $e) {
+        throw new Exception('Primary key is null');
+        return null;
+    }
+  }
+
       public function insertarConsulta($sql){
           $this->cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $sentencia=$this->cn->prepare($sql);

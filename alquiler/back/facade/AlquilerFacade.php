@@ -144,6 +144,32 @@ class AlquilerFacade {
      return $result;
   }
 
+  public static function devolver($idalquiler, $cantidad, $estado = 0){
+      $alquiler = self::select($idalquiler);
+      
+      $arrayDevoluciones = json_decode($alquiler->getAlq_devuelto());
+      $nuevaDev= new stdClass();
+      $nuevaDev->fecha = date("Y-m-d H:i:s");
+      $nuevaDev->cantidad = $cantidad;
+      $nuevaDev->estado = $estado;
+      array_push($arrayDevoluciones, $nuevaDev);
+      $alquiler->setAlq_devuelto(json_encode($arrayDevoluciones));
+      
+      $alquiler->setCantidad($alquiler->getCantidad() - $cantidad);
+
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $alquilerDao =$FactoryDao->getalquilerDao(self::getDataBaseDefault());
+     $alquilerDao->update($alquiler);
+     $alquilerDao->close();
+  }
+
+  public static function editarAlquiler($alquiler){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $alquilerDao =$FactoryDao->getalquilerDao(self::getDataBaseDefault());
+     $rta = $alquilerDao->editarAlquiler($alquiler);
+     $alquilerDao->close();
+     return $rta;
+  }
 
 }
 //That`s all folks!

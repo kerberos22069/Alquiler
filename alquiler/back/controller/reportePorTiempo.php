@@ -15,10 +15,13 @@ $fecha_fin = strip_tags($_POST['fecha_fin']);
 $facturas =FacturaFacade::listRange($fecha_ini, $fecha_fin);
 
 foreach ($facturas as $obj => $Factura) {
+    
+    $myFactura = new stdClass();
     $myFactura->id=$Factura->getidfactura();
     $myFactura->fecha=$Factura->getfecha();
     
     $cliente = ClienteFacade::select($Factura->getcliente_idcliente()->getidcliente()); //por esto es que odio el formato workbench...
+    $myCliente = new stdClass();
     $myCliente->cliente_id=$cliente->getidcliente();
     $myCliente->cliente_cedula=$cliente->getcliente_cc();
     $myCliente->cliente_nombre=$cliente->getcliente_nombre().$cliente->getcliente_apellido();
@@ -33,6 +36,7 @@ foreach ($facturas as $obj => $Factura) {
         //Sacrifico rendimiento por simpleza de desarrollo
         //si algún día molesta, se duplica el método en el dao con un Join y ya
         $producto = ProductoFacade::select($Alquiler->getProducto_idprod()->getIdprod());
+        $myAlquiler = new stdClass();
         $myAlquiler->producto_nombre = $producto->getprod_nombre();
         
         $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();
