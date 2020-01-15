@@ -207,21 +207,6 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
       }
   }
 
-    public function editarAlquiler($alquiler){
-      $idalquiler = $alquiler->getIdalquiler();
-      $cantidad = $alquiler->getCantidad();
-      $valor = $alquiler->getValor();
-      try {
-
-          $sql= "UPDATE `alquiler` SET `cantidad`='$cantidad' ,`valor`='$valor' WHERE `idalquiler`='$idalquiler' ";
-          $this->insertarConsulta($sql);
-          return true;
-      } catch (SQLException $e) {
-          throw new Exception('Primary key is null');
-          return false;
-      }
-  }
-
       public function insertarConsulta($sql){
           $this->cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $sentencia=$this->cn->prepare($sql);

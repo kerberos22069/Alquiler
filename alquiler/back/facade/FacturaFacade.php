@@ -138,7 +138,31 @@ class FacturaFacade {
      $facturaDao->close();
      return $result;
   }
+  
+  public static function abonar($factura_id,$cantidad){
+      $factura = self::select($factura_id);
+      $abonos = json_decode($factura->getAbonos());
 
+      $myAbono = new stdClass();
+      $myAbono->fecha = $fecha = date("Y-m-d H:i:s");
+      $myAbono->cantidad = $cantidad;
+      
+      array_push($abonos, $myAbono);
+      $factura->setAbonos($abonos);
+      
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
+     $facturaDao->update($factura);
+     $facturaDao->close();
+  }
+
+   public static function listByCliente($Cliente_idcliente){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
+     $result = $facturaDao->listByCliente($Cliente_idcliente);
+     $facturaDao->close();
+     return $result;
+  }
 
   public static function consultarProductoNoDevueltosByFactura($factura_id){
     $FactoryDao=new FactoryDao(self::getGestorDefault());

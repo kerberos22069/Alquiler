@@ -1,7 +1,7 @@
 <?php
 
-//Hecho a mano por el Benévolo señor Arciniegas
-//Cualquier cosa para perder tiempo XD
+//Hecho a mano por el benévolo señor Arciniegas
+//Vivir es absurdo, pero suicidarse lo es aún más
 
 $rta= array();
 
@@ -13,6 +13,8 @@ $Cliente_idcliente = strip_tags($_POST['cliente_id']);
 $facturas =FacturaFacade::listByCliente($Cliente_idcliente);
 
 foreach ($facturas as $obj => $Factura) {
+    $abierta=false;
+    
     $myFactura = new stdClass();
     $myFactura->id=$Factura->getidfactura();
     $myFactura->fecha=$Factura->getfecha();
@@ -32,6 +34,18 @@ foreach ($facturas as $obj => $Factura) {
         
         $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();
         
+        $jsonDev = $Alquiler->getAlq_devuelto();
+        if($jsonDev != NULL && $jsonDev != ""){
+            $arrayDevoluciones = json_decode($jsonDev);
+            $totalDevuelto = 0;
+            foreach ($arrayDevoluciones as $key => $devuelto) {
+                $totalDevuelto += $devuelto->cantidad;
+            }
+            if($totalDevuelto != $Alquiler->getCantidad()){
+                $abierta = true;
+            }
+        }
+        
         $myAlquiler->cantidad = $Alquiler->getCantidad();
             $date1 = new DateTime($Alquiler->getFecha_inicio());
             $date2 = new DateTime($Alquiler->getFecha_fin());
@@ -42,7 +56,9 @@ foreach ($facturas as $obj => $Factura) {
         $myFactura->total = $myFactura->total + ($myAlquiler->cantidad * $myAlquiler->dias * $myAlquiler->valor);
         array_push($myFactura->alquileres, $myAlquiler);
     }
-    array_push($rta, $myFactura);
+    if($abierta){
+        array_push($rta, $myFactura);
+    }
 }
 
 echo json_encode($rta);

@@ -11,7 +11,7 @@ include_once realpath('../facade/FacturaFacade.php');
 */
 
 $factura_id = $_GET['factura_id'];
- 
+
 
 $facturas = FacturaFacade::consultarProductoNoDevueltosByFactura($factura_id);
 

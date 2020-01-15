@@ -78,7 +78,7 @@ class Alquiler {
   public function getValor(){
       return $this->valor;
   }
- 
+
     /**
      * Modifica el valor correspondiente a valor
      * @param valor
