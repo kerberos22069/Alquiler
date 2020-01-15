@@ -324,20 +324,14 @@ function descargarInfomeCedula(){
 	Buscar todas las facturas abiertas, es decir, aquellas que todavia no se han cerrado y no tiene recibo.
 */
 function buscar_facturas_abiertas() {
-	cedula = document.getElementById("b_cedula").value;
-	$.ajax({
-    	data:  JSON.stringify( { "cliente_cedula" : cedula } ),          
-	    type: "POST",
-	    dataType: "json",
-	    url: "/back/controller/listarFacturasAbiertasCliente.php",
-	    })
-	     .done(function( data, textStatus, jqXHR ) {
-	        pintar_facturas(data);
-
-	     })
-	     .fail(function( jqXHR, textStatus, errorThrown ) {
-	        alert("La solicitud a fallado: " +  textStatus);
-	    });
+    cedula = document.getElementById("b_cedula").value;
+    $.post("../back/controller/listarFacturasAbiertasCliente.php",{ "cliente_cedula" : cedula } , 
+    function(data,state){
+         console.log(JSON.stringify(data));
+           pintar_facturas(data);
+     });
+	
+	
 }
 
 /*

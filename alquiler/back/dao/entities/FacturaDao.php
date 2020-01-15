@@ -155,12 +155,13 @@ $fac_descueto=$factura->getFac_descueto();
       }
   }
   
-  public function listByCliente($Cliente_idcliente){
+  public function listByCliente($Cliente_cedula){
       $lista = array();
       try {
           $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`"
-          ."FROM `factura`"
-          ."WHERE `cliente_idcliente` = ".$Cliente_idcliente;
+          ."FROM `factura` f "
+          ."INNER JOIN `cliente` c ON f.`cliente_idcliente` = c.`idcliente`"
+          ."WHERE  c.`cliente_cc` = ".$Cliente_cedula;
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $factura= new Factura();

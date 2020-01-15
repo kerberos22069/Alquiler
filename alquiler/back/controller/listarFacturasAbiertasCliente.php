@@ -9,7 +9,7 @@ include_once realpath('../facade/FacturaFacade.php');
 include_once realpath('../facade/AlquilerFacade.php');
 include_once realpath('../facade/ProductoFacade.php');
 
-$Cliente_idcliente = strip_tags($_POST['cliente_id']);
+$Cliente_idcliente = strip_tags($_POST['cliente_cedula']);
 $facturas =FacturaFacade::listByCliente($Cliente_idcliente);
 
 foreach ($facturas as $obj => $Factura) {
