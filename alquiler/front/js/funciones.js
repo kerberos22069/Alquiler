@@ -27,6 +27,13 @@ function facturas_Devolucion() {
      enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
 }
 
+function reciboPorAlquiler() {  
+    var url = "reciboPorAlquiler.html";
+    var datos = {};
+    var rta = "#mostrarcontenido";
+    ajax(url, datos, rta);
+}
+
 //function ValidarNit(nit) {
 //    var url = "./php/validarnit.php?nit=" + nit;
 //    var datos = {};
