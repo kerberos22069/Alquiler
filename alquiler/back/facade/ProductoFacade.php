@@ -195,47 +195,6 @@ class ProductoFacade {
      return $result;
   }
 
-  public static function cambiarEstado($producto_id,$producto_estadoAnterior,$producto_estadoNuevo,$producto_cantidad){
-      $producto = self::select($producto_id);
-      
-      switch ($producto_estadoAnterior){
-          case 0:{
-                $nuevoStock = $producto->getProd_stock() - $producto_cantidad;
-                $producto->setProd_stock($nuevoStock); 
-          }
-          //case 1:{}Reservado para alquilado, pero este método no lo toca
-          case 2:{
-                $nuevoRep = $producto->getProd_reparacion() - $producto_cantidad;
-                $producto->setProd_reparacion($nuevoRep); 
-          }
-          case 3:{
-                $nuevoDan = $producto->getProd_danado() - $producto_cantidad;
-                $producto->setProd_danado($nuevoDan); 
-          }
-      }
-      
-      switch ($producto_estadoNuevo){
-          case 0:{
-                $nuevoStock = $producto->getProd_stock() + $producto_cantidad;
-                $producto->setProd_stock($nuevoStock); 
-          }
-          //case 1:{}Reservado para alquilado, pero este método no lo toca
-          case 2:{
-                $nuevoRep = $producto->getProd_reparacion() + $producto_cantidad;
-                $producto->setProd_reparacion($nuevoRep); 
-          }
-          case 3:{
-                $nuevoDan = $producto->getProd_danado() + $producto_cantidad;
-                $producto->setProd_danado($nuevoDan); 
-          }
-      }
 
-     $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
-     $productoDao->update($producto);
-     $productoDao->close();
-  }
-  
-  
 }
 //That`s all folks!

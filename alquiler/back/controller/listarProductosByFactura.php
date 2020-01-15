@@ -9,8 +9,7 @@ include_once realpath('../facade/ProductoFacade.php');
 $factura_id = strip_tags($_POST['factura_id']);
 
 $alquileres = AlquilerFacade::listByFactura($factura_id);
-$myFactura = new stdClass();
-$myFactura->alquileres = array();
+$myFactura = array();
 foreach ($alquileres as $objx => $Alquiler) {
     //Sacrifico rendimiento por simpleza de desarrollo
     //si algún día molesta, se duplica el método en el dao con un Join y ya

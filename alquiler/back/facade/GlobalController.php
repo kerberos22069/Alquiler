@@ -7,7 +7,6 @@
 
 //    Un generador de código no basta. Ahora debo inventar también un generador de frases tontas  \\
     require_once realpath('../dao/factory/FactoryDao.php');
-    include_once realpath('../dao/entities/GeneralDao.php');
 
 /**
    * Para su comodidad, defina aquÃ­ el gestor de conexiÃ³n predilecto para su proyecto
@@ -21,8 +20,7 @@
     class GlobalController{
     
     static function getGeneralDaoInstance(){
-        $FactoryDao=new FactoryDao(DEFAULT_GESTOR);
-        return $FactoryDao->getGeneralDao(DEFAULT_DBNAME);
+        return FactoryDao::getGeneralDao(DEFAULT_DBNAME);
     }
     
     }

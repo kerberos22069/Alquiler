@@ -16,7 +16,6 @@ foreach ($facturas as $obj => $Factura) {
     $myFactura = new stdClass();
     $myFactura->id=$Factura->getidfactura();
     $myFactura->fecha=$Factura->getfecha();
-    $myFactura->abonos=$Factura->getAbonos();
     
     $myFactura->total = 0 - $Factura->getfac_descueto();
     $myFactura->alquileres = array();
