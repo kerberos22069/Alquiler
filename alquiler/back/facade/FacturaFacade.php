@@ -156,6 +156,14 @@ class FacturaFacade {
      $facturaDao->close();
   }
 
+   public static function listByCliente($Cliente_idcliente){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
+     $result = $facturaDao->listByCliente($Cliente_idcliente);
+     $facturaDao->close();
+     return $result;
+  }
+
   public static function consultarProductoNoDevueltosByFactura($factura_id){
     $FactoryDao=new FactoryDao(self::getGestorDefault());
     $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
