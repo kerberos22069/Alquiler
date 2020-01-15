@@ -31,10 +31,11 @@ private $cn;
       $idfactura=$factura->getIdfactura();
 $fecha=$factura->getFecha();
 $fac_descueto=$factura->getFac_descueto();
+$cliente_id = $factura->getCliente_idcliente()->getIdcliente();
 
       try {
-          $sql= "INSERT INTO `factura`( `idfactura`, `fecha`, `fac_descueto`)"
-          ."VALUES ('$idfactura','$fecha','$fac_descueto')";
+          $sql= "INSERT INTO `factura`( `idfactura`, `fecha`, `fac_descueto`,`cliente_idcliente`,`abonos`)"
+          ."VALUES ('$idfactura','$fecha','$fac_descueto','$cliente_id','[]')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
