@@ -13,7 +13,7 @@ $facturas = FacturaFacade::listByCliente($my_json_input['cliente_id']);
 $rta = array();
 
 foreach ($facturas as $factura) {
-	array_push($rta, $factura->get_data_formated());
+	array_push($rta, $factura->get_data_formated())
 }
 
 header("Content-type: application/json; charset=utf-8");

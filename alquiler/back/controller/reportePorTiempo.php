@@ -19,7 +19,6 @@ foreach ($facturas as $obj => $Factura) {
     $myFactura = new stdClass();
     $myFactura->id=$Factura->getidfactura();
     $myFactura->fecha=$Factura->getfecha();
-    $myFactura->abonos=$Factura->getAbonos();
     
     $cliente = ClienteFacade::select($Factura->getcliente_idcliente()->getidcliente()); //por esto es que odio el formato workbench...
     $myCliente = new stdClass();
