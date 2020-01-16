@@ -389,7 +389,7 @@
         var fecha=document.getElementById("inputfecha_inicio").value;
         var descuent='0';
         
-        var tablanombre='{alquileres:['+prod_alq+']};';
+        var alquileres='['+prod_alq+']';
         
 
 //        alert(tablanombre);
@@ -399,9 +399,9 @@
                 "fecha_inicio" : fecha,
                 "descuento" : descuent,
                 "cliente_id" : clienete,
-                "transporte_flete" : flete
+                "transporte_flete" : flete,
+                "alquileres": alquileres
         };
-        console.log(parametros);
         $.ajax({
                 data:  parametros, //datos que se envian a traves de ajax
                 url:   '../back/controller/crearFactura.php', //archivo que recibe la peticion
@@ -444,6 +444,7 @@
 
  function recorrerTabla() {
 //     alert();
+    prod_alq = [];
      $("#mytable tbody tr").each(function (index) {
 //         alert(index);
 //         console.log( $(this));
@@ -469,7 +470,6 @@ if(index!=0){
             
 //         alert(campo1 + ' - ' + campo2 + ' - ' + campo3);
 var text2='{ "id_producto":"'+campo1+'" , "cantidad":"'+campo2+'", "valor":"'+campo3+'" }';
-
 
          prod_alq.push(text2)   ;
 

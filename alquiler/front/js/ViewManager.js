@@ -168,17 +168,13 @@ function preFacturaList(container){
      //Maneje aquÃ­ la respuesta del servidor.
      if(state=="success"){
          var json=JSON.parse(result);
-         if(json[0].msg=="exito"){
-
-            for(var i=1; i < Object.keys(json).length; i++) {   
+         console.log(json);
+            for(var i=0; i < Object.keys(json).length; i++) {   
                 var Factura = json[i];
                 //----------------- Para una tabla -----------------------
-                document.getElementById("FacturaList").appendChild(createTR(Factura));
+                document.getElementById("FacturasList").appendChild(createTR(Factura));
                 //-------- Para otras opciones ver htmlBuilder.js ---------
             }
-         }else{
-            alert(json[0].msg);
-         }
      }else{
          alert("Hubo un errror interno ( u.u)\n"+result);
      }

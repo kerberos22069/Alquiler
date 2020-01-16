@@ -31,11 +31,11 @@ private $cn;
       $idfactura=$factura->getIdfactura();
 $fecha=$factura->getFecha();
 $fac_descueto=$factura->getFac_descueto();
-$cliente_id = $factura->getCliente_idcliente()->getIdcliente();
+$idCliente = $factura->getCliente_idcliente()->getIdcliente();
 
       try {
-          $sql= "INSERT INTO `factura`( `idfactura`, `fecha`, `fac_descueto`,`cliente_idcliente`,`abonos`)"
-          ."VALUES ('$idfactura','$fecha','$fac_descueto','$cliente_id','[]')";
+          $sql= "INSERT INTO `factura`( `idfactura`, `fecha`, `fac_descueto`, `abonos`, `cliente_idcliente`)"
+          ."VALUES ('$idfactura','$fecha','$fac_descueto','[]','$idCliente')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -52,7 +52,7 @@ $cliente_id = $factura->getCliente_idcliente()->getIdcliente();
       $idfactura=$factura->getIdfactura();
 
       try {
-          $sql= "SELECT `idfactura`, `fecha`, `fac_descueto`"
+          $sql= "SELECT `idfactura`, `fecha`, `fac_descueto`, `abonos`"
           ."FROM `factura`"
           ."WHERE `idfactura`='$idfactura'";
           $data = $this->ejecutarConsulta($sql);
@@ -60,6 +60,7 @@ $cliente_id = $factura->getCliente_idcliente()->getIdcliente();
           $factura->setIdfactura($data[$i]['idfactura']);
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
+          $factura->setAbonos($data[$i]['abonos']);
 
           }
       return $factura;      } catch (SQLException $e) {
@@ -78,9 +79,9 @@ $cliente_id = $factura->getCliente_idcliente()->getIdcliente();
       $idfactura=$factura->getIdfactura();
 $fecha=$factura->getFecha();
 $fac_descueto=$factura->getFac_descueto();
-
+$abonos = $factura->getAbonos();
       try {
-          $sql= "UPDATE `factura` SET`idfactura`='$idfactura' ,`fecha`='$fecha' ,`fac_descueto`='$fac_descueto' WHERE `idfactura`='$idfactura' ";
+          $sql= "UPDATE `factura` SET`idfactura`='$idfactura' ,`fecha`='$fecha' ,`fac_descueto`='$fac_descueto' , `abonos`='$abonos' WHERE `idfactura`='$idfactura' ";
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -112,7 +113,7 @@ $fac_descueto=$factura->getFac_descueto();
   public function listAll(){
       $lista = array();
       try {
-          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`"
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`, `abonos`"
           ."FROM `factura`"
           ."WHERE 1";
           $data = $this->ejecutarConsulta($sql);
@@ -122,6 +123,7 @@ $fac_descueto=$factura->getFac_descueto();
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
           $factura->setCliente_idcliente($data[$i]['cliente_idcliente']);
+          $factura->setAbonos($data[$i]['abonos']);
 
           array_push($lista,$factura);
           }
@@ -135,7 +137,7 @@ $fac_descueto=$factura->getFac_descueto();
   public function listRange($fecha_ini, $fecha_fin){
       $lista = array();
       try {
-          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`"
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`, `abonos`"
           ."FROM `factura`"
           ."WHERE `fecha` BETWEEN ".$fecha_ini." AND ".$fecha_fin;
           $data = $this->ejecutarConsulta($sql);
@@ -145,6 +147,7 @@ $fac_descueto=$factura->getFac_descueto();
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
           $factura->setCliente_idcliente($data[$i]['cliente_idcliente']);
+          $factura->setAbonos($data[$i]['abonos']);
 
           array_push($lista,$factura);
           }
@@ -155,19 +158,19 @@ $fac_descueto=$factura->getFac_descueto();
       }
   }
   
-  public function listByCliente($Cliente_cedula){
+  public function listByCliente($Cliente_idcliente){
       $lista = array();
       try {
-          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`"
-          ."FROM `factura` f "
-          ."INNER JOIN `cliente` c ON f.`cliente_idcliente` = c.`idcliente`"
-          ."WHERE  c.`cliente_cc` = ".$Cliente_cedula;
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `abonos`"
+          ."FROM `factura`"
+          ."WHERE `cliente_idcliente` = ".$Cliente_idcliente;
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $factura= new Factura();
           $factura->setIdfactura($data[$i]['idfactura']);
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
+          $factura->setAbonos($data[$i]['abonos']);
 
           array_push($lista,$factura);
           }
@@ -207,8 +210,8 @@ $fac_descueto=$factura->getFac_descueto();
               ON  `alquiler`.`producto_idprod` = `producto`.`idprod`
               WHERE `factura_idfactura` = $factura_id";
       $data = $this->ejecutarConsulta($sql);
-      $rta = array();
-      for ($i=0; $i < count($data) ; $i++) {      
+      for ($i=0; $i < count($data) ; $i++) {
+        $rta = array();
         if(!empty($data[$i]['alq_devuelto'])){
           // Formatear el text en un json [ { cantidad: "", fecha: "", estado: "" },{...}]
           $alq_devuelto = json_decode($data[$i]['alq_devuelto']);
