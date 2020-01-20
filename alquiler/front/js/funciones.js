@@ -11,12 +11,20 @@ function ajax(url, datos, rta) {
     return ajax;
 }
 
-function facturas_listas() {  
+function facturas_listas() {   
     var url = "Factura_List.php";
     var datos = {};
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);
-     enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
+    enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
+}
+
+function facturas_by_fecha(){
+    var url = "factura_by_fecha.php";
+    var datos = {};
+    var rta = "#mostrarcontenido";
+    ajax(url, datos, rta);
+    //enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
 }
 
 function facturas_Devolucion() {  
