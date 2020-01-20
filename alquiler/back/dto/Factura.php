@@ -14,6 +14,7 @@ class Factura {
   private $fecha;
   private $fac_descueto;
   private $cliente_idcliente;
+  private $abonos;
 
     /**
      * Constructor de Factura
@@ -81,10 +82,19 @@ class Factura {
       $this->cliente_idcliente = $cliente_idcliente;
   }
 
+<<<<<<< HEAD
   public function get_data_formated(){
     return  array('idfactura' => $this->idfactura,
                   'fecha' => $this->fecha,
                   'fac_descueto' => $this->fac_descueto);
+=======
+  public function getAbonos(){
+      return $this->abonos;
+  }
+  
+  public function setAbonos($abonos){
+      $this->abonos = $abonos;
+>>>>>>> 354430618f79e383c1aa795dbb5dfa6c455ba818
   }
 
 }

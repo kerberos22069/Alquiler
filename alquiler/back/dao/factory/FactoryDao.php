@@ -9,6 +9,7 @@
 
 include_once realpath('../dao/conexion/Conexion.php');
 include_once realpath('../dao/interfaz/IFactoryDao.php');
+include_once realpath('../dao/entities/GeneralDao.php');
 
 class FactoryDao implements IFactoryDao{
 	
@@ -71,7 +72,7 @@ class FactoryDao implements IFactoryDao{
         return new TransporteDao($this->conn->obtener($dbName));
     }
     
-    public static function getGeneralDao($dbName){
+    public function getGeneralDao($dbName){
         return new GeneralDao($this->conn->obtener($dbName));
     }
 

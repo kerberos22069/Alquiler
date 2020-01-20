@@ -78,29 +78,21 @@
                         // console.log($("#ClientesInsert").serialize());
 
                         //  echo jason_encode('error');
-
                         $.ajax({
                             type: "POST",
                             url: url1,
                             data: $("#ClienteInsert").serialize(),
 
                             success: function (data) {
-
-                                //   console.log('rpta'+data);
-                                // alert(data);
                                 data = JSON.parse(data);
+                              console.log(data);
                                 if (data == 1) {
-
-
-
                                     aceptarPersona();
-
                                 }
                                 if (data == 2) {
                                     errorPersonaCampos();
                                 } else {
-                                    //errorPersona();
-                                    errorPersonaInsert
+                                    errorPersonaInsert();
                                 }
 
                             }

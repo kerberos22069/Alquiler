@@ -12,7 +12,7 @@ class GeneralDao {
     }
 
     public function comenzarTransaccion(){
-        $this->cn->autocommit(false);
+        $this->cn->beginTransaction();
     }
     
     public function confirmarTransaccion(){
