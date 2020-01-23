@@ -4,7 +4,7 @@
 //Cualquier cosa para perder tiempo XD
 
 $rta= array();
-
+ 
 include_once realpath('../facade/FacturaFacade.php');
 include_once realpath('../facade/ClienteFacade.php');
 include_once realpath('../facade/AlquilerFacade.php');
