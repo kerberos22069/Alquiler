@@ -91,6 +91,10 @@
                         <ul class="nav nav-second-level collapse">
                             <li><a onclick="facturas_by_fecha()">Facturas por fecha</a></li>
                             <li><a onclick="facturas_Devolucion()">Facturas por usuario</a></li>
+                            <li><a onclick="reciboPorAlquiler()">Generar recibo por alquiler</a></li>
+                            <li><a onclick="facturas_Devolucion()">Inserte aqui</a></li>
+                            <li><a onclick="facturas_Devolucion()">Inserte aqui</a></li>
+                            <li><a onclick="facturas_Devolucion()">Inserte aqui</a></li>
                             <!--<li><a onclick="Reporte_fecha()">Reporte por Fecha</a></li>-->
                             
 

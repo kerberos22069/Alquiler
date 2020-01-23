@@ -24,7 +24,7 @@ foreach ($facturas as $obj => $Factura) {
     $myCliente = new stdClass();
     $myCliente->cliente_id=$cliente->getidcliente();
     $myCliente->cliente_cedula=$cliente->getcliente_cc();
-    $myCliente->cliente_nombre=$cliente->getcliente_nombre()." ".$cliente->getcliente_apellido();
+    $myCliente->cliente_nombre=$cliente->getcliente_nombre().$cliente->getcliente_apellido();
     
     $myFactura->cliente = $myCliente;
     $myFactura->total = 0 - $Factura->getfac_descueto();

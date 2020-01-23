@@ -3,7 +3,10 @@
     <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
         <!-- Sweet Alert -->
     <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
-  
+
+    
+
+    
 
     <div class="wrapper wrapper-content animated fadeInRight">
      
@@ -46,8 +49,6 @@
                         </div>
                     </div>
                 
-                <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" onClick="abrirModal()">Open Modal</button>
                 
                 <div class="ibox ">
                     
@@ -121,7 +122,7 @@
             </div>
         </div>
         
-        <div id="contenedorDelModal"><div class="modal inmodal" id="modalDevolver" tabindex="-1" role="dialog" >
+        <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
             
                                   
                                 <div class="modal-dialog modal-lg mdialTamanio">
@@ -132,54 +133,73 @@
                                             <h4 class="modal-title">Listar Usuarios</h4>
                                            
                                         </div>-->
-    <div class="modal-body">
+                                        <div class="modal-body">
                                               <div class="panel panel-default">
       <!--        <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>-->
               <div align=center class="panel-body">
-                  <div class="row">
-                                        <div class="col-lg-6">
+
+                      <!--<div class="row">-->
+    <!--<div class="col-lg-6">-->
                                          
-                                           
-                      <div class="form-group">
-                          <label for="Inputproduc_nombre">Nombre </label>
-                          <input type="text" name="produc_nombre" class="form-control" id="Inputproduc_nombre" placeholder="Nombre y Apellido" required>
+    <div class="row">
+        <div class="col-sm-6">
+               <div class="form-group">
+ 
+                          <label for="Inputproducto">Productos </label>
+                          <select  name="producto" class="form-control" id="Inputproducto"  onchange="mostrarDatosP(this.value);">
+                                   
+                                
+                             </select> 
                        </div>
-                      <div class="form-group">
-                          <label for="Inputprodc_descr">Cantidad</label>
-                          <input type="text" name="prodc_descr" class="form-control" id="Inputprodc_descr" placeholder="persona_direccion">
+        </div>
+        <div class="col-sm-3">
+             <div class="form-group">
+                          <label for="Inputpersona_nombre">Cantidad </label>
+                          <input type="number" name="canti" class="form-control" id="Inputcanti" placeholder="0" value=0 onChange="multiplicar();">
                        </div>
-               </div>
-                <div class="col-lg-6">
+        </div>
+        
+                      <div class="col-lg-3">
                                           <div class="form-group">
-                          <label for="Inputproct_stock">Valor</label>
+                          <label for="Inputproct_stock">Alquilado</label>
                           <input type="text" name="proct_stock" class="form-control" id="Inputproct_stock" placeholder="Telefono contacto" required>
-                       </div>
-                    
-                       <div class="form-group">
-                          <label for="Inputproc_dias">Días Prestamo</label>
-                          <input type="text" name="proc_dias" class="form-control" id="Inputproc_dias" placeholder="Telefono contacto" required>
-                       </div>                         
+                       </div>       
+                                            
+                      
                                         </div>
+      
+    </div>
+
+                          
+                
+                                            
+                                            <div class="form-group" style="display: none">
+                          <label for="Inputprodc_referencia">N# Ref </label>
+                          <input type="text" name="prodc_referencia" class="form-control" id="Inputprodc_referencia" placeholder="referencia" required>
+                       </div>
+                     
+<!--                                  </div>-->
+                          
+                          
+                          
+                          
+                          
                                     </div>
-                <div class="col-lg-6">
-                                          <div class="form-group">
-                          <label for="devolverParcialAlquiler">Cantidad a devolver</label>
-                          <input type="number" name="devolverParcialAlquiler" class="form-control" id="devolverParcialAlquiler" placeholder="0" value=0>
-                       </div>
-                    <button name="devolverParcial" id="devolverParcial" type="button" class="btn btn-primary" onClick="devolverParcial('aquí va el id XD')">Devolver parcial</button>
-                                        </div>
-                                    </div>      
+                      
   
           </div> <!-- panel -->
       </div>
                                         </div>
                                         <div class="modal-footer">
+                                            <button name="editar" id="adicionar"type="button" class="btn btn-primary" >Agregar</button>
+<!--                                            <button name="editar" id="editar" type="button" class="btn btn-primary" onclick="registraraProducto()">Agregar</button>-->
                                             <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                                     
                                            
                                         </div>
+                                                 </form>
                                     </div>
-                                </div></div>
+                                </div>
                             </div>       
         
         
@@ -300,11 +320,6 @@ function descargarInfomeCedula(){
 
   Reporte_cc();
 
-}
-
-function abrirModal(){
-    modal = $('#modalDevolver');
-    modal.modal({show: true});
 }
 </script>
 

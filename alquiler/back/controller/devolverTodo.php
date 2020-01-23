@@ -11,22 +11,24 @@ require_once realpath('../facade/GlobalController.php');
 $generalDao = GlobalController::getGeneralDaoInstance();
 $generalDao->comenzarTransaccion();
 try{
-    $idfactura = strip_tags($_POST['factura_id']);
+    $cliente_id = strip_tags($_POST['cliente_id']);
 
 
-    $Factura = FacturaFacade::select($idfactura);
-    $alquileres = AlquilerFacade::listByFactura($Factura->getidfactura());
-    foreach ($alquileres as $objx => $Alquiler) {
-        $jsonDev = $Alquiler->getAlq_devuelto();
-        if($jsonDev != NULL && $jsonDev != ""){
-            $arrayDevoluciones = json_decode($jsonDev);
-            $totalDevuelto = 0;
-            foreach ($arrayDevoluciones as $key => $devuelto) {
-                $totalDevuelto += $devuelto->cantidad;
-            }
-            if($totalDevuelto < $Alquiler->getCantidad()){
-                AlquilerFacade::devolver($Alquiler->getIdalquiler(),$Alquiler->getCantidad());
-                ProductoFacade::devolver($Alquiler->getProducto_idprod(), $Alquiler->getCantidad());
+    $facturas = FacturaFacade::listByCliente($cliente_id);
+    foreach ($facturas as $obj => $Factura) {
+        $alquileres = AlquilerFacade::listByFactura($Factura->getidfactura());
+        foreach ($alquileres as $objx => $Alquiler) {
+            $jsonDev = $Alquiler->getAlq_devuelto();
+            if($jsonDev != NULL && $jsonDev != ""){
+                $arrayDevoluciones = json_decode($jsonDev);
+                $totalDevuelto = 0;
+                foreach ($arrayDevoluciones as $key => $devuelto) {
+                    $totalDevuelto += $devuelto->cantidad;
+                }
+                if($totalDevuelto == $Alquiler->getCantidad()){
+                    AlquilerFacade::devolver($Alquiler->getIdalquiler(),$Alquiler->getCantidad());
+                    ProductoFacade::devolver($Alquiler->getProducto_idprod(), $Alquiler->getCantidad());
+                }
             }
         }
     }

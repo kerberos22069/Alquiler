@@ -38,8 +38,8 @@ $producto_idprod=$alquiler->getProducto_idprod()->getIdprod();
 $factura_idfactura=$alquiler->getFactura_idfactura()->getIdfactura();
 
       try {
-          $sql= "INSERT INTO `alquiler`(`fecha_inicio`, `cantidad`, `valor`, `producto_idprod`, `factura_idfactura`,`alq_devuelto`,`alq_stado`)"
-          ."VALUES ('$fecha_inicio','$cantidad','$valor','$producto_idprod','$factura_idfactura','[]',0)";
+          $sql= "INSERT INTO `alquiler`(`fecha_inicio`, `cantidad`, `valor`, `producto_idprod`, `factura_idfactura`)"
+          ."VALUES ('$fecha_inicio','$cantidad','$valor','$producto_idprod','$factura_idfactura')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null \n' . $e->getMessage());
