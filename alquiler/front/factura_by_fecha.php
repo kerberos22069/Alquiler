@@ -63,33 +63,15 @@
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Cliente</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Fecha</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
-
                                        
-                                        <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
+                                        <th  style=" color:#FFFFFF; background-color: #616161  !important">Detalles</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devolver Todo</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Abonar</th>
 
 
                                     </tr>
                                 </thead>
                                 <tbody id="FacturasList">
-                                <tr class="gradeX footable-even" style="">
-                                    <td class="footable-visible footable-first-column">
-                                        01
-                                    </td>
-                                    <td class="footable-visible">
-                                        Pedro Perez                                       
-                                    </td>
-                                    <td class="footable-visible">
-                                        01/01/2020
-                                    </td>
-                                    <td class="center footable-visible">
-                                        80000
-                                    </td>
-                                    <td class="footable-visible footable-last-column">
-                                        <a onclick="mostrar_alquileres(1)">
-                                            <i class="fa fa-check text-navy"></i>
-                                        </a>
-                                    </td>                            
-                                </tr>    
 
                                 </tbody>
 
@@ -125,26 +107,36 @@
 
                         <div class="table-responsive" >
                             <table class="table table-striped" >
+                           <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
-                                    <tr>                                                        
+                                    <tr>
+                                                             
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">#</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Nombre</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Valor unitario</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Descripcion</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Dias</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devoluciones</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Precio</th>
+
+                                       
+                                      
+
                                     </tr>
                                 </thead>
-                                <tbody id="articulosList">
+                                <tbody id="FacturasList">
                                 <tr class="gradeX footable-even" style="">
-                                    <td class="footable-visible">Taladro</td>
+                                    <td class="footable-visible footable-first-column"><span class="footable-toggle"></span>01</td>
+                                    <td class="footable-visible">Taladro
+                                       
+                                    </td>
                                     <td class="footable-visible">42"</td>
                                     <td class="center footable-visible">2</td>
                                     <td class="center footable-visible">12000</td>
-                                    <td class="center footable-visible">2</td>
-                                    <td class="center footable-visible">12000</td>
+                                   
+<!--                                    <td class="center footable-visible footable-last-column">X</td>-->
                                 </tr>    
+
                                 </tbody>
+
                             </table>
                         </div>
 
@@ -251,7 +243,6 @@
 
                 success: function (data) {
                     facturas_global = JSON.parse(data);
-                    console.log(facturas_global);
                     mostrar_reporte(facturas_global);
                 }
             });
@@ -271,8 +262,12 @@
                 mi_tr.appendChild( td(data[i].fecha, "footable-visible"));
                 //total
                 mi_tr.appendChild( td(data[i].total, "footable-visible"));
-                //especial
-                mi_tr.appendChild( td_especial(data[i].id));  
+                //detalles
+                mi_tr.appendChild( td_detalles(data[i].id));  
+                //devolver todo
+                mi_tr.appendChild( td_devolver(data[i].id));
+                //abonar
+                mi_tr.appendChild( td_abonar(data[i].id));
 
              contenedor.appendChild(mi_tr);
             }
@@ -291,9 +286,9 @@
             return td;
         }
 
-        function td_especial(id_factura){
+        function td_detalles(id_factura){
             var td = document.createElement("td");        
-            td.setAttribute("class", "footable-visible footable-last-column");
+            td.setAttribute("class", "footable-visible");
             var a = document.createElement("a");
             aux = "mostrar_alquileres("+id_factura+")";
             a.setAttribute("onclick", aux);
@@ -303,71 +298,62 @@
             td.appendChild(a);          
             return td;
         }
-
-        function mostrar_alquileres(id_alquiler) {
-            contenedor = document.getElementById('articulosList'); 
-            contenedor.innerHTML = "";
-            alquiler = obtenerAlquileres(id_alquiler);
-            console.log(alquiler);
-            for(let i in alquiler){
-                mi_tr = tr("gradeX footable-even");
-                //Nombre
-                mi_tr.appendChild( td(alquiler[i].producto_nombre, "footable-visible") );
-                //Valor unitario
-                mi_tr.appendChild( td(alquiler[i].valor, "footable-visible") );
-                //Cantidad
-                mi_tr.appendChild( td(alquiler[i].cantidad, "footable-visible"));
-                //Dias
-                mi_tr.appendChild( td(alquiler[i].dias, "footable-visible"));
-                //Total
-                total = alquiler[i].valor * alquiler[i].cantidad * alquiler[i].dias;
-                mi_tr.appendChild( td(total, "footable-visible"));
-                //Devoluciones
-                mi_tr.appendChild( td(alquiler[i].devoluciones, "footable-visible"));
-
-             contenedor.appendChild(mi_tr);
-            }
-            console.log(contenedor);
-            $('#myModalDetalles').modal({show: true});
+        
+        function td_devolver(id_factura){
+            var td = document.createElement("td");        
+            td.setAttribute("class", "footable-visible");
+            var a = document.createElement("a");
+            aux = "devolverTodo("+id_factura+")";
+            a.setAttribute("onclick", aux);
+            var i = document.createElement("i");
+            i.setAttribute("class", "fa fa-check text-navy");
+            a.appendChild(i);
+            td.appendChild(a);          
+            return td;
+        }
+        function td_abonar(id_factura){
+            var td = document.createElement("td");        
+            td.setAttribute("class", "footable-visible");
+            var a = document.createElement("a");
+            aux = "abrirModalAbono("+id_factura+")";
+            a.setAttribute("onclick", aux);
+            var i = document.createElement("i");
+            i.setAttribute("class", "fa fa-check text-navy");
+            a.appendChild(i);
+            td.appendChild(a);          
+            return td;
         }
 
-        function obtenerAlquileres(id_factura){
-            for(let i in facturas_global){
-                if(parseInt(facturas_global[i].id, 10) === id_factura ){
-                    return facturas_global[i].alquileres;
-                }
-            }
-            return [];
+    function mostrar_alquileres(id_alquiler) {
+         $('#myModalDetalles').modal({show: true})
         }
-
-        function parsearDevoluciones(devoluciones){
-            rta = "";
-            for(let i in devoluciones){
-                rta += "Fecha: "+devoluciones.fecha+", Cantidad: "+devoluciones.cantidad;
-                //No se le olvide poner el estado
-            }
-
-
+        
+    function devolverTodo(factura_id){
+        var formData = {};
+        formData["factura_id"]=factura_id;
+        $.post('../back/controller/devolverTodo.php',formData, function(result,state){
+         postDevuelto(result,state);
+        });
+    }
+    
+    function postDevuelto(result,state){
+     //Maneje aquÃ­ la respuesta del servidor.
+     //Consideramos buena prÃ¡ctica no manejar cÃ³digo HTML antes de este punto.
+        if(state=="success"){
+             if(result=="exito"){            
+                alert("Devuelto con éxito");
+             }else{
+                alert("Hubo un errror en la petición ( u.u)\n"+result);
+                console.log(result);
+             } 		}else{
+                alert("Hubo un errror interno ( u.u)\n"+result);
         }
+    }
+    
+    function abrirModalAbono(factura_id){
+        alert("Abrir modal para abonar\n"+factura_id);
+    }
 
-        function obtenerEstado(estado){
-            switch (estado) {
-              case 0:
-                return "Buen estado";
-                break;
-              case 1: 
-                return "Alquiler";
-                break;               
-              case 2: 
-                return "Dañados"
-                break; 
-              case 3: 
-                return "En reparacion"
-                break; 
-              default:
-                return "Sin definir";
-            }
-        }
     </script>
 
     <script>
