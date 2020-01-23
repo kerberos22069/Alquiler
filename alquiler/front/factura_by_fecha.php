@@ -63,33 +63,15 @@
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Cliente</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Fecha</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
-
                                        
-                                        <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
+                                        <th  style=" color:#FFFFFF; background-color: #616161  !important">Detalles</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devolver Todo</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Abonar</th>
 
 
                                     </tr>
                                 </thead>
                                 <tbody id="FacturasList">
-                                <tr class="gradeX footable-even" style="">
-                                    <td class="footable-visible footable-first-column">
-                                        01
-                                    </td>
-                                    <td class="footable-visible">
-                                        Pedro Perez                                       
-                                    </td>
-                                    <td class="footable-visible">
-                                        01/01/2020
-                                    </td>
-                                    <td class="center footable-visible">
-                                        80000
-                                    </td>
-                                    <td class="footable-visible footable-last-column">
-                                        <a onclick="mostrar_alquileres(1)">
-                                            <i class="fa fa-check text-navy"></i>
-                                        </a>
-                                    </td>                            
-                                </tr>    
 
                                 </tbody>
 
@@ -280,8 +262,12 @@
                 mi_tr.appendChild( td(data[i].fecha, "footable-visible"));
                 //total
                 mi_tr.appendChild( td(data[i].total, "footable-visible"));
-                //especial
-                mi_tr.appendChild( td_especial(data[i].id));  
+                //detalles
+                mi_tr.appendChild( td_detalles(data[i].id));  
+                //devolver todo
+                mi_tr.appendChild( td_devolver(data[i].id));
+                //abonar
+                mi_tr.appendChild( td_abonar(data[i].id));
 
              contenedor.appendChild(mi_tr);
             }
@@ -300,9 +286,9 @@
             return td;
         }
 
-        function td_especial(id_factura){
+        function td_detalles(id_factura){
             var td = document.createElement("td");        
-            td.setAttribute("class", "footable-visible footable-last-column");
+            td.setAttribute("class", "footable-visible");
             var a = document.createElement("a");
             aux = "mostrar_alquileres("+id_factura+")";
             a.setAttribute("onclick", aux);
@@ -312,14 +298,61 @@
             td.appendChild(a);          
             return td;
         }
-
-        function mostrar_alquileres(id_alquiler) {
-            // body...
-            //alert("su id es: "+id_alquiler);
-$('#myModalDetalles').modal({show: true});
-            
-
+        
+        function td_devolver(id_factura){
+            var td = document.createElement("td");        
+            td.setAttribute("class", "footable-visible");
+            var a = document.createElement("a");
+            aux = "devolverTodo("+id_factura+")";
+            a.setAttribute("onclick", aux);
+            var i = document.createElement("i");
+            i.setAttribute("class", "fa fa-check text-navy");
+            a.appendChild(i);
+            td.appendChild(a);          
+            return td;
         }
+        function td_abonar(id_factura){
+            var td = document.createElement("td");        
+            td.setAttribute("class", "footable-visible");
+            var a = document.createElement("a");
+            aux = "abrirModalAbono("+id_factura+")";
+            a.setAttribute("onclick", aux);
+            var i = document.createElement("i");
+            i.setAttribute("class", "fa fa-check text-navy");
+            a.appendChild(i);
+            td.appendChild(a);          
+            return td;
+        }
+
+    function mostrar_alquileres(id_alquiler) {
+         $('#myModalDetalles').modal({show: true})
+        }
+        
+    function devolverTodo(factura_id){
+        var formData = {};
+        formData["factura_id"]=factura_id;
+        $.post('../back/controller/devolverTodo.php',formData, function(result,state){
+         postDevuelto(result,state);
+        });
+    }
+    
+    function postDevuelto(result,state){
+     //Maneje aquÃ­ la respuesta del servidor.
+     //Consideramos buena prÃ¡ctica no manejar cÃ³digo HTML antes de este punto.
+        if(state=="success"){
+             if(result=="exito"){            
+                alert("Devuelto con éxito");
+             }else{
+                alert("Hubo un errror en la petición ( u.u)\n"+result);
+                console.log(result);
+             } 		}else{
+                alert("Hubo un errror interno ( u.u)\n"+result);
+        }
+    }
+    
+    function abrirModalAbono(factura_id){
+        alert("Abrir modal para abonar\n"+factura_id);
+    }
 
     </script>
 
