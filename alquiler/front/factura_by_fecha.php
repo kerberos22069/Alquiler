@@ -59,30 +59,36 @@
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
                                     <tr>
-                                       <th style=" color:#FFFFFF; background-color: #616161  !important">Id_Fact</th>
+                                       <th style=" color:#FFFFFF; background-color: #616161  !important">#Factura</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Cliente</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Fecha</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Valor</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
 
                                        
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
-                                        <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-edit"></i></th>
-<!--                                        <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>-->
+
 
                                     </tr>
                                 </thead>
                                 <tbody id="FacturasList">
                                 <tr class="gradeX footable-even" style="">
-                                    <td class="footable-visible footable-first-column"><span class="footable-toggle"></span>01</td>
-                                    <td class="footable-visible">Pedro Perez
-                                       
+                                    <td class="footable-visible footable-first-column">
+                                        01
                                     </td>
-                                    <td class="footable-visible">01/01/2020</td>
-                                    <td class="center footable-visible">80000</td>
-                                    <td class="footable-visible footable-last-column"><a onclick="mostrar_Productos_d()"><i class="fa fa-check text-navy"></i></a></td>
-                                    <td class="footable-visible footable-last-column"><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                   
-<!--                                    <td class="center footable-visible footable-last-column">X</td>-->
+                                    <td class="footable-visible">
+                                        Pedro Perez                                       
+                                    </td>
+                                    <td class="footable-visible">
+                                        01/01/2020
+                                    </td>
+                                    <td class="center footable-visible">
+                                        80000
+                                    </td>
+                                    <td class="footable-visible footable-last-column">
+                                        <a onclick="mostrar_alquileres(1)">
+                                            <i class="fa fa-check text-navy"></i>
+                                        </a>
+                                    </td>                            
                                 </tr>    
 
                                 </tbody>
@@ -117,7 +123,7 @@
                                         <div class="ibox-content">
 
 
-                        <div class="table-responsive">
+                        <div class="table-responsive" >
                             <table class="table table-striped" >
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
@@ -236,9 +242,11 @@
 
         });
 
-    </script>
+    </script> 
 
     <script type="text/javascript">
+
+        faturas_global = [];
         
         function buscar_factura_by_fecha() {
             
@@ -252,18 +260,65 @@
                 data: fechas,
 
                 success: function (data) {
-
-                    mostrar_reporte(data);
-                    
+                    facturas_global = JSON.parse(data);
+                    mostrar_reporte(facturas_global);
                 }
             });
 
         }
 
         function mostrar_reporte(data){
-            dta = JSON.parse(data);
-            console.log(dta);
-            //postFacturaList(dta);
+            contenedor = document.getElementById('FacturasList'); 
+            contenedor.innerHTML = "";
+            for(let i in data){
+                mi_tr = tr("gradeX footable-even");
+                //id
+                mi_tr.appendChild( td(data[i].id, "footable-visible footable-first-column") );
+                //nombre
+                mi_tr.appendChild( td(data[i].cliente.cliente_nombre, "footable-visible") );
+                //fecha
+                mi_tr.appendChild( td(data[i].fecha, "footable-visible"));
+                //total
+                mi_tr.appendChild( td(data[i].total, "footable-visible"));
+                //especial
+                mi_tr.appendChild( td_especial(data[i].id));  
+
+             contenedor.appendChild(mi_tr);
+            }
+        }
+
+        function tr(clase){
+            var tr = document.createElement("tr");        
+            tr.setAttribute("class", clase);
+            return tr;
+        }
+
+        function td(texto, clase){
+            var td = document.createElement("td");        
+            td.setAttribute("class", clase);
+            td.appendChild(document.createTextNode(texto));
+            return td;
+        }
+
+        function td_especial(id_factura){
+            var td = document.createElement("td");        
+            td.setAttribute("class", "footable-visible footable-last-column");
+            var a = document.createElement("a");
+            aux = "mostrar_alquileres("+id_factura+")";
+            a.setAttribute("onclick", aux);
+            var i = document.createElement("i");
+            i.setAttribute("class", "fa fa-check text-navy");
+            a.appendChild(i);
+            td.appendChild(a);          
+            return td;
+        }
+
+        function mostrar_alquileres(id_alquiler) {
+            // body...
+            //alert("su id es: "+id_alquiler);
+$('#myModalDetalles').modal({show: true});
+            
+
         }
 
     </script>

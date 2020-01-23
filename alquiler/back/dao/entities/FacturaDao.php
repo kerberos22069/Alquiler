@@ -137,17 +137,21 @@ $abonos = $factura->getAbonos();
   public function listRange($fecha_ini, $fecha_fin){
       $lista = array();
       try {
-          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`, `abonos`"
-          ."FROM `factura`"
-          ."WHERE `fecha` BETWEEN ".$fecha_ini." AND ".$fecha_fin;
+          $sql =" SELECT *
+                  FROM `factura` 
+                  WHERE DATE_FORMAT(`fecha`, '%Y-%m-%d') 
+                  BETWEEN DATE_FORMAT('$fecha_ini', '%Y-%m-%d') 
+                  AND DATE_FORMAT('$fecha_fin', '%Y-%m-%d')";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
-              $factura= new Factura();
-          $factura->setIdfactura($data[$i]['idfactura']);
-          $factura->setFecha($data[$i]['fecha']);
-          $factura->setFac_descueto($data[$i]['fac_descueto']);
-          $factura->setCliente_idcliente($data[$i]['cliente_idcliente']);
-          $factura->setAbonos($data[$i]['abonos']);
+            $factura= new Factura();
+              $factura->setIdfactura($data[$i]['idfactura']); 
+              $factura->setFecha($data[$i]['fecha']);
+              $factura->setFac_descueto($data[$i]['fac_descueto']);
+            $cliente = new Cliente();
+              $cliente->setIdcliente($data[$i]['cliente_idcliente']);
+            $factura->setCliente_idcliente($cliente);
+            $factura->setAbonos($data[$i]['abonos']);
 
           array_push($lista,$factura);
           }

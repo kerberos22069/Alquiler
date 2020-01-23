@@ -176,7 +176,7 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
       try {
           $sql ="SELECT `idalquiler`, `fecha_inicio`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`"
           ."FROM `alquiler`"
-          ."WHERE `factura_idfactura` = ".$factura_id;
+          ."WHERE `factura_idfactura` = '$factura_id'";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $alquiler= new Alquiler();
