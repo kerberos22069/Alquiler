@@ -146,10 +146,10 @@ class ClienteFacade {
      $clienteDao->close();
      return $result;
   }
-  public static function list_x_CC($id){
+  public static function list_x_CC($Cliente_cedula){
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $clienteDao =$FactoryDao->getclienteDao(self::getDataBaseDefault());
-     $result = $clienteDao->list_x_CC($id);
+     $result = $clienteDao->list_x_CC($Cliente_cedula);
      $clienteDao->close();
      return $result;
   }

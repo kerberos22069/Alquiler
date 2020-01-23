@@ -174,7 +174,7 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
   public function listByFactura($factura_id){
       $lista = array();
       try {
-          $sql ="SELECT `idalquiler`, `fecha_inicio`, `cliente_idcliente`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`"
+          $sql ="SELECT `idalquiler`, `fecha_inicio`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`"
           ."FROM `alquiler`"
           ."WHERE `factura_idfactura` = ".$factura_id;
           $data = $this->ejecutarConsulta($sql);
@@ -182,9 +182,7 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
               $alquiler= new Alquiler();
           $alquiler->setIdalquiler($data[$i]['idalquiler']);
           $alquiler->setFecha_inicio($data[$i]['fecha_inicio']);
-           $cliente = new Cliente();
-           $cliente->setIdcliente($data[$i]['cliente_idcliente']);
-           $alquiler->setCliente_idcliente($cliente);
+           
           $alquiler->setCantidad($data[$i]['cantidad']);
           $alquiler->setValor($data[$i]['valor']);
           $alquiler->setPagado($data[$i]['pagado']);

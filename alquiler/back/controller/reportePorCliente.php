@@ -5,12 +5,14 @@
 
 $rta= array();
 
+include_once realpath('../facade/ClienteFacade.php');
 include_once realpath('../facade/FacturaFacade.php');
 include_once realpath('../facade/AlquilerFacade.php');
 include_once realpath('../facade/ProductoFacade.php');
 
-$Cliente_idcliente = strip_tags($_POST['cliente_id']);
-$facturas =FacturaFacade::listByCliente($Cliente_idcliente);
+$Cliente_cedula = strip_tags($_POST['cliente_cedula']);
+$Cliente = ClienteFacade::list_x_CC($Cliente_cedula)[0];
+$facturas =FacturaFacade::listByCliente($Cliente->getIdcliente());
 
 foreach ($facturas as $obj => $Factura) {
     $myFactura = new stdClass();
@@ -33,7 +35,7 @@ foreach ($facturas as $obj => $Factura) {
         
         $myAlquiler->cantidad = $Alquiler->getCantidad();
             $date1 = new DateTime($Alquiler->getFecha_inicio());
-            $date2 = new DateTime($Alquiler->getFecha_fin());
+            $date2 = new DateTime($Alquiler->getFechafin());
             $diff = $date1->diff($date2);
         $myAlquiler->dias = $diff->days;
         $myAlquiler->valor = $Alquiler->getValor();

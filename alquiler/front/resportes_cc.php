@@ -244,11 +244,11 @@ cargarProductos_factura();
        function Buscar_cc(){
            
                 
-      empr=document.getElementById("b_cedula").value;   
+      cedula=document.getElementById("b_cedula").value;   
       
       
       
-       if(empr==="" ){
+       if(cedula==="" ){
      
        document.getElementById("b_cedula").style.borderColor = "#f56954";
         document.getElementById("b_cedula").focus();
@@ -256,11 +256,13 @@ cargarProductos_factura();
          return ;
  } else{
                     
-    // console.log("jaja"+empr);
-   Buscar_cc_tabla(empr);
-        // empresa=$adasd;
-      document.getElementById('btnBuscar').disabled=true;
-      document.getElementById('btnExcel').disabled=false;                          
+    $.post("../back/controller/reportePorCliente.php",{ "cliente_cedula" : cedula } , 
+    function(data,state){
+         //console.log(JSON.stringify(data));
+           postFacturaList(data,state);
+     });
+      //document.getElementById('btnBuscar').disabled=true;
+      //document.getElementById('btnExcel').disabled=false;                          
         }                
          
             
