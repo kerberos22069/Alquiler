@@ -42,8 +42,8 @@ foreach ($facturas as $obj => $Factura) {
         $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();
         
         $myAlquiler->cantidad = $Alquiler->getCantidad();
-            $date1 = new DateTime($Alquiler->getFecha_inicio());
-            $date2 = new DateTime($Alquiler->getFecha_fin());
+            $date1 = new DateTime($Alquiler->getFecha_inicio()); 
+            $date2 = new DateTime($Alquiler->getFechafin());
             $diff = $date1->diff($date2);
         $myAlquiler->dias = $diff->days;
         $myAlquiler->valor = $Alquiler->getValor();
