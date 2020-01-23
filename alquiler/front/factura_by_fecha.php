@@ -107,36 +107,26 @@
 
                         <div class="table-responsive" >
                             <table class="table table-striped" >
-                           <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
-                                    <tr>
-                                                             
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">#</th>
+                                    <tr>                                                        
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Nombre</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Descripcion</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Valor unitario</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Precio</th>
-
-                                       
-                                      
-
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Dias</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devoluciones</th>
                                     </tr>
                                 </thead>
-                                <tbody id="FacturasList">
+                                <tbody id="articulosList">
                                 <tr class="gradeX footable-even" style="">
-                                    <td class="footable-visible footable-first-column"><span class="footable-toggle"></span>01</td>
-                                    <td class="footable-visible">Taladro
-                                       
-                                    </td>
+                                    <td class="footable-visible">Taladro</td>
                                     <td class="footable-visible">42"</td>
                                     <td class="center footable-visible">2</td>
                                     <td class="center footable-visible">12000</td>
-                                   
-<!--                                    <td class="center footable-visible footable-last-column">X</td>-->
+                                    <td class="center footable-visible">2</td>
+                                    <td class="center footable-visible">12000</td>
                                 </tr>    
-
                                 </tbody>
-
                             </table>
                         </div>
 
@@ -353,6 +343,71 @@
     function abrirModalAbono(factura_id){
         alert("Abrir modal para abonar\n"+factura_id);
     }
+
+    function mostrar_alquileres(id_alquiler) {
+            contenedor = document.getElementById('articulosList'); 
+            contenedor.innerHTML = "";
+            alquiler = obtenerAlquileres(id_alquiler);
+            console.log(alquiler);
+            for(let i in alquiler){
+                mi_tr = tr("gradeX footable-even");
+                //Nombre
+                mi_tr.appendChild( td(alquiler[i].producto_nombre, "footable-visible") );
+                //Valor unitario
+                mi_tr.appendChild( td(alquiler[i].valor, "footable-visible") );
+                //Cantidad
+                mi_tr.appendChild( td(alquiler[i].cantidad, "footable-visible"));
+                //Dias
+                mi_tr.appendChild( td(alquiler[i].dias, "footable-visible"));
+                //Total
+                total = alquiler[i].valor * alquiler[i].cantidad * alquiler[i].dias;
+                mi_tr.appendChild( td(total, "footable-visible"));
+                //Devoluciones
+                mi_tr.appendChild( td(alquiler[i].devoluciones, "footable-visible"));
+
+             contenedor.appendChild(mi_tr);
+            }
+            console.log(contenedor);
+            $('#myModalDetalles').modal({show: true});
+        }
+
+        function obtenerAlquileres(id_factura){
+            for(let i in facturas_global){
+                if(parseInt(facturas_global[i].id, 10) === id_factura ){
+                    return facturas_global[i].alquileres;
+                }
+            }
+            return [];
+        }
+
+        function parsearDevoluciones(devoluciones){
+            rta = "";
+            for(let i in devoluciones){
+                rta += "Fecha: "+devoluciones.fecha+", Cantidad: "+devoluciones.cantidad;
+                //No se le olvide poner el estado
+            }
+
+
+        }
+
+        function obtenerEstado(estado){
+            switch (estado) {
+              case 0:
+                return "Buen estado";
+                break;
+              case 1: 
+                return "Alquiler";
+                break;               
+              case 2: 
+                return "Dañados"
+                break; 
+              case 3: 
+                return "En reparacion"
+                break; 
+              default:
+                return "Sin definir";
+            }
+        }
 
     </script>
 
