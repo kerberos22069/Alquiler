@@ -28,8 +28,8 @@ try{
     }
 
     include_once realpath('../facade/AlquilerFacade.php');
-    $alquileres = strip_tags($_POST['alquileres']);
-    $alquileres = json_decode($alquileres);
+    include_once realpath('../facade/ProductoFacade.php');
+    $alquileres = json_decode(strip_tags($_POST['alquileres']));
     
     foreach ($alquileres as $obj => $alquiler) {
         $cantidad = $alquiler->cantidad;
@@ -38,6 +38,7 @@ try{
                 $producto= new Producto();
                 $producto->setIdprod($Producto_idprod);
         AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);
+        ProductoFacade::alquilar($Producto_idprod, $cantidad);
     }
    
     $generalDao->confirmarTransaccion();

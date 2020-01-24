@@ -54,8 +54,6 @@ $prod_danado=$producto->getProd_danado();
      */
   public function select($producto){
       $idprod=$producto->getIdprod();
-      var_dump($idprod);
-
       try {
           $sql= "SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`"
           ."FROM `producto`"
@@ -96,7 +94,6 @@ $prod_danado=$producto->getProd_danado();
 
       try {
           $sql= "UPDATE `producto` SET `prod_nombre`='$prod_nombre' ,`prod_descripcion`='$prod_descripcion' ,`prod_precio`='$prod_precio' ,`prod_stock`='$prod_stock' ,`prod_alquilado`='$prod_alquilado' ,`prod_reparacion`='$prod_reparacion' ,`prod_danado`='$prod_danado' WHERE `idprod`='$idprod' ";
-          var_dump($sql);
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');

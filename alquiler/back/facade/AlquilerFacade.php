@@ -149,12 +149,14 @@ class AlquilerFacade {
       
       $arrayDevoluciones = json_decode($alquiler->getAlq_devuelto());
       $nuevaDev= new stdClass();
-      $nuevaDev->fecha = date("Y-m-d H:i:s");
+      $fecha = date("Y-m-d H:i:s");
+      $nuevaDev->fecha = $fecha;
       $nuevaDev->cantidad = $cantidad;
       $nuevaDev->estado = $estado;
       array_push($arrayDevoluciones, $nuevaDev);
       $alquiler->setAlq_devuelto(json_encode($arrayDevoluciones));
       
+      $alquiler->setFechafin($fecha);
       $alquiler->setCantidad($alquiler->getCantidad() - $cantidad);
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
