@@ -26,7 +26,7 @@ try{
             }
             if($totalDevuelto < $Alquiler->getCantidad()){
                 AlquilerFacade::devolver($Alquiler->getIdalquiler(),$Alquiler->getCantidad());
-                ProductoFacade::devolver($Alquiler->getProducto_idprod(), $Alquiler->getCantidad());
+                ProductoFacade::devolver($Alquiler->getProducto_idprod()->getIdprod(), $Alquiler->getCantidad());
             }
         }
     }

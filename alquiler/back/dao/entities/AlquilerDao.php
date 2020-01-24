@@ -56,16 +56,13 @@ $factura_idfactura=$alquiler->getFactura_idfactura()->getIdfactura();
       $idalquiler=$alquiler->getIdalquiler();
 
       try {
-          $sql= "SELECT `idalquiler`, `fecha_inicio`, `cliente_idcliente`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`"
+          $sql= "SELECT `idalquiler`, `fecha_inicio`,  `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`"
           ."FROM `alquiler`"
           ."WHERE `idalquiler`='$idalquiler'";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
           $alquiler->setIdalquiler($data[$i]['idalquiler']);
           $alquiler->setFecha_inicio($data[$i]['fecha_inicio']);
-           $cliente = new Cliente();
-           $cliente->setIdcliente($data[$i]['cliente_idcliente']);
-           $alquiler->setCliente_idcliente($cliente);
           $alquiler->setCantidad($data[$i]['cantidad']);
           $alquiler->setValor($data[$i]['valor']);
           $alquiler->setPagado($data[$i]['pagado']);
@@ -95,7 +92,6 @@ $factura_idfactura=$alquiler->getFactura_idfactura()->getIdfactura();
   public function update($alquiler){
       $idalquiler=$alquiler->getIdalquiler();
 $fecha_inicio=$alquiler->getFecha_inicio();
-$cliente_idcliente=$alquiler->getCliente_idcliente()->getIdcliente();
 $cantidad=$alquiler->getCantidad();
 $valor=$alquiler->getValor();
 $pagado=$alquiler->getPagado();
@@ -106,7 +102,7 @@ $alq_stado=$alquiler->getAlq_stado();
 $alq_devuelto=$alquiler->getAlq_devuelto();
 
       try {
-          $sql= "UPDATE `alquiler` SET`idalquiler`='$idalquiler' ,`fecha_inicio`='$fecha_inicio' ,`cliente_idcliente`='$cliente_idcliente' ,`cantidad`='$cantidad' ,`valor`='$valor' ,`pagado`='$pagado' ,`fechafin`='$fechafin' ,`producto_idprod`='$producto_idprod' ,`factura_idfactura`='$factura_idfactura' ,`alq_stado`='$alq_stado' ,`alq_devuelto`='$alq_devuelto' WHERE `idalquiler`='$idalquiler' ";
+          $sql= "UPDATE `alquiler` SET`idalquiler`='$idalquiler' ,`fecha_inicio`='$fecha_inicio' ,`cantidad`='$cantidad' ,`valor`='$valor' ,`pagado`='$pagado' ,`fechafin`='$fechafin' ,`producto_idprod`='$producto_idprod' ,`factura_idfactura`='$factura_idfactura' ,`alq_stado`='$alq_stado' ,`alq_devuelto`='$alq_devuelto' WHERE `idalquiler`='$idalquiler' ";
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -138,7 +134,7 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
   public function listAll(){
       $lista = array();
       try {
-          $sql ="SELECT `idalquiler`, `fecha_inicio`, `cliente_idcliente`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`"
+          $sql ="SELECT `idalquiler`, `fecha_inicio`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`"
           ."FROM `alquiler`"
           ."WHERE 1";
           $data = $this->ejecutarConsulta($sql);
@@ -146,9 +142,6 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
               $alquiler= new Alquiler();
           $alquiler->setIdalquiler($data[$i]['idalquiler']);
           $alquiler->setFecha_inicio($data[$i]['fecha_inicio']);
-           $cliente = new Cliente();
-           $cliente->setIdcliente($data[$i]['cliente_idcliente']);
-           $alquiler->setCliente_idcliente($cliente);
           $alquiler->setCantidad($data[$i]['cantidad']);
           $alquiler->setValor($data[$i]['valor']);
           $alquiler->setPagado($data[$i]['pagado']);

@@ -54,6 +54,7 @@ $prod_danado=$producto->getProd_danado();
      */
   public function select($producto){
       $idprod=$producto->getIdprod();
+      var_dump($idprod);
 
       try {
           $sql= "SELECT `idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`"
