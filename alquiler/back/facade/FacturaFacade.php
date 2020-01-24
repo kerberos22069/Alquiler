@@ -141,6 +141,14 @@ class FacturaFacade {
     return $result;
   }
 
+  public function Count_fact() {
+      $FactoryDao=new FactoryDao(self::getGestorDefault());
+    $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
+    $result = $facturaDao->Count_fact();
+    $facturaDao->close();
+    return $result;
+  }
+  
 
 }
 //That`s all folks!

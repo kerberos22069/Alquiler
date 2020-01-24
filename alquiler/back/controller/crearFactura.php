@@ -41,9 +41,9 @@ try{
     }
    
     $generalDao->confirmarTransaccion();
-    echo "{factura_id : ".$factura_id."}";
+    echo '{"factura_id" : '.$factura_id.'}';
 }catch(Exception $e){
     $generalDao->rollback();
-    echo "{factura_id : -1}";
+    echo '{"factura_id" : -1}';
     echo $e->getMessage();
 }

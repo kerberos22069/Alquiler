@@ -412,7 +412,12 @@
                 },
                 success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
                         $("#resultado").html(response);
-                        console.log(response);
+                        rta = JSON.parse(response);
+                        if(rta.factura_id >= 0){
+                            alert("Alquilado con éxito");
+                        }else{
+                            alert("Ha habido un problema con la solicitud");
+                        }
                 },
                 error:function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
                         $("#resultado").html(response);
