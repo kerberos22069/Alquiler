@@ -367,7 +367,7 @@
 
              contenedor.appendChild(mi_tr);
             }
-            console.log(contenedor);
+            //console.log(contenedor);
             $('#myModalDetalles').modal({show: true});
         }
 

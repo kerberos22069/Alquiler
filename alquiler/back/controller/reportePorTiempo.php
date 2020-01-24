@@ -41,11 +41,22 @@ foreach ($facturas as $obj => $Factura) {
         
         $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();
         
-        $myAlquiler->cantidad = $Alquiler->getCantidad();
-            $date1 = new DateTime($Alquiler->getFecha_inicio()); 
-            $date2 = new DateTime($Alquiler->getFechafin());
-            $diff = $date1->diff($date2);
-        $myAlquiler->dias = $diff->days;
+        $jsonDev = $Alquiler->getAlq_devuelto();
+        //Se mira si tiene una lista de devoluciones válida y si se formatea para recorrerla y saber el total de productos devueltos
+        if($jsonDev != NULL && $jsonDev != ""){
+            $arrayDevoluciones = json_decode($jsonDev);
+            $totalDevuelto = 0;
+            foreach ($arrayDevoluciones as $key => $devuelto) {
+                $totalDevuelto += $devuelto->cantidad;
+            }
+        }
+                
+        $myAlquiler->cantidad = $Alquiler->getCantidad()+$totalDevuelto;
+        
+        $datetime1 = date_create($Alquiler->getFecha_inicio());
+        $datetime2 = date_create($Alquiler->getFechafin());
+        $interval = date_diff($datetime1, $datetime2);
+        $myAlquiler->dias = $interval->format('%d');
         $myAlquiler->valor = $Alquiler->getValor();
         
         $myFactura->total = $myFactura->total + ($myAlquiler->cantidad * $myAlquiler->dias * $myAlquiler->valor);
