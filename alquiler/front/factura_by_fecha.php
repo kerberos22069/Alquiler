@@ -61,7 +61,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="FacturasList">
-
+                                  
                                 </tbody>
 
                             </table>
@@ -160,8 +160,9 @@
 
     <!-- Page-Level Scripts -->
     <script>
-        $(document).ready(function () {
 
+        function seleccionarTabla() {
+            
             $('.dataTables-example').DataTable({
                 pageLength: 25,
                 responsive: true,
@@ -185,6 +186,9 @@
                 ]
 
             });
+         }
+
+        $(document).ready(function () {
 
         /**
          * Metemos las fechas por default
@@ -250,6 +254,8 @@
 
              contenedor.appendChild(mi_tr);
             }
+
+            seleccionarTabla();
         }
 
         function tr(clase){
