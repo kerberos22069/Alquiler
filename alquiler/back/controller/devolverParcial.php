@@ -32,9 +32,9 @@ try{
                         }
                         //Si está abierto (en este método no debería importar, puesto que se habrá validado en vista,
                         //pero es mejor dejarlo, por siácalas) o sea, si hay cosas por devolver, las devuelve :3
-                        if($totalDevuelto == $Alquiler->getCantidad()){
+                        if($totalDevuelto < $Alquiler->getCantidad()){
                             AlquilerFacade::devolver($Alquiler->getIdalquiler(),$AlquilerADevolver->cantidad,$AlquilerADevolver->estado);
-                            ProductoFacade::devolver($Alquiler->getProducto_idprod(), $AlquilerADevolver->cantidad,$AlquilerADevolver->estado);
+                            ProductoFacade::devolver($Alquiler->getProducto_idprod()->getIdprod(), $AlquilerADevolver->cantidad,$AlquilerADevolver->estado);
                         }
                     }
                 }
