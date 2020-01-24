@@ -16,18 +16,7 @@
                             <h1><b>Facturas por fecha</b></h1>
 
                         </div>
-                        <div class="ibox-tools">
-
-                            <!--     <button type="button" class="btn btn-primary" data-toggle="modal" 
-                                         data-target="#myModal5" data-backdrop="static" data-keyboard="false">
-                                          + Agregar
-                                      </button>-->
-
-                            <button type="button" class="btn btn-primary" onclick="Clientes_Registrar()">
-                                + Agregar
-                            </button>
-
-                        </div>
+                        
                     </div>
                     <div class="ibox-content">
                         <div class="form-group row has-success">
