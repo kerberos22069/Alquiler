@@ -44,7 +44,7 @@
                         </div> 
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <table id="tabla_facturas" class="table table-striped table-bordered table-hover dataTables-example" >
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
                                     <tr>
@@ -77,7 +77,7 @@
     
     
     <!-- Modal ddetalles del alquiler -->
-    <div class="modal  inmodal fade" id="myModalDetalles" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal inmodal fade" id="myModalDetalles" tabindex="-1" role="dialog"  aria-hidden="true"  style="overflow-y: scroll;"> 
         <div class="modal-dialog modal-lg mdialTamanio">
             <div id="menumodal1" class="modal-content">
                 <div class="modal-header">
@@ -104,6 +104,7 @@
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Dias</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Devoluciones</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Delvolver productos</th>
                                     </tr>
                                 </thead>
                                 <tbody id="articulosList">
@@ -113,6 +114,7 @@
                                     <td class="center footable-visible">2</td>
                                     <td class="center footable-visible">12000</td>
                                     <td class="center footable-visible">2</td>
+                                    <td class="center footable-visible">12000</td>
                                     <td class="center footable-visible">12000</td>
                                 </tr>    
                                 </tbody>
@@ -139,7 +141,69 @@
     <!-- finaliza modal de Empleado Registrar-->
 
 
+<!-- Modal Devolver parcial -->
+    <div class="modal  inmodal fade" id="myModalDevolverParcial" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-lg mdialTamanio">
+            <div id="menumodal1" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" onclick="cerrarModalDevolverTodo()"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                    <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Devolver parcial</h4>
 
+                </div>
+                <div class="modal-body"> <!-- Abrri Contenio-->
+                    <div>
+                        <div class="panel panel-default">
+                            <!--        <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>-->
+                            <div align=center class="panel-body">
+                           
+                                        <div class="ibox-content">
+
+
+                        <div class="table-responsive" >
+                            <table class="table table-striped" >
+                                <thead>
+                                    <tr>                                                        
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Nombre</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Valor unitario</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Dias</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devoluciones</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="gradeX footable-even" style="">
+                                    <td class="footable-visible">Taladro</td>
+                                    <td class="footable-visible">42"</td>
+                                    <td class="center footable-visible">2</td>
+                                    <td class="center footable-visible">12000</td>
+                                    <td class="center footable-visible">2</td>
+                                    <td class="center footable-visible">12000</td>
+                                    <td class="center footable-visible">12000</td>
+                                </tr>    
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                                
+                            </div> <!-- panel -->
+                        </div>
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="Cliente_Actualizar()">Actualizar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- finaliza modal de Devolver Parcial-->
 
     <script src="js/plugins/dataTables/datatables.min.js"></script>
     <script src="js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
@@ -162,30 +226,37 @@
     <script>
 
         function seleccionarTabla() {
-            
-            $('.dataTables-example').DataTable({
-                pageLength: 25,
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    {extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
 
-                    {extend: 'print',
-                        customize: function (win) {
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
+            if ( $.fn.dataTable.isDataTable( '#tabla_facturas' ) ) {
+                table = $('#tabla_facturas').DataTable();
+            }
+            else {
+                table =  $('#tabla_facturas').DataTable({
+                    pageLength: 25,
+                    responsive: true,
+                    dom: '<"html5buttons"B>lTfgitp',
+                    buttons: [
+                        {extend: 'copy'},
+                        {extend: 'csv'},
+                        {extend: 'excel', title: 'ExampleFile'},
+                        {extend: 'pdf', title: 'ExampleFile'},
 
-                            $(win.document.body).find('table')
-                                    .addClass('compact')
-                                    .css('font-size', 'inherit');
+                        {extend: 'print',
+                            customize: function (win) {
+                                $(win.document.body).addClass('white-bg');
+                                $(win.document.body).css('font-size', '10px');
+
+                                $(win.document.body).find('table')
+                                        .addClass('compact')
+                                        .css('font-size', 'inherit');
+                            }
                         }
-                    }
-                ]
+                    ]
 
-            });
+                });
+            }
+            
+           
          }
 
         $(document).ready(function () {
@@ -211,7 +282,10 @@
 
     <script type="text/javascript">
 
+        //MIS VARIABLES GLOBALES, NO TOQUES MI BASURA/////
         faturas_global = [];
+        factura_id_select = -1
+        //////////////////////////////////////////////////
         
         function buscar_factura_by_fecha() {
             
@@ -226,7 +300,13 @@
 
                 success: function (data) {
                     facturas_global = JSON.parse(data);
-                    mostrar_reporte(facturas_global);
+                    console.log($.isEmptyObject(facturas_global));
+                    if($.isEmptyObject(facturas_global)){
+                        mostrar_datos_vacios();
+                    }else{
+                        mostrar_reporte(facturas_global);    
+                    }
+                    
                 }
             });
 
@@ -256,6 +336,19 @@
             }
 
             seleccionarTabla();
+        }
+
+        function mostrar_datos_vacios(){
+            contenedor = document.getElementById('FacturasList'); 
+            contenedor.innerHTML = "";
+            mi_tr = tr("gradeX footable-even");
+            //Perdon por hacer esto, pero por alguna razon al segundo intento el metod td no sirve
+            var td = document.createElement("td");        
+            td.setAttribute("class", "footable-visible footable-first-column");
+            td.appendChild(document.createTextNode("No existen facturas en este rango de fechas"));
+            td.setAttribute("colspan", 7);
+            mi_tr.appendChild(td);
+            contenedor.appendChild(mi_tr);        
         }
 
         function tr(clase){
@@ -296,6 +389,20 @@
             td.appendChild(a);          
             return td;
         }
+
+        function td_devolver_parcial(id_factura){
+            var td = document.createElement("td");        
+            td.setAttribute("class", "footable-visible");
+            var a = document.createElement("a");
+            aux = "mostrarModalDevolverParcial("+id_factura+")";
+            a.setAttribute("onclick", aux);
+            var i = document.createElement("i");
+            i.setAttribute("class", "fa fa-check text-navy");
+            a.appendChild(i);
+            td.appendChild(a);          
+            return td;
+        } 
+
         function td_abonar(id_factura){
             var td = document.createElement("td");        
             td.setAttribute("class", "footable-visible");
@@ -309,9 +416,7 @@
             return td;
         }
 
-    function mostrar_alquileres(id_alquiler) {
-         $('#myModalDetalles').modal({show: true})
-        }
+    
         
     function devolverTodo(factura_id){
         var formData = {};
@@ -343,8 +448,11 @@
             contenedor = document.getElementById('articulosList'); 
             contenedor.innerHTML = "";
             alquiler = obtenerAlquileres(id_alquiler);
-            console.log(alquiler);
+            //Perdon por esto, id_alquiler es la factura.
+            factura_id_select = id_alquiler;
+            console.log("CUAL ES LA JODA");
             for(let i in alquiler){
+                console.log("PAR DE CATRE HPS");
                 mi_tr = tr("gradeX footable-even");
                 //Nombre
                 mi_tr.appendChild( td(alquiler[i].producto_nombre, "footable-visible") );
@@ -359,6 +467,8 @@
                 mi_tr.appendChild( td(number_format(total), "footable-visible"));
                 //Devoluciones
                 mi_tr.appendChild(parsearDevoluciones(JSON.parse(alquiler[i].devoluciones)));
+                //Devolver parcial
+                mi_tr.appendChild(td_devolver_parcial(alquiler[i].id));
 
              contenedor.appendChild(mi_tr);
             }
@@ -406,6 +516,21 @@
               default:
                 return "Sin definir";
             }
+        }
+
+    
+
+        function mostrarModalDevolverParcial(id_factura){
+            $('#myModalDevolverParcial').modal({show: true});
+        }
+
+        function cerrarModalDevolverTodo(){
+            $('#myModalDevolverParcial').modal('hide');
+
+           // 
+            //$('body').removeClass('modal-open');
+
+         
         }
 
         function number_format(amount, decimals) {
