@@ -52,6 +52,7 @@
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Cliente</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Fecha</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Pagado</th>
                                        
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important">Detalles</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Devolver Todo</th>
@@ -324,7 +325,9 @@
                 //fecha
                 mi_tr.appendChild( td(data[i].fecha, "footable-visible"));
                 //total
-                mi_tr.appendChild( td(data[i].total, "footable-visible"));
+                mi_tr.appendChild( td(formatearDinero(data[i].total), "footable-visible"));
+                //pagado
+                mi_tr.appendChild( td(data[i].pagado, "footable-visible"));
                 //detalles
                 mi_tr.appendChild( td_detalles(data[i].id));  
                 //devolver todo
@@ -444,6 +447,12 @@
         alert("Abrir modal para abonar\n"+factura_id);
     }
 
+    function formatearDinero(dinero){
+        dinero = dinero.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+        dinero = dinero.split('').reverse().join('').replace(/^[\.]/,'');
+        return "$ " + dinero;
+    }
+
     function mostrar_alquileres(id_alquiler) {
             contenedor = document.getElementById('articulosList'); 
             contenedor.innerHTML = "";
@@ -457,14 +466,14 @@
                 //Nombre
                 mi_tr.appendChild( td(alquiler[i].producto_nombre, "footable-visible") );
                 //Valor unitario
-                mi_tr.appendChild( td(alquiler[i].valor, "footable-visible") );
+                mi_tr.appendChild( td(formatearDinero(alquiler[i].valor), "footable-visible") );
                 //Cantidad
                 mi_tr.appendChild( td(alquiler[i].cantidad, "footable-visible"));
                 //Dias
                 mi_tr.appendChild( td(alquiler[i].dias, "footable-visible"));
                 //Total
                 total = alquiler[i].valor * alquiler[i].cantidad * alquiler[i].dias;
-                mi_tr.appendChild( td(number_format(total), "footable-visible"));
+                mi_tr.appendChild( td(formatearDinero(total), "footable-visible"));
                 //Devoluciones
                 mi_tr.appendChild(parsearDevoluciones(JSON.parse(alquiler[i].devoluciones)));
                 //Devolver parcial

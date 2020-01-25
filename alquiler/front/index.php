@@ -78,9 +78,6 @@
                     <li>
                         <a onclick="Ventas_Registrar()"><i class="fa fa-laptop"></i> <span class="nav-label">Alquiler </span></a>
                     </li>
-                    <li>
-                        <a onclick="Vehiculo_Listar()"><i class="fa fa-laptop"></i> <span class="nav-label">Vehiculos </span></a>
-                    </li>
         
                     
                 <!--    <li>
