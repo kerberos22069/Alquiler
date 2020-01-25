@@ -254,11 +254,12 @@
                     pageLength: 25,
                     responsive: true,
                     dom: '<"html5buttons"B>lTfgitp',
+                    order: [[ 2, 'des' ]],
                     buttons: [
                         {extend: 'copy'},
                         {extend: 'csv'},
-                        {extend: 'excel', title: 'ExampleFile'},
-                        {extend: 'pdf', title: 'ExampleFile'},
+                        {extend: 'excel', title: 'Reporte de alquileres'},
+                        {extend: 'pdf', title: 'Reporte de alquileres'},
 
                         {extend: 'print',
                             customize: function (win) {
