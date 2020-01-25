@@ -372,13 +372,17 @@
                 //total
                 mi_tr.appendChild( td(formatearDinero(data[i].total), "footable-visible"));
                 //pagado
-                mi_tr.appendChild( td(data[i].pagado, "footable-visible"));
+                if(data[i].pagado){
+                    mi_tr.appendChild( td_icono(data[i].id,"mostrar_alquileres","check"));
+                }else{
+                    mi_tr.appendChild( td_icono(data[i].id,"mostrar_alquileres","times"));
+                }
                 //detalles
-                mi_tr.appendChild( td_detalles(data[i].id));  
+                mi_tr.appendChild( td_icono(data[i].id,"mostrar_alquileres","search-plus"));  
                 //devolver todo
-                mi_tr.appendChild( td_devolver(data[i].id));
+                mi_tr.appendChild( td_icono(data[i].id,"devolverTodo","hand-o-left"));
                 //abonar
-                mi_tr.appendChild( td_abonar(data[i].id));
+                mi_tr.appendChild( td_icono(data[i].id,"abrirModalAbono","money",data[i].pagado));
 
              contenedor.appendChild(mi_tr);
             }
@@ -412,57 +416,25 @@
             return td;
         }
 
-        function td_detalles(id_factura){
+        function td_icono(id_factura,onclick,icono,disabled=false){
             var td = document.createElement("td");        
             td.setAttribute("class", "footable-visible");
+            td.setAttribute("style", "font-size: 15px; text-align: center;");
             var a = document.createElement("a");
-            aux = "mostrar_alquileres("+id_factura+")";
-            a.setAttribute("onclick", aux);
+            aux = onclick+"("+id_factura+")";
+            if(!disabled){
+                a.setAttribute("onclick", aux);
+            }else{
+                a.setAttribute("style", "color: currentColor; cursor: not-allowed; opacity: 0.5;");
+            }
             var i = document.createElement("i");
-            i.setAttribute("class", "fa fa-check text-navy");
-            a.appendChild(i);
-            td.appendChild(a);          
-            return td;
-        }
-        
-        function td_devolver(id_factura){
-            var td = document.createElement("td");        
-            td.setAttribute("class", "footable-visible");
-            var a = document.createElement("a");
-            aux = "devolverTodo("+id_factura+")";
-            a.setAttribute("onclick", aux);
-            var i = document.createElement("i");
-            i.setAttribute("class", "fa fa-check text-navy");
+            var clase = "fa fa-"+icono;
+            i.setAttribute("class", clase);
             a.appendChild(i);
             td.appendChild(a);          
             return td;
         }
 
-        function td_devolver_parcial(id_factura){
-            var td = document.createElement("td");        
-            td.setAttribute("class", "footable-visible");
-            var a = document.createElement("a");
-            aux = "mostrarModalDevolverParcial("+id_factura+")";
-            a.setAttribute("onclick", aux);
-            var i = document.createElement("i");
-            i.setAttribute("class", "fa fa-check text-navy");
-            a.appendChild(i);
-            td.appendChild(a);          
-            return td;
-        } 
-
-        function td_abonar(id_factura){
-            var td = document.createElement("td");        
-            td.setAttribute("class", "footable-visible");
-            var a = document.createElement("a");
-            aux = "abrirModalAbono("+id_factura+")";
-            a.setAttribute("onclick", aux);
-            var i = document.createElement("i");
-            i.setAttribute("class", "fa fa-check text-navy");
-            a.appendChild(i);
-            td.appendChild(a);          
-            return td;
-        }
 
     
         
@@ -522,7 +494,7 @@
                 //Devoluciones
                 mi_tr.appendChild(parsearDevoluciones(JSON.parse(alquiler[i].devoluciones)));
                 //Devolver parcial
-                mi_tr.appendChild(td_devolver_parcial(alquiler[i].id));
+                mi_tr.appendChild(td_icono(alquiler[i].id,"mostrarModalDevolverParcial","hand-o-left"));
 
              contenedor.appendChild(mi_tr);
             }
