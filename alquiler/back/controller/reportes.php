@@ -29,6 +29,9 @@ function armarReporteDeFacturas($facturas) {
     
     $myFactura->cliente = $myCliente;
     $myFactura->total = 0 - $Factura->getfac_descueto();
+    
+    $myFactura->devuelto = true;
+    
     $myFactura->alquileres = array();
     
     $alquileres = AlquilerFacade::listByFactura($Factura->getidfactura());
@@ -51,8 +54,11 @@ function armarReporteDeFacturas($facturas) {
                 $totalDevuelto += $devuelto->cantidad;
             }
         }
-                
         $myAlquiler->cantidad = $Alquiler->getCantidad()+$totalDevuelto;
+        $myAlquiler->devuelto = $Alquiler->getCantidad() == 0;
+        if(!$myAlquiler->devuelto){
+            $myFactura->devuelto = false;
+        }
         
         $datetime1 = date_create($Alquiler->getFecha_inicio());
         $datetime2 = date_create($Alquiler->getFechafin());

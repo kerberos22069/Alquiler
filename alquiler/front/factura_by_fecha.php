@@ -71,6 +71,7 @@
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Fecha</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Pagado</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devuelto</th>
                                        
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important">Detalles</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Devolver Todo</th>
@@ -377,10 +378,16 @@
                 }else{
                     mi_tr.appendChild( td_icono(data[i].id,"mostrar_alquileres","times"));
                 }
+                //devuelto
+                if(data[i].devuelto){
+                    mi_tr.appendChild( td_icono(data[i].id,"mostrar_alquileres","check"));
+                }else{
+                    mi_tr.appendChild( td_icono(data[i].id,"mostrar_alquileres","times"));
+                }
                 //detalles
                 mi_tr.appendChild( td_icono(data[i].id,"mostrar_alquileres","search-plus"));  
                 //devolver todo
-                mi_tr.appendChild( td_icono(data[i].id,"devolverTodo","hand-o-left"));
+                mi_tr.appendChild( td_icono(data[i].id,"devolverTodo","hand-o-left",data[i].devuelto));
                 //abonar
                 mi_tr.appendChild( td_icono(data[i].id,"abrirModalAbono","money",data[i].pagado));
 
