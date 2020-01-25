@@ -26,7 +26,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Sistema de Gestion de Taller</title>
+        <title>Sistema de gestión de alquileres</title>
 
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -78,22 +78,15 @@
                     <li>
                         <a onclick="Ventas_Registrar()"><i class="fa fa-laptop"></i> <span class="nav-label">Alquiler </span></a>
                     </li>
+                    
+                    <li>
+                        <a onclick="facturas_by_fecha()"><i class="fa fa-laptop"></i> <span class="nav-label">Facturas </span></a>
+                    </li>
         
                     
                 <!--    <li>
                         <a onclick="facturas_listas()"><i class="fa fa-laptop"></i> <span class="nav-label">Facturas</span></a>
                     </li>-->
-                                 <li>
-                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Facturas</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a onclick="facturas_by_fecha()">Facturas por fecha</a></li>
-                            <li><a onclick="facturas_Devolucion()">Facturas por usuario</a></li>
-                            <!--<li><a onclick="Reporte_fecha()">Reporte por Fecha</a></li>-->
-                            
-
-
-                        </ul>
-                    </li>
 
                 </ul>
 

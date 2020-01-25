@@ -13,36 +13,54 @@
                 <div class="ibox ">
                     <div class="ibox-title"> 
                         <div style="text-align: center; color: white" >
-                            <h1><b>Facturas por fecha</b></h1>
+                            <h1><b>Facturas</b></h1>
 
                         </div>
                         
-                    </div>
+                    </div>                      
                     <div class="ibox-content">
-                        <div class="form-group row has-success">
+                        <div class="row">
+                         <div class="col-lg-12">
+                            <div class="form-group row has-success">
+                                <label class="col-sm-2 col-form-label">
+                                    Fecha inicio:
+                                </label>
+                                <div class="col-sm-3">
+                                    <input id="fecha_inicio" name="fecha_inicio" type="date" class="form-control">
+                                </div>
 
-                            <label class="col-sm-2 col-form-label">
-                                Fecha inicio:
-                            </label>
-                            <div class="col-sm-4">
-                                <input id="fecha_inicio" name="fecha_inicio" type="date" class="form-control">
+                                <label class="col-sm-2 col-form-label">
+                                    Fecha fin:
+                                </label>
+                                <div class="col-sm-3">
+                                    <input id="fecha_fin" name="fecha_fin" type="date" class="form-control">
+                                </div>                     
+
+                                <div class="col-sm-2">
+                                    <button type="button" class="btn btn-primary" onclick="buscar_factura_by_fecha()" >
+                                        Buscar por fecha
+                                    </button>
+                                </div>
                             </div>
-
-                            <label class="col-sm-2 col-form-label">
-                                Fecha fin:
-                            </label>
-                            <div class="col-sm-4">
-                                <input id="fecha_fin" name="fecha_fin" type="date" class="form-control">
-                            </div>                     
-
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-primary" onclick="buscar_factura_by_fecha()" >
-                                    buscar
-                                </button>
-                            </div>                                                 
-                                              
-                        </div> 
-
+                            <hr>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group row has-success">
+                                <label class="col-sm-2 col-form-label">
+                                    Cédula:
+                                </label>
+                                <div class="col-sm-4">
+                                    <input id="cliente_cedula" name="cliente_cedula" class="form-control">
+                                </div>                    
+                                <div class="col-sm-2">
+                                    <button type="button" class="btn btn-primary" onclick="buscar_factura_by_cliente()" >
+                                        Buscar por cliente.
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                        <hr>
                         <div class="table-responsive">
                             <table id="tabla_facturas" class="table table-striped table-bordered table-hover dataTables-example" >
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
@@ -67,7 +85,6 @@
 
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -312,6 +329,34 @@
             });
 
         }
+        
+        function buscar_factura_by_cliente () {
+            
+            var url = "../back/controller/reportePorCliente.php";
+            
+            var cedula = $('#cliente_cedula').val();
+            if(cedula == null || cedula == ""){
+                alert("Debe proporcionar un número de cédula para buscar");
+            }else{
+                var params = { "cliente_cedula": cedula}
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: params,
+
+                    success: function (data) {
+                        facturas_global = JSON.parse(data);
+                        console.log($.isEmptyObject(facturas_global));
+                        if($.isEmptyObject(facturas_global)){
+                            mostrar_datos_vacios();
+                        }else{
+                            mostrar_reporte(facturas_global);    
+                        }
+
+                    }
+                });
+            }
+        }
 
         function mostrar_reporte(data){
             contenedor = document.getElementById('FacturasList'); 
@@ -348,7 +393,7 @@
             //Perdon por hacer esto, pero por alguna razon al segundo intento el metod td no sirve
             var td = document.createElement("td");        
             td.setAttribute("class", "footable-visible footable-first-column");
-            td.appendChild(document.createTextNode("No existen facturas en este rango de fechas"));
+            td.appendChild(document.createTextNode("No existen facturas para dentro de los parámetros de búsqueda"));
             td.setAttribute("colspan", 7);
             mi_tr.appendChild(td);
             contenedor.appendChild(mi_tr);        

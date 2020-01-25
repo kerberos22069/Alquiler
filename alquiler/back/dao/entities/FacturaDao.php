@@ -165,7 +165,7 @@ $abonos = $factura->getAbonos();
   public function listByCliente($Cliente_idcliente){
       $lista = array();
       try {
-          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `abonos`"
+          $sql ="SELECT `idfactura`, `fecha`, `fac_descueto`, `abonos`, `cliente_idcliente`"
           ."FROM `factura`"
           ."WHERE `cliente_idcliente` = ".$Cliente_idcliente;
           $data = $this->ejecutarConsulta($sql);
@@ -175,7 +175,9 @@ $abonos = $factura->getAbonos();
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
           $factura->setAbonos($data[$i]['abonos']);
-
+          $cliente = new Cliente();
+            $cliente->setIdcliente($data[$i]['cliente_idcliente']);
+            $factura->setCliente_idcliente($cliente);
           array_push($lista,$factura);
           }
       return $lista;
