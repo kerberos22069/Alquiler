@@ -501,7 +501,7 @@
                 //Devoluciones
                 mi_tr.appendChild(parsearDevoluciones(JSON.parse(alquiler[i].devoluciones)));
                 //Devolver parcial
-                mi_tr.appendChild(td_icono(alquiler[i].id,"mostrarModalDevolverParcial","hand-o-left"));
+                mi_tr.appendChild(td_icono(alquiler[i].id,"mostrarModalDevolverParcial","hand-o-left",alquiler[i].devuelto));
 
              contenedor.appendChild(mi_tr);
             }
