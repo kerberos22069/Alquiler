@@ -151,8 +151,13 @@ $abonos = $factura->getAbonos();
             $cliente = new Cliente();
               $cliente->setIdcliente($data[$i]['cliente_idcliente']);
             $factura->setCliente_idcliente($cliente);
-            $factura->setAbonos($data[$i]['abonos']);
-
+            if($data[$i]['abonos'] == null){
+              //Esto tiene que ser si o si un array 
+              $factura->setAbonos(array());
+            }else{
+               $factura->setAbonos($data[$i]['abonos']); 
+            }
+           
           array_push($lista,$factura);
           }
       return $lista;

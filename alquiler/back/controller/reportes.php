@@ -41,6 +41,7 @@ function armarReporteDeFacturas($facturas) {
         //si algún día molesta, se duplica el método en el dao con un Join y ya
         $producto = ProductoFacade::select($Alquiler->getProducto_idprod()->getIdprod());
         $myAlquiler = new stdClass();
+        $myAlquiler->alquiler_id = $Alquiler->getIdalquiler();
         $myAlquiler->producto_nombre = $producto->getprod_nombre();
         
         $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();
@@ -70,7 +71,7 @@ function armarReporteDeFacturas($facturas) {
         array_push($myFactura->alquileres, $myAlquiler);
     }   
     
-    $abonos = json_decode($Factura->getAbonos());
+    $abonos = $Factura->getAbonos();
     $totalAbonado = 0;
     foreach ($abonos as $objq => $Abono) {
         $totalAbonado+=$Abono->cantidad;
