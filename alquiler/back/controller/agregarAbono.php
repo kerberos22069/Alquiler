@@ -3,11 +3,21 @@
 //Hecho a mano por el benévolo señor Arciniegas
 //¿En serio soy el único programador que hace esto?
 
-include_once realpath('../facade/FacturaFacade.php');
+require_once realpath('../facade/GlobalController.php');
+$generalDao = GlobalController::getGeneralDaoInstance();
+$generalDao->comenzarTransaccion();
+try{
 
-$factura_id = strip_tags($_POST['factura_id']);
-$cantidad = strip_tags($_POST['valor']);
+    include_once realpath('../facade/FacturaFacade.php');
 
-$Factura = FacturaFacade::abonar($factura_id,$cantidad);
+    $factura_id = strip_tags($_POST['factura_id']);
+    $valor = strip_tags($_POST['valor']);
 
+    $Factura = FacturaFacade::abonar($factura_id,$valor);
 
+    echo 'exito';
+}catch(Exception $e){
+    $generalDao->rollback();
+    echo $e->getMessage();
+    var_dump($e);
+}
