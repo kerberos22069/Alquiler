@@ -149,6 +149,22 @@ class FacturaFacade {
     return $result;
   }
   
+  public function abonar($factura_id,$valor){
+      $factura = self::select($factura_id);
+      
+      $arrayAbonos = json_decode($factura->getAbonos());
+      $nuevo= new stdClass();
+      $fecha = date("Y-m-d H:i:s");
+      $nuevo->fecha = $fecha;
+      $nuevo->cantidad = $valor;
+      array_push($arrayAbonos, $nuevo);
+      $factura->setAbonos(json_encode($arrayAbonos));
+      
+      $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
+     $facturaDao->update($factura);
+     $facturaDao->close();
+  }
 
 }
 //That`s all folks!

@@ -146,6 +146,7 @@
                         </div>
 
                         <div class="modal-footer">
+<<<<<<< HEAD
                             <div align="left" style="float: left; border-left: 0px; visibility: hidden;">
                                 <form role="form" >
                                 <div class="row">                                                           
@@ -165,6 +166,112 @@
                             </form> 
                             </div>
                             <div style="width: 200px">
+=======
+                            <button type="button" class="btn btn-primary" onclick="Cliente_Actualizar()">Actualizar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- finaliza modal de Empleado Registrar-->
+    
+    <!-- Modal ddetalles del abonos -->
+    <div class="modal inmodal fade" id="myModalAbonos" tabindex="-1" role="dialog"  aria-hidden="true"  style="overflow-y: scroll;"> 
+        <div class="modal-dialog modal-lg mdialTamanio">
+            <div id="menumodal1" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                    <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Abonos</h4>
+
+                </div>
+                <div class="modal-body"> <!-- Abrri Contenio-->
+                    <div>
+                        <div class="panel panel-default">
+                            <!--        <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>-->
+                            <div align=center class="panel-body">
+                           
+                              <div class="ibox-content">
+                                  <table>
+                                      <thead><th>Detalles de abonos</th></thead>
+                                      <tbody id="txt_abonos_detalles"></tbody>
+                                  </table>
+                                  <label id="txt_abonos_total">Total:</label>
+                                  <br>
+                                  <label id="txt_abonos_abonado">Abonado:</label>
+                                  <br>
+                                  <label id="txt_abonos_faltante">Faltante:</label>
+                                  <hr>
+                                  <input id="input_abonos"/>
+                                  <button id="btn_abonos_abonar"> Abonar</button>
+                              </div>
+                                
+                            </div> <!-- panel -->
+                        </div>
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- finaliza modal de abonos-->
+
+
+<!-- Modal Devolver parcial -->
+    <div class="modal  inmodal fade" id="myModalDevolverParcial" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-lg mdialTamanio">
+            <div id="menumodal1" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" onclick="cerrarModalDevolverTodo()"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                    <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Devolver parcial</h4>
+
+                </div>
+                <div class="modal-body"> <!-- Abrri Contenio-->
+                    <div>
+                        <div class="panel panel-default">
+                            <!--        <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>-->
+                            <div align=center class="panel-body">
+                           
+                                        <div class="ibox-content">
+
+
+                        <div class="table-responsive" >
+                            <table class="table table-striped" >
+                                <thead>
+                                    <tr>                                                        
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Nombre</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Valor unitario</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Dias</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devoluciones</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="gradeX footable-even" style="">
+                                    <td class="footable-visible">Taladro</td>
+                                    <td class="footable-visible">42"</td>
+                                    <td class="center footable-visible">2</td>
+                                    <td class="center footable-visible">12000</td>
+                                    <td class="center footable-visible">2</td>
+                                    <td class="center footable-visible">12000</td>
+                                    <td class="center footable-visible">12000</td>
+                                </tr>    
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+>>>>>>> 0db8a8b4fbccdf1de779ac3eb142a7df443844ad
                                 
                             </div>
                             <div>
@@ -350,7 +457,7 @@
                 //devolver todo
                 mi_tr.appendChild( td_icono(data[i].id,"devolverTodo","hand-o-left",data[i].devuelto));
                 //abonar
-                mi_tr.appendChild( td_icono(data[i].id,"abrirModalAbono","money",data[i].pagado));
+                mi_tr.appendChild( td_icono(data[i].id,"mostrar_abonos","money",data[i].pagado));
 
              contenedor.appendChild(mi_tr);
             }
@@ -427,10 +534,6 @@
                 alert("Hubo un errror interno ( u.u)\n"+result);
         }
     }
-    
-    function abrirModalAbono(factura_id){
-        alert("Abrir modal para abonar\n"+factura_id);
-    }
 
     function formatearDinero(dinero){
         dinero = dinero.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
@@ -438,12 +541,11 @@
         return "$ " + dinero;
     }
 
-    function mostrar_alquileres(id_alquiler) {
+    function mostrar_alquileres(id_factura) {
             contenedor = document.getElementById('articulosList'); 
             contenedor.innerHTML = "";
-            alquiler = obtenerAlquileres(id_alquiler);
-            //Perdon por esto, id_alquiler es la factura.
-            factura_id_select = id_alquiler;
+            alquiler = obtenerFactura(id_factura).alquileres;
+            factura_id_select = id_factura;
             for(let i in alquiler){
                 mi_tr = tr("gradeX footable-even");
                 //Nombre
@@ -468,13 +570,71 @@
             $('#myModalDetalles').modal({show: true});
         }
 
-        function obtenerAlquileres(id_factura){
+        function mostrar_abonos(id_factura) {       
+                    
+            factura = obtenerFactura(id_factura);
+            
+            document.getElementById('txt_abonos_detalles').innerHTML = "";
+            document.getElementById('txt_abonos_detalles').appendChild(parsearAbonos(JSON.parse(factura.abonos)));
+            
+            document.getElementById('txt_abonos_total').innerHTML = 'Total: '+formatearDinero(factura.total);
+            document.getElementById('txt_abonos_abonado').innerHTML = 'Abonado: '+formatearDinero(factura.totalAbonado);
+            document.getElementById('txt_abonos_faltante').innerHTML = 'Faltante: '+formatearDinero(factura.total - factura.totalAbonado);
+            document.getElementById('input_abonos').value = factura.total - factura.totalAbonado;
+            aux = "abonar("+id_factura+")";
+            document.getElementById('btn_abonos_abonar').setAttribute("onclick", aux);
+            
+            $('#myModalAbonos').modal({show: true});
+        }
+
+        function abonar(factura_id){
+            var formData = {};
+            formData["factura_id"]=factura_id;
+            formData["valor"]=document.getElementById('input_abonos').value;
+            $.post('../back/controller/agregarAbono.php',formData, function(result,state){
+             postAbono(result,state);
+            });
+        }
+        
+        function postAbono(result,state){
+           if(state=="success"){
+                if(result=="exito"){            
+                   alert("Abono realizado con éxito");
+                }else{
+                   alert("Hubo un errror en la petición ( u.u)\n"+result);
+                   console.log(result);
+                } 		}else{
+                   alert("Hubo un errror interno ( u.u)\n"+result);
+           }
+       }
+
+
+        function obtenerFactura(id_factura){
             for(let i in facturas_global){
                 if(parseInt(facturas_global[i].id, 10) === id_factura ){
-                    return facturas_global[i].alquileres;
+                    return facturas_global[i];
                 }
             }
             return [];
+        }
+
+        function parsearAbonos(abonos){
+            var td = document.createElement("td");        
+            td.setAttribute("class", "footable-visible");
+            if(abonos.length > 0){
+                var ul = document.createElement("ul");        
+                for(let i in abonos){
+                    var li = document.createElement("li");
+                    rta = "Fecha: "+abonos[i].fecha+", Cantidad: "+ formatearDinero(abonos[i].cantidad);
+                    li.appendChild(document.createTextNode(rta));
+                    ul.appendChild(li)
+                }
+                td.appendChild(ul);
+            }else{
+                txt = document.createTextNode("No se ha efectuado ningún abono a la factura");
+                td.appendChild(txt);
+            }
+            return td;
         }
 
         function parsearDevoluciones(devoluciones){
