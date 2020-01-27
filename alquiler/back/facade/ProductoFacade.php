@@ -144,10 +144,10 @@ class ProductoFacade {
       }
       $nuevoAlquilado = $producto->getProd_alquilado() - $cantidad;
       $producto->setProd_alquilado($nuevoAlquilado); 
-     $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
-     $productoDao->update($producto);
-     $productoDao->close();
+      $FactoryDao=new FactoryDao(self::getGestorDefault());
+      $productoDao =$FactoryDao->getproductoDao(self::getDataBaseDefault());
+      $productoDao->update($producto);
+      $productoDao->close();
   }
   
   public static function update_delete($id_prod){

@@ -146,8 +146,8 @@
                         </div>
 
                         <div class="modal-footer">
-<<<<<<< HEAD
-                            <div align="left" style="float: left; border-left: 0px; visibility: hidden;">
+
+                            <div id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 0px; visibility: hidden;">
                                 <form role="form" >
                                 <div class="row">                                                           
                                         <div class="form-group">
@@ -162,12 +162,12 @@
                                                 <option value="3">En reparacion</option>
                                             </select>                                            
                                         </div>                                   
+                                        <button type="button" onclick="agregar_devolucion()">Agregar</button>
                                 </div>                                                            
                             </form> 
                             </div>
-                            <div style="width: 200px">
-=======
-                            <button type="button" class="btn btn-primary" onclick="Cliente_Actualizar()">Actualizar</button>
+                            <div style="width: 200px"></div>
+
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 
                         </div>
@@ -271,11 +271,9 @@
                         </div>
 
                     </div>
->>>>>>> 0db8a8b4fbccdf1de779ac3eb142a7df443844ad
                                 
                             </div>
-                            <div>
-                                <button type="button" class="btn btn-primary" onclick="Cliente_Actualizar()">Actualizar</button>
+                            <div>                              
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                             </div>
                                                        
@@ -370,6 +368,7 @@
         //MIS VARIABLES GLOBALES, NO TOQUES MI BASURA/////
         faturas_global = [];
         factura_id_select = -1
+        alquiler_devolucion_select = -1
         //////////////////////////////////////////////////
         
         function buscar_factura_by_fecha() {
@@ -413,7 +412,7 @@
 
                     success: function (data) {
                         facturas_global = JSON.parse(data);
-                        //console.log($.isEmptyObject(facturas_global));
+                        console.log($.isEmptyObject(facturas_global));
                      
                         if($.isEmptyObject(facturas_global)){
                             mostrar_datos_vacios();
@@ -618,6 +617,15 @@
             return [];
         }
 
+        function obtenerClienteByFactura(id_factura){
+            for(let i in facturas_global){
+                if(parseInt(facturas_global[i].id, 10) === id_factura ){
+                    return facturas_global[i].cliente;
+                }
+            }
+            return [];
+        }
+
         function parsearAbonos(abonos){
             var td = document.createElement("td");        
             td.setAttribute("class", "footable-visible");
@@ -673,8 +681,51 @@
     
 
         function habilitarFormularioDevolucion(id_alquiler){
-            alert(id_alquiler);
+
+            document.getElementById("contenedor_add_devoluciones").style.visibility = "visible";
+            alquiler_devolucion_select = id_alquiler;
         }
+
+
+        function agregar_devolucion(){
+            
+            var url = "../back/controller/devolverParcial.php";
+
+            //Cliente by factura seleccionada
+            cliente = obtenerClienteByFactura(factura_id_select);            
+            cantidad = $('#cantidad_devuelta').val();
+            estado = $('#estado_objeto').val();
+
+            var devoluciones = { 
+                "cliente_id" : cliente.cliente_id, 
+                "alquileres": [{
+                    "alquiler_id" : alquiler_devolucion_select,
+                    "cantidad" : cantidad,
+                    "estado" : estado
+                }]
+            };
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: devoluciones,
+
+                success: function (data) {
+                    f = JSON.parse(data);
+                    console.log(f);
+                    if($.isEmptyObject(f)){
+                    
+                    }else{
+                    
+                    }
+                    
+                }
+            });
+        }
+
+
+
+
 
         function cerrarModalDevolverTodo(){
             $('#myModalDevolverParcial').modal('hide');

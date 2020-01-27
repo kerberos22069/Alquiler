@@ -12,7 +12,10 @@ $generalDao = GlobalController::getGeneralDaoInstance();
 $generalDao->comenzarTransaccion();
 try{
     $cliente_id = strip_tags($_POST['cliente_id']);
-    $alquileresADevolver = json_decode(strip_tags($_POST['alquileres']));
+
+    $aux_alquileres =  json_encode($_POST['alquileres']);
+
+    $alquileresADevolver = json_decode($aux_alquileres);
 
     $facturas = FacturaFacade::listByCliente($cliente_id);
     foreach ($facturas as $obj => $Factura) {

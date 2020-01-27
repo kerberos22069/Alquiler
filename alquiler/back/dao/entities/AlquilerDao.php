@@ -213,6 +213,24 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
       }
   }
 
+
+  public function insert_json_devolucion($idAlquiler, $cantidad, $estado){
+      try {
+          $sql ="SELECT `alq_devuelto` FROM `alquiler` WHERE `idalquiler` = '$idAlquiler'";
+          $json_devuelto = json_decode($this->ejecutarConsulta($sql));
+          $array_push($json_devuelto, array('fecha' => date('Y-d-m h:i:s', time()), 'cantidad'=>$cantidad, 'estado'=>$estado ));
+          $json_text = json_encode($json_devuelto);
+
+          
+          $sql= "INSERT INTO `alquiler`(alq_devuelto`) VALUES ('$json_text')";
+          return $this->insertarConsulta($sql);
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null \n' . $e->getMessage());
+      }
+  }
+
+
+
       public function insertarConsulta($sql){
           $this->cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $sentencia=$this->cn->prepare($sql);

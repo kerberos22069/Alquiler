@@ -173,5 +173,21 @@ class AlquilerFacade {
      return $rta;
   }
 
+  /**
+   * Inserta el json del campo alq_devuelte 
+   * @param cantidad, es la cantidad de productos a devolver
+   * @param estado, es el la calidad del producto devueltp
+   * @param idAlquiler
+   */
+  public static function insert_json_devolucion($idAlquiler, $cantidad, $estado){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $alquilerDao =$FactoryDao->getalquilerDao(self::getDataBaseDefault());
+     $rtn = $alquilerDao->insert_json_devolucion($idAlquiler, $cantidad, $estado);
+     $alquilerDao->close();
+     return $rtn;
+  }
+
+
+
 }
 //That`s all folks!
