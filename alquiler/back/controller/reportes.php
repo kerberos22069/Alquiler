@@ -71,7 +71,7 @@ function armarReporteDeFacturas($facturas) {
         array_push($myFactura->alquileres, $myAlquiler);
     }   
     
-    $abonos = $Factura->getAbonos();
+    $abonos = json_decode($Factura->getAbonos());
     $totalAbonado = 0;
     foreach ($abonos as $objq => $Abono) {
         $totalAbonado+=$Abono->cantidad;

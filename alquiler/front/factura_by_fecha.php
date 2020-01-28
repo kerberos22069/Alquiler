@@ -724,19 +724,15 @@
                 cantidad = $('#cantidad_devuelta').val();
                 estado = $('#estado_objeto').val();
 
-                var devoluciones = { 
-                    "cliente_id" : cliente.cliente_id, 
-                    "alquileres": [{
-                        "alquiler_id" : alquiler_devolucion_select,
-                        "cantidad" : cantidad,
-                        "estado" : estado
-                    }]
-                };
+                var alquileres = {};
+                alquileres["alquiler_id"] = alquiler_devolucion_select;
+                alquileres["cantidad"] = cantidad;
+                alquileres["estado"] = estado;
 
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: devoluciones,
+                    data: alquileres,
 
                     success: function (data) {                        
                         if(data == "exito"){
