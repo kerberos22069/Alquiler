@@ -183,7 +183,7 @@
         <div class="modal-dialog modal-lg mdialTamanio">
             <div id="menumodal1" class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                    <button type="button" id="cerrarAbonos" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                     <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Abonos</h4>
 
                 </div>
@@ -616,6 +616,7 @@
                 if(result=="exito"){            
                    alert("Abono realizado con éxito");
                    rebuscarUltimaBusqueda();
+                   document.getElementById("cerrarAbonos").click();
                 }else{
                    alert("Hubo un errror en la petición ( u.u)\n"+result);
                    console.log(result);
@@ -739,6 +740,7 @@
         function agregar_devolucion(){
 
             //Validamos si la cantidad a devolver no supera a la cantidad alquilada
+            console.log($('#cantidad_devuelta').val()+ "<=" +alquiler_cantidad);
             if($('#cantidad_devuelta').val() <= alquiler_cantidad){
             
                 var url = "../back/controller/devolverParcial.php";
