@@ -275,7 +275,7 @@
         <div class="col-sm-3">
              <div class="form-group">
                           <label for="Inputpersona_nombre">Cantidad </label>
-                          <input type="number" name="canti" class="form-control" id="Inputcanti" placeholder="0" value=0 onChange="multiplicar();">
+                          <input type="number" name="canti" class="form-control" id="Inputcanti" placeholder="0" value=1 min="1" onChange="multiplicar();">
                        </div>
         </div>
       

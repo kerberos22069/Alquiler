@@ -95,7 +95,7 @@
     
     <!-- Modal ddetalles del alquiler -->
     <div class="modal inmodal fade" id="myModalDetalles" tabindex="-1" role="dialog"  aria-hidden="true"  style="overflow-y: scroll;"> 
-        <div class="modal-dialog modal-lg mdialTamanio">
+        <div class="modal-dialog  mdialTamanio" style="width: 80%; max-width: 80%; margin-left: 10%; margin-right: 10%">
             <div id="menumodal1" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -175,43 +175,26 @@
                                 </form> 
                             </div>
                             <div style="width: 200px"></div>
-                            <!-- Borrar esto
-                            <div class="ibox">
-                                <div class="ibox-content">
-                                    <p class="font-bold">Costos transporte</p>
-                                    <hr>
-                                    <div>
-                                        <div class="row">                                                           
-                                            <div class="form-group">
-                                                <a href="#" class="product-name" style="color: #000000">Conductor:&nbsp</a>
-                                            </div>
-                                            <div class="form-group">
-                                                <a href="#" class="product-name">Diego Carrascal</a>                         
-                                            </div>   
-                                        </div> 
-                                        <div class="row">                                                           
-                                            <div class="form-group">
-                                                <a href="#" class="product-name" style="color: #000000">Flete:&nbsp</a>
-                                            </div>
-                                            <div class="form-group">
-                                                <a href="#" class="product-name">$20</a>                          
-                                            </div>   
-                                        </div>                                         
-                                    </div>
-                                    <hr>
-                                    <div>
-                                        <div class="row">                                                           
-                                            <div class="form-group">
-                                                <a href="#" class="product-name" style="color: #000000">Total:&nbsp</a>
-                                            </div>
-                                            <div class="form-group">
-                                                <a href="#" class="product-name">$25'000.000</a>                            
-                                            </div>   
-                                        </div>         
-                                    </div>
-                                </div>
+                                <div class="row">                                                           
+                                        <div class="form-group">
+                                            <label for="cantidad_devuelta" style="color: #000000">Cantidad</label>
+                                            <input type="number" id="cantidad_devuelta" class="form-control" min="1"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="estado_objeto" style="color: #000000">Estado del objeto</label>
+                                             <select class="form-control" id="estado_objeto">
+                                                <option value="0">Buen estado</option>
+                                                <option value="2">Dañados</option>
+                                                <option value="3">En reparación</option>
+                                            </select>                                            
+                                        </div>                                   
+                                        <button type="button" onclick="agregar_devolucion()">Agregar</button>
+                                </div>                                                            
+                            </form> 
                             </div>
-                            -->
+                            <div style="width: 200px"></div>
+
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                         </div>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" style="float: right; border-right: 0px;">Cerrar</button>
                     </div>
@@ -226,7 +209,7 @@
         <div class="modal-dialog modal-lg mdialTamanio">
             <div id="menumodal1" class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                    <button type="button" id="cerrarAbonos" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                     <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Abonos</h4>
 
                 </div>
@@ -703,6 +686,7 @@
                 if(result=="exito"){            
                    alert("Abono realizado con éxito");
                    rebuscarUltimaBusqueda();
+                   document.getElementById("cerrarAbonos").click();
                 }else{
                    alert("Hubo un errror en la petición ( u.u)\n"+result);
                    console.log(result);
@@ -771,29 +755,34 @@
         function parsearDevoluciones(devoluciones){
             var td = document.createElement("td");        
             td.setAttribute("class", "footable-visible");
-            var ul = document.createElement("ul");        
-            for(let i in devoluciones){
-                var li = document.createElement("li");
-                rta = "Fecha: "+devoluciones[i].fecha+", Cantidad: "+devoluciones[i].cantidad+", Estado: "+obtenerEstado(devoluciones[i].estado);
-                li.appendChild(document.createTextNode(rta));
-                ul.appendChild(li)
+            if(devoluciones.length > 0){
+                var ul = document.createElement("ul");        
+                for(let i in devoluciones){
+                    var li = document.createElement("li");
+                    rta = "Fecha: "+devoluciones[i].fecha+", Cantidad: "+devoluciones[i].cantidad+", Estado: "+obtenerEstado(devoluciones[i].estado);
+                    li.appendChild(document.createTextNode(rta));
+                    ul.appendChild(li)
+                }
+                td.appendChild(ul);
+            }else{
+                txt = document.createTextNode("No se ha efectuado ninguna devolución del producto");
+                td.appendChild(txt);
             }
-            td.appendChild(ul);
             return td;
         }
 
         function obtenerEstado(estado){
             switch (estado) {
-              case 0:
+              case "0":
                 return "Buen estado";
                 break;
-              case 1: 
+              case "1": 
                 return "Alquiler";
                 break;               
-              case 2: 
+              case "2": 
                 return "Dañados"
                 break; 
-              case 3: 
+              case "3": 
                 return "En reparacion"
                 break; 
               default:
@@ -812,10 +801,16 @@
             alquiler_cantidad = obtenerAlquiler(factura_id_select, id_alquiler).cantidad;
         }
 
+        function deshabilitarFormularioDevolucion(){
+            document.getElementById("contenedor_add_devoluciones").style.visibility = "hidden";
+            alquiler_devolucion_select = -1;
+            alquiler_cantidad = 0;
+        }
 
         function agregar_devolucion(){
 
             //Validamos si la cantidad a devolver no supera a la cantidad alquilada
+            console.log($('#cantidad_devuelta').val()+ "<=" +alquiler_cantidad);
             if($('#cantidad_devuelta').val() <= alquiler_cantidad){
             
                 var url = "../back/controller/devolverParcial.php";
@@ -838,6 +833,7 @@
                     success: function (data) {                        
                         if(data == "exito"){
                             actualizarAlquileresFactura(factura_id_select);
+                            deshabilitarFormularioDevolucion();
                         }else{
                             console.log(data+" dos");
                         }
