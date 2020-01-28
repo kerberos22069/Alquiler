@@ -21,12 +21,12 @@ foreach ($alquileres as $objx => $Alquiler) {
 
     $myAlquiler->cantidad = $Alquiler->getCantidad();
         $date1 = new DateTime($Alquiler->getFecha_inicio());
-        $date2 = new DateTime($Alquiler->getFecha_fin());
+        $date2 = new DateTime($Alquiler->getFechafin());
         $diff = $date1->diff($date2);
     $myAlquiler->dias = $diff->days;
     $myAlquiler->valor = $Alquiler->getValor();
     
-    array_push($myFactura->alquileres, $myAlquiler);
+    array_push($myFactura, $myAlquiler);
 }
 
 echo json_encode($myFactura);

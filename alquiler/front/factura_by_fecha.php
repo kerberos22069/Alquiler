@@ -369,6 +369,8 @@
         faturas_global = [];
         factura_id_select = -1
         alquiler_devolucion_select = -1
+        //Esta variable es la cantidad de articulos alquilados, esta variable se utiliza en el proceso de devolucion parcial 
+        alquiler_cantidad = -1
         //////////////////////////////////////////////////
         
         function buscar_factura_by_fecha() {
@@ -540,7 +542,7 @@
         return "$ " + dinero;
     }
 
-    function mostrar_alquileres(id_factura) {
+    function mostrar_alquileres(id_factura, flag_repaint = true) {
             contenedor = document.getElementById('articulosList'); 
             contenedor.innerHTML = "";
             alquiler = obtenerFactura(id_factura).alquileres;
@@ -565,8 +567,9 @@
 
              contenedor.appendChild(mi_tr);
             }
-            //console.log(contenedor);
-            $('#myModalDetalles').modal({show: true});
+            if(flag_repaint){
+                $('#myModalDetalles').modal({show: true});
+            }
         }
 
         function mostrar_abonos(id_factura) {       
@@ -626,6 +629,25 @@
             return [];
         }
 
+        /*
+        * Al momento de hacer la devolucion se necesita saber la cantidad de productos alquilados
+        * Como soy un idiota, mi variable global guarda el id y no el objeto completo.
+        * Por esa razon, esta funcion devuelve un alquiler dado su id.
+        * Aprovechando que tengo el id de factura seleccionada, la utilizo para buscar el articulo de forma mas rapida 
+        */
+        function obtenerAlquiler(factura_id, alquiler_id){
+            for(let i in facturas_global){
+                if(parseInt(facturas_global[i].id, 10) === factura_id ){
+                    for(let j in facturas_global[i].alquileres){
+                        if(parseInt(facturas_global[i].alquileres[j].alquiler_id, 10) === alquiler_id){
+                            return facturas_global[i].alquileres[j];
+                        }
+                    }
+                }
+            }
+            return [];
+        }
+
         function parsearAbonos(abonos){
             var td = document.createElement("td");        
             td.setAttribute("class", "footable-visible");
@@ -680,51 +702,82 @@
 
     
 
+        /*
+        * Este metodo prepara las variables globales para el funcionamiento de devolucion
+        */
         function habilitarFormularioDevolucion(id_alquiler){
-
             document.getElementById("contenedor_add_devoluciones").style.visibility = "visible";
             alquiler_devolucion_select = id_alquiler;
+            alquiler_cantidad = obtenerAlquiler(factura_id_select, id_alquiler).cantidad;
         }
 
 
         function agregar_devolucion(){
+
+            //Validamos si la cantidad a devolver no supera a la cantidad alquilada
+            if($('#cantidad_devuelta').val() <= alquiler_cantidad){
             
-            var url = "../back/controller/devolverParcial.php";
+                var url = "../back/controller/devolverParcial.php";
 
-            //Cliente by factura seleccionada
-            cliente = obtenerClienteByFactura(factura_id_select);            
-            cantidad = $('#cantidad_devuelta').val();
-            estado = $('#estado_objeto').val();
+                //Cliente by factura seleccionada
+                cliente = obtenerClienteByFactura(factura_id_select);            
+                cantidad = $('#cantidad_devuelta').val();
+                estado = $('#estado_objeto').val();
 
-            var devoluciones = { 
-                "cliente_id" : cliente.cliente_id, 
-                "alquileres": [{
-                    "alquiler_id" : alquiler_devolucion_select,
-                    "cantidad" : cantidad,
-                    "estado" : estado
-                }]
-            };
+                var devoluciones = { 
+                    "cliente_id" : cliente.cliente_id, 
+                    "alquileres": [{
+                        "alquiler_id" : alquiler_devolucion_select,
+                        "cantidad" : cantidad,
+                        "estado" : estado
+                    }]
+                };
 
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: devoluciones,
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: devoluciones,
 
-                success: function (data) {
-                    f = JSON.parse(data);
-                    console.log(f);
-                    if($.isEmptyObject(f)){
-                    
-                    }else{
-                    
+                    success: function (data) {                        
+                        if(data == "exito"){
+                            actualizarAlquileresFactura(factura_id_select);
+                        }else{
+                            console.log(data+" dos");
+                        }
+                        
                     }
-                    
-                }
-            });
+                });
+            }else{
+                alert("¡¡ ERROR !! \n\n La cantidad a devolver no puede superar la cantidad alquilada");
+            }
         }
 
 
+        /*
+        * Una vez se agregan devoluciones es necesario actualizar la informacion de la vista.
+        * En lugar de ponerme a joder modificando los datos locales, es mucho mas facil volver a traerse todos los 
+        * alquiles y repintar todo
+        */
+        function actualizarAlquileresFactura(factura_id){
+            var url = "../back/controller/listarProductosByFactura.php";
+            $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {"factura_id":factura_id},
+                    success: function (data) {                        
+                        //POR FAVOR, HAY QUE DEFINIR UN ESTANDAR SOBRE LAS RESPUESTAS
+                        actualizarAlquiler(factura_id, JSON.parse(data));
+                    }
+                });
+            }
 
+        /*
+        * Inserta los alquileres consultado a la factura
+        */
+        function actualizarAlquiler(factura_id, alquileres){            
+            obtenerFactura(factura_id).alquileres = alquileres;
+            mostrar_alquileres(factura_id, false);
+        }
 
 
         function cerrarModalDevolverTodo(){
