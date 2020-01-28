@@ -97,7 +97,7 @@
     
     <!-- Modal ddetalles del alquiler -->
     <div class="modal inmodal fade" id="myModalDetalles" tabindex="-1" role="dialog"  aria-hidden="true"  style="overflow-y: scroll;"> 
-        <div class="modal-dialog modal-lg mdialTamanio">
+        <div class="modal-dialog  mdialTamanio" style="width: 80%; max-width: 80%; margin-left: 10%; margin-right: 10%">
             <div id="menumodal1" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
@@ -684,29 +684,34 @@
         function parsearDevoluciones(devoluciones){
             var td = document.createElement("td");        
             td.setAttribute("class", "footable-visible");
-            var ul = document.createElement("ul");        
-            for(let i in devoluciones){
-                var li = document.createElement("li");
-                rta = "Fecha: "+devoluciones[i].fecha+", Cantidad: "+devoluciones[i].cantidad+", Estado: "+obtenerEstado(devoluciones[i].estado);
-                li.appendChild(document.createTextNode(rta));
-                ul.appendChild(li)
+            if(devoluciones.length > 0){
+                var ul = document.createElement("ul");        
+                for(let i in devoluciones){
+                    var li = document.createElement("li");
+                    rta = "Fecha: "+devoluciones[i].fecha+", Cantidad: "+devoluciones[i].cantidad+", Estado: "+obtenerEstado(devoluciones[i].estado);
+                    li.appendChild(document.createTextNode(rta));
+                    ul.appendChild(li)
+                }
+                td.appendChild(ul);
+            }else{
+                txt = document.createTextNode("No se ha efectuado ninguna devolución del producto");
+                td.appendChild(txt);
             }
-            td.appendChild(ul);
             return td;
         }
 
         function obtenerEstado(estado){
             switch (estado) {
-              case 0:
+              case "0":
                 return "Buen estado";
                 break;
-              case 1: 
+              case "1": 
                 return "Alquiler";
                 break;               
-              case 2: 
+              case "2": 
                 return "Dañados"
                 break; 
-              case 3: 
+              case "3": 
                 return "En reparacion"
                 break; 
               default:
