@@ -4,8 +4,6 @@
     <!-- Sweet Alert -->
     <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
-
-
     <div class="wrapper wrapper-content animated fadeInRight">
 
         <div class="row">
@@ -113,7 +111,11 @@
                                         <div class="ibox-content">
 
 
-                        <div class="table-responsive" >
+                        <div class="table-responsive" style="  
+                height: 250px; 
+                overflow-x: hidden; 
+                overflow-x: auto; 
+                text-align:justify; ">
                             <table class="table table-striped" >
                                 <thead>
                                     <tr>                                                        
@@ -141,14 +143,38 @@
                         </div>
 
                     </div>
+                </div> <!-- panel -->
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                           <p>Total factura:</p>
+                           <p id="total_factura">$0000000</p>
+                    </div>
+                </div>
                                 
                             </div> <!-- panel -->
                         </div>
 
-                        <div class="modal-footer">
-
-                            <div id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 0px; visibility: hidden;">
+                        <div class="modal-footer">                            
+                            <div class="ibox-content" id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 10px; visibility: hidden;">
                                 <form role="form" >
+                                    <div class="row">                                                           
+                                            <div class="form-group">
+                                                <label for="cantidad_devuelta" style="color: #000000">Cantidad</label>
+                                                <input type="number" id="cantidad_devuelta" class="form-control"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="estado_objeto" style="color: #000000">Estado del objeto</label>
+                                                 <select class="form-control" id="estado_objeto">
+                                                    <option value="0">Buen estado</option>
+                                                    <option value="2">Dañados</option>
+                                                    <option value="3">En reparacion</option>
+                                                </select>                                            
+                                            </div>                                   
+                                            <button type="button" onclick="agregar_devolucion()">Agregar</button>
+                                    </div>                                                            
+                                </form> 
+                            </div>
+                            <div style="width: 200px"></div>
                                 <div class="row">                                                           
                                         <div class="form-group">
                                             <label for="cantidad_devuelta" style="color: #000000">Cantidad</label>
@@ -169,8 +195,8 @@
                             <div style="width: 200px"></div>
 
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-
                         </div>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="float: right; border-right: 0px;">Cerrar</button>
                     </div>
                 </div>
             </div>
@@ -388,7 +414,7 @@
 
                 success: function (data) {
                     facturas_global = JSON.parse(data);
-                    //console.log(JSON.parse(data));
+                    console.log(JSON.parse(data));
                     if($.isEmptyObject(facturas_global)){
                         mostrar_datos_vacios();
                     }else{
@@ -489,10 +515,11 @@
             return tr;
         }
 
+        //Necesitada modificarlo para que el texto estuviera centrado
         function td(texto, clase){
             var td = document.createElement("td");        
             td.setAttribute("class", clase);
-            td.appendChild(document.createTextNode(texto));
+            td.appendChild(document.createTextNode(texto));                      
             return td;
         }
 
@@ -581,9 +608,52 @@
 
              contenedor.appendChild(mi_tr);
             }
+
+            //Aqui va la segunda parte de la lista
+            setConductores(id_factura);
+            //Parte final
+            document.getElementById('total_factura').innerHTML = formatearDinero(obtenerFactura(id_factura).total); 
+
             if(flag_repaint){
                 $('#myModalDetalles').modal({show: true});
             }
+        }
+
+        function setConductores(id_factura) {
+            contenedor = document.getElementById('articulosList'); 
+            mi_tr = tr("gradeX footable-even");
+            var mi_td = document.createElement("td");        
+            mi_td.setAttribute("class", "footable-visible footable-first-column");
+            mi_td.appendChild(document.createTextNode("Servicio de transporte"));
+            mi_td.setAttribute("colspan", 7);
+            mi_tr.appendChild(mi_td);
+            contenedor.appendChild(mi_tr);
+            conductores = getConductoresByFactura(id_factura);
+            for(let i in conductores){
+                mi_tr = tr("gradeX footable-even");
+                //Conductor
+                mi_tr.appendChild( td(conductores[i].conductor, "footable-visible") );
+                //Valor unitario
+                mi_tr.appendChild( td(formatearDinero(conductores[i].flete), "footable-visible") );
+                //Cantidad
+                mi_tr.appendChild( td(1, "footable-visible"));
+                //Dias
+                mi_tr.appendChild( td(1, "footable-visible"));
+                //Total
+                total = alquiler[i].valor * alquiler[i].cantidad * alquiler[i].dias;
+                mi_tr.appendChild( td(formatearDinero(total), "footable-visible"));
+                //Devoluciones
+                mi_td_var = td("NA", "footable-visible");
+                mi_td_var.setAttribute("colspan", 2);
+                mi_td_var.setAttribute("colspan", 2);
+                mi_tr.appendChild(mi_td_var);
+                
+             contenedor.appendChild(mi_tr);
+            }
+        }
+
+        function getConductoresByFactura(id_factura){
+            return obtenerFactura(id_factura).transportes;
         }
 
         function mostrar_abonos(id_factura) {       
