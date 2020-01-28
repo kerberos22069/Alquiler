@@ -83,7 +83,7 @@ function armarReporteDeFacturas($facturas) {
             array_push($myFactura->transportes, $myTransporte);
         }
 
-        $myTransporte->totalTransporte = $totalTransporte;
+        $myFactura->totalTransporte = $totalTransporte;
         $myFactura->total = $myFactura->total + $totalTransporte;
         
         $myFactura->descuento = $Factura->getFac_descueto();

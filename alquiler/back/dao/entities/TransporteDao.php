@@ -143,7 +143,7 @@ $transporte_conductor=$transporte->getTransporte_conductor();
       try {
           $sql ="SELECT `idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`"
           ."FROM `transporte`"
-          ."WHERE `factura_idfactura` = "+$factura_id;
+          ."WHERE `factura_idfactura` = '$factura_id'";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $transporte= new Transporte();

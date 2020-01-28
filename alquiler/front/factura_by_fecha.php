@@ -375,6 +375,8 @@
         
         function buscar_factura_by_fecha() {
             
+            ultimaBusquedafuction = 0;
+            
             var url = "../back/controller/reportePorTiempo.php";
 
             var fechas = { "fecha_ini" : $('#fecha_inicio').val(), "fecha_fin": $('#fecha_fin').val()}
@@ -399,6 +401,8 @@
         }
         
         function buscar_factura_by_cliente () {
+            
+            ultimaBusquedafuction = 1;
             
             var url = "../back/controller/reportePorCliente.php";
             
@@ -512,7 +516,15 @@
         }
 
 
+    var ultimaBusquedafuction = 0;
     
+    function rebuscarUltimaBusqueda(){
+        if(ultimaBusquedafuction == 0){
+            buscar_factura_by_fecha();
+        }else{
+            buscar_factura_by_cliente();
+        }
+    }
         
     function devolverTodo(factura_id){
         var formData = {};
@@ -528,6 +540,7 @@
         if(state=="success"){
              if(result=="exito"){            
                 alert("Devuelto con éxito");
+                rebuscarUltimaBusqueda();
              }else{
                 alert("Hubo un errror en la petición ( u.u)\n"+result);
                 console.log(result);
@@ -602,6 +615,7 @@
            if(state=="success"){
                 if(result=="exito"){            
                    alert("Abono realizado con éxito");
+                   rebuscarUltimaBusqueda();
                 }else{
                    alert("Hubo un errror en la petición ( u.u)\n"+result);
                    console.log(result);
