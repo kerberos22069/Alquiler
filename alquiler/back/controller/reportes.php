@@ -71,11 +71,15 @@ function armarReporteDeFacturas($facturas) {
         array_push($myFactura->alquileres, $myAlquiler);
     }   
     
+    $myFactura->descuento = $Factura->getFac_descueto();
+    $myFactura->total = $myFactura->total - $myFactura->descuento;
+    
     $abonos = json_decode($Factura->getAbonos());
     $totalAbonado = 0;
     foreach ($abonos as $objq => $Abono) {
         $totalAbonado+=$Abono->cantidad;
     }
+        
     $myFactura->totalAbonado = $totalAbonado;
     $myFactura->abonos = $Factura->getAbonos();
     
