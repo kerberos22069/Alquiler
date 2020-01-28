@@ -152,14 +152,14 @@
                                 <div class="row">                                                           
                                         <div class="form-group">
                                             <label for="cantidad_devuelta" style="color: #000000">Cantidad</label>
-                                            <input type="number" id="cantidad_devuelta" class="form-control"/>
+                                            <input type="number" id="cantidad_devuelta" class="form-control" min="1"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="estado_objeto" style="color: #000000">Estado del objeto</label>
                                              <select class="form-control" id="estado_objeto">
                                                 <option value="0">Buen estado</option>
                                                 <option value="2">Dañados</option>
-                                                <option value="3">En reparacion</option>
+                                                <option value="3">En reparación</option>
                                             </select>                                            
                                         </div>                                   
                                         <button type="button" onclick="agregar_devolucion()">Agregar</button>
@@ -168,7 +168,7 @@
                             </div>
                             <div style="width: 200px"></div>
 
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
 
                         </div>
                     </div>
@@ -730,6 +730,11 @@
             alquiler_cantidad = obtenerAlquiler(factura_id_select, id_alquiler).cantidad;
         }
 
+        function deshabilitarFormularioDevolucion(){
+            document.getElementById("contenedor_add_devoluciones").style.visibility = "hidden";
+            alquiler_devolucion_select = -1;
+            alquiler_cantidad = 0;
+        }
 
         function agregar_devolucion(){
 
@@ -756,6 +761,7 @@
                     success: function (data) {                        
                         if(data == "exito"){
                             actualizarAlquileresFactura(factura_id_select);
+                            deshabilitarFormularioDevolucion();
                         }else{
                             console.log(data+" dos");
                         }
