@@ -411,6 +411,8 @@
         
         function buscar_factura_by_fecha() {
             
+            ultimaBusquedafuction = 0;
+            
             var url = "../back/controller/reportePorTiempo.php";
 
             var fechas = { "fecha_ini" : $('#fecha_inicio').val(), "fecha_fin": $('#fecha_fin').val()}
@@ -422,7 +424,7 @@
 
                 success: function (data) {
                     facturas_global = JSON.parse(data);
-                    console.log(JSON.parse(data));
+                    //console.log(JSON.parse(data));
                     if($.isEmptyObject(facturas_global)){
                         mostrar_datos_vacios();
                     }else{
@@ -435,6 +437,8 @@
         }
         
         function buscar_factura_by_cliente () {
+            
+            ultimaBusquedafuction = 1;
             
             var url = "../back/controller/reportePorCliente.php";
             
@@ -450,7 +454,7 @@
 
                     success: function (data) {
                         facturas_global = JSON.parse(data);
-                        console.log($.isEmptyObject(facturas_global));
+                        //console.log($.isEmptyObject(facturas_global));
                      
                         if($.isEmptyObject(facturas_global)){
                             mostrar_datos_vacios();
@@ -548,7 +552,15 @@
         }
 
 
+    var ultimaBusquedafuction = 0;
     
+    function rebuscarUltimaBusqueda(){
+        if(ultimaBusquedafuction == 0){
+            buscar_factura_by_fecha();
+        }else{
+            buscar_factura_by_cliente();
+        }
+    }
         
     function devolverTodo(factura_id){
         var formData = {};
@@ -564,6 +576,7 @@
         if(state=="success"){
              if(result=="exito"){            
                 alert("Devuelto con éxito");
+                rebuscarUltimaBusqueda();
              }else{
                 alert("Hubo un errror en la petición ( u.u)\n"+result);
                 console.log(result);
@@ -665,6 +678,7 @@
            if(state=="success"){
                 if(result=="exito"){            
                    alert("Abono realizado con éxito");
+                   rebuscarUltimaBusqueda();
                 }else{
                    alert("Hubo un errror en la petición ( u.u)\n"+result);
                    console.log(result);
@@ -787,19 +801,15 @@
                 cantidad = $('#cantidad_devuelta').val();
                 estado = $('#estado_objeto').val();
 
-                var devoluciones = { 
-                    "cliente_id" : cliente.cliente_id, 
-                    "alquileres": [{
-                        "alquiler_id" : alquiler_devolucion_select,
-                        "cantidad" : cantidad,
-                        "estado" : estado
-                    }]
-                };
+                var alquileres = {};
+                alquileres["alquiler_id"] = alquiler_devolucion_select;
+                alquileres["cantidad"] = cantidad;
+                alquileres["estado"] = estado;
 
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: devoluciones,
+                    data: alquileres,
 
                     success: function (data) {                        
                         if(data == "exito"){
