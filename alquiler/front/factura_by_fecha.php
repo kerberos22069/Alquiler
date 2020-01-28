@@ -143,6 +143,13 @@
                         </div>
 
                     </div>
+                </div> <!-- panel -->
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                           <p>Total factura:</p>
+                           <p id="total_factura">$0000000</p>
+                    </div>
+                </div>
                                 
                             </div> <!-- panel -->
                         </div>
@@ -424,7 +431,7 @@
 
                 success: function (data) {
                     facturas_global = JSON.parse(data);
-                    //console.log(JSON.parse(data));
+                    console.log(JSON.parse(data));
                     if($.isEmptyObject(facturas_global)){
                         mostrar_datos_vacios();
                     }else{
@@ -525,10 +532,11 @@
             return tr;
         }
 
+        //Necesitada modificarlo para que el texto estuviera centrado
         function td(texto, clase){
             var td = document.createElement("td");        
             td.setAttribute("class", clase);
-            td.appendChild(document.createTextNode(texto));
+            td.appendChild(document.createTextNode(texto));                      
             return td;
         }
 
@@ -617,7 +625,10 @@
              contenedor.appendChild(mi_tr);
             }
 
+            //Aqui va la segunda parte de la lista
             setConductores(id_factura);
+            //Parte final
+            document.getElementById('total_factura').innerHTML = formatearDinero(obtenerFactura(id_factura).total); 
 
             if(flag_repaint){
                 $('#myModalDetalles').modal({show: true});
@@ -627,25 +638,38 @@
         function setConductores(id_factura) {
             contenedor = document.getElementById('articulosList'); 
             mi_tr = tr("gradeX footable-even");
-            var td = document.createElement("td");        
-            td.setAttribute("class", "footable-visible footable-first-column");
-            td.appendChild(document.createTextNode("Servicio de transporte"));
-            td.setAttribute("colspan", 7);
-            mi_tr.appendChild(td);
+            var mi_td = document.createElement("td");        
+            mi_td.setAttribute("class", "footable-visible footable-first-column");
+            mi_td.appendChild(document.createTextNode("Servicio de transporte"));
+            mi_td.setAttribute("colspan", 7);
+            mi_tr.appendChild(mi_td);
             contenedor.appendChild(mi_tr);
+            conductores = getConductoresByFactura(id_factura);
+            for(let i in conductores){
+                mi_tr = tr("gradeX footable-even");
+                //Conductor
+                mi_tr.appendChild( td(conductores[i].conductor, "footable-visible") );
+                //Valor unitario
+                mi_tr.appendChild( td(formatearDinero(conductores[i].flete), "footable-visible") );
+                //Cantidad
+                mi_tr.appendChild( td(1, "footable-visible"));
+                //Dias
+                mi_tr.appendChild( td(1, "footable-visible"));
+                //Total
+                total = alquiler[i].valor * alquiler[i].cantidad * alquiler[i].dias;
+                mi_tr.appendChild( td(formatearDinero(total), "footable-visible"));
+                //Devoluciones
+                mi_td_var = td("NA", "footable-visible");
+                mi_td_var.setAttribute("colspan", 2);
+                mi_td_var.setAttribute("colspan", 2);
+                mi_tr.appendChild(mi_td_var);
+                
+             contenedor.appendChild(mi_tr);
+            }
         }
 
-        function getConductoByFactura(id_factura){
-            var url = "../back/controller/listarProductosByFactura.php";
-            $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {"factura_id":factura_id},
-                    success: function (data) {                        
-                        //POR FAVOR, HAY QUE DEFINIR UN ESTANDAR SOBRE LAS RESPUESTAS
-                        actualizarAlquiler(factura_id, JSON.parse(data));
-                    }
-                });
+        function getConductoresByFactura(id_factura){
+            return obtenerFactura(id_factura).transportes;
         }
 
         function mostrar_abonos(id_factura) {       
