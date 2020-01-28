@@ -4,8 +4,6 @@
     <!-- Sweet Alert -->
     <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
-
-
     <div class="wrapper wrapper-content animated fadeInRight">
 
         <div class="row">
@@ -113,7 +111,11 @@
                                         <div class="ibox-content">
 
 
-                        <div class="table-responsive" >
+                        <div class="table-responsive" style="  
+                height: 250px; 
+                overflow-x: hidden; 
+                overflow-x: auto; 
+                text-align:justify; ">
                             <table class="table table-striped" >
                                 <thead>
                                     <tr>                                                        
@@ -145,32 +147,66 @@
                             </div> <!-- panel -->
                         </div>
 
-                        <div class="modal-footer">
-
-                            <div id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 0px; visibility: hidden;">
+                        <div class="modal-footer">                            
+                            <div class="ibox-content" id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 10px; visibility: hidden;">
                                 <form role="form" >
-                                <div class="row">                                                           
-                                        <div class="form-group">
-                                            <label for="cantidad_devuelta" style="color: #000000">Cantidad</label>
-                                            <input type="number" id="cantidad_devuelta" class="form-control"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="estado_objeto" style="color: #000000">Estado del objeto</label>
-                                             <select class="form-control" id="estado_objeto">
-                                                <option value="0">Buen estado</option>
-                                                <option value="2">Dañados</option>
-                                                <option value="3">En reparacion</option>
-                                            </select>                                            
-                                        </div>                                   
-                                        <button type="button" onclick="agregar_devolucion()">Agregar</button>
-                                </div>                                                            
-                            </form> 
+                                    <div class="row">                                                           
+                                            <div class="form-group">
+                                                <label for="cantidad_devuelta" style="color: #000000">Cantidad</label>
+                                                <input type="number" id="cantidad_devuelta" class="form-control"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="estado_objeto" style="color: #000000">Estado del objeto</label>
+                                                 <select class="form-control" id="estado_objeto">
+                                                    <option value="0">Buen estado</option>
+                                                    <option value="2">Dañados</option>
+                                                    <option value="3">En reparacion</option>
+                                                </select>                                            
+                                            </div>                                   
+                                            <button type="button" onclick="agregar_devolucion()">Agregar</button>
+                                    </div>                                                            
+                                </form> 
                             </div>
                             <div style="width: 200px"></div>
-
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-
+                            <!-- Borrar esto
+                            <div class="ibox">
+                                <div class="ibox-content">
+                                    <p class="font-bold">Costos transporte</p>
+                                    <hr>
+                                    <div>
+                                        <div class="row">                                                           
+                                            <div class="form-group">
+                                                <a href="#" class="product-name" style="color: #000000">Conductor:&nbsp</a>
+                                            </div>
+                                            <div class="form-group">
+                                                <a href="#" class="product-name">Diego Carrascal</a>                         
+                                            </div>   
+                                        </div> 
+                                        <div class="row">                                                           
+                                            <div class="form-group">
+                                                <a href="#" class="product-name" style="color: #000000">Flete:&nbsp</a>
+                                            </div>
+                                            <div class="form-group">
+                                                <a href="#" class="product-name">$20</a>                          
+                                            </div>   
+                                        </div>                                         
+                                    </div>
+                                    <hr>
+                                    <div>
+                                        <div class="row">                                                           
+                                            <div class="form-group">
+                                                <a href="#" class="product-name" style="color: #000000">Total:&nbsp</a>
+                                            </div>
+                                            <div class="form-group">
+                                                <a href="#" class="product-name">$25'000.000</a>                            
+                                            </div>   
+                                        </div>         
+                                    </div>
+                                </div>
+                            </div>
+                            -->
                         </div>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="float: right; border-right: 0px;">Cerrar</button>
                     </div>
                 </div>
             </div>
@@ -567,9 +603,36 @@
 
              contenedor.appendChild(mi_tr);
             }
+
+            setConductores(id_factura);
+
             if(flag_repaint){
                 $('#myModalDetalles').modal({show: true});
             }
+        }
+
+        function setConductores(id_factura) {
+            contenedor = document.getElementById('articulosList'); 
+            mi_tr = tr("gradeX footable-even");
+            var td = document.createElement("td");        
+            td.setAttribute("class", "footable-visible footable-first-column");
+            td.appendChild(document.createTextNode("Servicio de transporte"));
+            td.setAttribute("colspan", 7);
+            mi_tr.appendChild(td);
+            contenedor.appendChild(mi_tr);
+        }
+
+        function getConductoByFactura(id_factura){
+            var url = "../back/controller/listarProductosByFactura.php";
+            $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {"factura_id":factura_id},
+                    success: function (data) {                        
+                        //POR FAVOR, HAY QUE DEFINIR UN ESTANDAR SOBRE LAS RESPUESTAS
+                        actualizarAlquiler(factura_id, JSON.parse(data));
+                    }
+                });
         }
 
         function mostrar_abonos(id_factura) {       
