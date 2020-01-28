@@ -137,6 +137,31 @@ $transporte_conductor=$transporte->getTransporte_conductor();
       return null;
       }
   }
+  
+  public function listByFactura($factura_id){
+      $lista = array();
+      try {
+          $sql ="SELECT `idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`"
+          ."FROM `transporte`"
+          ."WHERE `factura_idfactura` = "+$factura_id;
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $transporte= new Transporte();
+          $transporte->setIdtransporte($data[$i]['idtransporte']);
+          $transporte->setTransporte_flete($data[$i]['transporte_flete']);
+           $factura = new Factura();
+           $factura->setIdfactura($data[$i]['factura_idfactura']);
+           $transporte->setFactura_idfactura($factura);
+          $transporte->setTransporte_conductor($data[$i]['transporte_conductor']);
+
+          array_push($lista,$transporte);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
 
       public function insertarConsulta($sql){
           $this->cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

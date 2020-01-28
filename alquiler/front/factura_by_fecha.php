@@ -386,7 +386,7 @@
 
                 success: function (data) {
                     facturas_global = JSON.parse(data);
-                    console.log(JSON.parse(data));
+                    //console.log(JSON.parse(data));
                     if($.isEmptyObject(facturas_global)){
                         mostrar_datos_vacios();
                     }else{
@@ -414,7 +414,7 @@
 
                     success: function (data) {
                         facturas_global = JSON.parse(data);
-                        console.log($.isEmptyObject(facturas_global));
+                        //console.log($.isEmptyObject(facturas_global));
                      
                         if($.isEmptyObject(facturas_global)){
                             mostrar_datos_vacios();

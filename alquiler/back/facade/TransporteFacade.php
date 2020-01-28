@@ -114,6 +114,14 @@ class TransporteFacade {
      $transporteDao->close();
      return $result;
   }
+  
+  public static function listByFactura($factura_id){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $transporteDao =$FactoryDao->gettransporteDao(self::getDataBaseDefault());
+     $result = $transporteDao->listByFactura($factura_id);
+     $transporteDao->close();
+     return $result;
+  }
 
 
 }
