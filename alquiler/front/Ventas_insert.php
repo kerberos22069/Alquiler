@@ -77,18 +77,7 @@
                                     <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
                                 </div>
                         <br>
-                        <div class="  row">
-                            <label class="col-sm-2 col-form-label"><b>Chofer :</b></label>
 
-                         
-                                    <select class="col-sm-10 p-xs border-bottom"  id="choferes">
-          <option value="-1">Seleccionar</option>
-          <option value="1">Chofer 1</option>
-          <option value="2">Chofer 2</option>
-        </select>  
-
-                          
-                        </div>
       
    
                         
@@ -141,34 +130,29 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="ibox ">
-              
+                <div class="ibox ">             
                     <div class="ibox-content">
-                          <div class="row">
-        <div class="col-sm">
-            <button type="button" id="agregarProd" class="btn btn-primary" onclick="modalProductos()"  >
-                                + Agregar
-                            </button>
-        </div>
-        <div class="col-sm">
-            
-        </div>
-        <div class="col-sm">
-             
-        </div>
-        <div class="col-sm">
-             
-        </div>
-        <div class="col-sm">
-            
-            
-  
-              <button type="button" id="agregarProd" class="btn btn-primary" onclick="enviarFactura()"  >
-                                + Enviar Factura
-                            </button>
-
-        </div>
-    </div>
+                      <div class="row">
+                        <div class="col-sm">
+                          <button type="button" id="agregarProd" class="btn btn-primary" onclick="modalProductos()">
+                            + Agregar
+                          </button>
+                        </div>
+                        <div class="col-sm"></div>
+                        <div class="col-sm"></div>
+                        <div class="col-sm"></div>
+                        <div class="col-sm"></div>
+                        <div class="col-sm">
+                           <button type="button" id="agregarProd" class="btn btn-primary" onclick="enviarFactura()">
+                            + Enviar Factura
+                          </button>  
+                        </div>
+                        <div class="col-sm">                    
+                          <button type="button" id="btn_admin_conductor" class="btn btn-primary" onclick="administrarConductor()">
+                            + Conductor
+                          </button>
+                        </div>
+                      </div>
                         
                      
     <div class="ibox-tools">
@@ -234,25 +218,32 @@
 
         <!--<hr>-->   
         <div class="col-sm-3">
-               <hr>  
-               
-                     <div class="  row">
-            <label class="col-sm-6 col-form-label"><b>DESCUENTO $</b></label>
+          <hr>
+          <div class=" row" style="visibility: hidden;" id="div_conductores">
 
-                                    <div class="col-sm-6 p-xs">
-                                        <input value="0" style=" border:1px solid #ffffff;" type="text" id="Inputfact_descuento" name="fact_descuento" class="form-control" onchange="restar();">
-                                    </div>
-                                </div>    
-                     <div class="  row">
+                <select class="col-sm-6 form-control"  id="choferes">
+                  <option value="-1">Conductores</option>
+                  <option value="1">Chofer 1</option>
+                  <option value="2">Chofer 2</option>
+                </select>  
+                <div class="col-sm-6 p-xs">
+                  <input value="0" style=" border:1px solid #ffffff;" type="text" class="form-control">
+                </div>                      
+              </div>                
+             
+          <div class="  row">
+            <label class="col-sm-6 col-form-label"><b>DESCUENTO $</b></label>
+              <div class="col-sm-6 p-xs">
+                  <input value="0" style=" border:1px solid #ffffff;" type="text" id="Inputfact_descuento" name="fact_descuento" class="form-control" onchange="restar();">
+              </div>
+          </div>    
+          <div class="  row">
             <label class="col-sm-6 col-form-label"><b>TOTAL $</b></label>
-          
-                                    <div class="col-sm-6 p-xs">
+            <div class="col-sm-6 p-xs">
               <input style=" border:1px solid #ffffff;" type="text" id="Inputfact_total" name="fact_total" class="form-control" readonly>
-                                    </div>
-                                </div>    
-               
-              <br>
-              
+            </div>
+          </div>    
+          <br>     
         </div>
       
     </div>
@@ -379,7 +370,15 @@
             <script src="js/HtmlBuilder.js "></script> 
 
     <script>
-       
+      
+      /////////////////////////////////////////////////
+      /*
+       * Necesito saber cuando agrego o quito el conductor a la factura parcial.
+       * Por esa razon, solamente compruebo si es par agregado, impar no agregado.
+       * Inicia en uno porque es impar, eso significa que aun no se agregado ningun conductor.
+       */
+       is_conductor_agregado = 1;
+      //////////////////////////////////////////////// 
         
        $(document).ready(function () {
 
@@ -772,6 +771,51 @@ $(document).on('click', '.btn_remove', function() {
   });
    recorrerTabla(); 
 });
+
+
+
+    /*
+     * Funcion encargada de administrar el estado de los conductores.
+     */
+    function administrarConductor(){
+      is_conductor_agregado = is_conductor_agregado + 1;
+      boton = document.getElementById("btn_admin_conductor"); 
+      contenedor = document.getElementById("div_conductores");
+      if((is_conductor_agregado % 2) == 0){
+        boton.innerHTML = "- Conductor";        
+        contenedor.style.visibility = "visible" ;      
+      }else{
+        boton.innerHTML = "+ Conductor";
+        contenedor.style.visibility = "hidden" ;              
+      }
+    }
 </script>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
