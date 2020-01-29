@@ -611,6 +611,7 @@
             mi_td.setAttribute("class", "footable-visible footable-first-column");
             mi_td.appendChild(document.createTextNode("Servicio de transporte"));
             mi_td.setAttribute("colspan", 7);
+            mi_td.setAttribute("style"," color:#FFFFFF; background-color: #616161  !important");
             mi_tr.appendChild(mi_td);
             contenedor.appendChild(mi_tr);
             conductores = getConductoresByFactura(id_factura);
@@ -647,6 +648,7 @@
             mi_td.setAttribute("class", "footable-visible footable-first-column");
             mi_td.appendChild(document.createTextNode("Abonos"));
             mi_td.setAttribute("colspan", 7);
+            mi_td.setAttribute("style"," color:#FFFFFF; background-color: #616161  !important");
             mi_tr.appendChild(mi_td);
             contenedor.appendChild(mi_tr);
             abonos = getAbonosByFactura(id_factura);
