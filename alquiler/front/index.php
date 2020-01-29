@@ -6,6 +6,8 @@
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" type="image/png" href="img/logo2.png">
 
         <title>Sistema de gestión de alquileres</title>
 
@@ -33,35 +35,35 @@
 
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
-                <ul class="nav metismenu" id="side-menu">
-                    <li class="nav-header">
+                <ul class="nav metismenu" id="side-menu" style="font-size: medium; ">
+                    <li class="nav-header" style="padding: 10px">
                         <div class="dropdown profile-element" align=center> <span>
-                                <img alt="image" class="img" src="img/logo2.png" width="120" height="120"/>
+                                <img alt="image" class="img" src="img/logo2.png"  height="130" />
                             </span>
 
 
                         </div>
-                        <div class="logo-element">
-                            SCA
+                        <div class="logo-element" style="color: gray">
+                            CRISOL
                         </div>
                     </li>
 
 
                     <li>
-                        <a onclick="Clientes_Listar()"><i class="fa fa-laptop"></i> <span class="nav-label">Clientes </span></a>
+                        <a onclick="Clientes_Listar()"><i class="fa fa-users"></i> <span class="nav-label">Clientes </span></a>
                     </li>
                     
                 
                     
                     <li>
-                        <a onclick="Productos_Listar()"><i class="fa fa-laptop"></i> <span class="nav-label">Productos </span></a>
+                        <a onclick="Productos_Listar()"><i class="fa fa-wrench"></i> <span class="nav-label">Productos </span></a>
                     </li>
                     <li>
-                        <a onclick="Ventas_Registrar()"><i class="fa fa-laptop"></i> <span class="nav-label">Alquiler </span></a>
+                        <a onclick="Ventas_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Alquiler </span></a>
                     </li>
                     
                     <li>
-                        <a onclick="facturas_by_fecha()"><i class="fa fa-laptop"></i> <span class="nav-label">Facturas </span></a>
+                        <a onclick="facturas_by_fecha()"><i class="fa fa-fax"></i> <span class="nav-label">Facturas </span></a>
                     </li>
         
                     
@@ -84,11 +86,11 @@
 
 
 
-                    <ul class="nav navbar-top-links navbar-right">
+                    <!--<ul class="nav navbar-top-links navbar-right">
 
                         <li>
                             <span class="m-r-sm text-muted welcome-message"> 
-<!--                                <label style="color: #ffffff" ><?php ?></label></span>-->
+                                <label style="color: #ffffff" ><?php ?></label></span>
                         </li>
 
 
@@ -98,7 +100,7 @@
                             </a>
 
                         </li>
-                    </ul>
+                    </ul>-->
 
                 </nav>
 

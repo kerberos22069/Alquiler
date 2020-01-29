@@ -4,7 +4,11 @@
 <html>
     <div>
         <div class="panel panel-default">
-            <div align=center class="panel-heading"><h3 class="panel-title">Modulo ventas</h3></div>
+            <div class="ibox-title"> 
+                        <div style="text-align: center; color: white">
+                            <h1><b>Alquiler</b></h1>
+                        </div>
+                    </div>
             <div align=center class="panel-body">
                 <!--<form role="form" id="PersonaInsert">-->
                 <div class="row">
