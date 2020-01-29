@@ -610,6 +610,8 @@
 
             //Aqui va la segunda parte de la lista
             setConductores(id_factura);
+            //Aqui va la parte de devoluciones
+            setAbonos(id_factura);
             //Parte final
             document.getElementById('total_factura').innerHTML = formatearDinero(obtenerFactura(id_factura).total); 
 
@@ -643,8 +645,7 @@
                 mi_tr.appendChild( td(formatearDinero(total), "footable-visible"));
                 //Devoluciones
                 mi_td_var = td("NA", "footable-visible");
-                mi_td_var.setAttribute("colspan", 2);
-                mi_td_var.setAttribute("colspan", 2);
+                mi_td_var.setAttribute("colspan", 3);
                 mi_tr.appendChild(mi_td_var);
                 
              contenedor.appendChild(mi_tr);
@@ -653,6 +654,39 @@
 
         function getConductoresByFactura(id_factura){
             return obtenerFactura(id_factura).transportes;
+        }
+
+        function setAbonos(id_factura) {
+            contenedor = document.getElementById('articulosList'); 
+            mi_tr = tr("gradeX footable-even");
+            var mi_td = document.createElement("td");        
+            mi_td.setAttribute("class", "footable-visible footable-first-column");
+            mi_td.appendChild(document.createTextNode("Abonos"));
+            mi_td.setAttribute("colspan", 7);
+            mi_tr.appendChild(mi_td);
+            contenedor.appendChild(mi_tr);
+            abonos = getAbonosByFactura(id_factura);
+            for(let i in abonos){
+                mi_tr = tr("gradeX footable-even");
+                //Cantidad
+                mi_tr.appendChild( td("Cantidad:", "footable-visible") );
+                //Valor
+                mi_tr.appendChild( td(formatearDinero(abonos[i].cantidad), "footable-visible") );
+                //Fecha
+                mi_tr.appendChild( td("Fecha:", "footable-visible"));
+                //Fecha
+                mi_tr.appendChild( td(abonos[i].fecha, "footable-visible"));
+                //Total                
+                mi_td_var = td("NA", "footable-visible");
+                mi_td_var.setAttribute("colspan", 3);
+                mi_tr.appendChild(mi_td_var);
+                
+             contenedor.appendChild(mi_tr);
+            }
+        }
+
+        function getAbonosByFactura(id_factura){
+            return JSON.parse(obtenerFactura(id_factura).abonos);
         }
 
         function mostrar_abonos(id_factura) {       

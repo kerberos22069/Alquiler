@@ -88,7 +88,7 @@ function armarReporteDeFacturas($facturas) {
         
         $myFactura->descuento = $Factura->getFac_descueto();
         $myFactura->total = $myFactura->total - $myFactura->descuento;
-        $abonos = $Factura->getAbonos();
+        $abonos = json_decode($Factura->getAbonos());
         $totalAbonado = 0;
         foreach ($abonos as $objq => $Abono) {
             $totalAbonado+=$Abono->cantidad;
