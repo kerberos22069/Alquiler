@@ -603,6 +603,7 @@
                 //Devoluciones
                 mi_tr.appendChild(parsearDevoluciones(JSON.parse(alquiler[i].devoluciones)));
                 //Devolver parcial
+                console.log(alquiler[i].devuelto);
                 mi_tr.appendChild(td_icono(alquiler[i].alquiler_id,"habilitarFormularioDevolucion","hand-o-left",alquiler[i].devuelto));
 
              contenedor.appendChild(mi_tr);
