@@ -45,7 +45,7 @@
                     </div></div>
 
                 <div class="row">
-                    <div class="col-lg-4" style="font-size: 12px; font-weight: bold; " >
+                    <div class="col-lg-6" style="font-size: 12px; font-weight: bold; " >
                       
                         <div class="form-group"  style="display: none">
                             <label for="Inputid">id</label>
@@ -53,9 +53,9 @@
                         </div>
                         
         <div class=" row ">
-            <label class="col-sm-2 col-form-label"><b>Nombre y Apellido :</b></label>
+            <label style="text-align: left" class="col-sm-4 col-form-label"><b>Nombre y Apellido :</b></label>
 
-                                    <div class="col-sm-10 p-xs border-bottom">
+            <div class="col-sm-8 p-xs border-bottom " >
                                         <input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
                                 </div>
                         
@@ -72,6 +72,19 @@
 
                                     <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
                                 </div>
+                        <br>
+                        <div class="  row">
+                            <label class="col-sm-2 col-form-label"><b>Chofer :</b></label>
+
+                         
+                                    <select class="col-sm-10 p-xs border-bottom"  id="choferes">
+          <option value="-1">Seleccionar</option>
+          <option value="1">Chofer 1</option>
+          <option value="2">Chofer 2</option>
+        </select>  
+
+                          
+                        </div>
       
    
                         
@@ -85,7 +98,7 @@
                     </div>
 
 
-                    <div class="col-lg-4" style="font-size: 12px; font-weight: bold; ">
+                    <div class="col-lg-6" style="font-size: 12px; font-weight: bold; ">
                         <!--<div class="container">-->
 
      <div class=" row">
@@ -106,9 +119,7 @@
 
                     </div>
                     
-                    <div class="col-lg-4" style="font-size: 12px; font-weight: bold; ">
-                        
-                    </div>
+                 
 
                 </div>
 
@@ -147,9 +158,7 @@
         <div class="col-sm">
             
             
-<!--              <button type="button" id="agregarProd" class="btn btn-primary" onclick="recorrerTabla()"  >
-                                + Enviar Factura
-                            </button>-->
+  
               <button type="button" id="agregarProd" class="btn btn-primary" onclick="enviarFactura()"  >
                                 + Enviar Factura
                             </button>
@@ -218,18 +227,30 @@
         <div class="col-sm">
          
         </div>
-        <div class="col-sm">
-   
-        </div>
+
         <!--<hr>-->   
-        <div class="col-sm">
+        <div class="col-sm-3">
                <hr>  
-                                   <div class="form-group" >
-                                          <!--<hr>-->  
-                          <label for="Inputpersona_nombre">TOTAL </label>
-                          <input type="text" name="total_fact" class=" form-control" id="Inputtotal_fact" placeholder="Nombre y Apellido" value="0">
-                       </div>
+               
+                     <div class="  row">
+            <label class="col-sm-6 col-form-label"><b>DESCUENTO $</b></label>
+
+                                    <div class="col-sm-6 p-xs">
+                                        <input value="0" style=" border:1px solid #ffffff;" type="text" id="Inputfact_descuento" name="fact_descuento" class="form-control" onchange="restar();">
+                                    </div>
+                                </div>    
+                     <div class="  row">
+            <label class="col-sm-6 col-form-label"><b>TOTAL $</b></label>
+          
+                                    <div class="col-sm-6 p-xs">
+              <input style=" border:1px solid #ffffff;" type="text" id="Inputfact_total" name="fact_total" class="form-control" readonly>
+                                    </div>
+                                </div>    
+               
+              <br>
+              
         </div>
+      
     </div>
                     </div>
                 </div>
@@ -266,7 +287,7 @@
                <div class="form-group">
  
                           <label for="Inputproducto">Productos </label>
-                          <select  name="producto" class="form-control" id="Inputproducto"  onchange="mostrarDatosP(this.value);">
+                          <select  name="producto"  class="form-control" id="Inputproducto"  onchange="mostrarDatosP(this.value);">
                                    
                                 
                              </select> 
@@ -275,7 +296,7 @@
         <div class="col-sm-3">
              <div class="form-group">
                           <label for="Inputpersona_nombre">Cantidad </label>
-                          <input type="number" name="canti" class="form-control" id="Inputcanti" placeholder="0" value=1 min="1" onChange="multiplicar();">
+   <input type="number" name="canti" class="form-control" id="Inputcanti" placeholder="0" value=0 onChange="multiplicar();">
                        </div>
         </div>
       
@@ -321,7 +342,7 @@
                        
                                    <div class="form-group">
                           <label for="Inputdescuento">Descuento</label>
-                          <input type="text" name="descuento" class="form-control" id="Inputdescuento" placeholder="persona_direccion" value="0"  onChange="des();">
+                          <input type="text" name="descuento" class="form-control" id="Inputdescuento" placeholder="persona_direccion" value="0"  onChange="recalcular();">
                        </div>
                                    <div class="form-group">
                           <label for="Inputprecio_total">precio Total</label>
@@ -354,13 +375,13 @@
             <script src="js/HtmlBuilder.js "></script> 
 
     <script>
+       
         
        $(document).ready(function () {
 
 
             cargareNum_Factura();
-//              emp=0;
-//             Productos_Vender(emp);
+
         });
 
 
@@ -378,8 +399,10 @@
         
     var prod_alq = [];   
  
-    function enviarFactura(){    
-        recorrerTabla();            
+    function enviarFactura(){  
+        
+//        recorrerTabla();       
+        
         var nun_factura=document.getElementById("Inputnum_factura").value;      
         var clienete=document.getElementById("Inputid").value;
         var correo=document.getElementById("Inputcorreo").value;
@@ -392,7 +415,7 @@
         var alquileres='['+prod_alq+']';
         
 
-//        alert(tablanombre);
+
         
       var parametros = {
                 "factura_id" : nun_factura,
@@ -430,10 +453,6 @@
       };
       
 
-
-
-
-
         
         $('#visibilityHidden').click(function(e) {
   
@@ -447,16 +466,15 @@
   }
 });
 
- function recorrerTabla() {
+ function recorrerTabla() { /*recorro la tabla para calcular las columnas del precio para total y hacer desuento*/
 //     alert();
+    rtotal=0;
+    m1=0;
     prod_alq = [];
      $("#mytable tbody tr").each(function (index) {
-//         alert(index);
-//         console.log( $(this));
-
 
 if(index!=0){
-//    alert('asdasd');
+
           var campo1, campo2, campo3;
              $(this).children("td").each(function (index2) {
                   switch (index2) {
@@ -468,25 +486,68 @@ if(index!=0){
                         break;
                      case 6:
                          campo3 = $(this).text();
-                         break;
+                  
+                    rtotal=parseInt(rtotal) + parseInt(campo3);   
+                    
+
+                    break;
                  }
                $(this).css("background-color", "#ECF8E0");
             })
             
-//         alert(campo1 + ' - ' + campo2 + ' - ' + campo3);
+
 var text2='{ "id_producto":"'+campo1+'" , "cantidad":"'+campo2+'", "valor":"'+campo3+'" }';
 
          prod_alq.push(text2)   ;
 
-//alert(text2);
-}
 
-//  prod_alq.push('{" id_producto":"'+campo1+"cantidad:"+campo2+"valor:"+campo3+" }") ;
+
+
+
+}
+   m1=document.getElementById("Inputfact_descuento").value;  
+   rtotal2=0;
+   rtotal2=parseInt(rtotal) - parseInt(m1);  
+   
+   document.getElementById("Inputfact_total").value = rtotal2;
+    
+
        
          })
       };
   
+function sumar(valor){
+   
+    
+    m1=valor;
 
+rtotal=parseInt(rtotal) + parseInt(m1)
+
+
+  document.getElementById("Inputfact_total").value = rtotal;
+
+      
+
+};
+function restar(){/*se llama a recorrer para q recalcule con el dato de descuento*/
+  
+    recorrerTabla();
+
+};
+
+function recalcular(){
+  subtotal=0;
+    
+    m11=document.getElementById("Inputdescuento").value;  ;
+   
+    m22=document.getElementById("Inputprecio_total").value;
+
+subtotal= parseInt(m22)-parseInt(m11)
+
+  
+  document.getElementById("Inputprecio_total").value = subtotal;
+
+};
 
 
 
@@ -540,17 +601,19 @@ function multiplicar(){
            alert('LA CANTIDAD SUPERA EL STOCK');
           
               document.getElementById("Inputcanti").value=""+ stock1;
-//           console.log(stock1);
+
            return ;
        }else{
-             m1 = document.getElementById("Inputcanti").value;  
-  
-  m2 = document.getElementById("Inputprecio_unitario").value;
-  r = m1*m2;
+           
+   m1 = document.getElementById("Inputcanti").value;  
+    m2 = document.getElementById("Inputprecio_unitario").value;
+  r = parseInt(m1)*parseInt(m2);
   document.getElementById("Inputprecio_total").value = r;
        }
 
 };
+
+
 
 
 function Descuento(){
@@ -670,6 +733,7 @@ $('#adicionar').click(function() {
 
   $('#Ventas_factList tr:first').after(fila);
 //  $('#mytable tr:first').after(fila);
+ recorrerTabla();  
     $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
 //    var nFilas = $("#mytable tr").length;
     var nFilas = $("#Ventas_factList tr").length;
@@ -685,16 +749,24 @@ $('#adicionar').click(function() {
     document.getElementById("Inputproct_stock").value = "0";
     document.getElementById("Inputproducto").value = "-1";
     document.getElementById("Inputproducto").focus();
+    
+
+    
   });
+  
 $(document).on('click', '.btn_remove', function() {
+      
   var button_id = $(this).attr("id");
     //cuando da click obtenemos el id del boton
     $('#row' + button_id + '').remove(); //borra la fila
+     
     //limpia el para que vuelva a contar las filas de la tabla
     $("#adicionados").text("");
     var nFilas = $("#Ventas_factList tr").length;
     $("#adicionados").append(nFilas - 1);
+ 
   });
+   recorrerTabla(); 
 });
 </script>
 
