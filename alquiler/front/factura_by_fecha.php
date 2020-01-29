@@ -155,46 +155,29 @@
                         </div>
 
                         <div class="modal-footer">                            
-                            <div class="ibox-content" id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 10px; visibility: hidden;">
+                            <div class="ibox-content" id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 10px; visibility: hidden; background: inherit">
                                 <form role="form" >
                                     <div class="row">                                                           
-                                            <div class="form-group">
-                                                <label for="cantidad_devuelta" style="color: #000000">Cantidad</label>
-                                                <input type="number" id="cantidad_devuelta" class="form-control"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="estado_objeto" style="color: #000000">Estado del objeto</label>
+                                        <div class="form-group">
+                                            <label >Producto</label>
+                                            <label  id="producto_a_devolver" class="form-control" />
+                                        </div>    
+                                        <div class="form-group" style="margin-left: 15px;">
+                                            <label for="cantidad_devuelta" >Cantidad</label>
+                                            <input type="number" id="cantidad_devuelta" class="form-control" min="1"/>
+                                        </div>
+                                        <div class="form-group" style="margin-left: 15px;">
+                                                <label for="estado_objeto" >Estado del objeto</label>
                                                  <select class="form-control" id="estado_objeto">
                                                     <option value="0">Buen estado</option>
                                                     <option value="2">Dañados</option>
                                                     <option value="3">En reparacion</option>
                                                 </select>                                            
                                             </div>                                   
-                                            <button type="button" onclick="agregar_devolucion()">Agregar</button>
+                                        <button type="button" class="btn btn-primary" style="margin-left: 15px; margin-top: auto;margin-bottom: 15px;" onclick="agregar_devolucion()">Agregar</button>
                                     </div>                                                            
                                 </form> 
                             </div>
-                            <div style="width: 200px"></div>
-                                <div class="row">                                                           
-                                        <div class="form-group">
-                                            <label for="cantidad_devuelta" style="color: #000000">Cantidad</label>
-                                            <input type="number" id="cantidad_devuelta" class="form-control" min="1"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="estado_objeto" style="color: #000000">Estado del objeto</label>
-                                             <select class="form-control" id="estado_objeto">
-                                                <option value="0">Buen estado</option>
-                                                <option value="2">Dañados</option>
-                                                <option value="3">En reparación</option>
-                                            </select>                                            
-                                        </div>                                   
-                                        <button type="button" onclick="agregar_devolucion()">Agregar</button>
-                                </div>                                                            
-                            </form> 
-                            </div>
-                            <div style="width: 200px"></div>
-
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                         </div>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" style="float: right; border-right: 0px;">Cerrar</button>
                     </div>
@@ -396,7 +379,7 @@
         factura_id_select = -1
         alquiler_devolucion_select = -1
         //Esta variable es la cantidad de articulos alquilados, esta variable se utiliza en el proceso de devolucion parcial 
-        alquiler_cantidad = -1
+        currentAlquiler = {};
         //////////////////////////////////////////////////
         
         function buscar_factura_by_fecha() {
@@ -799,20 +782,21 @@
         function habilitarFormularioDevolucion(id_alquiler){
             document.getElementById("contenedor_add_devoluciones").style.visibility = "visible";
             alquiler_devolucion_select = id_alquiler;
-            alquiler_cantidad = obtenerAlquiler(factura_id_select, id_alquiler).cantidad;
+            currentAlquiler = obtenerAlquiler(factura_id_select, id_alquiler);
+            document.getElementById("producto_a_devolver").innerHTML= currentAlquiler.producto_nombre;
         }
 
         function deshabilitarFormularioDevolucion(){
             document.getElementById("contenedor_add_devoluciones").style.visibility = "hidden";
             alquiler_devolucion_select = -1;
-            alquiler_cantidad = 0;
+            currentAlquiler = {};
+            document.getElementById("producto_a_devolver").innerHTML="";
         }
 
         function agregar_devolucion(){
 
             //Validamos si la cantidad a devolver no supera a la cantidad alquilada
-            console.log($('#cantidad_devuelta').val()+ "<=" +alquiler_cantidad);
-            if($('#cantidad_devuelta').val() <= alquiler_cantidad){
+            if($('#cantidad_devuelta').val() <= currentAlquiler.cantidad - currentAlquiler.totalDevuelto){
             
                 var url = "../back/controller/devolverParcial.php";
 
@@ -869,6 +853,7 @@
         * Inserta los alquileres consultado a la factura
         */
         function actualizarAlquiler(factura_id, alquileres){            
+            console.log
             obtenerFactura(factura_id).alquileres = alquileres;
             mostrar_alquileres(factura_id, false);
         }

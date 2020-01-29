@@ -57,6 +57,7 @@ function armarReporteDeFacturas($facturas) {
                 }
             }
             $myAlquiler->cantidad = $Alquiler->getCantidad()+$totalDevuelto;
+            $myAlquiler->totalDevuelto = $totalDevuelto;
             $myAlquiler->devuelto = $Alquiler->getCantidad() <= 0;
             if(!$myAlquiler->devuelto){
                 $myFactura->devuelto = false;

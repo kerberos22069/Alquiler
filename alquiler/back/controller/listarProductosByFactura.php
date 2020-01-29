@@ -17,13 +17,28 @@ foreach ($alquileres as $objx => $Alquiler) {
     $myAlquiler = new stdClass();
     $myAlquiler->producto_nombre = $producto->getprod_nombre();
 
+    $myAlquiler->alquiler_id = $Alquiler->getIdalquiler();
+    $myAlquiler->producto_nombre = $producto->getprod_nombre();
+
     $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();
 
-    $myAlquiler->cantidad = $Alquiler->getCantidad();
-        $date1 = new DateTime($Alquiler->getFecha_inicio());
-        $date2 = new DateTime($Alquiler->getFechafin());
-        $diff = $date1->diff($date2);
-    $myAlquiler->dias = $diff->days;
+    $jsonDev = $Alquiler->getAlq_devuelto();
+    //Se mira si tiene una lista de devoluciones válida y si se formatea para recorrerla y saber el total de productos devueltos
+    if($jsonDev != NULL && $jsonDev != ""){
+        $arrayDevoluciones = json_decode($jsonDev);
+        $totalDevuelto = 0;
+        foreach ($arrayDevoluciones as $key => $devuelto) {
+            $totalDevuelto += $devuelto->cantidad;
+        }
+    }
+    $myAlquiler->cantidad = $Alquiler->getCantidad()+$totalDevuelto;
+    $myAlquiler->totalDevuelto = $totalDevuelto;
+    $myAlquiler->devuelto = $Alquiler->getCantidad() <= 0;
+
+    $datetime1 = date_create($Alquiler->getFecha_inicio());
+    $datetime2 = date_create($Alquiler->getFechafin());
+    $interval = date_diff($datetime1, $datetime2);
+    $myAlquiler->dias = $interval->format('%d');
     $myAlquiler->valor = $Alquiler->getValor();
     
     array_push($myFactura, $myAlquiler);
