@@ -12,7 +12,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title"> 
-                        <div style="text-align: center; color: black" >
+                        <div style="text-align: center; color: white" >
                             <h1><b>Listado de Clientes</b></h1>
 
                         </div>
