@@ -1,1 +1,1 @@
-La bd se llama alquiler, no su hermana farsante alquler.
+La bd se llama estructura, no alquiler ni su hermana farsante alquler.

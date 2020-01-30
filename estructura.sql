@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-01-2020 a las 17:28:17
+-- Tiempo de generación: 30-01-2020 a las 02:17:25
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 7.2.2
 
@@ -41,14 +41,6 @@ CREATE TABLE `alquiler` (
   `alq_devuelto` text COMMENT 'Contiene el json con la informacion de las devoluciones'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `alquiler`
---
-
-INSERT INTO `alquiler` (`idalquiler`, `fecha_inicio`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`) VALUES
-(17, '2020-01-01 09:14:56', 0, 544, 0, '2020-01-11', 5, 1, 0, '[{\"fecha\":\"2020-01-11 09:29:35\",\"cantidad\":\"2\",\"estado\":0}]'),
-(18, '2020-01-01 09:14:56', 0, 1000, 0, '2020-01-11', 3, 1, 0, '[{\"fecha\":\"2020-01-04 09:17:47\",\"cantidad\":\"3\",\"estado\":\"0\"},{\"fecha\":\"2020-01-11 09:35:56\",\"cantidad\":\"2\",\"estado\":0}]');
-
 -- --------------------------------------------------------
 
 --
@@ -66,17 +58,6 @@ CREATE TABLE `cliente` (
   `cliente_stado` int(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `cliente`
---
-
-INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `cliente_cc`, `cliente_correo`, `cliente_telefono`, `cliente_direccion`, `cliente_stado`) VALUES
-(1, 'Poncho', 'Martinez', '1234', 'asdasd@asdas.com', '520', 'asdasd adasdas', 0),
-(2, 'Diego', 'Ilario', '12345', 'eswasa@gmasd.com', '5412541', 'asasdas asd asd as das d as', 0),
-(3, 'Edward', 'Martinez', '214234235235', 'dasdasd@gmail.com', '3168274086', '540006zxvzczxc', 0),
-(4, 'fredy paolo', 'jaramillo', '12345687', 'fredyjaramillo@gmail.com', '3168274086', 'av 3 25 65 brr san mateo', 1),
-(5, 'Ponchito', 'Martinelli', '1234', 'ponchito@NC.com', '33233545', 'La modelo', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -91,13 +72,6 @@ CREATE TABLE `factura` (
   `abonos` text,
   `estado` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `factura`
---
-
-INSERT INTO `factura` (`idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`, `abonos`, `estado`) VALUES
-(1, '2020-01-01 09:14:56', 500, 2, '[{\"fecha\":\"2020-01-05 09:19:13\",\"cantidad\":\"2000\"},{\"fecha\":\"2020-01-30 10:26:57\",\"cantidad\":\"15000\"}]', NULL);
 
 -- --------------------------------------------------------
 
@@ -118,18 +92,6 @@ CREATE TABLE `producto` (
   `foto` int(10) NOT NULL DEFAULT '7'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `producto`
---
-
-INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
-(1, 'asdasda', '84s5d4fsdf', 14, 5, 541, 5212, 554, 0, 7),
-(2, 'zxczczx', 'sdfsdfsdfsdf', 5, 20, 10, 0, 0, 1, 7),
-(3, 'cruceta', 'grande', 1000, 95, 5, 6, 6, 1, 7),
-(4, 'Formaleta', 'Un cuadrado de metal sin valor', 330, 100, 0, 0, 0, 1, 7),
-(5, 'Estructura', 'dfgdfgfdg', 544, 100, 0, 2, 2, 1, 7),
-(6, 'asdasd', 'asdsad', 14, 1, 1, 1, 1, 1, 7);
-
 -- --------------------------------------------------------
 
 --
@@ -142,13 +104,6 @@ CREATE TABLE `transporte` (
   `factura_idfactura` int(11) NOT NULL,
   `transporte_conductor` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `transporte`
---
-
-INSERT INTO `transporte` (`idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`) VALUES
-(3, 1000, 1, 'Chofer 2');
 
 --
 -- Índices para tablas volcadas
@@ -196,7 +151,7 @@ ALTER TABLE `transporte`
 -- AUTO_INCREMENT de la tabla `alquiler`
 --
 ALTER TABLE `alquiler`
-  MODIFY `idalquiler` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idalquiler` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -214,7 +169,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `transporte`
 --
 ALTER TABLE `transporte`
-  MODIFY `idtransporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idtransporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
