@@ -104,11 +104,7 @@
 
                                     <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
                                 </div>
-                          <div class="  row">
-            <label class="col-sm-2 col-form-label"><b>Flete :</b></label>
-
-                                    <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputflete" name="flete" class="form-control" readonly></div>
-                                </div>
+                          
 
                     </div>
                     
@@ -135,21 +131,16 @@
                       <div class="row">
                         <div class="col-sm">
                           <button type="button" id="agregarProd" class="btn btn-primary" onclick="modalProductos()">
-                            + Agregar
+                            + Agregar productos
                           </button>
                         </div>
                         <div class="col-sm"></div>
                         <div class="col-sm"></div>
                         <div class="col-sm"></div>
                         <div class="col-sm"></div>
-                        <div class="col-sm">
-                           <button type="button" id="agregarProd" class="btn btn-primary" onclick="enviarFactura()">
-                            + Enviar Factura
-                          </button>  
-                        </div>
                         <div class="col-sm">                    
                           <button type="button" id="btn_admin_conductor" class="btn btn-primary" onclick="administrarConductor()">
-                            + Conductor
+                            Añadir Transporte
                           </button>
                         </div>
                       </div>
@@ -222,12 +213,12 @@
           <div class=" row" style="visibility: hidden;" id="div_conductores">
 
                 <select class="col-sm-6 form-control"  id="choferes">
-                  <option value="-1">Conductores</option>
-                  <option value="1">Chofer 1</option>
-                  <option value="2">Chofer 2</option>
+                    <option value="Conductor no especificado" selected disabled hidden>Conductores</option>
+                  <option value="Chofer 1">Chofer 1</option>
+                  <option value="Chofer 2">Chofer 2</option>
                 </select>  
                 <div class="col-sm-6 p-xs">
-                  <input value="0" style=" border:1px solid #ffffff;" type="text" class="form-control">
+                    <input value="0" id="input_flete" style=" border:1px solid #ffffff;" type="number" min="0" class="form-control" onchange="restar()">
                 </div>                      
               </div>                
              
@@ -242,7 +233,12 @@
             <div class="col-sm-6 p-xs">
               <input style=" border:1px solid #ffffff;" type="text" id="Inputfact_total" name="fact_total" class="form-control" readonly>
             </div>
-          </div>    
+          </div>
+          <div class="row">
+              <button type="button" id="agregarProd" class="btn btn-primary" onclick="enviarFactura()" style="width: 100%">
+                    + Enviar Factura
+                </button>  
+         </div>
           <br>     
         </div>
       
@@ -408,27 +404,26 @@
         
         var nun_factura=document.getElementById("Inputnum_factura").value;      
         var clienete=document.getElementById("Inputid").value;
-        var correo=document.getElementById("Inputcorreo").value;
-        var nombre=document.getElementById("Inputnombres").value;
-  //      var flete=document.getElementById("Inputflete").value;
-        var flete='0';
+        var flete=document.getElementById("input_flete").value;
+        var conductor = document.getElementById("choferes").value;
         var fecha=document.getElementById("inputfecha_inicio").value;
-        var descuent='0';
+        var descuent=document.getElementById("Inputfact_descuento").value;
         
         var alquileres='['+prod_alq+']';
         
 
-
+        if(JSON.parse(alquileres).length>0){
         
-      var parametros = {
+            var parametros = {
                 "factura_id" : nun_factura,
                 "fecha_inicio" : fecha,
                 "descuento" : descuent,
                 "cliente_id" : clienete,
                 "transporte_flete" : flete,
+                "conductor_nombre" : conductor,
                 "alquileres": alquileres
         };
-        $.ajax({
+            $.ajax({
                 data:  parametros, //datos que se envian a traves de ajax
                 url:   '../back/controller/crearFactura.php', //archivo que recibe la peticion
                 type:  'post', //método de envio
@@ -441,6 +436,7 @@
                         rta = JSON.parse(response);
                         if(rta.factura_id >= 0){
                             alert("Alquilado con éxito");
+                            facturas_by_fecha();
                         }else{
                             alert("Ha habido un problema con la solicitud");
                         }
@@ -450,9 +446,9 @@
                 }
         });
 
-
-
-
+        }else{
+            alert("La factura está vacía. \nRegistra algunos productos para alquilar y vuelve a intentarlo.")
+        }
       };
       
 
@@ -509,8 +505,11 @@ var text2='{ "id_producto":"'+campo1+'" , "cantidad":"'+campo2+'", "valor":"'+ca
 
 }
    m1=document.getElementById("Inputfact_descuento").value;  
+   
+   flete=document.getElementById("input_flete").value;  
+   
    rtotal2=0;
-   rtotal2=parseInt(rtotal) - parseInt(m1);  
+   rtotal2=parseInt(rtotal) - parseInt(m1) + parseInt(flete);  
    
    document.getElementById("Inputfact_total").value = rtotal2;
     
@@ -782,40 +781,15 @@ $(document).on('click', '.btn_remove', function() {
       boton = document.getElementById("btn_admin_conductor"); 
       contenedor = document.getElementById("div_conductores");
       if((is_conductor_agregado % 2) == 0){
-        boton.innerHTML = "- Conductor";        
+        boton.innerHTML = "Quitar Transporte";
         contenedor.style.visibility = "visible" ;      
       }else{
-        boton.innerHTML = "+ Conductor";
-        contenedor.style.visibility = "hidden" ;              
+        boton.innerHTML = "Añadir Transporte";
+        contenedor.style.visibility = "hidden" ;
+        input_flete.value = 0;
+        restar();
       }
     }
 </script>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

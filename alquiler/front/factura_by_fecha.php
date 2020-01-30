@@ -397,7 +397,7 @@
 
                 success: function (data) {
                     facturas_global = JSON.parse(data);
-                    console.log(JSON.parse(data));
+                    //console.log(JSON.parse(data));
                     if($.isEmptyObject(facturas_global)){
                         mostrar_datos_vacios();
                     }else{
@@ -586,16 +586,18 @@
                 //Devoluciones
                 mi_tr.appendChild(parsearDevoluciones(JSON.parse(alquiler[i].devoluciones)));
                 //Devolver parcial
-                console.log(alquiler[i].devuelto);
                 mi_tr.appendChild(td_icono(alquiler[i].alquiler_id,"habilitarFormularioDevolucion","hand-o-left",alquiler[i].devuelto));
 
              contenedor.appendChild(mi_tr);
             }
+            
 
             //Aqui va la segunda parte de la lista
             setConductores(id_factura);
             //Aqui va la parte de devoluciones
             setAbonos(id_factura);
+            // y aúúúúún hay máááás
+            setDescuento(id_factura);
             //Parte final
             document.getElementById('total_factura').innerHTML = formatearDinero(obtenerFactura(id_factura).total); 
 
@@ -615,25 +617,33 @@
             mi_tr.appendChild(mi_td);
             contenedor.appendChild(mi_tr);
             conductores = getConductoresByFactura(id_factura);
-            for(let i in conductores){
+            if(conductores.length >0){
+                for(let i in conductores){
+                    mi_tr = tr("gradeX footable-even");
+                    //Conductor
+                    mi_tr.appendChild( td(conductores[i].conductor, "footable-visible") );
+                    //Valor unitario
+                    mi_tr.appendChild( td(formatearDinero(conductores[i].flete), "footable-visible") );
+                    //Cantidad
+                    mi_tr.appendChild( td(1, "footable-visible"));
+                    //Dias
+                    mi_tr.appendChild( td(1, "footable-visible"));
+                    //Total
+                    total = alquiler[i].valor * alquiler[i].cantidad * alquiler[i].dias;
+                    mi_tr.appendChild( td(formatearDinero(total), "footable-visible"));
+                    //Devoluciones
+                    mi_td_var = td("NA", "footable-visible");
+                    mi_td_var.setAttribute("colspan", 3);
+                    mi_tr.appendChild(mi_td_var);
+
+                 contenedor.appendChild(mi_tr);
+                }
+            }else{
                 mi_tr = tr("gradeX footable-even");
-                //Conductor
-                mi_tr.appendChild( td(conductores[i].conductor, "footable-visible") );
-                //Valor unitario
-                mi_tr.appendChild( td(formatearDinero(conductores[i].flete), "footable-visible") );
-                //Cantidad
-                mi_tr.appendChild( td(1, "footable-visible"));
-                //Dias
-                mi_tr.appendChild( td(1, "footable-visible"));
-                //Total
-                total = alquiler[i].valor * alquiler[i].cantidad * alquiler[i].dias;
-                mi_tr.appendChild( td(formatearDinero(total), "footable-visible"));
-                //Devoluciones
-                mi_td_var = td("NA", "footable-visible");
-                mi_td_var.setAttribute("colspan", 3);
+                mi_td_var = td("Ninguno", "footable-visible");
+                mi_td_var.setAttribute("colspan", 7);
                 mi_tr.appendChild(mi_td_var);
-                
-             contenedor.appendChild(mi_tr);
+                contenedor.appendChild(mi_tr);
             }
         }
 
@@ -652,27 +662,56 @@
             mi_tr.appendChild(mi_td);
             contenedor.appendChild(mi_tr);
             abonos = getAbonosByFactura(id_factura);
-            for(let i in abonos){
+            if(abonos.length > 0){
+                for(let i in abonos){
+                    mi_tr = tr("gradeX footable-even");
+                    //Cantidad
+                    mi_tr.appendChild( td("Cantidad:", "footable-visible") );
+                    //Valor
+                    mi_tr.appendChild( td(formatearDinero(abonos[i].cantidad), "footable-visible") );
+                    //Fecha
+                    mi_tr.appendChild( td("Fecha:", "footable-visible"));
+                    //Fecha
+                    mi_tr.appendChild( td(abonos[i].fecha, "footable-visible"));
+                    //Total                
+                    mi_td_var = td("NA", "footable-visible");
+                    mi_td_var.setAttribute("colspan", 3);
+                    mi_tr.appendChild(mi_td_var);
+
+                 contenedor.appendChild(mi_tr);
+                }
+            }else{
                 mi_tr = tr("gradeX footable-even");
-                //Cantidad
-                mi_tr.appendChild( td("Cantidad:", "footable-visible") );
-                //Valor
-                mi_tr.appendChild( td(formatearDinero(abonos[i].cantidad), "footable-visible") );
-                //Fecha
-                mi_tr.appendChild( td("Fecha:", "footable-visible"));
-                //Fecha
-                mi_tr.appendChild( td(abonos[i].fecha, "footable-visible"));
-                //Total                
-                mi_td_var = td("NA", "footable-visible");
-                mi_td_var.setAttribute("colspan", 3);
+                mi_td_var = td("Ninguno", "footable-visible");
+                mi_td_var.setAttribute("colspan", 7);
                 mi_tr.appendChild(mi_td_var);
-                
-             contenedor.appendChild(mi_tr);
+                contenedor.appendChild(mi_tr);
             }
         }
 
         function getAbonosByFactura(id_factura){
             return JSON.parse(obtenerFactura(id_factura).abonos);
+        }
+        
+        function setDescuento(id_factura) {
+            contenedor = document.getElementById('articulosList'); 
+            mi_tr = tr("gradeX footable-even");
+            var mi_td = document.createElement("td");        
+            mi_td.setAttribute("class", "footable-visible footable-first-column");
+            mi_td.appendChild(document.createTextNode("Descuentos sobre el total"));
+            mi_td.setAttribute("colspan", 7);
+            mi_td.setAttribute("style"," color:#FFFFFF; background-color: #616161  !important");
+            mi_tr.appendChild(mi_td);
+            contenedor.appendChild(mi_tr);
+            mi_tr = tr("gradeX footable-even"); //Sobreescribe para meter la fila de abajo
+            //Cantidad
+            mi_tr.appendChild( td("Valor:", "footable-visible") );
+            //Valor
+            mi_tr.appendChild( td(formatearDinero(obtenerFactura(id_factura).descuento), "footable-visible") );
+            var relleno = document.createElement("td");        
+            relleno.setAttribute("colspan", 7);
+            mi_tr.appendChild(relleno);
+            contenedor.appendChild(mi_tr);
         }
 
         function mostrar_abonos(id_factura) {       
@@ -792,7 +831,7 @@
         }
 
         function obtenerEstado(estado){
-            switch (estado) {
+            switch (String(estado)) {
               case "0":
                 return "Buen estado";
                 break;

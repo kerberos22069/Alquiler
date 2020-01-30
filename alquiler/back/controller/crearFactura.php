@@ -13,6 +13,7 @@ try{
     $factura= new Factura();
     $factura->setIdfactura($factura_id);
     
+    date_default_timezone_set('America/Lima');
     $fecha = date("Y-m-d H:i:s");
     $fac_descueto = strip_tags($_POST['descuento']);
     $Cliente_idcliente = strip_tags($_POST['cliente_id']);

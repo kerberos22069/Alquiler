@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-01-2020 a las 03:11:29
--- Versión del servidor: 10.1.35-MariaDB
--- Versión de PHP: 7.2.9
+-- Tiempo de generación: 30-01-2020 a las 02:17:25
+-- Versión del servidor: 10.1.30-MariaDB
+-- Versión de PHP: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -38,7 +38,7 @@ CREATE TABLE `alquiler` (
   `producto_idprod` int(11) NOT NULL,
   `factura_idfactura` int(11) NOT NULL,
   `alq_stado` int(11) DEFAULT NULL,
-  `alq_devuelto` int(11) DEFAULT NULL
+  `alq_devuelto` text COMMENT 'Contiene el json con la informacion de las devoluciones'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -58,17 +58,6 @@ CREATE TABLE `cliente` (
   `cliente_stado` int(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `cliente`
---
-
-INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `cliente_cc`, `cliente_correo`, `cliente_telefono`, `cliente_direccion`, `cliente_stado`) VALUES
-(1, 'Poncho', 'Martinez', '1234', 'asdasd@asdas.com', '520', 'asdasd adasdas', 0),
-(2, 'Diego', 'Ilario', '12345', 'eswasa@gmasd.com', '5412541', 'asasdas asd asd as das d as', 0),
-(3, 'Edward', 'Martinez', '214234235235', 'dasdasd@gmail.com', '3168274086', '540006zxvzczxc', 0),
-(4, 'fredy paolo', 'jaramillo', '12345687', 'fredyjaramillo@gmail.com', '3168274086', 'av 3 25 65 brr san mateo', 1),
-(5, 'Ponchito', 'Martinelli', '1234', 'ponchito@NC.com', '33233545', 'La modelo', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -79,17 +68,9 @@ CREATE TABLE `factura` (
   `idfactura` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   `fac_descueto` int(11) NOT NULL DEFAULT '0',
-  `cliente_idcliente` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `libro_diario`
---
-
-CREATE TABLE `libro_diario` (
-  `idlibro_diario` int(11) NOT NULL
+  `cliente_idcliente` int(11) NOT NULL,
+  `abonos` text,
+  `estado` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -110,18 +91,6 @@ CREATE TABLE `producto` (
   `prod_stado` int(11) NOT NULL DEFAULT '1',
   `foto` int(10) NOT NULL DEFAULT '7'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `producto`
---
-
-INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
-(1, 'asdasda', '84s5d4fsdf', 14, 5, 541, 5212, 554, 0, 7),
-(2, 'zxczczx', 'sdfsdfsdfsdf', 5, 20, 10, 0, 0, 1, 7),
-(3, 'cruceta', 'grande', 1000, 5, 5, 0, 0, 1, 7),
-(4, 'Formaleta', 'Un cuadrado de metal sin valor', 330, 4, 3, 1, 0, 1, 7),
-(5, 'fgnfgnfg', 'dfgdfgfdg', 544, 5, 24, 22, 2, 1, 7),
-(6, 'asdasd', 'asdsad', 14, 1, 1, 1, 1, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -162,12 +131,6 @@ ALTER TABLE `factura`
   ADD KEY `fk_factura_cliente1_idx` (`cliente_idcliente`);
 
 --
--- Indices de la tabla `libro_diario`
---
-ALTER TABLE `libro_diario`
-  ADD PRIMARY KEY (`idlibro_diario`);
-
---
 -- Indices de la tabla `producto`
 --
 ALTER TABLE `producto`
@@ -188,7 +151,7 @@ ALTER TABLE `transporte`
 -- AUTO_INCREMENT de la tabla `alquiler`
 --
 ALTER TABLE `alquiler`
-  MODIFY `idalquiler` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idalquiler` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -197,16 +160,16 @@ ALTER TABLE `cliente`
   MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `factura`
---
-ALTER TABLE `factura`
-  MODIFY `idfactura` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
   MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `transporte`
+--
+ALTER TABLE `transporte`
+  MODIFY `idtransporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
