@@ -112,7 +112,7 @@
 
 
                         <div class="table-responsive" style="  
-                height: 250px; 
+                height: 400px; 
                 overflow-x: hidden; 
                 overflow-x: auto; 
                 text-align:justify; ">
@@ -145,17 +145,21 @@
                     </div>
                 </div> <!-- panel -->
                 <div class="ibox-content">
-                    <div class="table-responsive">
-                           <p>Total factura:</p>
-                           <p id="total_factura">$0000000</p>
-                    </div>
+                    <h3>
+                        <div class="table-responsive">
+                            <p id="total_factura">$0000000</p>
+                        </div>
+                        <div class="table-responsive">
+                            <p id="total_pagar">$0000000</p>
+                        </div>
+                    </h3>
                 </div>
                                 
                             </div> <!-- panel -->
                         </div>
 
                         <div class="modal-footer">                            
-                            <div class="ibox-content" id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 10px; visibility: hidden; background: inherit">
+                            <div class="ibox-content" id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 10px; display: none; background: inherit">
                                 <form role="form" >
                                     <div class="row">                                                           
                                         <div class="form-group">
@@ -487,7 +491,7 @@
             var td = document.createElement("td");        
             td.setAttribute("class", "footable-visible footable-first-column");
             td.appendChild(document.createTextNode("No existen facturas para dentro de los parámetros de búsqueda"));
-            td.setAttribute("colspan", 7);
+            td.setAttribute("colspan", 9);
             mi_tr.appendChild(td);
             contenedor.appendChild(mi_tr);        
         }
@@ -600,7 +604,9 @@
             // y aúúúúún hay máááás
             setDescuento(id_factura);
             //Parte final
-            document.getElementById('total_factura').innerHTML = formatearDinero(obtenerFactura(id_factura).total); 
+            var factura =obtenerFactura(id_factura);
+            document.getElementById('total_factura').innerHTML = "Total factura: "+formatearDinero(factura.total); 
+            document.getElementById('total_pagar').innerHTML = "Total a pagar: "+formatearDinero(factura.total - factura.totalAbonado); 
 
             if(flag_repaint){
                 $('#myModalDetalles').modal({show: true});
@@ -855,14 +861,14 @@
         * Este metodo prepara las variables globales para el funcionamiento de devolucion
         */
         function habilitarFormularioDevolucion(id_alquiler){
-            document.getElementById("contenedor_add_devoluciones").style.visibility = "visible";
+            document.getElementById("contenedor_add_devoluciones").style.display = "block";
             alquiler_devolucion_select = id_alquiler;
             currentAlquiler = obtenerAlquiler(factura_id_select, id_alquiler);
             document.getElementById("producto_a_devolver").innerHTML= currentAlquiler.producto_nombre;
         }
 
         function deshabilitarFormularioDevolucion(){
-            document.getElementById("contenedor_add_devoluciones").style.visibility = "hidden";
+            document.getElementById("contenedor_add_devoluciones").style.display = "none";
             alquiler_devolucion_select = -1;
             currentAlquiler = {};
             document.getElementById("producto_a_devolver").innerHTML="";
