@@ -24,9 +24,11 @@ try{
             foreach ($arrayDevoluciones as $key => $devuelto) {
                 $totalDevuelto += $devuelto->cantidad;
             }
-            if($totalDevuelto < $Alquiler->getCantidad()){
-                AlquilerFacade::devolver($Alquiler->getIdalquiler(),$Alquiler->getCantidad());
-                ProductoFacade::devolver($Alquiler->getProducto_idprod()->getIdprod(), $Alquiler->getCantidad());
+            $cantidadADevolver =$Alquiler->getCantidad();
+            var_dump($cantidadADevolver);
+            if($cantidadADevolver > 0){
+                AlquilerFacade::devolver($Alquiler->getIdalquiler(),$cantidadADevolver);
+                ProductoFacade::devolver($Alquiler->getProducto_idprod()->getIdprod(), $cantidadADevolver);
             }
         }
     }

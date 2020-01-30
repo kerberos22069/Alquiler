@@ -554,7 +554,9 @@
              }else{
                 alert("Hubo un errror en la petición ( u.u)\n"+result);
                 console.log(result);
+                rebuscarUltimaBusqueda();
              } 		}else{
+             rebuscarUltimaBusqueda();
                 alert("Hubo un errror interno ( u.u)\n"+result);
         }
     }
@@ -581,8 +583,7 @@
                 //Dias
                 mi_tr.appendChild( td(alquiler[i].dias, "footable-visible"));
                 //Total
-                total = alquiler[i].valor * alquiler[i].cantidad * alquiler[i].dias;
-                mi_tr.appendChild( td(formatearDinero(total), "footable-visible"));
+                mi_tr.appendChild( td(formatearDinero(alquiler[i].subTotal), "footable-visible"));
                 //Devoluciones
                 mi_tr.appendChild(parsearDevoluciones(JSON.parse(alquiler[i].devoluciones)));
                 //Devolver parcial
@@ -621,19 +622,15 @@
                 for(let i in conductores){
                     mi_tr = tr("gradeX footable-even");
                     //Conductor
-                    mi_tr.appendChild( td(conductores[i].conductor, "footable-visible") );
+                    mi_tr.appendChild( td("Conductor:", "footable-visible") );
+                    mi_td = td(conductores[i].conductor, "footable-visible");
+                    mi_td.setAttribute("colspan", 2);
+                    mi_tr.appendChild(mi_td);
                     //Valor unitario
+                    mi_tr.appendChild( td("Valor:", "footable-visible") );
                     mi_tr.appendChild( td(formatearDinero(conductores[i].flete), "footable-visible") );
-                    //Cantidad
-                    mi_tr.appendChild( td(1, "footable-visible"));
-                    //Dias
-                    mi_tr.appendChild( td(1, "footable-visible"));
-                    //Total
-                    total = alquiler[i].valor * alquiler[i].cantidad * alquiler[i].dias;
-                    mi_tr.appendChild( td(formatearDinero(total), "footable-visible"));
-                    //Devoluciones
-                    mi_td_var = td("NA", "footable-visible");
-                    mi_td_var.setAttribute("colspan", 3);
+                    mi_td_var = td(" ", "footable-visible");
+                    mi_td_var.setAttribute("colspan", 2);
                     mi_tr.appendChild(mi_td_var);
 
                  contenedor.appendChild(mi_tr);
@@ -668,14 +665,17 @@
                     //Cantidad
                     mi_tr.appendChild( td("Cantidad:", "footable-visible") );
                     //Valor
-                    mi_tr.appendChild( td(formatearDinero(abonos[i].cantidad), "footable-visible") );
+                    mi_td=td(formatearDinero(abonos[i].cantidad), "footable-visible");
+                    mi_td.setAttribute("colspan", 2);
+                    mi_tr.appendChild(mi_td);
                     //Fecha
                     mi_tr.appendChild( td("Fecha:", "footable-visible"));
-                    //Fecha
-                    mi_tr.appendChild( td(abonos[i].fecha, "footable-visible"));
+                    mi_td=td(abonos[i].fecha, "footable-visible");
+                    mi_td.setAttribute("colspan", 2);
+                    mi_tr.appendChild(mi_td);
                     //Total                
-                    mi_td_var = td("NA", "footable-visible");
-                    mi_td_var.setAttribute("colspan", 3);
+                    mi_td_var = td(" ", "footable-visible");
+                    mi_td_var.setAttribute("colspan", 2);
                     mi_tr.appendChild(mi_td_var);
 
                  contenedor.appendChild(mi_tr);
