@@ -203,18 +203,18 @@
                             <div align=center class="panel-body">
                            
                               <div class="ibox-content">
-                                  <table>
-                                      <thead><th>Detalles de abonos</th></thead>
+                                  <table class="table table-striped">
+                                      <thead><th style=" color:#FFFFFF; background-color: #616161  !important">Detalles de abonos</th></thead>
                                       <tbody id="txt_abonos_detalles"></tbody>
                                   </table>
-                                  <label id="txt_abonos_total">Total:</label>
+                                  <h3><label id="txt_abonos_total"><b>Total:</b></label>
                                   <br>
-                                  <label id="txt_abonos_abonado">Abonado:</label>
+                                  <label id="txt_abonos_abonado"><b>Abonado:</b></label>
                                   <br>
-                                  <label id="txt_abonos_faltante">Faltante:</label>
+                                  <label id="txt_abonos_faltante">Faltante:</label></h3>
                                   <hr>
                                   <input id="input_abonos"/>
-                                  <button id="btn_abonos_abonar"> Abonar</button>
+                                  <button id="btn_abonos_abonar" class="btn btn-primary"> Abonar</button>
                               </div>
                                 
                             </div> <!-- panel -->
