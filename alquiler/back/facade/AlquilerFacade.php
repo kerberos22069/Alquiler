@@ -150,7 +150,7 @@ class AlquilerFacade {
       $arrayDevoluciones = json_decode($alquiler->getAlq_devuelto());
       $nuevaDev= new stdClass();
       date_default_timezone_set('America/Lima');
-      $fecha = date("Y-m-d H:i");
+      $fecha = date("Y-m-d");
       $nuevaDev->fecha = $fecha;
       $nuevaDev->cantidad = $cantidad;
       $nuevaDev->estado = $estado;

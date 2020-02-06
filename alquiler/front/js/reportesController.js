@@ -500,6 +500,8 @@ function habilitarFormularioDevolucion(id_alquiler) {
     alquiler_devolucion_select = id_alquiler;
     currentAlquiler = obtenerAlquiler(factura_id_select, id_alquiler);
     document.getElementById("producto_a_devolver").innerHTML = currentAlquiler.producto_nombre;
+    document.getElementById("cantidad_devuelta").focus();
+    $("#cantidad_devuelta").animate({ scrollTop: $('#cantidad_devuelta')[0].scrollHeight}, 1000);
 }
 
 function deshabilitarFormularioDevolucion() {
@@ -533,7 +535,7 @@ function agregar_devolucion() {
 
             success: function (data) {
                 if (data == "exito") {
-                    actualizarAlquileresFactura(factura_id_select);
+                    actualizarFactura(factura_id_select);
                     deshabilitarFormularioDevolucion();
                 } else {
                     console.log(data + " dos");
@@ -552,24 +554,30 @@ function agregar_devolucion() {
  * En lugar de ponerme a joder modificando los datos locales, es mucho mas facil volver a traerse todos los 
  * alquiles y repintar todo
  */
-function actualizarAlquileresFactura(factura_id) {
-    var url = "../back/controller/listarProductosByFactura.php";
+function actualizarFactura(factura_id) {
+    var url = "../back/controller/getReporteFacturaById.php";
     $.ajax({
         type: "POST",
         url: url,
         data: {"factura_id": factura_id},
         success: function (data) {
             //POR FAVOR, HAY QUE DEFINIR UN ESTANDAR SOBRE LAS RESPUESTAS
-            actualizarAlquiler(factura_id, JSON.parse(data));
+            for (let i in facturas_global) {
+                if (parseInt(facturas_global[i].id, 10) === parseInt(factura_id, 10)) {
+                    facturas_global[i] = JSON.parse(data)[0];
+                    break;
+                }
+            }
+            mostrar_alquileres(factura_id, false);
         }
     });
 }
 
 /*
  * Inserta los alquileres consultado a la factura
+ * [despreciado]
  */
 function actualizarAlquiler(factura_id, alquileres) {
-    console.log
     obtenerFactura(factura_id).alquileres = alquileres;
     mostrar_alquileres(factura_id, false);
 }

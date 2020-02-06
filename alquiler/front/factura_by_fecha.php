@@ -219,7 +219,7 @@
                                   <br>
                                   <label id="txt_abonos_faltante">Faltante:</label></h3>
                                   <hr>
-                                  <input id="input_abonos"/>
+                                  <input id="input_abonos" />
                                   <button id="btn_abonos_abonar" class="btn btn-primary"> Abonar</button>
                               </div>
                                 

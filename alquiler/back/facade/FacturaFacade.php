@@ -155,7 +155,7 @@ class FacturaFacade {
       $arrayAbonos = json_decode($factura->getAbonos());
       $nuevo= new stdClass();
       date_default_timezone_set('America/Lima');
-      $fecha = date("Y-m-d H:i:s");
+      $fecha = date("Y-m-d");
       $nuevo->fecha = $fecha;
       $nuevo->cantidad = $valor;
       array_push($arrayAbonos, $nuevo);
