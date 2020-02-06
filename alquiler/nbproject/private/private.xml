@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/facade/FacturaFacade.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/front/Ventas_insert.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/front/factura_by_fecha.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/facade/AlquilerFacade.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/agregarAbono.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/reportes.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/devolverTodo.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/crearFactura.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/front/app_pdf/plantilla/formato_fact.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/back/controller/reportePorTiempo.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/front/pdf.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/front/factura_by_fecha.php</file>
         </group>
     </open-files>
 </project-private>

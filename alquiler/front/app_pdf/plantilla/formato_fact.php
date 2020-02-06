@@ -1,11 +1,22 @@
 <?php
 
-function getPlantilla(){
 
+//echo $cliente;
+ 
+
+function getPlantilla($cliente){
+
+   
+$arr = explode(',', $cliente, 7);
+ 
+
+
+//  var_dump($total);
+    
  $plantilla='<body>
     <header class="clearfix">
       <div id="logo">
-        <img src="logo.png">
+        <img src="app_pdf/plantilla/logo.png"  width: "70px"; height="70px";>
       </div>
       <div id="company">
         <h2 class="name">Company Name</h2>
@@ -19,13 +30,13 @@ function getPlantilla(){
       <div id="details" class="clearfix">
         <div id="client">
           <div class="to">INVOICE TO:</div>
-          <h2 class="name">John Doe</h2>
-          <div class="address">796 Silver Harbour, TX 79273, US</div>
-          <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+          <h2 class="name">'.$arr[1].'</h2>
+          <div class="address">'.$arr[2].'</div>
+          <div class="email"><a>'.$arr[4].'</a></div>
         </div>
         <div id="invoice">
-          <h1>INVOICE 3-2-1</h1>
-          <div class="date">Date of Invoice: 01/06/2014</div>
+          <h1>FACTURA #'.$arr[0].'</h1>
+          <div class="date">Fecha de Expedicion : '.$arr[5].'</div>
           <div class="date">Due Date: 30/06/2014</div>
         </div>
       </div>

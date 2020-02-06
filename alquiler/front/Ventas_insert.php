@@ -1,4 +1,9 @@
-<?php $fcha = date("Y-m-d"); ?>
+<?php $fcha = date("Y-m-d");
+
+
+ 
+
+?>
 
 
 <html>
@@ -24,6 +29,13 @@
                                 <div class="form-group" >
                                     <label for="Inputpersona_cedula">    </label>
                                     <button  style="padding-right: 4px;" type="button" class="btn btn-primary" onclick="buscarcedula()">Buscar </button>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2" >
+                                <div class="form-group" >
+                                    <label for="Inputpersona_cedula">    </label>
+                                    <button  style="padding-right: 4px;" type="button" class="btn btn-primary" onclick="buscarcedula()">Factura </button>
                                 </div>
 
                             </div>
@@ -239,6 +251,12 @@
                                             + Enviar Factura
                                         </button>  
                                     </div>
+                                    
+                                    <div class="row">
+                                        <button type="button" id="abriPdf2" class="btn btn-primary" onclick="abriPdf()" style="width: 100%">
+                                            + Enviar pdf
+                                        </button>  
+                                    </div>
                                     <br>     
                                 </div>
 
@@ -397,6 +415,39 @@
 
 
                               var prod_alq = [];
+                             
+                              function abriPdf() {
+//
+////        recorrerTabla();       
+
+                                  var nun_factura = document.getElementById("Inputnum_factura").value;
+                                  var nom_cliente = document.getElementById("Inputnombres").value;
+                                  var cc_cliente = document.getElementById("Inputcc").value;
+                                  var tel_clien = document.getElementById("Inputtelefono").value;
+                                  var correo_clien = document.getElementById("Inputcorreo").value;
+                                  var fecha = document.getElementById("inputfecha_inicio").value;
+                                  var descuent = document.getElementById("Inputfact_descuento").value;
+//
+////                                  var alquileres = '[' + prod_alq + ']';
+//
+//
+////                                  if (JSON.parse(alquileres).length > 0) {
+//
+var client = []
+client.push(nun_factura);
+client.push(nom_cliente);
+client.push(cc_cliente);
+client.push(tel_clien);
+client.push(correo_clien);
+client.push(fecha);
+                       window.location.href='pdf.php?usuario='+client,'_blank' ;       
+//
+////                                  }
+////                                  else {
+////                                      alert("La factura está vacía. \nRegistra algunos productos para alquilar y vuelve a intentarlo.")
+////                                  }
+                              } ;
+//
 
                               function enviarFactura() {
 
@@ -449,8 +500,7 @@
                                   } else {
                                       alert("La factura está vacía. \nRegistra algunos productos para alquilar y vuelve a intentarlo.")
                                   }
-                              }
-                              ;
+                              } ;
 
 
 
