@@ -52,7 +52,7 @@ $idCliente = $factura->getCliente_idcliente()->getIdcliente();
       $idfactura=$factura->getIdfactura();
 
       try {
-          $sql= "SELECT `idfactura`, `fecha`, `fac_descueto`, `abonos`"
+          $sql= "SELECT *"
           ."FROM `factura`"
           ."WHERE `idfactura`='$idfactura'";
           $data = $this->ejecutarConsulta($sql);
@@ -61,6 +61,9 @@ $idCliente = $factura->getCliente_idcliente()->getIdcliente();
           $factura->setFecha($data[$i]['fecha']);
           $factura->setFac_descueto($data[$i]['fac_descueto']);
           $factura->setAbonos($data[$i]['abonos']);
+          $cliente = new Cliente();
+            $cliente->setIdcliente($data[$i]['cliente_idcliente']);
+            $factura->setCliente_idcliente($cliente);
 
           }
       return $factura;      } catch (SQLException $e) {

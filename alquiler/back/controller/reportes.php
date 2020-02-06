@@ -27,6 +27,9 @@ function armarReporteDeFacturas($facturas) {
         $myCliente->cliente_id=$cliente->getidcliente();
         $myCliente->cliente_cedula=$cliente->getcliente_cc();
         $myCliente->cliente_nombre=$cliente->getcliente_nombre()." ".$cliente->getcliente_apellido();
+        $myCliente->cliente_correo=$cliente->getcliente_correo();
+        $myCliente->cliente_telefono=$cliente->getcliente_telefono();
+        $myCliente->cliente_direccion=$cliente->getcliente_direccion();
 
         $myFactura->cliente = $myCliente;
         $myFactura->total = 0;
