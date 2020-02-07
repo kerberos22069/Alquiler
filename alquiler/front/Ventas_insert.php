@@ -2,6 +2,12 @@
 
 
 <html>
+    <head>  
+        <title>Crear alquileres</title>
+        <link rel="stylesheet" href="css/jquery-editable-select.min.css" />
+        <script src="js/jquery-editable-select.min.js"></script>        
+    </head>
+
     <div>
         <div class="panel panel-default">
             <div class="ibox-title"> 
@@ -16,8 +22,9 @@
                         <div class="row">
                             <div class="col-sm-10">
                                 <div class="form-group">
-
-                                    <input type="text" name="persona_cedula" class="form-control" id="Inputpersona_cedula" placeholder="Cedula" required>
+                                    <select name="country" id="Inputpersona_cedula" class="form-control">
+                                        
+                                    </select>
                                 </div> 
                             </div>
                             <div class="col-sm-2" >
@@ -367,33 +374,77 @@
 
     <script>
 
-                              /////////////////////////////////////////////////
-                              /*
-                               * Necesito saber cuando agrego o quito el conductor a la factura parcial.
-                               * Por esa razon, solamente compruebo si es par agregado, impar no agregado.
-                               * Inicia en uno porque es impar, eso significa que aun no se agregado ningun conductor.
-                               */
-                              is_conductor_agregado = 1;
-                              //////////////////////////////////////////////// 
+    /////////////////////////////////////////////////
+    /*
+    * Necesito saber cuando agrego o quito el conductor a la factura parcial.
+    * Por esa razon, solamente compruebo si es par agregado, impar no agregado.
+    * Inicia en uno porque es impar, eso significa que aun no se agregado ningun conductor.
+    */
+    is_conductor_agregado = 1;
 
-                              $(document).ready(function () {
+    /*
+    * Contiene todos los clientes registrados en base de datos.
+    * El unico momento en que esto se actualiza es el document on ready. 
+    */
+    clientes = [];
+    //////////////////////////////////////////////// 
 
 
-                                  cargareNum_Factura();
 
-                              });
+    $(document).ready(function () {
+
+      cargareNum_Factura();
+      cargarClientes();
+
+    });
 
 
-                              function cargareNum_Factura() {
+  function cargareNum_Factura() {
 
-                                  $.get('../back/controller/Factura_id.php', function (depa) {
+      $.get('../back/controller/Factura_id.php', function (depa) {
 
-                                      depa = JSON.parse(depa);
+          depa = JSON.parse(depa);
 
-                                      $("#Inputnum_factura").val(depa[1].idfactura);//direccion
+          $("#Inputnum_factura").val(depa[1].idfactura);//direccion
 
-                                  });
-                              }
+        });
+    }
+
+    function cargarClientes(){
+        $.ajax({            
+            url: '../back/controller/Cliente_list.php',
+            type: 'get',
+            success: function (response) {                
+                clientes = JSON.parse(response);
+                delete clientes[0];
+                console.log(clientes);
+                construirOptionComboBuscarClientes(clientes);
+                $('#Inputpersona_cedula').editableSelect();
+                },
+            error: function (response) { 
+                console.log("No se ha podido cargar los clientes")
+            }
+        });
+    }
+
+    function construirOptionComboBuscarClientes(misClientes){
+        mi_select = document.getElementById('Inputpersona_cedula');
+        for(let i in misClientes){
+            mi_option = document.createElement("option"); 
+            mi_option.setAttribute("value", misClientes[i].cliente_cc);
+            mi_option.appendChild(document.createTextNode(misClientes[i].cliente_nombre));
+            mi_select.appendChild(mi_option);
+        }
+        //Esto hay que arreglarlo. La idea es que los nombres y numeros de cedula no se combinan
+        for(let i in misClientes){
+            mi_option = document.createElement("option"); 
+            mi_option.setAttribute("value", misClientes[i].cliente_cc);
+            mi_option.appendChild(document.createTextNode(misClientes[i].cliente_cc));
+            mi_select.appendChild(mi_option);
+        }
+    }
+
+
 
 
                               var prod_alq = [];
@@ -566,7 +617,10 @@
 
                               function buscarcedula() {
 
-                                  empresa = document.getElementById("Inputpersona_cedula").value;
+                                var basic_text = document.getElementById('Inputpersona_cedula').value;
+                                var basic_value = $('#Inputpersona_cedula').siblings('.es-list').find('li.selected').attr('value');
+                                console.log(basic_value);            
+                                empresa = basic_value;
 //          alert(empresa);
 
                                   $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': empresa}, function (depa) {
@@ -594,6 +648,8 @@
 
                                   });
                               }
+
+
 
                               function multiplicar() {
                                   can = 0;
