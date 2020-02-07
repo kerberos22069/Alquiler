@@ -202,7 +202,7 @@ class FacturaDao implements IFacturaDao {
             $sql = "SELECT f.`idfactura`, f.`fecha`, f.`fac_descueto`, f.`abonos`, f.`cliente_idcliente`"
                     . "FROM `factura` f "
                     . "INNER JOIN `alquiler` a ON f.`idfactura` = a.`factura_idfactura`"
-                    . "WHERE f.`cliente_idcliente` = " . $Cliente_idcliente ." AND a.`alq_stado` = 1 "
+                    . "WHERE f.`cliente_idcliente` = " . $Cliente_idcliente ." AND a.`alq_stado` = 0 "
                     . "ORDER BY f.`fecha` DESC";
             $data = $this->ejecutarConsulta($sql);
             for ($i = 0; $i < count($data); $i++) {
