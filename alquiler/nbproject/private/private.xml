@@ -3,13 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/front/js/reportesController.js</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/facade/FacturaFacade.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/front/imprimir.html</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/front/factura_by_fecha.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/facade/AlquilerFacade.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/reportes.php</file>
-            <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/devolverTodo.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/front/Conductor_list.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/back/facade/ChoferesFacade.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/front/pdf.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/back/controller/Chofer_insert.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/front/Ventas_insert.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/back/controller/Chofer_update.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/back/controller/Chofer_delete.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/front/ConductorInsert.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/back/controller/ChoferesController.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/back/dao/entities/AlquilerDao.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/back/dao/entities/ChoferesDao.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/front/js/ViewManager.js</file>
         </group>
     </open-files>
 </project-private>

@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    Sólo relájate y deja que alguien más lo haga  \\
+//    Muchos años después, frente al pelotón de fusilamiento, el coronel Aureliano Buendía había de recordar aquella tarde remota en que su padre lo llevó a conocer el hielo.   \\
 
 require_once realpath('../facade/GlobalController.php');
 require_once realpath('../dao/interfaz/IFactoryDao.php');
@@ -34,12 +34,16 @@ class ChoferesFacade {
    * @param idchoferes
    * @param cc_chofer
    * @param nom_chofer
+   * @param chofe_telefono
+   * @param direccion
    */
-  public static function insert(   $cc_chofer,  $nom_chofer){
+  public static function insert( $cc_chofer,  $nom_chofer,  $chofe_telefono,  $direccion){
       $choferes = new Choferes();
 //      $choferes->setIdchoferes($idchoferes); 
       $choferes->setCc_chofer($cc_chofer); 
       $choferes->setNom_chofer($nom_chofer); 
+      $choferes->setChofe_telefono($chofe_telefono); 
+      $choferes->setDireccion($direccion); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $choferesDao =$FactoryDao->getchoferesDao(self::getDataBaseDefault());
@@ -71,11 +75,15 @@ class ChoferesFacade {
    * @param idchoferes
    * @param cc_chofer
    * @param nom_chofer
+   * @param chofe_telefono
+   * @param direccion
    */
-  public static function update($idchoferes, $cc_chofer, $nom_chofer){
+  public static function update($idchoferes, $cc_chofer, $nom_chofer, $chofe_telefono, $direccion){
       $choferes = self::select($idchoferes);
       $choferes->setCc_chofer($cc_chofer); 
       $choferes->setNom_chofer($nom_chofer); 
+      $choferes->setChofe_telefono($chofe_telefono); 
+      $choferes->setDireccion($direccion); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $choferesDao =$FactoryDao->getchoferesDao(self::getDataBaseDefault());

@@ -23,7 +23,7 @@
                                           + Agregar
                                       </button>-->
 
-                            <button type="button" class="btn btn-primary" onclick="Clientes_Registrar()">
+                            <button type="button" class="btn btn-primary" onclick="Conductor_Registrar()">
                                 + Agregar
                             </button>
 
@@ -39,6 +39,8 @@
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Id</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Nombres y Apellidos</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Cédula</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Telefono</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Direccion</th>
 
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>
@@ -74,47 +76,39 @@
                         <div class="panel panel-default">
                             <!--        <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>-->
                             <div align=center class="panel-body">
-                                <form role="form" id="clienteUp">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div style="display: none"class="form-group">
-                          <label for="Inputidcliente">idcliente</label>
-                          <input type="text" name="idcliente" class="form-control" id="Inputidcliente" placeholder="idcliente" required>
-                       </div>
-                      <div class="form-group">
-                          <label for="Inputcliente_nombre">cliente_nombre</label>
-                          <input type="text" name="cliente_nombre" class="form-control" id="Inputcliente_nombre" placeholder="cliente_nombre">
-                       </div>
-                      <div class="form-group">
-                          <label for="Inputcliente_apellido">cliente_apellido</label>
-                          <input type="text" name="cliente_apellido" class="form-control" id="Inputcliente_apellido" placeholder="cliente_apellido">
-                       </div>
-                                                                   <div class="form-group">
-                          <label for="Inputcliente_correo">cliente_correo</label>
-                          <input type="text" name="cliente_correo" class="form-control" id="Inputcliente_correo" placeholder="cliente_correo">
-                       </div>
-                                        </div>
-                                        
-                                        <div class="col-lg-6">
-                  <div class="form-group">
-                          <label for="Inputcliente_cc">cliente_cc</label>
-                          <input type="text" name="cliente_cc" class="form-control" id="Inputcliente_cc" placeholder="cliente_cc">
-                       </div>
-                      <div class="form-group">
-                          <label for="Inputcliente_telefono">cliente_telefono</label>
-                          <input type="text" name="cliente_telefono" class="form-control" id="Inputcliente_telefono" placeholder="cliente_telefono">
-                       </div>
-                      <div class="form-group">
-                          <label for="Inputcliente_direccion">cliente_direccion</label>
-                          <input type="text" name="cliente_direccion" class="form-control" id="Inputcliente_direccion" placeholder="cliente_direccion">
-                       </div>
-                                        </div>
+                                         <form role="form" id="Chofer_Insert">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Inputcliente_nombre">Nombres y Apellidos</label>
+                                <input type="text" name="nom_chofer" class="form-control" id="Inputcliente_nombre" placeholder="cliente_nombre">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="Inputcliente_cc">Cedula</label>
+                                <input type="text" name="cc_chofer" class="form-control" id="Inputcliente_cc" placeholder="cliente_cc">
+                            </div>
 
-                                
+                        </div>
+                        <div class="col-md-6">
 
 
-                                    </div><!-- panel-body -->
-                                </form>
+
+
+                            <div class="form-group">
+                                <label for="Inputcliente_direccion">Dirección</label>
+                                <input type="text" name="direccion" class="form-control" id="Inputcliente_direccion" placeholder="cliente_direccion">
+                            </div>
+                            <div class="form-group">
+                                <label for="Inputcliente_telefono">Teléfono</label>
+                                <input type="text" name="chofe_telefono" class="form-control" id="Inputcliente_telefono" placeholder="cliente_telefono">
+                            </div>
+                            
+                        </div>
+                    </div>
+             
+
+                </form>         
                             </div> <!-- panel -->
                         </div>
 

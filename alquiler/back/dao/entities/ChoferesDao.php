@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    En un lugar de La Mancha, de cuyo nombre no quiero acordarme...  \\
+//    Podrías agradecernos con unos cuantos billetes _/(n.n)\_  \\
 
 include_once realpath('../dao/interfaz/IChoferesDao.php');
 include_once realpath('../dto/Choferes.php');
@@ -31,10 +31,12 @@ private $cn;
 //      $idchoferes=$choferes->getIdchoferes();
 $cc_chofer=$choferes->getCc_chofer();
 $nom_chofer=$choferes->getNom_chofer();
+$chofe_telefono=$choferes->getChofe_telefono();
+$direccion=$choferes->getDireccion();
 
       try {
-          $sql= "INSERT INTO `choferes`( `cc_chofer`, `nom_chofer`)"
-          ."VALUES ($cc_chofer','$nom_chofer')";
+          $sql= "INSERT INTO `choferes`( `cc_chofer`, `nom_chofer`, `chofe_telefono`, `direccion`)"
+          ."VALUES ('$cc_chofer','$nom_chofer','$chofe_telefono','$direccion')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -51,7 +53,7 @@ $nom_chofer=$choferes->getNom_chofer();
       $idchoferes=$choferes->getIdchoferes();
 
       try {
-          $sql= "SELECT `idchoferes`, `cc_chofer`, `nom_chofer`"
+          $sql= "SELECT `idchoferes`, `cc_chofer`, `nom_chofer`, `chofe_telefono`, `direccion`"
           ."FROM `choferes`"
           ."WHERE `idchoferes`='$idchoferes'";
           $data = $this->ejecutarConsulta($sql);
@@ -59,6 +61,8 @@ $nom_chofer=$choferes->getNom_chofer();
           $choferes->setIdchoferes($data[$i]['idchoferes']);
           $choferes->setCc_chofer($data[$i]['cc_chofer']);
           $choferes->setNom_chofer($data[$i]['nom_chofer']);
+          $choferes->setChofe_telefono($data[$i]['chofe_telefono']);
+          $choferes->setDireccion($data[$i]['direccion']);
 
           }
       return $choferes;      } catch (SQLException $e) {
@@ -77,9 +81,11 @@ $nom_chofer=$choferes->getNom_chofer();
       $idchoferes=$choferes->getIdchoferes();
 $cc_chofer=$choferes->getCc_chofer();
 $nom_chofer=$choferes->getNom_chofer();
+$chofe_telefono=$choferes->getChofe_telefono();
+$direccion=$choferes->getDireccion();
 
       try {
-          $sql= "UPDATE `choferes` SET`idchoferes`='$idchoferes' ,`cc_chofer`='$cc_chofer' ,`nom_chofer`='$nom_chofer' WHERE `idchoferes`='$idchoferes' ";
+          $sql= "UPDATE `choferes` SET`idchoferes`='$idchoferes' ,`cc_chofer`='$cc_chofer' ,`nom_chofer`='$nom_chofer' ,`chofe_telefono`='$chofe_telefono' ,`direccion`='$direccion' WHERE `idchoferes`='$idchoferes' ";
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -111,7 +117,7 @@ $nom_chofer=$choferes->getNom_chofer();
   public function listAll(){
       $lista = array();
       try {
-          $sql ="SELECT `idchoferes`, `cc_chofer`, `nom_chofer`"
+          $sql ="SELECT `idchoferes`, `cc_chofer`, `nom_chofer`, `chofe_telefono`, `direccion`"
           ."FROM `choferes`"
           ."WHERE 1";
           $data = $this->ejecutarConsulta($sql);
@@ -120,6 +126,8 @@ $nom_chofer=$choferes->getNom_chofer();
           $choferes->setIdchoferes($data[$i]['idchoferes']);
           $choferes->setCc_chofer($data[$i]['cc_chofer']);
           $choferes->setNom_chofer($data[$i]['nom_chofer']);
+          $choferes->setChofe_telefono($data[$i]['chofe_telefono']);
+          $choferes->setDireccion($data[$i]['direccion']);
 
           array_push($lista,$choferes);
           }
