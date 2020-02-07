@@ -19,12 +19,25 @@ function facturas_listas() {
     enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
 }
 
+
+
+
+
 function facturas_by_fecha(){
     var url = "factura_by_fecha.php";
     var datos = {};
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);
     //enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
+} 
+
+
+function Conductor_list(){
+    var url = "Conductor_list.php";
+    var datos = {};
+    var rta = "#mostrarcontenido";
+    ajax(url, datos, rta);
+    enviar("", '../back/controller/Chofer_list.php', postChoferesList);
 } 
 
 function facturas_Devolucion() {  
