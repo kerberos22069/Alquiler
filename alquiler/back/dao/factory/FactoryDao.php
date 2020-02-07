@@ -32,6 +32,14 @@ class FactoryDao implements IFactoryDao{
         return new AlquilerDao($this->conn->obtener($dbName));
     }
      /**
+     * Devuelve una instancia de ChoferesDao con una conexiÃ³n que depende del gestor de base de datos
+     * @param dbName Nombre o identificador de la base de datos a conectar
+     * @return instancia de ChoferesDao
+     */
+     public function getChoferesDao($dbName){
+        return new ChoferesDao($this->conn->obtener($dbName));
+    }
+     /**
      * Devuelve una instancia de ClienteDao con una conexiÃ³n que depende del gestor de base de datos
      * @param dbName Nombre o identificador de la base de datos a conectar
      * @return instancia de ClienteDao
