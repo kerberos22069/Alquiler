@@ -57,14 +57,20 @@ function armarReporteDeFacturas($facturas) {
             if($jsonDev != NULL && $jsonDev != ""){
                 $arrayDevoluciones = json_decode($jsonDev);
                 $totalDevuelto = 0;
+                $arrayMovimientos = array();
                 foreach ($arrayDevoluciones as $key => $devuelto) {
                     $totalDevuelto += $devuelto->cantidad;
                     //Calcula los días de activos antes de una devolución y obtiene el total $ del producto para esa cantidad de días
                     $datetime1 = date_create($Alquiler->getFecha_inicio());
                     $datetime2 = date_create($devuelto->fecha);
                     $interval = date_diff($datetime1, $datetime2);
-                    $myAlquiler->subTotal += $interval->format('%d') * $Alquiler->getValor() * $devuelto->cantidad;
+                    $total = $interval->format('%d') * $Alquiler->getValor() * $devuelto->cantidad;
+                    $myAlquiler->subTotal += $total;
+                    $devuelto->dias = $interval->format('%d');
+                    $devuelto->total = $total;
+                    array_push($arrayMovimientos, $devuelto);
                 }
+                $myAlquiler->movimientos = $arrayMovimientos;
             }
             $myAlquiler->cantidad = $Alquiler->getCantidad()+$totalDevuelto;
             $myAlquiler->totalDevuelto = $totalDevuelto;
