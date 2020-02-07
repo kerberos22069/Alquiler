@@ -131,6 +131,60 @@ function preClienteList(container){
      }
 }
 
+////////// CHOFERES \\\\\\\\\\
+function preChoferesInsert(idForm){
+     //Haga aquÃ­ las validaciones necesarias antes de enviar el formulario.
+	if(validarForm(idForm)){
+ 	var formData=$('#'+idForm).serialize();
+     formData["ruta"]="ChoferesInsert";
+ 	enviar(formData, rutaBack ,postChoferesInsert);
+ 	}else{
+ 		alert("Debe llenar los campos requeridos");
+ 	}
+}
+
+ function postChoferesInsert(result,state){
+     //Maneje aquÃ­ la respuesta del servidor.
+     //Consideramos buena prÃ¡ctica no manejar cÃ³digo HTML antes de este punto.
+ 		if(state=="success"){
+                     if(result=="true"){            
+ 			alert("Choferes registrado con Ã©xito");
+                     }else{
+                        alert("Hubo un errror en la inserciÃ³n ( u.u)\n"+result);
+                     } 		}else{
+ 			alert("Hubo un errror interno ( u.u)\n"+result);
+ 		}
+}
+
+function preChoferesList(container){
+     //Solicite informaciÃ³n del servidor
+     cargaContenido(container,'ChoferesList.html'); 
+     var formData = {};
+     formData["ruta"]="ChoferesList";
+ 	enviar(formData, rutaBack ,postChoferesList); 
+}
+
+ function postChoferesList(result,state){
+     //Maneje aquÃ­ la respuesta del servidor.
+     if(state=="success"){
+         var json=JSON.parse(result);
+         if(json[0].msg=="exito"){
+
+            for(var i=1; i < Object.keys(json).length; i++) {   
+                var Choferes = json[i];
+                //----------------- Para una tabla -----------------------
+                document.getElementById("ChoferesList").appendChild(createTR(Choferes));
+                //-------- Para otras opciones ver htmlBuilder.js ---------
+            }
+         }else{
+            alert(json[0].msg);
+         }
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
+}
+
+
 ////////// FACTURA \\\\\\\\\\
 function preFacturaInsert(idForm){
      //Haga aquÃ­ las validaciones necesarias antes de enviar el formulario.

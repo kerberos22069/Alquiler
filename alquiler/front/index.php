@@ -66,6 +66,10 @@
                         <a onclick="facturas_by_fecha()"><i class="fa fa-fax"></i> <span class="nav-label">Facturas </span></a>
                     </li>
         
+                    <li>
+                        <a onclick="Conductor_list()"><i class="fa fa-fax"></i> <span class="nav-label">Conductores </span></a>
+                    </li>
+        
                     
                 <!--    <li>
                         <a onclick="facturas_listas()"><i class="fa fa-laptop"></i> <span class="nav-label">Facturas</span></a>
@@ -132,7 +136,7 @@
                     </div>
                 </div>
             </div>
-            <div class="footer">
+            <div class="footer" style="color: black">
                 <div class="pull-right">
                     Sistema de Control Acceso <strong>NORTCODING</strong> 2019.
                 </div>

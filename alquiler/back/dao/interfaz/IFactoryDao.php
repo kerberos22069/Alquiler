@@ -13,6 +13,7 @@ include_once realpath('../dao/entities/FacturaDao.php');
 include_once realpath('../dao/entities/Libro_diarioDao.php');
 include_once realpath('../dao/entities/ProductoDao.php');
 include_once realpath('../dao/entities/TransporteDao.php');
+include_once realpath('../dao/entities/ChoferesDao.php');
 
 
 interface IFactoryDao {
@@ -28,6 +29,13 @@ interface IFactoryDao {
      * @param dbName Nombre o identificador de la base de datos a conectar
      * @return instancia de ClienteDao
      */
+     /**
+     * Devuelve una instancia de ChoferesDao con una conexiÃ³n que depende del gestor de base de datos
+     * @param dbName Nombre o identificador de la base de datos a conectar
+     * @return instancia de ChoferesDao
+     */
+     public function getChoferesDao($dbName);
+     
      public function getClienteDao($dbName);
      /**
      * Devuelve una instancia de FacturaDao con una conexiÃ³n que depende del gestor de base de datos

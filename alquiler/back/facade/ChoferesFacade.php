@@ -35,9 +35,9 @@ class ChoferesFacade {
    * @param cc_chofer
    * @param nom_chofer
    */
-  public static function insert( $idchoferes,  $cc_chofer,  $nom_chofer){
+  public static function insert(   $cc_chofer,  $nom_chofer){
       $choferes = new Choferes();
-      $choferes->setIdchoferes($idchoferes); 
+//      $choferes->setIdchoferes($idchoferes); 
       $choferes->setCc_chofer($cc_chofer); 
       $choferes->setNom_chofer($nom_chofer); 
 
