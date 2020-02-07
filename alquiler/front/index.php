@@ -59,7 +59,7 @@
                         <a onclick="Productos_Listar()"><i class="fa fa-wrench"></i> <span class="nav-label">Productos </span></a>
                     </li>
                     <li>
-                        <a onclick="Ventas_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Alquiler </span></a>
+                        <a onclick="Ventas_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
                     </li>
                     
                     <li>

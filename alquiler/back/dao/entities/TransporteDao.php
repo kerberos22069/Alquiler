@@ -5,11 +5,12 @@
               ------------------------
  */
 
-//    No se fije en el corte de cabello, soy mucho muy rico  \\
+//    No te olvides de quitar mis comentarios  \\
 
 include_once realpath('../dao/interfaz/ITransporteDao.php');
 include_once realpath('../dto/Transporte.php');
 include_once realpath('../dto/Factura.php');
+include_once realpath('../dto/Choferes.php');
 
 class TransporteDao implements ITransporteDao{
 
@@ -29,13 +30,15 @@ private $cn;
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function insert($transporte){
+      $idtransporte=$transporte->getIdtransporte();
 $transporte_flete=$transporte->getTransporte_flete();
 $factura_idfactura=$transporte->getFactura_idfactura()->getIdfactura();
 $transporte_conductor=$transporte->getTransporte_conductor();
+$choferes_idchoferes=$transporte->getChoferes_idchoferes()->getIdchoferes();
 
       try {
-          $sql= "INSERT INTO `transporte`( `transporte_flete`, `factura_idfactura`, `transporte_conductor`)"
-          ."VALUES ('$transporte_flete','$factura_idfactura','$transporte_conductor')";
+          $sql= "INSERT INTO `transporte`( `idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`, `choferes_idchoferes`)"
+          ."VALUES ('$idtransporte','$transporte_flete','$factura_idfactura','$transporte_conductor','$choferes_idchoferes')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -52,7 +55,7 @@ $transporte_conductor=$transporte->getTransporte_conductor();
       $idtransporte=$transporte->getIdtransporte();
 
       try {
-          $sql= "SELECT `idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`"
+          $sql= "SELECT `idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`, `choferes_idchoferes`"
           ."FROM `transporte`"
           ."WHERE `idtransporte`='$idtransporte'";
           $data = $this->ejecutarConsulta($sql);
@@ -63,6 +66,9 @@ $transporte_conductor=$transporte->getTransporte_conductor();
            $factura->setIdfactura($data[$i]['factura_idfactura']);
            $transporte->setFactura_idfactura($factura);
           $transporte->setTransporte_conductor($data[$i]['transporte_conductor']);
+           $choferes = new Choferes();
+           $choferes->setIdchoferes($data[$i]['choferes_idchoferes']);
+           $transporte->setChoferes_idchoferes($choferes);
 
           }
       return $transporte;      } catch (SQLException $e) {
@@ -82,9 +88,10 @@ $transporte_conductor=$transporte->getTransporte_conductor();
 $transporte_flete=$transporte->getTransporte_flete();
 $factura_idfactura=$transporte->getFactura_idfactura()->getIdfactura();
 $transporte_conductor=$transporte->getTransporte_conductor();
+$choferes_idchoferes=$transporte->getChoferes_idchoferes()->getIdchoferes();
 
       try {
-          $sql= "UPDATE `transporte` SET`idtransporte`='$idtransporte' ,`transporte_flete`='$transporte_flete' ,`factura_idfactura`='$factura_idfactura' ,`transporte_conductor`='$transporte_conductor' WHERE `idtransporte`='$idtransporte' ";
+          $sql= "UPDATE `transporte` SET`idtransporte`='$idtransporte' ,`transporte_flete`='$transporte_flete' ,`factura_idfactura`='$factura_idfactura' ,`transporte_conductor`='$transporte_conductor' ,`choferes_idchoferes`='$choferes_idchoferes' WHERE `idtransporte`='$idtransporte' ";
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -116,7 +123,7 @@ $transporte_conductor=$transporte->getTransporte_conductor();
   public function listAll(){
       $lista = array();
       try {
-          $sql ="SELECT `idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`"
+          $sql ="SELECT `idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`, `choferes_idchoferes`"
           ."FROM `transporte`"
           ."WHERE 1";
           $data = $this->ejecutarConsulta($sql);
@@ -128,6 +135,9 @@ $transporte_conductor=$transporte->getTransporte_conductor();
            $factura->setIdfactura($data[$i]['factura_idfactura']);
            $transporte->setFactura_idfactura($factura);
           $transporte->setTransporte_conductor($data[$i]['transporte_conductor']);
+           $choferes = new Choferes();
+           $choferes->setIdchoferes($data[$i]['choferes_idchoferes']);
+           $transporte->setChoferes_idchoferes($choferes);
 
           array_push($lista,$transporte);
           }
@@ -137,6 +147,8 @@ $transporte_conductor=$transporte->getTransporte_conductor();
       return null;
       }
   }
+
+
   
   public function listByFactura($factura_id){
       $lista = array();

@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    ...Y como plato principal: ¡Código espagueti!  \\
+//    No hay de qué so no más de papa  \\
 
 
 class Transporte {
@@ -14,6 +14,7 @@ class Transporte {
   private $transporte_flete;
   private $factura_idfactura;
   private $transporte_conductor;
+  private $choferes_idchoferes;
 
     /**
      * Constructor de Transporte
@@ -79,6 +80,21 @@ class Transporte {
      */
   public function setTransporte_conductor($transporte_conductor){
       $this->transporte_conductor = $transporte_conductor;
+  }
+    /**
+     * Devuelve el valor correspondiente a choferes_idchoferes
+     * @return choferes_idchoferes
+     */
+  public function getChoferes_idchoferes(){
+      return $this->choferes_idchoferes;
+  }
+
+    /**
+     * Modifica el valor correspondiente a choferes_idchoferes
+     * @param choferes_idchoferes
+     */
+  public function setChoferes_idchoferes($choferes_idchoferes){
+      $this->choferes_idchoferes = $choferes_idchoferes;
   }
 
 
