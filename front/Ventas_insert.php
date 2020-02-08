@@ -708,6 +708,13 @@
 //      document.getElementById('btn_admin_conductor').disabled=false;
         };
         
+         function desactivar_productos(){
+        
+       
+      document.getElementById('adicionar').disabled=true;
+//      document.getElementById('btn_admin_conductor').disabled=false;
+        };
+        
          function desactivar_Cho_enviar(){
         
        
@@ -846,7 +853,7 @@
                 document.getElementById("Inputproducto").value = "-1";
                 document.getElementById("Inputproducto").focus();
 
-
+                desactivar_productos();
                 Activar_Cho_enviar();
             });
             var nFilas=0;
