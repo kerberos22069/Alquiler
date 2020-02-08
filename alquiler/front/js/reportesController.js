@@ -502,7 +502,7 @@ function habilitarFormularioDevolucion(id_alquiler) {
     document.getElementById("producto_a_devolver").innerHTML = currentAlquiler.producto_nombre;
     document.getElementById("cantidad_devuelta").focus();
     $('#fecha_devolucion').val(new Date().toDateInputValue());
-    $("#cantidad_devuelta").animate({ scrollTop: $('#cantidad_devuelta')[0].scrollHeight}, 1000);
+    $("#cantidad_devuelta").animate({scrollTop: $('#cantidad_devuelta')[0].scrollHeight}, 1000);
 }
 
 function deshabilitarFormularioDevolucion() {
@@ -512,7 +512,7 @@ function deshabilitarFormularioDevolucion() {
     document.getElementById("producto_a_devolver").innerHTML = "";
 }
 
-function agregar_devolucion() { 
+function agregar_devolucion() {
 
     //Validamos si la cantidad a devolver no supera a la cantidad alquilada
     if ($('#cantidad_devuelta').val() <= currentAlquiler.cantidad - currentAlquiler.totalDevuelto) {
@@ -614,5 +614,41 @@ function number_format(amount, decimals) {
         amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
 
     return amount_parts.join('.');
+}
+
+function llenarEncabezado(factura_id) {
+    factura = obtenerFactura(factura_id);
+    document.getElementById("factura_id").innerHTML += "N° " + factura_id;
+    cliente_nombre.innerHTML = factura.cliente.cliente_nombre;
+    cliente_cc.innerHTML = factura.cliente.cliente_cedula;
+    cliente_direccion.innerHTML = factura.cliente.cliente_direccion;
+    cliente_telefono.innerHTML = factura.cliente.cliente_telefono;
+    cliente_correo.innerHTML = factura.cliente.cliente_correo;
+
+    var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+    var f = new Date();
+    fecha.innerHTML = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
+}
+
+
+function orden_devolucion(idFactura) {
+    contenedor = document.getElementById('articulosList');
+    var factura = obtenerFactura(idFactura);
+    for (var i in factura.alquileres) {
+        var alquiler = factura.alquileres[i];
+        if (!alquiler.devuelto) {
+            mi_tr = tr("gradeX footable-even");
+            //Nombre
+            mi_tr.appendChild(td(alquiler.producto_nombre, "footable-visible"));
+            //Cantidad
+            mi_td = td(alquiler.cantidad - alquiler.totalDevuelto, "footable-visible");
+            mi_td.style= "text-align: center";
+            mi_tr.appendChild(mi_td);
+            //Campo vacío para llenar a mano
+            mi_tr.appendChild(document.createElement("td"));
+            contenedor.appendChild(mi_tr);
+        }
+    }
+    firmaCliente.innerHTML = factura.cliente.cliente_nombre + "<br>" + factura.cliente.cliente_cedula;
 }
 

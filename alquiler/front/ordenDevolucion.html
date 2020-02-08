@@ -10,8 +10,150 @@ and open the template in the editor.
         <link rel="icon" type="image/png" href="img/logo2.png">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/impresion_screen.css" media="screen">
+        <link rel="stylesheet" href="css/impresion_print.css" media="print">
+
     </head>
     <body>
-        
+        <div id="print-content">
+            <table id="tabla-maestra">
+                <thead><tr><td>
+                            <div id="header-space">&nbsp;</div>
+                        </td></tr></thead>
+                <tbody><tr><td>
+                            <div>
+                                <table class="tabla-interna">
+                                    <thead></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Señor:</td>
+                                            <td colspan="2" id="cliente_nombre"></td>
+                                            <td>Nit:</td>
+                                            <td colspan="2" id="cliente_cc"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dirección:</td>
+                                            <td colspan="2" id="cliente_direccion"></td>
+                                            <td>Teléfono:</td>
+                                            <td colspan="2" id="cliente_telefono"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Correo:</td>
+                                            <td colspan="2" id="cliente_correo"></td>
+                                            <td>Fecha</td>
+                                            <td colspan="2" id="fecha"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="tabla-interna">
+                                    <thead>
+                                        <tr>                                                        
+                                            <th style="width: 50%">Nombre</th>
+                                            <th style="width: 25%;">Cantidad</th>
+                                            <th style="width: 25%">Total devuelto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="articulosList">
+                                    </tbody>
+                                </table>
+                                <div >
+                                    <div style="width: 40%; margin-top: 50px; float: left">
+                                        <hr>
+                                        Firma autorizada
+                                        <br>
+                                        Carlos Andrés Pérez Ferrer
+                                    </div>
+                                    
+                                    <div style="width: 40%; margin-top: 50px; float: right;">
+                                        <hr>
+                                        Firma aceptada
+                                        <br>
+                                        <p id="firmaCliente" style="margin: 0px; padding: 0px"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </td></tr></tbody>
+                <tfoot><tr><td>
+                            <div id="footer-space">&nbsp;</div>
+                        </td></tr></tfoot>
+            </table>
+        </div>
+
+
+        <script src="js/jquery-3.1.1.min.js "></script>
+        <script src="js/Ajax.js "></script>
+        <script src="js/ViewManager.js "></script>
+        <script src="js/HtmlBuilder.js "></script>
+        <script src ="js/reportesController.js"></script>
+        <script>
+            var idFactura = "";
+            window.onload = function () {
+                queryString = window.location.search;
+                urlParams = new URLSearchParams(queryString);
+                factura_id = urlParams.get('factura_id');
+
+                url = '../back/controller/getReporteFacturaById.php';
+                var data = {"factura_id": factura_id};
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+
+                    success: function (data) {
+                        facturas_global = JSON.parse(data);
+                        //console.log(JSON.parse(data));
+                        if ($.isEmptyObject(facturas_global)) {
+                            mostrar_datos_vacios();
+                        } else {
+                            orden_devolucion(factura_id);
+                            llenarEncabezado(factura_id);
+                            window.print();
+                        }
+
+                    }
+                });
+
+            };
+        </script>
+
+
+        <div id="print-header">
+            <table >
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2" style="width: 25%; padding: 0px">
+                            <img src="img/logo.png">
+                        </td>
+                        <td colspan="3">
+                            <h2 class="header">ArriendaEquipos El Crisol S.A.S</h2>
+                            <br>
+                            <h5 class="header">
+                                Alquiler de equipos y formaleta de construcción
+                                <br>
+                                NIT: 900949244-9 Régimen común
+                                <br>
+                                Av 2 # 8-47 Barrio San Luis. 5941647 - 312 5392152
+                                <br>
+                                Equiposcrisol@gmail.com
+                            </h5>
+                        </td>
+                        <td colspan="1" style=" width: 25%">
+                            <h3 class="header">
+                                <p class="header">Orden de devolución.</p>
+                                <br>
+                                <p id="factura_id" class="header">Factura </p>
+                            </h3>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="print-footer">
+            Con la tecnología NortCoding
+            <br>
+            nortcoding@gmail.com
+        </div>
     </body>
+
 </html>

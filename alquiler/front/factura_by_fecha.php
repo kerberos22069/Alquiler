@@ -557,6 +557,10 @@
             window.open('imprimir.html?factura_id='+idFactura+'');
         }
         
+        function abrirImpresionOrdenDevolucion(idFactura){
+            window.open('ordenDevolucion.html?factura_id='+idFactura+'');
+        }
+        
         //Fue un lindo sueño, pero, por pragmatismo, voy a hacer la facil y reconsultar ese berguero :"3
         function json2url(obj,url=""){
             for (key in obj) {
