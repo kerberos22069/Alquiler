@@ -25,15 +25,7 @@ try {
 
     date_default_timezone_set('America/Lima');
     $fecha = date("Y-m-d H:i:s");
-    $fac_descueto = strip_tags($_POST['descuento']);
-
-    include_once realpath('../facade/TransporteFacade.php');
-    $transporte_flete = strip_tags($_POST['transporte_flete']);
-    if ($transporte_flete != NULL && $transporte_flete != "" && $transporte_flete != "0") {
-        $transporte_conductor = strip_tags($_POST['conductor_nombre']);
-        TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor);
-    }
-
+    
     include_once realpath('../facade/AlquilerFacade.php');
     include_once realpath('../facade/ProductoFacade.php');
     $alquileres = json_decode(strip_tags($_POST['alquileres']));
@@ -44,8 +36,30 @@ try {
         $Producto_idprod = $alquiler->id_producto;
         $producto = new Producto();
         $producto->setIdprod($Producto_idprod);
-        AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);
+        
+        if (count($facturas) > 0) {
+            $listByFactura = AlquilerFacade::listByFactura($factura_id);
+            foreach ( $listByFactura as $objx => $alquilerExistente) {
+                if($alquilerExistente->getProducto_idprod() == $Producto_idprod){
+                    $alquilerExistente->setCantidad($alquiler->cantidad + $alquilerExistente->getCantidad());
+                    AlquilerFacade::editarAlquiler($alquilerExistente);
+                    break;
+                }
+            }
+        }else{
+            AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);
+        }
         ProductoFacade::alquilar($Producto_idprod, $cantidad);
+    }
+    
+    
+    $fac_descueto = strip_tags($_POST['descuento']);
+
+    include_once realpath('../facade/TransporteFacade.php');
+    $transporte_flete = strip_tags($_POST['transporte_flete']);
+    if ($transporte_flete != NULL && $transporte_flete != "" && $transporte_flete != "0") {
+        $transporte_conductor = strip_tags($_POST['conductor_nombre']);
+        TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor);
     }
 
     $generalDao->confirmarTransaccion();
