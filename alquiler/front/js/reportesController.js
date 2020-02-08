@@ -501,6 +501,7 @@ function habilitarFormularioDevolucion(id_alquiler) {
     currentAlquiler = obtenerAlquiler(factura_id_select, id_alquiler);
     document.getElementById("producto_a_devolver").innerHTML = currentAlquiler.producto_nombre;
     document.getElementById("cantidad_devuelta").focus();
+    $('#fecha_devolucion').val(new Date().toDateInputValue());
     $("#cantidad_devuelta").animate({ scrollTop: $('#cantidad_devuelta')[0].scrollHeight}, 1000);
 }
 
@@ -511,7 +512,7 @@ function deshabilitarFormularioDevolucion() {
     document.getElementById("producto_a_devolver").innerHTML = "";
 }
 
-function agregar_devolucion() {
+function agregar_devolucion() { 
 
     //Validamos si la cantidad a devolver no supera a la cantidad alquilada
     if ($('#cantidad_devuelta').val() <= currentAlquiler.cantidad - currentAlquiler.totalDevuelto) {
@@ -522,11 +523,13 @@ function agregar_devolucion() {
         cliente = obtenerClienteByFactura(factura_id_select);
         cantidad = $('#cantidad_devuelta').val();
         estado = $('#estado_objeto').val();
+        fecha = $('#fecha_devolucion').val();
 
         var alquileres = {};
         alquileres["alquiler_id"] = alquiler_devolucion_select;
         alquileres["cantidad"] = cantidad;
         alquileres["estado"] = estado;
+        alquileres["fecha"] = fecha;
 
         $.ajax({
             type: "POST",

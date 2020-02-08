@@ -48,7 +48,7 @@
                                     Cédula:
                                 </label>
                                 <div class="col-sm-4">
-                                    <input id="cliente_cedula" name="cliente_cedula" class="form-control">
+                                    <input id="cliente_cedula" name="cliente_cedula" class="form-control" onkeypress="return runScript(event)">
                                 </div>                    
                                 <div class="col-sm-2">
                                     <button type="button" class="btn btn-primary" onclick="buscar_factura_by_cliente()" >
@@ -170,6 +170,10 @@
                                         <div class="form-group" style="margin-left: 15px;">
                                             <label for="cantidad_devuelta" >Cantidad</label>
                                             <input type="number" id="cantidad_devuelta" class="form-control" min="1"/>
+                                        </div>
+                                        <div class="form-group" style="margin-left: 15px;">
+                                            <label for="fecha_devolucion">Fecha devolucion</label>
+                                            <input type="date" id="fecha_devolucion" class="form-control"/>
                                         </div>
                                         <div class="form-group" style="margin-left: 15px;">
                                                 <label for="estado_objeto" >Estado del objeto</label>
@@ -568,6 +572,13 @@
             }
             return url;
         }
+
+        function runScript(e) {
+    //See notes about 'which' and 'key'
+    if (e.keyCode == 13) {
+        buscar_factura_by_cliente();
+    }
+}
     </script>
     
     <!-- That´s all folks! -->

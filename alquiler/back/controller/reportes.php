@@ -13,23 +13,23 @@ include_once realpath('../facade/TransporteFacade.php');
 
 function armarReporteDeFacturas($facturas) {
 
-    $rta= array();
-    
+    $rta = array();
+
     foreach ($facturas as $obj => $Factura) {
 
         $myFactura = new stdClass();
-        $myFactura->id=$Factura->getidfactura();
-        $date=date_create($Factura->getfecha());
-        $myFactura->fecha=date_format($date,"d/m/Y");
+        $myFactura->id = $Factura->getidfactura();
+        $date = date_create($Factura->getfecha());
+        $myFactura->fecha = date_format($date, "d/m/Y");
 
         $cliente = ClienteFacade::select($Factura->getcliente_idcliente()->getidcliente()); //por esto es que odio el formato workbench...
         $myCliente = new stdClass();
-        $myCliente->cliente_id=$cliente->getidcliente();
-        $myCliente->cliente_cedula=$cliente->getcliente_cc();
-        $myCliente->cliente_nombre=$cliente->getcliente_nombre()." ".$cliente->getcliente_apellido();
-        $myCliente->cliente_correo=$cliente->getcliente_correo();
-        $myCliente->cliente_telefono=$cliente->getcliente_telefono();
-        $myCliente->cliente_direccion=$cliente->getcliente_direccion();
+        $myCliente->cliente_id = $cliente->getidcliente();
+        $myCliente->cliente_cedula = $cliente->getcliente_cc();
+        $myCliente->cliente_nombre = $cliente->getcliente_nombre() . " " . $cliente->getcliente_apellido();
+        $myCliente->cliente_correo = $cliente->getcliente_correo();
+        $myCliente->cliente_telefono = $cliente->getcliente_telefono();
+        $myCliente->cliente_direccion = $cliente->getcliente_direccion();
 
         $myFactura->cliente = $myCliente;
         $myFactura->total = 0;
@@ -50,11 +50,11 @@ function armarReporteDeFacturas($facturas) {
 
             $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();
 
-            $myAlquiler->subTotal=0;
+            $myAlquiler->subTotal = 0;
             $jsonDev = $Alquiler->getAlq_devuelto();
             //Se mira si tiene una lista de devoluciones válida y si se formatea para recorrerla y saber el total de productos devueltos
-            
-            if($jsonDev != NULL && $jsonDev != ""){
+
+            if ($jsonDev != NULL && $jsonDev != "") {
                 $arrayDevoluciones = json_decode($jsonDev);
                 $totalDevuelto = 0;
                 foreach ($arrayDevoluciones as $key => $devuelto) {
@@ -66,10 +66,10 @@ function armarReporteDeFacturas($facturas) {
                     $myAlquiler->subTotal += $interval->format('%d') * $Alquiler->getValor() * $devuelto->cantidad;
                 }
             }
-            $myAlquiler->cantidad = $Alquiler->getCantidad()+$totalDevuelto;
+            $myAlquiler->cantidad = $Alquiler->getCantidad() + $totalDevuelto;
             $myAlquiler->totalDevuelto = $totalDevuelto;
             $myAlquiler->devuelto = $Alquiler->getCantidad() <= 0;
-            if(!$myAlquiler->devuelto){
+            if (!$myAlquiler->devuelto) {
                 $myFactura->devuelto = false;
             }
 
@@ -81,11 +81,11 @@ function armarReporteDeFacturas($facturas) {
 
             //Se suman los no devueltos todavía
             $myAlquiler->subTotal += $myAlquiler->dias * $myAlquiler->valor * $Alquiler->getCantidad();
-            
+
             $myFactura->total += $myAlquiler->subTotal;
             array_push($myFactura->alquileres, $myAlquiler);
-        }   
-        
+        }
+
         $transportes = TransporteFacade::listByFactura($Factura->getidfactura());
         $myFactura->transportes = array();
         $totalTransporte = 0;
@@ -98,14 +98,14 @@ function armarReporteDeFacturas($facturas) {
         }
         $myFactura->totalTransporte = $totalTransporte;
         $myFactura->total += $totalTransporte;
-        
+
         $myFactura->descuento = $Factura->getFac_descueto();
         $myFactura->total -= $myFactura->descuento;
-        
+
         $abonos = json_decode($Factura->getAbonos());
         $totalAbonado = 0;
         foreach ($abonos as $objq => $Abono) {
-            $totalAbonado+=$Abono->cantidad;
+            $totalAbonado += $Abono->cantidad;
         }
 
         $myFactura->totalAbonado = $totalAbonado;
@@ -117,5 +117,4 @@ function armarReporteDeFacturas($facturas) {
     }
 
     return json_encode($rta);
-
 }
