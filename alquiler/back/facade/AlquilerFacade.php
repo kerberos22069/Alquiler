@@ -54,7 +54,9 @@ class AlquilerFacade {
         $alquiler->setValor($valor);
         $alquiler->setProducto_idprod($producto_idprod);
         $alquiler->setFactura_idfactura($factura_idfactura);
-
+        date_default_timezone_set('America/Lima');
+        $fecha = date("Y-m-d");        
+        $alquiler->setFechafin($fecha);
         $alquiler = self::crear_json_movimiento($alquiler, $cantidad, 0, 1);
         
         $FactoryDao = new FactoryDao(self::getGestorDefault());
@@ -149,13 +151,13 @@ class AlquilerFacade {
         return $result;
     }
 
-    public static function devolver($idalquiler, $cantidad, $estado = 0) {
+    public static function devolver($idalquiler, $cantidad, $estado = 0, $fecha) {
         $alquiler = self::select($idalquiler);
 
-        $alquiler = self::crear_json_movimiento($alquiler, $cantidad, $estado, 0);
+        $alquiler = self::crear_json_movimiento($alquiler, $cantidad, $estado, 0, $fecha);
 
-        $alquiler->setFechafin($fecha);
         $alquiler->setCantidad($alquiler->getCantidad() - $cantidad);
+        $alquiler->setAlq_stado(1);
 
         $FactoryDao = new FactoryDao(self::getGestorDefault());
         $alquilerDao = $FactoryDao->getalquilerDao(self::getDataBaseDefault());
@@ -171,20 +173,21 @@ class AlquilerFacade {
         return $rta;
     }
 
-    public static function crear_json_movimiento($alquiler, $cantidad, $estado, $tipo) {
+    public static function crear_json_movimiento($alquiler, $cantidad, $estado, $tipo, $fecha) {
         $arrayDevoluciones = json_decode($alquiler->getAlq_devuelto());
         if($arrayDevoluciones == null){
            $arrayDevoluciones = array(); 
         }
-        $nuevaDev = new stdClass();
-        date_default_timezone_set('America/Lima');
-        $fecha = date("Y-m-d");
+        $nuevaDev = new stdClass();        
         $nuevaDev->fecha = $fecha;
         $nuevaDev->cantidad = $cantidad;
         $nuevaDev->estado = $estado;
         $nuevaDev->tipo = $tipo;
         array_push($arrayDevoluciones, $nuevaDev);
+        
+        $alquiler->setFechafin($fecha);
         $alquiler->setAlq_devuelto(json_encode($arrayDevoluciones));
+
         return $alquiler;
     }
 
