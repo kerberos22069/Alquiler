@@ -8,13 +8,15 @@
 
 include_once realpath('../facade/ChoferesFacade.php');
 
- $list=ChoferesFacade::listAll();
+  $list=ChoferesFacade::listAll();
         $rta="";
         foreach ($list as $obj => $Choferes) {	
 	       $rta.="{
 	    \"idchoferes\":\"{$Choferes->getidchoferes()}\",
 	    \"cc_chofer\":\"{$Choferes->getcc_chofer()}\",
-	    \"nom_chofer\":\"{$Choferes->getnom_chofer()}\"
+	    \"nom_chofer\":\"{$Choferes->getnom_chofer()}\",
+	    \"chofe_telefono\":\"{$Choferes->getchofe_telefono()}\",
+	    \"direccion\":\"{$Choferes->getdireccion()}\"
 	       },";
         }
 
@@ -25,5 +27,5 @@ include_once realpath('../facade/ChoferesFacade.php');
 	       $msg="{\"msg\":\"MANEJO DE EXCEPCIONES AQUÍ\"}";
 	       $rta="{\"result\":\"No se encontraron registros.\"}";	
         }
-        echo "[{$msg},{$rta}]";
+              echo "[{$msg},{$rta}]";
    

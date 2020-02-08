@@ -114,8 +114,17 @@ function Mecanicos_Listar() {  /**  tabla de datos  */
     enviar("", '../back/controller/Mecanicos_List.php', postMecanicosList);
 }
 
-function Clientes_Registrar() {  /**  tabla de datos  */
-    var url = "ClientesInsert.php";
+function Conductor_Registrar() {  /**  tabla de datos  */
+    var url = "ConductorInsert.php";
+    var datos = {};
+    var rta = "#mostrarcontenido";
+    ajax(url, datos, rta);
+
+//enviar("",'../back/controller/empleado_lis.php',postEmpleadoList); 
+}
+
+function Conductor_Registrar() {  /**  tabla de datos  */
+    var url = "ConductorInsert.php";
     var datos = {};
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);

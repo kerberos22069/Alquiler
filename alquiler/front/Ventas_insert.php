@@ -396,6 +396,8 @@
       cargareNum_Factura();
       cargarClientes();
 
+      $("#Inputpersona_cedula").onChange();
+
     });
 
 
@@ -420,7 +422,7 @@
                 console.log(clientes);
                 construirOptionComboBuscarClientes(clientes);
                 $('#Inputpersona_cedula').editableSelect();
-                },
+              },
             error: function (response) { 
                 console.log("No se ha podido cargar los clientes")
             }
@@ -431,14 +433,14 @@
         mi_select = document.getElementById('Inputpersona_cedula');
         for(let i in misClientes){
             mi_option = document.createElement("option"); 
-            mi_option.setAttribute("value", misClientes[i].cliente_cc);
+            mi_option.setAttribute("value", misClientes[i].idcliente);
             mi_option.appendChild(document.createTextNode(misClientes[i].cliente_nombre));
             mi_select.appendChild(mi_option);
         }
         //Esto hay que arreglarlo. La idea es que los nombres y numeros de cedula no se combinan
         for(let i in misClientes){
             mi_option = document.createElement("option"); 
-            mi_option.setAttribute("value", misClientes[i].cliente_cc);
+            mi_option.setAttribute("value", misClientes[i].idcliente);
             mi_option.appendChild(document.createTextNode(misClientes[i].cliente_cc));
             mi_select.appendChild(mi_option);
         }
@@ -617,10 +619,7 @@
 
                               function buscarcedula() {
 
-                                var basic_text = document.getElementById('Inputpersona_cedula').value;
-                                var basic_value = $('#Inputpersona_cedula').siblings('.es-list').find('li.selected').attr('value');
-                                console.log(basic_value);            
-                                empresa = basic_value;
+                                  empresa = document.getElementById("Inputpersona_cedula").value;
 //          alert(empresa);
 
                                   $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': empresa}, function (depa) {
@@ -648,8 +647,6 @@
 
                                   });
                               }
-
-
 
                               function multiplicar() {
                                   can = 0;

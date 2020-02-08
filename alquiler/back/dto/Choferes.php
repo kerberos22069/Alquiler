@@ -5,7 +5,7 @@
               ------------------------
  */
 
-//    Soy la sonrisa burlona y vengativa de Jack  \\
+//    La última regla es confiar en Arciniegas  \\
 
 
 class Choferes {
@@ -13,6 +13,8 @@ class Choferes {
   private $idchoferes;
   private $cc_chofer;
   private $nom_chofer;
+  private $chofe_telefono;
+  private $direccion;
 
     /**
      * Constructor de Choferes
@@ -63,6 +65,36 @@ class Choferes {
      */
   public function setNom_chofer($nom_chofer){
       $this->nom_chofer = $nom_chofer;
+  }
+    /**
+     * Devuelve el valor correspondiente a chofe_telefono
+     * @return chofe_telefono
+     */
+  public function getChofe_telefono(){
+      return $this->chofe_telefono;
+  }
+
+    /**
+     * Modifica el valor correspondiente a chofe_telefono
+     * @param chofe_telefono
+     */
+  public function setChofe_telefono($chofe_telefono){
+      $this->chofe_telefono = $chofe_telefono;
+  }
+    /**
+     * Devuelve el valor correspondiente a direccion
+     * @return direccion
+     */
+  public function getDireccion(){
+      return $this->direccion;
+  }
+
+    /**
+     * Modifica el valor correspondiente a direccion
+     * @param direccion
+     */
+  public function setDireccion($direccion){
+      $this->direccion = $direccion;
   }
 
 

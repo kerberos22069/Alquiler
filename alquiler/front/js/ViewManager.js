@@ -172,6 +172,9 @@ function preChoferesList(container){
 
             for(var i=1; i < Object.keys(json).length; i++) {   
                 var Choferes = json[i];
+                
+                Choferes.viewHrefB = 'mostrarTodo("' + Choferes.idchoferes + '");';
+                Choferes.deleteHrefB = 'mostrarEliminar("' + Choferes.idchoferes + '");';
                 //----------------- Para una tabla -----------------------
                 document.getElementById("ChoferesList").appendChild(createTR(Choferes));
                 //-------- Para otras opciones ver htmlBuilder.js ---------

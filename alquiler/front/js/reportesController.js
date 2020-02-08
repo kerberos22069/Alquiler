@@ -616,15 +616,3 @@ function number_format(amount, decimals) {
     return amount_parts.join('.');
 }
 
-function orden_devolucion(factura_id){
-    var factura = obtenerFactura(factura_id);
-    for (let i in factura.alquileres) {
-        var alquiler = factura.alquileres[i];
-        console.log(alquiler.movimientos);
-        var movimientos = alquiler.movimientos;
-        for (let j in movimientos) {
-            var movimiento = movimientos[j];
-            
-        }
-    }
-}
