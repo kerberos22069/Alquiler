@@ -12,7 +12,7 @@
         <div class="panel panel-default">
             <div class="ibox-title"> 
                 <div style="text-align: center; color: white">
-                    <h1><b>Alquiler</b></h1>
+                    <h1><b>Orden de Salida</b></h1>
                 </div>
             </div>
             <div align=center class="panel-body">
@@ -303,21 +303,21 @@
 
                                         <div class="form-group" style="display: none">
                                             <label for="Inputprodc_referencia">N# Ref </label>
-                                            <input type="text" name="prodc_referencia" class="form-control" id="Inputprodc_referencia" placeholder="referencia" required>
+                                            <input type="text" name="prodc_referencia" class="form-control" id="Inputprodc_referencia"  required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Inputproduc_nombre">Nombre </label>
-                                            <input type="text" name="produc_nombre" class="form-control" id="Inputproduc_nombre" placeholder="Nombre y Apellido" required>
+                                            <input type="text" name="produc_nombre" class="form-control" id="Inputproduc_nombre"  required>
                                         </div>
                                         <div class="form-group">
                                             <label for="Inputprodc_descr">Descripcion</label>
-                                            <input type="text" name="prodc_descr" class="form-control" id="Inputprodc_descr" placeholder="persona_direccion">
+                                            <input type="text" name="prodc_descr" class="form-control" id="Inputprodc_descr" >
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Inputproc_dias">Dias Prestamo</label>
-                                            <input type="text" name="proc_dias" class="form-control" id="Inputproc_dias" placeholder="Telefono contacto" required>
+                                            <input type="text" name="proc_dias" class="form-control" id="Inputproc_dias"  required>
                                         </div>                  
 
                                     </div>
@@ -327,22 +327,22 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="Inputproct_stock">Stock</label>
-                                            <input type="text" name="proct_stock" class="form-control" id="Inputproct_stock" placeholder="Telefono contacto" required>
+                                            <input type="text" name="proct_stock" class="form-control" id="Inputproct_stock"  required>
                                         </div>       
 
 
                                         <div class="form-group">
                                             <label for="Inputpersona_cedula">Precio</label>
-                                            <input type="text" name="precio_unitario" class="form-control" id="Inputprecio_unitario" placeholder="Cedula" value=0 onChange="multiplicar();" >
+                                            <input type="text" name="precio_unitario" class="form-control" id="Inputprecio_unitario"  value=0 onChange="multiplicar();" >
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Inputdescuento">Descuento</label>
-                                            <input type="text" name="descuento" class="form-control" id="Inputdescuento" placeholder="persona_direccion" value="0"  onChange="recalcular();">
+                                            <input type="text" name="descuento" class="form-control" id="Inputdescuento"  value="0"  onChange="recalcular();">
                                         </div>
                                         <div class="form-group">
                                             <label for="Inputprecio_total">precio Total</label>
-                                            <input type="text" name="precio_total" class="form-control" id="Inputprecio_total" placeholder="persona_direccion" value="0">
+                                            <input type="text" name="precio_total" class="form-control" id="Inputprecio_total"  value="0">
                                         </div>
 
 
@@ -355,7 +355,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button name="editar" id="adicionar"type="button" class="btn btn-primary" >Agregar</button>
+                        <button name="editar" id="adicionar"type="button" class="btn btn-primary" disabled="true" >Agregar</button>
                         <!--                                            <button name="editar" id="editar" type="button" class="btn btn-primary" onclick="registraraProducto()">Agregar</button>-->
                         <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
 
@@ -664,7 +664,7 @@
 
                                       return;
                                   } else {
-
+                                      Activar_productos();
                                       m1 = document.getElementById("Inputcanti").value;
                                       m2 = document.getElementById("Inputprecio_unitario").value;
                                       r = parseInt(m1) * parseInt(m2);
@@ -699,6 +699,13 @@
        
       document.getElementById('agregarProd').disabled=false;
       document.getElementById('btn_admin_conductor').disabled=false;
+        };
+        
+         function Activar_productos(){
+        
+       
+      document.getElementById('adicionar').disabled=false;
+//      document.getElementById('btn_admin_conductor').disabled=false;
         };
         
          function desactivar_Cho_enviar(){
