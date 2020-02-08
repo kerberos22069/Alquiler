@@ -554,7 +554,7 @@
         }
         
         function abrirImpresion(idFactura){
-            window.open('imprimir.html?factura_id='+idFactura+'');
+            window.open('factura.html?factura_id='+idFactura+'');
         }
         
         function abrirImpresionOrdenDevolucion(idFactura){

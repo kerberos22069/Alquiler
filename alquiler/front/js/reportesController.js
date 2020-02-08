@@ -642,7 +642,7 @@ function orden_devolucion(idFactura) {
             mi_tr.appendChild(td(alquiler.producto_nombre, "footable-visible"));
             //Cantidad
             mi_td = td(alquiler.cantidad - alquiler.totalDevuelto, "footable-visible");
-            mi_td.style= "text-align: center";
+            mi_td.style = "text-align: center";
             mi_tr.appendChild(mi_td);
             //Campo vacío para llenar a mano
             mi_tr.appendChild(document.createElement("td"));
@@ -652,3 +652,30 @@ function orden_devolucion(idFactura) {
     firmaCliente.innerHTML = factura.cliente.cliente_nombre + "<br>" + factura.cliente.cliente_cedula;
 }
 
+function imprimirFactura(idFactura) {
+    contenedor = document.getElementById('articulosList');
+    var factura = obtenerFactura(idFactura);
+    for (var i in factura.alquileres) {
+        var alquiler = factura.alquileres[i];
+        for (var j in alquiler.movimientosParseados) {
+            var movimiento = alquiler.movimientosParseados[j];
+            console.log(movimiento);
+            mi_tr = tr("gradeX footable-even");
+            //Nombre
+            mi_tr.appendChild(td(alquiler.producto_nombre, "footable-visible"));
+            //Fecha
+            mi_tr.appendChild(td(movimiento.fecha, "footable-visible"));
+            //Nombre
+            mi_tr.appendChild(td(alquiler.producto_nombre, "footable-visible"));
+            //Nombre
+            mi_tr.appendChild(td(alquiler.producto_nombre, "footable-visible"));
+            //Cantidad
+            mi_td = td(movimiento.cantidad, "footable-visible");
+            mi_td.style = "text-align: center";
+            mi_tr.appendChild(mi_td);
+            //Campo vacío para llenar a mano
+            mi_tr.appendChild(document.createElement("td"));
+            contenedor.appendChild(mi_tr);
+        }
+    }
+}
