@@ -10,39 +10,21 @@
                 <div class="ibox ">
                     <div class="ibox-title"> 
                         <div style="text-align: center; color: white" >
-                            <h1><b>Facturas</b></h1>
+                            <h1><b>Devolucion</b></h1>
 
                         </div>
                         
                     </div>                      
                     <div class="ibox-content">
+                        
+                  
                         <div class="row">
-                         <div class="col-lg-12">
-                            <div class="form-group row has-success">
-                                <label class="col-sm-2 col-form-label">
-                                    Fecha inicio:
-                                </label>
-                                <div class="col-sm-3">
-                                    <input id="fecha_inicio" name="fecha_inicio" type="date" class="form-control">
-                                </div>
-
-                                <label class="col-sm-2 col-form-label">
-                                    Fecha fin:
-                                </label>
-                                <div class="col-sm-3">
-                                    <input id="fecha_fin" name="fecha_fin" type="date" class="form-control">
-                                </div>                     
-
-                                <div class="col-sm-2">
-                                    <button type="button" class="btn btn-primary" onclick="buscar_factura_by_fecha()" >
-                                        Buscar por fecha
-                                    </button>
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
+                        
                         <div class="col-lg-12">
                             <div class="form-group row has-success">
+                                <label class="col-sm-2 col-form-label">
+                                    
+                                </label>
                                 <label class="col-sm-2 col-form-label">
                                     Cédula:
                                 </label>
@@ -51,8 +33,11 @@
                                 </div>                    
                                 <div class="col-sm-2">
                                     <button type="button" class="btn btn-primary" onclick="buscar_factura_by_cliente()" >
-                                        Buscar por cliente.
+                                        Buscar
                                     </button>
+                                </div>
+                                <div class="col-sm-2">
+                                
                                 </div>
                             </div>
                         </div>
@@ -63,16 +48,11 @@
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
                                     <tr>
-                                       <th style=" color:#FFFFFF; background-color: #616161  !important">#Factura</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cliente</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Fecha</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Pagado</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devuelto</th>
-                                       
-                                        <th  style=" color:#FFFFFF; background-color: #616161  !important">Detalles</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devolver Todo</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Abonar</th>
+                                       <th style=" color:#FFFFFF; background-color: #616161  !important">item</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Descripcion</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
+
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devolver</th>
 
 
                                     </tr>

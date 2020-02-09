@@ -156,6 +156,16 @@ function Salida_Registrar() {
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);
 }
+function Salida_listar() {  
+    var url = "Ordenes_list.php";
+    var datos = {};
+    var rta = "#mostrarcontenido";
+    ajax(url, datos, rta);
+}
+
+
+
+
 
 function Vehiculo_Listar() {  /**  tabla de datos  */
     var url = "Vehiculos_list.php";
@@ -260,6 +270,15 @@ function Mecanicos_Vender(emp) {  /**  tabla de datos  */
 
 function detalles() {  /**  tabla de datos  */
     var url = "detalle.php";
+    var datos = {};
+    var rta = "#mostrarcontenido";
+    ajax(url, datos, rta);
+//enviar(formData, rutaBack ,postClientesList); 
+//  enviar("",'../back/controller/Ventas_fact_listall_xFact.php?emp='+emp,postVentas_factList); 
+}
+
+function devoluciones() {  /**  tabla de datos  */
+    var url = "Orden_devolucion.php";
     var datos = {};
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);

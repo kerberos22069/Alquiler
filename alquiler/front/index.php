@@ -62,26 +62,37 @@
                     <a href="#" aria-expanded="false"><i class="fa fa-edit"></i> <span class="nav-label">Alquiler</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
                           <li>
-                        <a onclick="Salida_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
+                        <a onclick="Salida_listar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
                           </li>
                           <li>
-                        <a onclick="Salida_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Devoluciones </span></a>
+                        <a onclick="devoluciones()"><i class="fa fa-truck"></i> <span class="nav-label">Devoluciones </span></a>
                           </li>
                                       
                     </ul>
                 </li>
-                    <li>
+<!--                    <li>
                         <a onclick="Salida_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
                     </li>
-                    
+                    -->
                     <li>
                         <a onclick="facturas_by_fecha()"><i class="fa fa-fax"></i> <span class="nav-label">Facturas </span></a>
                     </li>
-        
-                    <li>
-                        <a onclick="Conductor_list()"><i class="fa fa-fax"></i> <span class="nav-label">Conductores </span></a>
+        <li class="">
+                    <a href="#" aria-expanded="false"><i class="fa fa-edit"></i> <span class="nav-label">Conductor</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                                           <li>
+                        <a onclick="Conductor_list()"><i class="fa fa-fax"></i> <span class="nav-label">Consultar </span></a>
                     </li>
         
+                          <li>
+                        <a onclick="devoluciones()"><i class="fa fa-truck"></i> <span class="nav-label">Pagos </span></a>
+                          </li>
+                                      
+                    </ul>
+                </li>
+                
+                
+
                     
                 <!--    <li>
                         <a onclick="facturas_listas()"><i class="fa fa-laptop"></i> <span class="nav-label">Facturas</span></a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-02-2020 a las 04:49:58
+-- Tiempo de generación: 09-02-2020 a las 23:52:59
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.1
 
@@ -46,8 +46,8 @@ CREATE TABLE `alquiler` (
 --
 
 INSERT INTO `alquiler` (`idalquiler`, `fecha_inicio`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`) VALUES
-(17, '2020-01-01 09:14:56', 0, 544, 0, '2020-01-11', 5, 1, 0, '[{\"fecha\":\"2020-01-11 09:29:35\",\"cantidad\":\"2\",\"estado\":0}]'),
-(18, '2020-01-01 09:14:56', 0, 1000, 0, '2020-01-11', 3, 1, 0, '[{\"fecha\":\"2020-01-04 09:17:47\",\"cantidad\":\"3\",\"estado\":\"0\"},{\"fecha\":\"2020-01-11 09:35:56\",\"cantidad\":\"2\",\"estado\":0}]');
+(17, '2020-01-01 09:14:56', 20, 544, 0, '2020-01-11', 5, 1, 0, '[{\"fecha\":\"2020-01-11 09:29:35\",\"cantidad\":\"2\",\"estado\":0}]'),
+(18, '2020-01-01 09:14:56', 10, 1000, 0, '2020-01-11', 3, 1, 0, '[{\"fecha\":\"2020-01-04 09:17:47\",\"cantidad\":\"3\",\"estado\":\"0\"},{\"fecha\":\"2020-01-11 09:35:56\",\"cantidad\":\"2\",\"estado\":0}]');
 
 -- --------------------------------------------------------
 
@@ -100,6 +100,23 @@ INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `clien
 (3, 'Edward', 'Martinez', '214234235235', 'dasdasd@gmail.com', '3168274086', '540006zxvzczxc', 1),
 (4, 'fredy paolo', 'jaramillo', '12345687', 'fredyjaramillo@gmail.com', '3168274086', 'av 3 25 65 brr san mateo', 1),
 (5, 'Ponchito', 'Martinelli', '1234', 'ponchito@NC.com', '33233545', 'La modelo', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `clientebyfacturaselect`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `clientebyfacturaselect` (
+`idfactura` int(11)
+,`fecha` datetime
+,`fac_descueto` int(11)
+,`cliente_idcliente` int(11)
+,`abonos` text
+,`estado` tinyint(4)
+,`cliente_cc` varchar(15)
+,`cliente_nombre` varchar(45)
+);
 
 -- --------------------------------------------------------
 
@@ -163,7 +180,7 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
 (1, 'asdasda', '84s5d4fsdf', 14, 5, 541, 5212, 554, 0, 7),
 (2, 'zxczczx', 'sdfsdfsdfsdf', 5, 20, 10, 0, 0, 1, 7),
-(3, 'cruceta', 'grande', 1000, 95, 5, 6, 6, 1, 7),
+(3, 'cruceta', 'grande', 1000, 92, 8, 6, 6, 1, 7),
 (4, 'Formaleta', 'Un cuadrado de metal sin valor', 330, 97, 3, 0, 0, 1, 7),
 (5, 'Estructura', 'dfgdfgfdg', 544, 99, 1, 2, 2, 1, 7),
 (6, 'asdasd', 'asdsad', 14, 1, 1, 1, 1, 1, 7);
@@ -171,15 +188,16 @@ INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_preci
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `reporte_conducto`
+-- Estructura Stand-in para la vista `reporte_chofer`
 -- (Véase abajo para la vista actual)
 --
-CREATE TABLE `reporte_conducto` (
+CREATE TABLE `reporte_chofer` (
 `idtransporte` int(11)
-,`factura_idfactura` int(11)
 ,`fecha` datetime
+,`factura_idfactura` int(11)
 ,`cliente_nombre` varchar(45)
 ,`idchoferes` int(11)
+,`cc_chofer` varchar(45)
 ,`nom_chofer` varchar(250)
 ,`valor` int(11)
 );
@@ -208,11 +226,20 @@ INSERT INTO `transporte` (`idtransporte`, `transporte_flete`, `factura_idfactura
 -- --------------------------------------------------------
 
 --
--- Estructura para la vista `reporte_conducto`
+-- Estructura para la vista `clientebyfacturaselect`
 --
-DROP TABLE IF EXISTS `reporte_conducto`;
+DROP TABLE IF EXISTS `clientebyfacturaselect`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reporte_conducto`  AS  select `transporte`.`idtransporte` AS `idtransporte`,`transporte`.`factura_idfactura` AS `factura_idfactura`,`factura`.`fecha` AS `fecha`,`cliente`.`cliente_nombre` AS `cliente_nombre`,`choferes`.`idchoferes` AS `idchoferes`,`choferes`.`nom_chofer` AS `nom_chofer`,`transporte`.`transporte_flete` AS `valor` from (((`transporte` join `factura` on(`transporte`.`factura_idfactura` = `factura`.`idfactura`)) join `cliente` on(`cliente`.`idcliente` = `factura`.`cliente_idcliente`)) join `choferes` on(`choferes`.`idchoferes` = `transporte`.`choferes_idchoferes`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `clientebyfacturaselect`  AS  select `factura`.`idfactura` AS `idfactura`,`factura`.`fecha` AS `fecha`,`factura`.`fac_descueto` AS `fac_descueto`,`factura`.`cliente_idcliente` AS `cliente_idcliente`,`factura`.`abonos` AS `abonos`,`factura`.`estado` AS `estado`,`cliente`.`cliente_cc` AS `cliente_cc`,`cliente`.`cliente_nombre` AS `cliente_nombre` from (`factura` join `cliente` on(`cliente`.`idcliente` = `factura`.`cliente_idcliente`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `reporte_chofer`
+--
+DROP TABLE IF EXISTS `reporte_chofer`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reporte_chofer`  AS  select `transporte`.`idtransporte` AS `idtransporte`,`factura`.`fecha` AS `fecha`,`transporte`.`factura_idfactura` AS `factura_idfactura`,`cliente`.`cliente_nombre` AS `cliente_nombre`,`choferes`.`idchoferes` AS `idchoferes`,`choferes`.`cc_chofer` AS `cc_chofer`,`choferes`.`nom_chofer` AS `nom_chofer`,`transporte`.`transporte_flete` AS `valor` from (((`transporte` join `factura` on(`transporte`.`factura_idfactura` = `factura`.`idfactura`)) join `cliente` on(`cliente`.`idcliente` = `factura`.`cliente_idcliente`)) join `choferes` on(`choferes`.`idchoferes` = `transporte`.`choferes_idchoferes`)) ;
 
 --
 -- Índices para tablas volcadas
