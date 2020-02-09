@@ -12,7 +12,7 @@
         <div class="panel panel-default">
             <div class="ibox-title"> 
                 <div style="text-align: center; color: white">
-                    <h1><b>Alquiler</b></h1>
+                    <h1><b>Orden de Salida</b></h1>
                 </div>
             </div>
             <div align=center class="panel-body">
@@ -137,7 +137,7 @@
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-sm">
-                                    <button type="button" id="agregarProd" class="btn btn-primary" onclick="modalProductos()">
+                                    <button type="button" id="agregarProduc" class="btn btn-primary" onclick="modalProductos()">
                                         + Agregar productos
                                     </button>
                                 </div>
@@ -146,7 +146,7 @@
                                 <div class="col-sm"></div>
                                 <div class="col-sm"></div>
                                 <div class="col-sm">                    
-                                    <button type="button" id="btn_admin_conductor" class="btn btn-primary" onclick="administrarConductor()">
+                                    <button type="button" id="btn_admin_conductor" class="btn btn-primary" onclick="administrarConductor()" disabled>
                                         Añadir Transporte
                                     </button>
                                 </div>
@@ -219,11 +219,9 @@
                                     <hr>
                                     <div class=" row" style="visibility: hidden;" id="div_conductores">
 
-                                        <select class="col-sm-6 form-control"  id="choferes">
-                                            <option value="Conductor no especificado" selected disabled hidden>Conductores</option>
-                                            <option value="Chofer 1">Chofer 1</option>
-                                            <option value="Chofer 2">Chofer 2</option>
-                                        </select>  
+                                        <select class="col-sm-6 form-control"  id="InputChoferes">
+                                            
+                                       </select>  
                                         <div class="col-sm-6 p-xs">
                                             <input value="0" id="input_flete" style=" border:1px solid #ffffff;" type="number" min="0" class="form-control" onchange="restar()">
                                         </div>                      
@@ -242,7 +240,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <button type="button" id="agregarProd" class="btn btn-primary" onclick="enviarFactura()" style="width: 100%">
+                                        <button type="button" id="agregarProd" class="btn btn-primary" onclick="enviarFactura()" style="width: 100% " disabled>
                                             + Enviar Factura
                                         </button>  
                                     </div>
@@ -305,21 +303,21 @@
 
                                         <div class="form-group" style="display: none">
                                             <label for="Inputprodc_referencia">N# Ref </label>
-                                            <input type="text" name="prodc_referencia" class="form-control" id="Inputprodc_referencia" placeholder="referencia" required>
+                                            <input type="text" name="prodc_referencia" class="form-control" id="Inputprodc_referencia"  required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Inputproduc_nombre">Nombre </label>
-                                            <input type="text" name="produc_nombre" class="form-control" id="Inputproduc_nombre" placeholder="Nombre y Apellido" required>
+                                            <input type="text" name="produc_nombre" class="form-control" id="Inputproduc_nombre"  required>
                                         </div>
                                         <div class="form-group">
                                             <label for="Inputprodc_descr">Descripcion</label>
-                                            <input type="text" name="prodc_descr" class="form-control" id="Inputprodc_descr" placeholder="persona_direccion">
+                                            <input type="text" name="prodc_descr" class="form-control" id="Inputprodc_descr" >
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Inputproc_dias">Dias Prestamo</label>
-                                            <input type="text" name="proc_dias" class="form-control" id="Inputproc_dias" placeholder="Telefono contacto" required>
+                                            <input type="text" name="proc_dias" class="form-control" id="Inputproc_dias"  required>
                                         </div>                  
 
                                     </div>
@@ -329,22 +327,22 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="Inputproct_stock">Stock</label>
-                                            <input type="text" name="proct_stock" class="form-control" id="Inputproct_stock" placeholder="Telefono contacto" required>
+                                            <input type="text" name="proct_stock" class="form-control" id="Inputproct_stock"  required>
                                         </div>       
 
 
                                         <div class="form-group">
                                             <label for="Inputpersona_cedula">Precio</label>
-                                            <input type="text" name="precio_unitario" class="form-control" id="Inputprecio_unitario" placeholder="Cedula" value=0 onChange="multiplicar();" >
+                                            <input type="text" name="precio_unitario" class="form-control" id="Inputprecio_unitario"  value=0 onChange="multiplicar();" >
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Inputdescuento">Descuento</label>
-                                            <input type="text" name="descuento" class="form-control" id="Inputdescuento" placeholder="persona_direccion" value="0"  onChange="recalcular();">
+                                            <input type="text" name="descuento" class="form-control" id="Inputdescuento"  value="0"  onChange="recalcular();">
                                         </div>
                                         <div class="form-group">
                                             <label for="Inputprecio_total">precio Total</label>
-                                            <input type="text" name="precio_total" class="form-control" id="Inputprecio_total" placeholder="persona_direccion" value="0">
+                                            <input type="text" name="precio_total" class="form-control" id="Inputprecio_total"  value="0">
                                         </div>
 
 
@@ -357,7 +355,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button name="editar" id="adicionar"type="button" class="btn btn-primary" >Agregar</button>
+                        <button name="editar" id="adicionar"type="button" class="btn btn-primary" disabled="true" >Agregar</button>
                         <!--                                            <button name="editar" id="editar" type="button" class="btn btn-primary" onclick="registraraProducto()">Agregar</button>-->
                         <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
 
@@ -395,6 +393,7 @@
 
       cargareNum_Factura();
       cargarClientes();
+      cargarConductos();
 
       $("#Inputpersona_cedula").onChange();
 
@@ -458,7 +457,7 @@
                                   var nun_factura = document.getElementById("Inputnum_factura").value;
                                   var clienete = document.getElementById("Inputid").value;
                                   var flete = document.getElementById("input_flete").value;
-                                  var conductor = document.getElementById("choferes").value;
+                                  var conductor = document.getElementById("InputChoferes").value;
                                   var fecha = document.getElementById("inputfecha_inicio").value;
                                   var descuent = document.getElementById("Inputfact_descuento").value;
 
@@ -642,7 +641,7 @@
                                           emp = 0;
 //                    Productos_Vender(emp);
                                           Activar_tabla();
-                                          document.getElementById('agregarProd').disabled = false;
+//                                          document.getElementById('agregarProd').disabled = false;
                                       }
 
                                   });
@@ -665,7 +664,7 @@
 
                                       return;
                                   } else {
-
+                                      Activar_productos();
                                       m1 = document.getElementById("Inputcanti").value;
                                       m2 = document.getElementById("Inputprecio_unitario").value;
                                       r = parseInt(m1) * parseInt(m2);
@@ -695,14 +694,37 @@
                               ;
 
 
-//         function ActivarEditar(){
-//        
-//        alert();
-//      document.getElementById('agregarProd').disabled=false;
-////      document.getElementById('editar').disabled=true;
-////  $( "input:radio" ).on("click",function(){
-////  $("input[type=submit]").removeAttr("disabled"); 
-////  });
+         function Activar_Cho_enviar(){
+        
+       
+      document.getElementById('agregarProd').disabled=false;
+      document.getElementById('btn_admin_conductor').disabled=false;
+        };
+        
+         function Activar_productos(){
+        
+       
+      document.getElementById('adicionar').disabled=false;
+//      document.getElementById('btn_admin_conductor').disabled=false;
+        };
+        
+         function desactivar_productos(){
+        
+       
+      document.getElementById('adicionar').disabled=true;
+//      document.getElementById('btn_admin_conductor').disabled=false;
+        };
+        
+         function desactivar_Cho_enviar(){
+        
+       
+      document.getElementById('agregarProd').disabled=true;
+      document.getElementById('btn_admin_conductor').disabled=true;
+        };
+//      document.getElementById('editar').disabled=true;
+//  $( "input:radio" ).on("click",function(){
+//  $("input[type=submit]").removeAttr("disabled"); 
+  
 //     
 //   
 //};
@@ -738,6 +760,22 @@
                                       depa = JSON.parse(depa);
                                       for (var i = 1; i < depa.length; i++) {
                                           mySelect.appendChild(createOPTION(depa[i].idprod, depa[i].prod_nombre));
+                                      }
+
+                                  });
+                              }
+
+                              function cargarConductos() {
+//                                  ActivarEditar();
+//       alert();
+                                  $.get('../back/controller/Chofer_list.php', function (depa) {
+
+                                      var mySelect = document.getElementById("InputChoferes");
+                                      removeAllChildren(mySelect);
+                                      mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
+                                      depa = JSON.parse(depa);
+                                      for (var i = 1; i < depa.length; i++) {
+                                          mySelect.appendChild(createOPTION(depa[i].idchoferes, depa[i].nom_chofer));
                                       }
 
                                   });
@@ -779,6 +817,7 @@
             i = 1;
 
             $('#adicionar').click(function () {
+                
                 var idref = document.getElementById("Inputprodc_referencia").value;
                 var nombre = document.getElementById("Inputproduc_nombre").value;
                 var descripcion = document.getElementById("Inputprodc_descr").value;
@@ -814,10 +853,10 @@
                 document.getElementById("Inputproducto").value = "-1";
                 document.getElementById("Inputproducto").focus();
 
-
-
+                desactivar_productos();
+                Activar_Cho_enviar();
             });
-
+            var nFilas=0;
             $(document).on('click', '.btn_remove', function () {
 
                 var button_id = $(this).attr("id");
@@ -826,9 +865,18 @@
 
                 //limpia el para que vuelva a contar las filas de la tabla
                 $("#adicionados").text("");
-                var nFilas = $("#Ventas_factList tr").length;
+                   nFilas = $("#Ventas_factList tr").length;
                 $("#adicionados").append(nFilas - 1);
-
+                
+//                    nFilas = $("#Ventas_factList tr").length;
+                         
+//                    alert('asasa'+nFilas);
+                    
+                    if(nFilas===1){
+//                           alert('asasa 2'+nFilas);
+                        desactivar_Cho_enviar();
+                    }
+                   
             });
             recorrerTabla();
         });

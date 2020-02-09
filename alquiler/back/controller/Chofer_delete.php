@@ -6,3 +6,10 @@
  * and open the template in the editor.
  */
 
+
+include_once realpath('../facade/ChoferesFacade.php');
+
+
+ $idchoferes =$_GET['empresa'];
+  ChoferesFacade::update_Stado($idchoferes);
+return true;

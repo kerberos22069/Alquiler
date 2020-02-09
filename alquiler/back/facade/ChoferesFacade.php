@@ -90,6 +90,14 @@ class ChoferesFacade {
      $choferesDao->update($choferes);
      $choferesDao->close();
   }
+  public static function update_Stado($idchoferes){
+//      $choferes = self::select($idchoferes);
+    
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $choferesDao =$FactoryDao->getchoferesDao(self::getDataBaseDefault());
+     $choferesDao->update_Stado($idchoferes);
+     $choferesDao->close();
+  }
 
   /**
    * Elimina un objeto Choferes de la base de datos a partir de su(s) llave(s) primaria(s).
@@ -115,6 +123,13 @@ class ChoferesFacade {
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $choferesDao =$FactoryDao->getchoferesDao(self::getDataBaseDefault());
      $result = $choferesDao->listAll();
+     $choferesDao->close();
+     return $result;
+  }
+  public static function listAll_Detalles($id){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $choferesDao =$FactoryDao->getchoferesDao(self::getDataBaseDefault());
+     $result = $choferesDao->listAll_Detalles($id);
      $choferesDao->close();
      return $result;
   }
