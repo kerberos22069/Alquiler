@@ -28,8 +28,7 @@ try{
         TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor);
     }
 
-<<<<<<< HEAD:back/controller/crearFactura.php
-=======
+
     date_default_timezone_set('America/Lima');
     $fecha = date("Y-m-d H:i:s");
     $fac_descueto = strip_tags($_POST['descuento']);
@@ -41,7 +40,7 @@ try{
         TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor);
     }
 
->>>>>>> parent of a7f45c6... fixed crearFactura:alquiler/back/controller/crearFactura.php
+
     include_once realpath('../facade/AlquilerFacade.php');
     include_once realpath('../facade/ProductoFacade.php');
     $alquileres = json_decode(strip_tags($_POST['alquileres']));
@@ -50,21 +49,21 @@ try{
         $cantidad = $alquiler->cantidad;
         $valor = $alquiler->valor;
         $Producto_idprod = $alquiler->id_producto;
-<<<<<<< HEAD:back/controller/crearFactura.php
+
                 $producto= new Producto();
                 $producto->setIdprod($Producto_idprod);
         AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);
         ProductoFacade::alquilar($Producto_idprod, $cantidad);
     }
    
-=======
+
         $producto = new Producto();
         $producto->setIdprod($Producto_idprod);
         AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);
         ProductoFacade::alquilar($Producto_idprod, $cantidad);
     }
 
->>>>>>> parent of a7f45c6... fixed crearFactura:alquiler/back/controller/crearFactura.php
+
     $generalDao->confirmarTransaccion();
     echo '{"factura_id" : '.$factura_id.'}';
 }catch(Exception $e){
