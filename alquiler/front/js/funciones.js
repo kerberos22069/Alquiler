@@ -32,14 +32,6 @@ function facturas_by_fecha(){
 } 
 
 
-function Conductor_list(){
-    var url = "Conductor_list.php";
-    var datos = {};
-    var rta = "#mostrarcontenido";
-    ajax(url, datos, rta);
-    enviar("", '../back/controller/Chofer_list.php', postChoferesList);
-} 
-
 function facturas_Devolucion() {  
     var url = "resportes_cc.php";
     var datos = {};
@@ -105,14 +97,14 @@ function Clientes_Listar() {  /**  tabla de datos  */
     enviar("", '../back/controller/Cliente_list.php', postClienteList);
 }
 
-function Mecanicos_Listar() {  /**  tabla de datos  */
-    var url = "Mecanicos_list.php";
+function Clientes_Registrar() {  /**  tabla de datos  */
+    var url = "ClientesInsert.php";
     var datos = {};
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);
-//enviar(formData, rutaBack ,postClientesList); 
-    enviar("", '../back/controller/Mecanicos_List.php', postMecanicosList);
+    
 }
+
 
 function Conductor_Registrar() {  /**  tabla de datos  */
     var url = "ConductorInsert.php";
@@ -123,14 +115,13 @@ function Conductor_Registrar() {  /**  tabla de datos  */
 //enviar("",'../back/controller/empleado_lis.php',postEmpleadoList); 
 }
 
-function Conductor_Registrar() {  /**  tabla de datos  */
-    var url = "ConductorInsert.php";
+function Conductor_list(){
+    var url = "Conductor_list.php";
     var datos = {};
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);
-
-//enviar("",'../back/controller/empleado_lis.php',postEmpleadoList); 
-}
+    enviar("", '../back/controller/Chofer_list.php', postChoferesList);
+} 
 
 function Productos_Registrar() {  /**  tabla de datos  */
     var url = "ProductosInsert.php";
