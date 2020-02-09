@@ -58,8 +58,20 @@
                     <li>
                         <a onclick="Productos_Listar()"><i class="fa fa-wrench"></i> <span class="nav-label">Productos </span></a>
                     </li>
+                    <li class="">
+                    <a href="#" aria-expanded="false"><i class="fa fa-edit"></i> <span class="nav-label">Alquiler</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                          <li>
+                        <a onclick="Salida_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
+                          </li>
+                          <li>
+                        <a onclick="Salida_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Devoluciones </span></a>
+                          </li>
+                                      
+                    </ul>
+                </li>
                     <li>
-                        <a onclick="Ventas_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
+                        <a onclick="Salida_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
                     </li>
                     
                     <li>
@@ -138,10 +150,10 @@
             </div>
             <div class="footer" style="color: black">
                 <div class="pull-right">
-                    Sistema de Control Acceso <strong>NORTCODING</strong> 2019.
+                    Sistema Gestion de Alquiler <strong>NORTCODING</strong> 2020.
                 </div>
                 <div>
-                    <strong>Copyright</strong> NortCoding &copy; 2016-2019
+                    <strong>Copyright</strong> NortCoding &copy; 2016-2020
                 </div>
             </div>
 

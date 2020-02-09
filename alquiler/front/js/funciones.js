@@ -159,8 +159,8 @@ function Ventas_Listar() {  /**  tabla de datos  */
     //enviar("", '../back/controller/Productos_Detalles.php', postVentasList);
 }
 
-function Ventas_Registrar() {  
-    var url = "Ventas_insert.php";
+function Salida_Registrar() {  
+    var url = "Orden_Salida.php";
     var datos = {};
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);

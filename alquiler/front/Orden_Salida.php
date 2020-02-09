@@ -44,7 +44,7 @@
                             <label class="col-sm-3 col-form-label"><b>Fecha :</b></label>
 
                             <div class="col-sm-9 p-xs ">
-                                <input id="inputfecha_inicio"value="<?php echo $fcha; ?>"style="font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" type="text"  class="form-control" readonly></div>
+                                <input id="inputfecha_inicio"value="<?php echo $fcha; ?>"  type="date"  class="form-control" ></div>
                         </div>
 
                     </div>
@@ -66,10 +66,10 @@
                         </div>
 
                         <div class=" row ">
-                            <label style="text-align: left" class="col-sm-4 col-form-label"><b>Nombre y Apellido :</b></label>
+                            <label style="text-align: left" class="col-sm-4 col-form-label"><b>Nombre y Apellidos :</b></label>
 
-                            <div class="col-sm-8 p-xs border-bottom " >
-                                <input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
+                            <div class="col-sm-8 p-xs " >
+                                <input  type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
                         </div>
 
 
@@ -78,12 +78,12 @@
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Cedula :</b></label>
 
-                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcc" name="cc" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputcc" name="cc" class="form-control" readonly></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Telefono :</b></label>
 
-                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
                         </div>
                         <br>
 
@@ -106,12 +106,19 @@
                         <div class=" row">
                             <label class="col-sm-2 col-form-label"><b>Direccion:</b></label>
 
-                            <div class="col-sm-10 p-xs border-bottom"><input  style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputdireccion" name="direccion" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs "><input   type="text" id="Inputdireccion" name="direccion" class="form-control" readonly></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Correo :</b></label>
 
-                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs "><input type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
+                        </div>
+                        <div class="  row">
+                            <label class="col-sm-2 col-form-label"><b>Observacion :</b></label>
+
+                            <div class="col-sm-10 p-xs ">
+                                <textarea class="form-control" id="InputObservacion" name="observacion" rows="3" placeholder="Enter a message ..."></textarea>
+                                <!--<input type="textarea" id="Inputcorreo" name="correo" class="form-control" readonly></div>-->
                         </div>
 
 
@@ -131,7 +138,8 @@
     <hr>
 
     <div id="mostrarcontenido2" style="display: none">
-        <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class=" panel panel-default wrapper wrapper-content animated fadeInRight">
 
             <div class="row">
                 <div class="col-lg-12">

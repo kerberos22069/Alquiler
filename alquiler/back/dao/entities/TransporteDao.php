@@ -34,11 +34,11 @@ private $cn;
 $transporte_flete=$transporte->getTransporte_flete();
 $factura_idfactura=$transporte->getFactura_idfactura()->getIdfactura();
 $transporte_conductor=$transporte->getTransporte_conductor();
-$choferes_idchoferes=$transporte->getChoferes_idchoferes()->getIdchoferes();
+//$choferes_idchoferes=$transporte->getChoferes_idchoferes()->getIdchoferes();
 
       try {
           $sql= "INSERT INTO `transporte`(  `transporte_flete`, `factura_idfactura`, `transporte_conductor`, `choferes_idchoferes`)"
-          ."VALUES ($transporte_flete','$factura_idfactura','$transporte_conductor','$choferes_idchoferes')";
+          ."VALUES ($transporte_flete','$factura_idfactura','$transporte_conductor','$transporte_conductor')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');

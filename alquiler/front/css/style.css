@@ -2794,7 +2794,8 @@ select.form-control:not([size]):not([multiple]) {
   color: #000000;
   /*color: inherit;editado*/
   display: block;
-  padding: 6px 12px;
+  padding: 6px 12px;/*editado*/
+  padding: 3px 12px;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
   width: 100%;
 }
@@ -5297,7 +5298,7 @@ a.close-canvas-menu:hover {
 .p-xs {
     
   /*padding: 10px; editado*/
-  padding: -1px;
+  padding: 8px;
 }
 .p-sm {
   padding: 15px;
