@@ -13,7 +13,7 @@
                 <div class="ibox ">
                     <div class="ibox-title"> 
                         <div style="text-align: center; color: white" >
-                            <h1><b>Listado de Clientes</b></h1>
+                            <h1><b>Ordenes de Salida</b></h1>
 
                         </div>
                         <div class="ibox-tools">
@@ -42,7 +42,7 @@
 
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Correo</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Telefono</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Direccion</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devolucion</th>
 
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>

@@ -48,7 +48,9 @@
                         </div>
                     </li>
 
-
+                     <li>
+                        <a onclick="Salida_listar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
+                          </li>
                     <li>
                         <a onclick="Clientes_Listar()"><i class="fa fa-users"></i> <span class="nav-label">Clientes </span></a>
                     </li>
@@ -58,18 +60,7 @@
                     <li>
                         <a onclick="Productos_Listar()"><i class="fa fa-wrench"></i> <span class="nav-label">Productos </span></a>
                     </li>
-                    <li class="">
-                    <a href="#" aria-expanded="false"><i class="fa fa-edit"></i> <span class="nav-label">Alquiler</span><span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
-                          <li>
-                        <a onclick="Salida_listar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
-                          </li>
-                          <li>
-                        <a onclick="devoluciones()"><i class="fa fa-truck"></i> <span class="nav-label">Devoluciones </span></a>
-                          </li>
-                                      
-                    </ul>
-                </li>
+                    
 <!--                    <li>
                         <a onclick="Salida_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
                     </li>
