@@ -2,11 +2,13 @@
 
 
 <html>
-    <head>  
-        <title>Crear alquileres</title>
+    <!--<head>-->  
+        <!--<title>Crear alquileres</title>-->
         <link rel="stylesheet" href="css/jquery-editable-select.min.css" />
         <script src="js/jquery-editable-select.min.js"></script>        
-    </head>
+        <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+        
+    <!--</head>-->
 
     <div>
         <div class="panel panel-default">
@@ -369,6 +371,7 @@
     <script src="js/Ajax.js "></script>
     <script src="js/ViewManager.js "></script>
     <script src="js/HtmlBuilder.js "></script> 
+       <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 
     <script>
 
@@ -488,7 +491,10 @@
                                               rta = JSON.parse(response);
                                               if (rta.factura_id >= 0) {
                                                   alert("Alquilado con éxito");
+                                                  aceptarPersona();
                                                   facturas_by_fecha();
+                                                   cargareNum_Factura();
+                                                   
                                               } else {
                                                   alert("Ha habido un problema con la solicitud");
                                               }
@@ -772,7 +778,7 @@
 
                                       var mySelect = document.getElementById("InputChoferes");
                                       removeAllChildren(mySelect);
-                                      mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
+                                      mySelect.appendChild(createOPTION(0, 'SELECCIONE'));
                                       depa = JSON.parse(depa);
                                       for (var i = 1; i < depa.length; i++) {
                                           mySelect.appendChild(createOPTION(depa[i].idchoferes, depa[i].nom_chofer));
@@ -900,6 +906,91 @@
                 restar();
             }
         }
+        
+        
+        
+        
+                 function aceptarPersona() {
+
+
+                     swal({
+                         title: "Registro",
+                         text: "Registro Exitoso!",
+                         type: "success",
+                         // showCancelButton: true,
+                         confirmButtonColor: "#1ab394",
+                         confirmButtonText: "Ok",
+                         // cancelButtonText: "No, cancel plx!",
+                         //   closeOnConfirm: false,
+                         closeOnCancel: false},
+                             function (isConfirm) {
+                                 if (isConfirm) {
+
+                                     Conductor_list();
+
+                                 } else {
+                                     swal("Cancelled", "Your imaginary file is safe :)", "error");
+                                 }
+                             });
+
+                 }
+                 ;
+
+
+                 function errorPersonaCampos() {
+
+
+                     swal({
+                         title: "Error",
+                         text: "Complete los Campos!",
+                         type: "error",
+                         // showCancelButton: true,
+                         confirmButtonColor: "#dd6b55",
+                         confirmButtonText: "Ok",
+                         // cancelButtonText: "No, cancel plx!",
+                         //   closeOnConfirm: false,
+                         closeOnCancel: false},
+                             function (isConfirm) {
+                                 if (isConfirm) {
+                                     // alert('mySelect2'+mySelect2);
+                                     //  console.log("mySelect2");
+                                     //  Persona_Listar();
+                                     //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                                 } else {
+                                     swal("Cancelled", "Your imaginary file is safe :)", "error");
+                                 }
+                             });
+
+                 }
+                 ;
+
+                 function errorPersonaInsert() {
+
+
+                     swal({
+                         title: "Error",
+                         text: "No se Pudo Registrar!",
+                         type: "error",
+                         // showCancelButton: true,
+                         confirmButtonColor: "#dd6b55",
+                         confirmButtonText: "Ok",
+                         // cancelButtonText: "No, cancel plx!",
+                         //   closeOnConfirm: false,
+                         closeOnCancel: false},
+                             function (isConfirm) {
+                                 if (isConfirm) {
+                                     // alert('mySelect2'+mySelect2);
+                                     //  console.log("mySelect2");
+                                     //  Persona_Listar();
+                                     //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                                 } else {
+                                     swal("Cancelled", "Your imaginary file is safe :)", "error");
+                                 }
+                             });
+
+                 }
+                 ;
+
     </script>
 
 </html>

@@ -131,7 +131,7 @@ $direccion=$choferes->getDireccion();
       try {
           $sql ="SELECT `idchoferes`, `cc_chofer`, `nom_chofer`, `chofe_telefono`, `direccion`"
           ."FROM `choferes`"
-          ."WHERE `stado`='0'";
+          ."WHERE `stado`='0' AND `idchoferes` > 0";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $choferes= new Choferes();
@@ -153,8 +153,7 @@ $direccion=$choferes->getDireccion();
       $lista = array();
       try {
           $sql ="SELECT `idchoferes`, `cc_chofer`, `nom_chofer`, `chofe_telefono`, `direccion`"
-          ."FROM `choferes`"
-          ."WHERE `idchoferes`='$id' and `stado`=0 ";
+          ."FROM `choferes` WHERE `idchoferes`='$id' and `stado`=0 ";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $choferes= new Choferes();

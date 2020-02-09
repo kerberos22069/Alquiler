@@ -59,7 +59,11 @@ try {
     $transporte_flete = strip_tags($_POST['transporte_flete']);
     if ($transporte_flete != NULL && $transporte_flete != "" && $transporte_flete != "0") {
         $transporte_conductor = strip_tags($_POST['conductor_nombre']);
-        TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor);
+        TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor,$transporte_conductor);
+    }else{
+        $transporte_flete = '0';
+          $transporte_conductor = '0';
+           TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor,$transporte_conductor);
     }
 
     $generalDao->confirmarTransaccion();

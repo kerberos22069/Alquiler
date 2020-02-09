@@ -9,15 +9,18 @@
 include_once realpath('../facade/ChoferesFacade.php');
 
   $list=ChoferesFacade::listAll();
+   $num=1;
         $rta="";
         foreach ($list as $obj => $Choferes) {	
 	       $rta.="{
-	    \"idchoferes\":\"{$Choferes->getidchoferes()}\",
+	   
+	    \"idchoferes\":\" {$Choferes->getidchoferes()}\",
 	    \"cc_chofer\":\"{$Choferes->getcc_chofer()}\",
 	    \"nom_chofer\":\"{$Choferes->getnom_chofer()}\",
 	    \"chofe_telefono\":\"{$Choferes->getchofe_telefono()}\",
 	    \"direccion\":\"{$Choferes->getdireccion()}\"
 	       },";
+           
         }
 
         if($rta!=""){

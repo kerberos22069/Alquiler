@@ -178,8 +178,10 @@ function preChoferesList(container){
                 //----------------- Para una tabla -----------------------
                 document.getElementById("ChoferesList").appendChild(createTR(Choferes));
                 //-------- Para otras opciones ver htmlBuilder.js ---------
+                
             }
          }else{
+             Choferes.idchoferes
             alert(json[0].msg);
          }
      }else{

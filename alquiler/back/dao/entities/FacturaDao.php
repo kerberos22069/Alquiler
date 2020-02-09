@@ -226,7 +226,8 @@ class FacturaDao implements IFacturaDao {
     public function Count_fact() {
         $lista = array();
         try {
-            $sql = "SELECT COUNT(*)+1 as idfactura FROM `factura` WHERE 1";
+            $sql = "SELECT `idfactura`+1 as idfactura FROM `factura` ORDER by `idfactura` DESC LIMIT 1";
+//            $sql = "SELECT COUNT(*)+1 as idfactura FROM `factura` WHERE 1";
             $data = $this->ejecutarConsulta($sql);
             for ($i = 0; $i < count($data); $i++) {
                 $factura = new Factura();

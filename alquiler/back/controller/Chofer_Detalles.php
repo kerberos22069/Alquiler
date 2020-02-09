@@ -11,8 +11,10 @@ include_once realpath('../facade/ChoferesFacade.php');
 $id= $_GET['empresa'];
 
   $list=ChoferesFacade::listAll_Detalles($id);
+ 
         $rta="";
         foreach ($list as $obj => $Choferes) {	
+            
 	       $rta.="{
 	    \"idchoferes\":\"{$Choferes->getidchoferes()}\",
 	    \"cc_chofer\":\"{$Choferes->getcc_chofer()}\",
