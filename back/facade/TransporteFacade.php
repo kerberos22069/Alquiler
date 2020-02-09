@@ -42,7 +42,6 @@ class TransporteFacade {
       $transporte->setTransporte_flete($transporte_flete); 
       $transporte->setFactura_idfactura($factura_idfactura); 
       $transporte->setTransporte_conductor($transporte_conductor); 
-     $transporte->setChoferes_idchoferes($transporte_conductor); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $transporteDao =$FactoryDao->gettransporteDao(self::getDataBaseDefault());

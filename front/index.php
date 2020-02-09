@@ -9,7 +9,7 @@
         
         <link rel="icon" type="image/png" href="img/logo2.png">
 
-        <title>Sistema de Gestión de Alquiler</title>
+        <title>Sistema de gestión de alquileres</title>
 
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -138,10 +138,10 @@
             </div>
             <div class="footer" style="color: black">
                 <div class="pull-right">
-                    Sistema Gestion de Alquiler <strong>NORTCODING</strong> 2020.
+                    Sistema de Control Acceso <strong>NORTCODING</strong> 2019.
                 </div>
                 <div>
-                    <strong>Copyright</strong> NortCoding &copy; 2016-2020
+                    <strong>Copyright</strong> NortCoding &copy; 2016-2019
                 </div>
             </div>
 

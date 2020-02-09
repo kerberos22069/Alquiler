@@ -85,24 +85,12 @@ $chofe_telefono=$choferes->getChofe_telefono();
 $direccion=$choferes->getDireccion();
 
       try {
-          $sql= "UPDATE `choferes` SET `cc_chofer`='$cc_chofer' ,`nom_chofer`='$nom_chofer' ,`chofe_telefono`='$chofe_telefono' ,`direccion`='$direccion' WHERE `idchoferes`='$idchoferes' ";
+          $sql= "UPDATE `choferes` SET`idchoferes`='$idchoferes' ,`cc_chofer`='$cc_chofer' ,`nom_chofer`='$nom_chofer' ,`chofe_telefono`='$chofe_telefono' ,`direccion`='$direccion' WHERE `idchoferes`='$idchoferes' ";
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       }
   }
-  public function update_Stado($idchoferes){
-//      $idchoferes=$choferes->getIdchoferes();
-
-
-      try {
-          $sql= "UPDATE `choferes` SET `stado`='1' WHERE `idchoferes`='$idchoferes' ";
-         return $this->insertarConsulta($sql);
-      } catch (SQLException $e) {
-          throw new Exception('Primary key is null');
-      }
-  }
-
 
     /**
      * Elimina un objeto Choferes en la base de datos.
@@ -131,30 +119,7 @@ $direccion=$choferes->getDireccion();
       try {
           $sql ="SELECT `idchoferes`, `cc_chofer`, `nom_chofer`, `chofe_telefono`, `direccion`"
           ."FROM `choferes`"
-          ."WHERE `stado`='0'";
-          $data = $this->ejecutarConsulta($sql);
-          for ($i=0; $i < count($data) ; $i++) {
-              $choferes= new Choferes();
-          $choferes->setIdchoferes($data[$i]['idchoferes']);
-          $choferes->setCc_chofer($data[$i]['cc_chofer']);
-          $choferes->setNom_chofer($data[$i]['nom_chofer']);
-          $choferes->setChofe_telefono($data[$i]['chofe_telefono']);
-          $choferes->setDireccion($data[$i]['direccion']);
-
-          array_push($lista,$choferes);
-          }
-      return $lista;
-      } catch (SQLException $e) {
-          throw new Exception('Primary key is null');
-      return null;
-      }
-  }
-  public function listAll_Detalles($id){
-      $lista = array();
-      try {
-          $sql ="SELECT `idchoferes`, `cc_chofer`, `nom_chofer`, `chofe_telefono`, `direccion`"
-          ."FROM `choferes`"
-          ."WHERE `idchoferes`='$id'";
+          ."WHERE 1";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $choferes= new Choferes();

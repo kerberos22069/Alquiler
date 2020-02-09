@@ -68,7 +68,7 @@
             <div id="menumodal1" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                    <h4 class="modal-title" style="color: black  ; text-shadow: 5px 5px 5px #aaa;">Detalles Conductor</h4>
+                    <h4 class="modal-title" style="color: black  ; text-shadow: 5px 5px 5px #aaa;">Detalles Cliente</h4>
 
                 </div>
                 <div class="modal-body"> <!-- Abrri Contenio-->
@@ -79,11 +79,6 @@
                                          <form role="form" id="Chofer_Insert">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group" style="display: none">
-                                <label for="Inputcliente_nombre">Id </label>
-                                <input type="text" name="idchoferes" class="form-control" id="Inputidcliente" placeholder="cliente_nombre">
-                            </div>
-                            
                             <div class="form-group">
                                 <label for="Inputcliente_nombre">Nombres y Apellidos</label>
                                 <input type="text" name="nom_chofer" class="form-control" id="Inputcliente_nombre" placeholder="cliente_nombre">
@@ -133,7 +128,32 @@
 
 
 
-  
+    <!-- Modal de Expedicion -->
+    <div class="modal fade" id="expedicionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <select disabled  id="departamentos" onchange="cargarCiudades(this.value);">
+                        <option value="-1">Seleccionar</option>
+                    </select>
+                    <select disabled  id="ciudades" onchange="cargarContenido();">
+                        <option value="-1">Seleccionar</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 
@@ -192,7 +212,6 @@
     <script>
         function mostrarEliminar(empresa) {
 
-//alert(empresa);
             swal({
                 title: "Eliminar",
                 text: "Desea Eliminar el Registro!",
@@ -206,10 +225,10 @@
                     function (isConfirm) {
                         if (isConfirm) {
 
-                            $.get('../back/controller/Chofer_delete.php', {'empresa': empresa}, function (depa) {
+                            $.get('../back/controller/Cliente_delete.php', {'empresa': empresa}, function (depa) {
                             });
-//                            console.log('recargar');
-                            Conductor_list();
+                            console.log('recargar');
+                            Clientes_Listar();
 
                         } else {
                             swal("Cancelado", "Se ha cancelado la operación :)", "error");
@@ -236,17 +255,17 @@
             //  document.getElementById("ClientesReset").reset();
             //  $("#ClientesReset").reset();
 
-            $.get('../back/controller/Chofer_Detalles.php', {'empresa': empresa}, function (depa) {
+            $.get('../back/controller/Cliente_Detalles.php', {'empresa': empresa}, function (depa) {
 
                 depa = JSON.parse(depa);
 
-                $("#Inputidcliente").val(depa[1].idchoferes);
-                $("#Inputcliente_nombre").val(depa[1].nom_chofer);
-                
-                $("#Inputcliente_cc").val(depa[1].cc_chofer);
-                
-                $("#Inputcliente_telefono").val(depa[1].chofe_telefono);
-                $("#Inputcliente_direccion").val(depa[1].direccion);
+                $("#Inputidcliente").val(depa[1].idcliente);
+                $("#Inputcliente_nombre").val(depa[1].cliente_nombre);
+                $("#Inputcliente_apellido").val(depa[1].cliente_apellido);
+                $("#Inputcliente_cc").val(depa[1].cliente_cc);
+                $("#Inputcliente_correo").val(depa[1].cliente_correo);
+                $("#Inputcliente_telefono").val(depa[1].cliente_telefono);
+                $("#Inputcliente_direccion").val(depa[1].cliente_direccion);
                
                 
 
@@ -259,14 +278,14 @@
 
         function Cliente_Actualizar() {
 
-            var url1 = "../back/controller/Chofer_update.php";
+            var url1 = "../back/controller/Cliente_update.php";
 
-
+            $("#ClienteUpdate").serialize();
 
             $.ajax({
                 type: "POST",
                 url: url1,
-                data: $("#Chofer_Insert").serialize(),
+                data: $("#clienteUp").serialize(),
 
                 success: function (data) {
 
@@ -294,7 +313,7 @@
                         if (isConfirm) {
                             // alert('mySelect2'+mySelect2);
                             //  console.log("mySelect2");
-                            Conductor_list();
+                            Clientes_Listar();
                             //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
                         } else {
                             swal("Cancelled", "Your imaginary file is safe :)", "error");

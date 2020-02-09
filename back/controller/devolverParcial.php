@@ -14,9 +14,10 @@ try{
     $alquiler_id =  $_POST['alquiler_id'];
     $cantidad =  $_POST['cantidad'];
     $estado =  $_POST['estado'];
+    $fecha = $_POST['fecha']; 
     
     $AlquilerOriginal = AlquilerFacade::select($alquiler_id);
-        AlquilerFacade::devolver($alquiler_id,$cantidad,$estado);
+        AlquilerFacade::devolver($alquiler_id,$cantidad,$estado, $fecha);
         ProductoFacade::devolver($AlquilerOriginal->getProducto_idprod()->getIdprod(), $cantidad,$estado);
     $generalDao->confirmarTransaccion();
     echo "exito";
