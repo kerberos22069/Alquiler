@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<!--              -------Creado por-------               -->
+<!--             \(x.x )/ Anarchy \( x.x)/               -->
+<!--              ------------------------               -->
+        <!-- Sweet Alert -->
+    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    
+<!--//    Les traigo amor  \\                  -->
+      <div>
+          <div class="panel panel-default">
+              <div align=center class="panel-heading"><h3 class="panel-title">Registrar persona</h3></div>
+              <div align=center class="panel-body">
+                  <form role="form" id="PersonaInsert">
+                     
+               
+                      <div class="row">
+                                        <div class="col-lg-6">
+                          
+                      <div class="form-group">
+                          <label for="Inputpersona_nombre">Nombre y Apellido</label>
+                          <input type="text" name="persona_nombre" class="form-control" id="Inputpersona_nombre" placeholder="Nombre y Apellido" required>
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputpersona_cedula">Cedula</label>
+                          <input type="text" name="persona_cedula" class="form-control" id="Inputpersona_cedula" placeholder="Cedula" required>
+                       </div>
+                                            
+                         <div class="form-group">
+                          <label for="Inputpersona_tel_contacto">Tel_Contacto</label>
+                          <input type="text" name="persona_tel_contacto" class="form-control" id="Inputpersona_tel_contacto" placeholder="Telefono contacto" required>
+                       </div>
+           
+                      <div class="form-group">
+                          <label for="Inputpersona_sangre">Tipo Sangre</label>
+                             <select  name="persona_sangre" class="form-control" id="Inputpersona_sangre">
+                                    <option value="-1">SELECCIONE</option>
+                                    <option value="A+">A+</option>
+                                    <option value="B+">B+</option>
+                                    <option value="O+">O+</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B-">B-</option>
+                                    <option value="O-">O-</option>
+                                    <option value="AB-">AB-</option>
+                             </select> 
+                     
+                                </div>
+                                            
+               <div class="form-group">
+                          <label for="Inputpersona_genero">Genero</label>
+                              <select  name="persona_genero" class="form-control" id="Inputpersona_genero">
+                                    <option value="-1">SELECCIONE</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                
+                             </select> 
+                       </div>        
+                                            
+                
+                                        
+                                         
+                                            
+                                  </div>
+                          
+                          
+                          
+                                        <div class="col-lg-6">
+                                            
+                                              <div  class="form-group">
+                          <label for="Inputpersona_nacionalidad_id">persona_nacionalidad_id</label>
+                          <select  name="persona_nacionalidad_id" class="form-control" id="Inputpersona_nacionalidad_id">
+                                    <option value="-1">SELECCIONE</option>
+                                 
+                                    </select> 
+                       
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputpersona_arl">Arl</label>
+                           <select  name="persona_arl" class="form-control" id="Inputpersona_arl">
+                                    <option value="-1">SELECCIONE</option>
+                                 
+                                    </select> 
+                          
+            
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputpersona_eps">Eps</label>
+                              <select  name="persona_eps" class="form-control" id="Inputpersona_eps">
+                                    <option value="-1">SELECCIONE</option>
+                                 
+                                    </select> 
+                          
+          
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputpersona_alergia">Alergia</label>
+                          <input type="text" name="persona_alergia" class="form-control" id="Inputpersona_alergia" placeholder="Alergia" required>
+                       </div>
+                    
+                                                          <div class="form-group">
+                          <label for="Inputempleado_rol">empleado_rol</label>
+                            <select  name="empleado_rol" class="form-control" id="Inputempleado_rol">
+                                    <option value="-1">SELECCIONE</option>
+                                   
+                                
+                             </select> 
+                     
+                       </div>                  
+                      
+
+                                        </div>
+                          
+                                    </div>
+                      
+                      
+                      
+                 
+                 
+                
+                         <button type="button" class="btn btn-primary" onclick="registraraPersona()">Registrar</button>
+                   </form>
+               </div><!-- panel-body -->
+          </div> <!-- panel -->
+      </div>
+
+             <!-- Sweet alert -->
+    <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+ 
+    
+  
+
+    <script>
+        $(document).ready(function(){
+            cargarePS();
+            cargarArl();
+            cargarNac();
+            cargarRol();
+      });
+      </script>
+      
+        <script>
+   
+    
+    function registraraPersona(){
+      
+  
+        var url1 = "../back/controller/persona_insert.php";
+      //  console.log($("#PersonaInsert").serialize());
+        $.ajax({                        
+           type: "POST",                 
+           url: url1,                     
+           data: $("#PersonaInsert").serialize(), 
+       
+                 
+           success: function(data){
+           //  console.log(data);
+               
+               if(data==1){
+                   
+              //     console.log("sirve");
+                   
+              aceptarPersona();
+              // alert("true");
+               }if (data==2){
+                   errorPersona();
+               }else{
+                  errorPersona();
+               }
+                          
+           }
+       });
+   
+};
+
+     function aceptarPersona(){
+  
+
+       swal({
+                        title: "Registro",
+                        text: "Registro Exitoso!",
+                        type: "success",
+                       // showCancelButton: true,
+                        confirmButtonColor: "#1ab394",
+                        confirmButtonText: "Ok",
+                       // cancelButtonText: "No, cancel plx!",
+                      //   closeOnConfirm: false,
+                        closeOnCancel: false },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                          // alert('mySelect2'+mySelect2);
+                        //  console.log("mySelect2");
+                      Persona_Listar();
+                     //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        } 
+                        else {
+                            swal("Cancelled", "Your imaginary file is safe :)", "error");
+                        }
+                    });
+   
+};
+
+
+     function errorPersona(){
+  
+
+       swal({
+                        title: "Error",
+                        text: "Complete los Campos!",
+                        type: "error",
+                       // showCancelButton: true,
+                        confirmButtonColor: "#dd6b55",
+                        confirmButtonText: "Ok",
+                       // cancelButtonText: "No, cancel plx!",
+                      //   closeOnConfirm: false,
+                        closeOnCancel: false },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                          // alert('mySelect2'+mySelect2);
+                        //  console.log("mySelect2");
+                    //  Persona_Listar();
+                     //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        } 
+                        else {
+                            swal("Cancelled", "Your imaginary file is safe :)", "error");
+                        }
+                    });
+   
+};
+
+     
+
+
+
+
+
+    function cargarePS(){      
+        $.get('../back/controller/Eps_list.php',function(depa){      
+          
+          var mySelect=document.getElementById("Inputpersona_eps");
+          removeAllChildren(mySelect);
+           mySelect.appendChild(createOPTION(-1,'SELECCIONE'));
+          depa = JSON.parse(depa);
+         for (var i = 1 ; i < depa.length; i++) {
+              mySelect.appendChild(createOPTION(depa[i].eps_id,depa[i].eps_nombre));
+            }  
+          
+        }); 
+      }
+
+   function cargarArl(){      
+        $.get('../back/controller/Arl_list.php',function(depa2){      
+          
+          var mySelect=document.getElementById("Inputpersona_arl");
+          removeAllChildren(mySelect);
+          mySelect.appendChild(createOPTION(-1,'SELECCIONE'));
+          depa2 = JSON.parse(depa2);
+         for (var i = 1 ; i < depa2.length; i++) {
+              mySelect.appendChild(createOPTION(depa2[i].arl_id,depa2[i].arl_nombre));
+            }  
+          
+        }); 
+      }
+
+      
+   function cargarNac(){      
+        $.get('../back/controller/Nacionalidad_list.php',function(depa2){      
+          
+          var mySelect=document.getElementById("Inputpersona_nacionalidad_id");
+          removeAllChildren(mySelect);
+          mySelect.appendChild(createOPTION(-1,'SELECCIONE'));
+          depa2 = JSON.parse(depa2);
+         for (var i = 1 ; i < depa2.length; i++) {
+              mySelect.appendChild(createOPTION(depa2[i].nacionalidad_id,depa2[i].nacionalidad_nombre));
+            }  
+          
+        }); 
+      }
+      
+         function cargarRol(){      
+        $.get('../back/controller/roll_list.php',function(depa2){      
+          
+          var mySelect=document.getElementById("Inputempleado_rol");
+          removeAllChildren(mySelect);
+         mySelect.appendChild(createOPTION(-1,'SELECCIONE'));
+          depa2 = JSON.parse(depa2);
+         for (var i = 1 ; i < depa2.length; i++) {
+              mySelect.appendChild(createOPTION(depa2[i].rol_id,depa2[i].rol_nombre));
+            }  
+          
+        }); 
+      }
+
+</script>
+
+
+                                <script>
+            var mimodal = null;
+            function mostrarActualizar(id, nombre,nit,direccion,tel) {
+                var a=''+id;
+                var b=''+nombre;
+                var c=''+nit;
+                var d=''+direccion;
+                var e=''+tel;
+            $("#InputidEmpresa_p").val(a);
+            $("#InputEmpresa_p_nombre").val(b);
+            $("#Inputnit_empresa_p").val(c);
+            $("#InputEmpresa_p_direccion").val(d);
+            $("#InputEmpresa_p_tel").val(e);
+            $('#myModal2').modal({show: true});
+
+             
+            }
+            
+           function myModal_r() {
+   
+            $('#myModal_R').modal({show: true});
+
+             
+            }
+            
+            function mostrarTodo() {
+        
+               $('#myModal5').modal({show: true});
+
+             
+               //  alert('elim'+id,nombre);
+            }
+        </script>   
+        
+        
+     <!-- Modal de Registrar Empleado -->
+       <div class="modal  inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog modal-lg mdialTamanio">
+                                    <div id="menumodal1" class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title" style="color: black  ; text-shadow: 5px 5px 5px #aaa;">Detalles Empleado</h4>
+                                           
+                                        </div>
+                                        <div class="modal-body"> <!-- Abrri Contenio-->
+                                            
+                                       <div align=center class="panel-body">
+                  <form role="form" id="PersonaInsert">
+                     
+               
+                      <div class="row">
+                                        <div class="col-lg-6">
+                          
+                      <div class="form-group">
+                          <label for="Inputpersona_nombre">Nombre y Apellido</label>
+                          <input type="text" name="persona_nombre" class="form-control" id="Inputpersona_nombre" placeholder="Nombre y Apellido" required>
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputpersona_cedula">Cedula</label>
+                          <input type="text" name="persona_cedula" class="form-control" id="Inputpersona_cedula" placeholder="Cedula" required>
+                       </div>
+                                            
+                         <div class="form-group">
+                          <label for="Inputpersona_tel_contacto">Tel_Contacto</label>
+                          <input type="text" name="persona_tel_contacto" class="form-control" id="Inputpersona_tel_contacto" placeholder="Telefono contacto" required>
+                       </div>
+           
+                      <div class="form-group">
+                          <label for="Inputpersona_sangre">Tipo Sangre</label>
+                             <select  name="persona_sangre" class="form-control" id="Inputpersona_sangre">
+                                    <option value="-1">SELECCIONE</option>
+                                    <option value="A+">A+</option>
+                                    <option value="B+">B+</option>
+                                    <option value="O+">O+</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B-">B-</option>
+                                    <option value="O-">O-</option>
+                                    <option value="AB-">AB-</option>
+                             </select> 
+                     
+                                </div>
+                                            
+               <div class="form-group">
+                          <label for="Inputpersona_genero">Genero</label>
+                              <select  name="persona_genero" class="form-control" id="Inputpersona_genero">
+                                    <option value="-1">SELECCIONE</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                
+                             </select> 
+                       </div>        
+                                            
+                
+                                        
+                                         
+                                            
+                                  </div>
+                          
+                          
+                          
+                                        <div class="col-lg-6">
+                                            
+                                              <div  class="form-group">
+                          <label for="Inputpersona_nacionalidad_id">persona_nacionalidad_id</label>
+                          <select  name="persona_nacionalidad_id" class="form-control" id="Inputpersona_nacionalidad_id">
+                                    <option value="-1">SELECCIONE</option>
+                                 
+                                    </select> 
+                       
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputpersona_arl">Arl</label>
+                           <select  name="persona_arl" class="form-control" id="Inputpersona_arl">
+                                    <option value="-1">SELECCIONE</option>
+                                 
+                                    </select> 
+                          
+            
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputpersona_eps">Eps</label>
+                              <select  name="persona_eps" class="form-control" id="Inputpersona_eps">
+                                    <option value="-1">SELECCIONE</option>
+                                 
+                                    </select> 
+                          
+          
+                       </div>
+                      <div class="form-group">
+                          <label for="Inputpersona_alergia">Alergia</label>
+                          <input type="text" name="persona_alergia" class="form-control" id="Inputpersona_alergia" placeholder="Alergia" required>
+                       </div>
+                    
+                                                          <div class="form-group">
+                          <label for="Inputempleado_rol">empleado_rol</label>
+                            <select  name="empleado_rol" class="form-control" id="Inputempleado_rol">
+                                    <option value="-1">SELECCIONE</option>
+                                   
+                                
+                             </select> 
+                     
+                       </div>                  
+                      
+
+                                        </div>
+                          
+                                    </div>
+                      
+                      
+                      
+                 
+                 
+                
+                         <button type="button" class="btn btn-primary" onclick="registraraPersona()">Registrar</button>
+                   </form>
+               </div><!-- panel-body -->
+       
+                                        
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    <!-- finaliza modal de Empleado Registrar-->
+    
+
+
+
+  <script>
+      
+            var mimodal = null;
+            var SUPER_GLOBAL;
+            function mostrarActualizar(id, nombre) {
+                
+            //    empleado_update(id);
+             //   SUPER_GLOBAL = id;
+               // cargarPersona_updade(id);
+            //    var a=''+id;
+           //     var b=''+nombre;
+           //        $("#idArea").val(a);
+           //     $("#InputArea").val(b);
+              
+           //    $('#myModal5').addClass(' data-backdrop="static" data-keyboard="false"');
+           //    $('#myModal5').modal({show: true});
+               
+             
+            }
+            function mostrarEliminar(id2, nombre2) {
+               // console.log(id);
+           
+             
+               //  alert('elim'+id,nombre);
+            }
+            
+ function mostrarTodo1(idp) {
+     
+              // console.log(idp);
+               
+                  //    var a1=''+id2;
+               // var b2=''+nombre2;
+              // cargarPersona(idp);
+         
+                 
+                
+              
+            //   $('#myModal5').addClass(' data-backdrop="static" data-keyboard="false"');
+           //    $('#myModal5').modal({show: true});
+
+           //    enableContainer(modalmenu1);
+               //  alert('elim'+id,nombre);
+            }
+            var IDSUBIRARCHIVOS;
+ function mostrarSubirFile(idp,cedula) {
+              // console.log(idp);
+          //    IDSUBIRARCHIVOS=cedula;
+              
+           
+                  //    var a1=''+id2;
+               // var b2=''+nombre2;
+          //    empleado_archivos(cedula);
+         
+             
+               //  alert('elim'+id,nombre);
+            }
+        </script>  
+        
+     
+
+
+
+    
+<!-- That`s all folks! -->
+</html>
