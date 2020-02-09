@@ -56,7 +56,6 @@ function armarReporteDeFacturas($facturas) {
 
             if ($jsonDev != NULL && $jsonDev != "") {
                 $arrayDevoluciones = json_decode($jsonDev);
-                $arrayDevolucionesParseadas = array();
                 $totalDevuelto = 0;
                 foreach ($arrayDevoluciones as $key => $devuelto) {
                     $totalDevuelto += $devuelto->cantidad;
@@ -64,14 +63,8 @@ function armarReporteDeFacturas($facturas) {
                     $datetime1 = date_create($Alquiler->getFecha_inicio());
                     $datetime2 = date_create($devuelto->fecha);
                     $interval = date_diff($datetime1, $datetime2);
-                    $subtotal = $interval->format('%d') * $Alquiler->getValor() * $devuelto->cantidad;
-                    $myAlquiler->subTotal += $subtotal;
-                    $myDevolucion = $devuelto;
-                    $myDevolucion->dias = $interval->format('%d');
-                    $myDevolucion->subtotal = $subtotal;
-                    array_push($arrayDevolucionesParseadas, $myDevolucion);
+                    $myAlquiler->subTotal += $interval->format('%d') * $Alquiler->getValor() * $devuelto->cantidad;
                 }
-                $myAlquiler->movimientosParseados = $arrayDevolucionesParseadas;
             }
             $myAlquiler->cantidad = $Alquiler->getCantidad() + $totalDevuelto;
             $myAlquiler->totalDevuelto = $totalDevuelto;

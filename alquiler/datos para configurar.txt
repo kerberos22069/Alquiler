@@ -18,4 +18,4 @@ back\dao\properties\Properties.ini
 [bd]
 host=localhost
 username=user
-password=clave
+password=clave    
