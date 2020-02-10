@@ -49,7 +49,7 @@
                     </li>
                     
                     
-                   <li class="active">
+<!--                   <li class="active">
                     <a href="#" aria-expanded="true"><i class="fa fa-sitemap"></i> <span class="nav-label">Ordenes</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse in" aria-expanded="true" style="">
                                   <li>
@@ -69,12 +69,12 @@
                         </li>
                        
                     </ul>
-                </li> 
+                </li> -->
                     
                     
                     
                     
-                    
+<!--                    
                     
 
                    <li class="">
@@ -91,11 +91,11 @@
                     </ul>
                    </li >
                     
-                    
+                    -->
 <!--                    
-                     <li>
-                        <a onclick="Salida_listar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
-                          </li>-->
+-->                     <li>
+                        <a onclick="facturas_by_fecha()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
+                          </li>
                     <li>
                         <a onclick="Clientes_Listar()"><i class="fa fa-users"></i> <span class="nav-label">Clientes </span></a>
                     </li>
@@ -130,8 +130,8 @@
                 
 
                     
-                <!--    <li>
-                        <a onclick="facturas_listas()"><i class="fa fa-laptop"></i> <span class="nav-label">Facturas</span></a>
+<!--                  <li>
+                        <a onclick="facturas_by_fecha()"><i class="fa fa-laptop"></i> <span class="nav-label">Facturas</span></a>
                     </li>-->
 
                 </ul>

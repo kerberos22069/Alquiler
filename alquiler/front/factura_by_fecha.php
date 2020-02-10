@@ -57,8 +57,11 @@
                             </div>
                             <hr>
                         </div>
-                            <div class="col-lg-12" style="display: none">
+                     <div class="col-lg-12">
                             <div class="form-group row has-success">
+                                <label class="col-sm-2 col-form-label">
+                                    
+                                </label>
                                 <label class="col-sm-2 col-form-label">
                                     Cédula:
                                 </label>
@@ -69,6 +72,9 @@
                                     <button type="button" class="btn btn-primary" onclick="buscar_factura_by_cliente()" >
                                         Buscar por cliente.
                                     </button>
+                                </div>
+                                <div class="col-sm-2">
+                                    
                                 </div>
                             </div>
                         </div>
