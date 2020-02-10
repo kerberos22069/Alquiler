@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<!--
+    Hecho a mano por el benévolo señor Arciniegas
+    Como todo lo que hay en este proyecto. ( ¬.¬)
+    Pd. Dejar de contratar vagos.
+-->
+<html>
+    <head>
+        <title>Imprimir reporte de factura</title>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="img/logo2.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--<style type="text/css" media="screen">
+            #print-header, #print-footer {
+                display: none;
+            }-->
+        </style>
+        <style type="text/css" media="print">
+            #print-footer {
+                display: block;
+                position: fixed;
+                bottom: 0;
+                right: 0;
+            }
+            @page {
+                size: letter;
+                margin: 20px;
+            }
+
+            #print-header {
+                position: fixed;
+                top: 0;
+            }
+
+            #print-header, #header-space {
+                height: 120px;
+            }
+            
+            #print-footer, #footer-space{
+                height: 70px;
+            }
+
+            #header-space{ 
+                height: 140px;
+            }
+
+        </style>
+
+        <style>
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            #print-header *, #tabla-maestra tbody {
+                border: 0 !important;
+            }
+            
+            .tabla-interna tr td {
+                /*border: 1px solid black;*/
+                padding: 5px;
+            }
+            th, .th {
+                /*border: 1px solid black;*/
+                font-weight: bold;
+                color: black !important;
+                background-color: white !important;
+            }
+            .base {
+                border-top: 0px;
+                border-left: 0px;
+                border-right: 0px; 
+                border-bottom: 1px dashed black;
+                font-weight: bold;
+                color: black !important;
+                background-color: white !important;
+            }
+
+            .superior {
+                border-top: 1px dashed black;
+                border-left: 0px;
+                border-right: 0px; 
+                border-bottom: 0px;
+                font-weight: bold;
+                color: black !important;
+                background-color: white !important;
+            }
+            img{
+                width: 100%;
+            }
+            .header{
+                margin: 0px; text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+
+        <table id="tabla-maestra">
+            <thead>
+                <tr>
+                    <td>
+                        <div id="header-space">&nbsp;</div>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div id="content">
+                            <table class="tabla-interna base">
+                                <thead></thead>
+                                <tbody >
+                                    <tr>
+                                        <td style="width: 70%; ">ARRIENDAEQUIPOS EL CRISOL S.A.S</td>
+                                        <td style="width: 5%;">Alquiler:</td>   
+                                        <td id="numAlquilerID" style="width: 25%;"></td>                                     
+                                    </tr>
+                                    <tr>
+                                        <td>AV 2#3-47 SAN LUIS</td>
+                                        <td style="text-align: right;">Hora:</td>
+                                        <td id="horaID"></td>                                        
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">5941647</td>                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="tabla-interna base">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 10%">Empresa:</td>
+                                        <td id="nombreCliente" style="width: 60%"></td>
+                                        <td style="width: 10%">F.Inicial</td>
+                                        <td id="fechaCliente"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Obra:</td>
+                                        <td id="obraCliente"></td>
+                                        <td>Nit/C.C:</td>
+                                        <td id="nit_cc_cliente"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Direccion:</td>
+                                        <td id="direccionCliente"></td>
+                                        <td>Celular:</td>
+                                        <td id="celularCliente"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="tabla-interna">
+                                <thead>
+                                    <tr class="base">                                                     
+                                        <th style="width: 50%" colspan="2">EQUIPO</th>
+                                        <th style="width: 10%">CANTIDAD</th>
+                                        <th style="width: 10%">VAL/UN</th>
+                                        <th style="width: 10%">MIN/DIA</th>
+                                        <th style="width: 20%">SUBTOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="articulosList">                                    
+                                </tbody>
+                            </table>
+                            <table class="tabla-interna">                                
+                                <tbody>
+                                    <tr class="base">
+                                        <td id="fechaParcial" style="width: 10%"></td>
+                                        <td style="width: 10%">Resp:</td>
+                                        <td id="nombreResponsable" style="width: 60%"></td>
+                                        <td id="total"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Observación:</td>
+                                    </tr>    
+                                    <tr style="height: 150px;"></tr>
+
+                                </tbody>
+                            </table>                            
+                            <table class="tabla-interna">                                
+                                <tbody>
+                                    <tr class="gradeX footable-even superior">
+                                        <td class="footable-visible">Arrendador</td>
+                                        <td class="footable-visible">Arrendatario</td>
+                                        <td class="center footable-visible">ENTREGO</td>
+                                        <td class="center footable-visible">Transporte</td>
+                                    </tr>                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </td></tr></tbody>
+            <tfoot><tr><td>
+                        <div id="footer-space">&nbsp;</div>
+                    </td></tr></tfoot>
+        </table>
+
+
+
+        <script src="js/jquery-3.1.1.min.js "></script>
+        <script src="js/Ajax.js "></script>
+        <script src="js/ViewManager.js "></script>
+        <script src="js/HtmlBuilder.js "></script>
+        <script src ="js/reportesController.js"></script>
+        <script type="text/javascript">
+           
+        </script>
+        <script>
+
+             /*var datos = {
+                numAlquiler:"00265",
+                hora:"16:49:50",
+                fechaInicial:"20/20/2020",
+                cliente:{
+                    nombre:"CONSTRUMAR",                    
+                    obra:"4-SAN LUIS",
+                    nit_cc:"57.294.351-9",
+                    direccion:"San LUIS",
+                    celular:"300000000"
+                },
+                alquileres:
+                    [
+                        {
+                            id:"0035",
+                            equipo:"CHAPETAS",
+                            cantidad:10,
+                            val_uni:10000,
+                            min_dia:7,
+                            subtotal:"15540"
+                        },
+                        {
+                            id:"0035",
+                            equipo:"CHAPETAS",
+                            cantidad:10,
+                            val_uni:10000,
+                            min_dia:7,
+                            subtotal:"15540"
+                        },
+                        {
+                            id:"0035",
+                            equipo:"CHAPETAS",
+                            cantidad:10,
+                            val_uni:10000,
+                            min_dia:7,
+                            subtotal:"15540"
+                        }                    
+                    ],
+                responsable:"MARCELA",
+                total:15540
+
+            }*/
+
+            var datos = []
+
+            /*
+            * Cedula del cliente para consultar todos los alquileres por cliente
+            */
+            var clienteCc = "";
+
+            /*
+            * Numero de la factura que se imprimira
+            */
+            var nun_factura = "";
+
+            window.onload = function () {
+                queryString = window.location.search;
+                urlParams = new URLSearchParams(queryString);
+                clienteCc = urlParams.get('clienteCc');
+                nun_factura = urlParams.get('nun_factura');
+
+                url = '../back/controller/reportePorCliente.php';
+                var data = {"cliente_cedula": clienteCc};
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+
+                    success: function (data) {
+                        datos = JSON.parse(data);
+                        console.log(datos);
+                        //document.write(data);
+                        //alert(data);
+                        if ($.isEmptyObject(datos)) {
+                            alert("No existen ordenes de factura para esa factura y cliente");
+                        } else {
+                            llenarPlantilla(formatearDatos(datos));
+                            //window.print();
+                        }
+
+                    }
+                });
+
+            };
+
+
+            /*
+            * Se encarga de llenar todos los datos dentro la plantilla vacia
+            * los datos deben estar de acuerdo al formato de ejemplo
+            */
+            function llenarPlantilla(datos){
+                llenarParteUno(datos.numAlquiler, datos.hora);
+                llenarParteDos(datos.cliente, datos.fechaInicial);
+                llenarParteTres(datos.alquileres);
+                llenarParteCuatro(datos.fechaInicial, datos.responsable, datos.total);
+            }
+
+            function llenarParteUno(numAlquiler, hora){
+                document.getElementById("numAlquilerID").innerHTML = numAlquiler;
+                document.getElementById("horaID").innerHTML = hora;
+            }
+
+            function llenarParteDos(cliente, fechaInicial) {
+                document.getElementById("nombreCliente").innerHTML = cliente.nombre;
+                document.getElementById("fechaCliente").innerHTML = fechaInicial;
+                document.getElementById("obraCliente").innerHTML = cliente.obra;
+                document.getElementById("nit_cc_cliente").innerHTML = cliente.nit_cc;
+                document.getElementById("direccionCliente").innerHTML = cliente.direccion;
+                document.getElementById("celularCliente").innerHTML = cliente.celular;
+            }
+
+            function llenarParteTres(alquileres){   
+                contenedor = document.getElementById("articulosList");
+                var i = 0;
+                while(i < alquileres.length){
+                    var tr = document.createElement("tr");
+                    tr.appendChild(crearTD(alquileres[i].id));
+                    tr.appendChild(crearTD(alquileres[i].equipo));
+                    tr.appendChild(crearTD(alquileres[i].cantidad));
+                    tr.appendChild(crearTD(alquileres[i].val_uni));
+                    tr.appendChild(crearTD(alquileres[i].min_dia));
+                    tr.appendChild(crearTD(formatearDinero(alquileres[i].subtotal)));
+                    if(i == (alquileres.length - 1)){
+                        tr.setAttribute("class", "base");
+                    }
+                    contenedor.appendChild(tr);
+                    i = i + 1;
+                }  
+            }
+
+            function llenarParteCuatro(fechaParcial, responsable, total){
+                document.getElementById("fechaParcial").innerHTML = fechaParcial;
+                document.getElementById("nombreResponsable").innerHTML = responsable;
+                document.getElementById("total").innerHTML = formatearDinero(total);
+            }
+
+            function crearTD(contenido) {
+                var td = document.createElement("td");
+                td.appendChild(document.createTextNode(contenido));
+                return td;
+            }
+
+            function formatearDinero(dinero) {
+                dinero = dinero.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g, '$1.');
+                dinero = dinero.split('').reverse().join('').replace(/^[\.]/, '');
+                return "$ " + dinero;
+            }
+
+            function formatearDatos(consulta) {
+                for(let i in consulta){
+                    if(parseInt(consulta[i].id,10) == parseInt(nun_factura,10)){                       
+                        return {
+                            numAlquiler : consulta[i].id,
+                            hora:"00:00:00",
+                            fechaInicial : consulta[i].fecha,
+                            cliente:{
+                                nombre : consulta[i].cliente.cliente_nombre,                    
+                                obra:"NN",
+                                nit_cc : consulta[i].cliente.cliente_cedula,
+                                direccion : "NN",
+                                celular :  consulta[i].cliente.cliente_telefono
+                            },
+                            alquileres : parsearAlquileres(consulta[i].alquileres),
+                            responsable:"NN",
+                            total:consulta[i].total
+                            };
+                    }
+                }
+            }
+
+            function parsearAlquileres(alquileres) {
+                mi_rta = [];
+                for(let i in alquileres){
+                    mi_rta.push(
+                        {
+                            id : alquileres[i].alquiler_id,
+                            equipo : alquileres[i].producto_nombre,
+                            cantidad : alquileres[i].cantidad,
+                            val_uni : parseInt(alquileres[i].valor, 10),
+                            min_dia : alquileres[i].dias,
+                            subtotal : alquileres[i].subTotal
+                        }
+                    );
+                }
+                return mi_rta;
+            }
+
+        </script>
+        <div id="print-footer">
+            Con la tecnología NortCoding
+            <br>
+            nortcoding@gmail.com
+        </div>
+    </body>
+
+</html>

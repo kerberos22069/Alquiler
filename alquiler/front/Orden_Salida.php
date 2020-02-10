@@ -1,14 +1,12 @@
 <?php $fcha = date("Y-m-d"); ?>
 
-
+ 
 <html>
-    <!--<head>-->  
-        <!--<title>Crear alquileres</title>-->
+    <head>  
+        <title>Crear alquileres</title>
         <link rel="stylesheet" href="css/jquery-editable-select.min.css" />
         <script src="js/jquery-editable-select.min.js"></script>        
-        <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
-        
-    <!--</head>-->
+    </head>
 
     <div>
         <div class="panel panel-default">
@@ -34,7 +32,10 @@
                                     <label for="Inputpersona_cedula">    </label>
                                     <button  style="padding-right: 4px;" type="button" class="btn btn-primary" onclick="buscarcedula()">Buscar </button>
                                 </div>
-
+                                <div class="form-group" >
+                                    <label for="Inputpersona_cedula">    </label>
+                                    <button  style="padding-right: 4px;" type="button" class="btn btn-primary" onclick="modal5()">modal5 </button>
+                                </div>
                             </div>
 
                         </div>
@@ -44,7 +45,7 @@
                             <label class="col-sm-3 col-form-label"><b>Fecha :</b></label>
 
                             <div class="col-sm-9 p-xs ">
-                                <input id="inputfecha_inicio"value="<?php echo $fcha; ?>"  type="date"  class="form-control" ></div>
+                                <input id="inputfecha_inicio"value="<?php echo $fcha; ?>"style="font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" type="text"  class="form-control" readonly></div>
                         </div>
 
                     </div>
@@ -66,10 +67,10 @@
                         </div>
 
                         <div class=" row ">
-                            <label style="text-align: left" class="col-sm-4 col-form-label"><b>Nombre y Apellidos :</b></label>
+                            <label style="text-align: left" class="col-sm-4 col-form-label"><b>Nombre y Apellido :</b></label>
 
-                            <div class="col-sm-8 p-xs " >
-                                <input  type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
+                            <div class="col-sm-8 p-xs border-bottom " >
+                                <input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
                         </div>
 
 
@@ -78,12 +79,12 @@
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Cedula :</b></label>
 
-                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputcc" name="cc" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcc" name="cc" class="form-control" readonly></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Telefono :</b></label>
 
-                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
                         </div>
                         <br>
 
@@ -106,19 +107,12 @@
                         <div class=" row">
                             <label class="col-sm-2 col-form-label"><b>Direccion:</b></label>
 
-                            <div class="col-sm-10 p-xs "><input   type="text" id="Inputdireccion" name="direccion" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs border-bottom"><input  style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputdireccion" name="direccion" class="form-control" readonly></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Correo :</b></label>
 
-                            <div class="col-sm-10 p-xs "><input type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
-                        </div>
-                        <div class="  row">
-                            <label class="col-sm-2 col-form-label"><b>Observacion :</b></label>
-
-                            <div class="col-sm-10 p-xs ">
-                                <textarea class="form-control" id="InputObservacion" name="observacion" rows="3" placeholder="Enter a message ..."></textarea>
-                                <!--<input type="textarea" id="Inputcorreo" name="correo" class="form-control" readonly></div>-->
+                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
                         </div>
 
 
@@ -138,8 +132,7 @@
     <hr>
 
     <div id="mostrarcontenido2" style="display: none">
-        
-        <div class=" panel panel-default wrapper wrapper-content animated fadeInRight">
+        <div class="wrapper wrapper-content animated fadeInRight">
 
             <div class="row">
                 <div class="col-lg-12">
@@ -376,10 +369,25 @@
         </div>
     </div>
 
+    <!-- Modal de confirmacion para generar factura -->
+        <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                                            <h4 class="modal-title" style="font-size: 15px">¿Desea imprimir esta orden de salida?</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" onclick="imprimirOrdenSalida()">Imprimir</button>
+                                            <button type="button" class="btn btn-white center" data-dismiss="modal">Cancelar</button>                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    <!-- Fin Modal de confirmacion para generar factura -->
     <script src="js/Ajax.js "></script>
     <script src="js/ViewManager.js "></script>
     <script src="js/HtmlBuilder.js "></script> 
-       <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 
     <script>
 
@@ -396,6 +404,12 @@
     * El unico momento en que esto se actualiza es el document on ready. 
     */
     clientes = [];
+
+    /*
+    * Esta variable definira
+    *
+    */
+    clienteCcOrdenSalida = -1;
     //////////////////////////////////////////////// 
 
 
@@ -443,14 +457,14 @@
         mi_select = document.getElementById('Inputpersona_cedula');
         for(let i in misClientes){
             mi_option = document.createElement("option"); 
-            mi_option.setAttribute("value", misClientes[i].idcliente);
+            mi_option.setAttribute("value", misClientes[i].cliente_cc);
             mi_option.appendChild(document.createTextNode(misClientes[i].cliente_nombre));
             mi_select.appendChild(mi_option);
         }
         //Esto hay que arreglarlo. La idea es que los nombres y numeros de cedula no se combinan
         for(let i in misClientes){
             mi_option = document.createElement("option"); 
-            mi_option.setAttribute("value", misClientes[i].idcliente);
+            mi_option.setAttribute("value", misClientes[i].cliente_cc);
             mi_option.appendChild(document.createTextNode(misClientes[i].cliente_cc));
             mi_select.appendChild(mi_option);
         }
@@ -459,64 +473,56 @@
 
 
 
-                              var prod_alq = [];
+    var prod_alq = [];
 
-                              function enviarFactura() {
+    function enviarFactura() {
+        var nun_factura = document.getElementById("Inputnum_factura").value;
+        var clienete = document.getElementById("Inputid").value;
+        var flete = document.getElementById("input_flete").value;
+        var conductor = document.getElementById("InputChoferes").value;
+        var fecha = document.getElementById("inputfecha_inicio").value;
+        var descuent = document.getElementById("Inputfact_descuento").value;
+        var alquileres = '[' + prod_alq + ']';
 
-//        recorrerTabla();       
+        if (JSON.parse(alquileres).length > 0) {
 
-                                  var nun_factura = document.getElementById("Inputnum_factura").value;
-                                  var clienete = document.getElementById("Inputid").value;
-                                  var flete = document.getElementById("input_flete").value;
-                                  var conductor = document.getElementById("InputChoferes").value;
-                                  var fecha = document.getElementById("inputfecha_inicio").value;
-                                  var descuent = document.getElementById("Inputfact_descuento").value;
+          var parametros = {
+              "factura_id": nun_factura,
+              "fecha_inicio": fecha,
+              "descuento": descuent,
+              "cliente_id": clienete, 
+              "transporte_flete": flete,
+              "conductor_nombre": conductor,
+              "alquileres": alquileres
+          };
+          $.ajax({
+              data: parametros, //datos que se envian a traves de ajax
+              url: '../back/controller/crearFactura.php', //archivo que recibe la peticion
+              type: 'post', //método de envio
+              beforeSend: function () {
+                  $("#resultado").html("Procesando, espere por favor...");
 
-                                  var alquileres = '[' + prod_alq + ']';
+              },
+              success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                  $("#resultado").html(response);
+                  rta = JSON.parse(response);
+                  if (rta.factura_id >= 0) {
+                      alert("Alquilado con éxito");
+                      facturas_by_fecha();
+                  } else {
+                      alert("Ha habido un problema con la solicitud");
+                  }
+              },
+              error: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                  $("#resultado").html(response);
+              }
+          });
 
-
-                                  if (JSON.parse(alquileres).length > 0) {
-
-                                      var parametros = {
-                                          "factura_id": nun_factura,
-                                          "fecha_inicio": fecha,
-                                          "descuento": descuent,
-                                          "cliente_id": clienete,
-                                          "transporte_flete": flete,
-                                          "conductor_nombre": conductor,
-                                          "alquileres": alquileres
-                                      };
-                                      $.ajax({
-                                          data: parametros, //datos que se envian a traves de ajax
-                                          url: '../back/controller/crearFactura.php', //archivo que recibe la peticion
-                                          type: 'post', //método de envio
-                                          beforeSend: function () {
-                                              $("#resultado").html("Procesando, espere por favor...");
-
-                                          },
-                                          success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                                              $("#resultado").html(response);
-                                              rta = JSON.parse(response);
-                                              if (rta.factura_id >= 0) {
-                                                  alert("Alquilado con éxito");
-                                                  aceptarPersona();
-                                                  facturas_by_fecha();
-                                                   cargareNum_Factura();
-                                                   
-                                              } else {
-                                                  alert("Ha habido un problema con la solicitud");
-                                              }
-                                          },
-                                          error: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                                              $("#resultado").html(response);
-                                          }
-                                      });
-
-                                  } else {
-                                      alert("La factura está vacía. \nRegistra algunos productos para alquilar y vuelve a intentarlo.")
-                                  }
-                              }
-                              ;
+        } else {
+          alert("La factura está vacía. \nRegistra algunos productos para alquilar y vuelve a intentarlo.")
+        }
+        }
+        ;
 
 
 
@@ -532,59 +538,69 @@
                                   }
                               });
 
-                              function recorrerTabla() { /*recorro la tabla para calcular las columnas del precio para total y hacer desuento*/
-//     alert();
-                                  rtotal = 0;
-                                  m1 = 0;
-                                  prod_alq = [];
-                                  $("#mytable tbody tr").each(function (index) {
 
-                                      if (index != 0) {
-
-                                          var campo1, campo2, campo3;
-                                          $(this).children("td").each(function (index2) {
-                                              switch (index2) {
-                                                  case 0:
-                                                      campo1 = $(this).text();
-                                                      break;
-                                                  case 4:
-                                                      campo2 = $(this).text();
-                                                      break;
-                                                  case 6:
-                                                      campo3 = $(this).text();
-
-                                                      rtotal = parseInt(rtotal) + parseInt(campo3);
-
-
-                                                      break;
-                                              }
-                                              $(this).css("background-color", "#ECF8E0");
-                                          })
-
-
-                                          var text2 = '{ "id_producto":"' + campo1 + '" , "cantidad":"' + campo2 + '", "valor":"' + campo3/campo2 + '" }';
-
-                                          prod_alq.push(text2);
+    function modal5(){
+       $('#myModal5').modal({show: true}); 
+    }  
 
 
 
+    function imprimirOrdenSalida(){
+        var clienteCc = document.getElementById("Inputcc").value;
+        var nun_factura = document.getElementById("Inputnum_factura").value;
+         window.open('reciboOrdenesSalida.html?clienteCc='+clienteCc+'&nun_factura='+nun_factura);
+    }
+
+   
+        
+
+    /*
+     * Esta funcion hace muchas cosas que no entiendo, lo unico que me interesa es lo de abajo
+     * Cada vez que le dan agregar producto se inserta en la variable globa prod_alq
+     */
+    function recorrerTabla() { 
+        /*recorro la tabla para calcular las columnas del precio para total y hacer desuento*/
+        rtotal = 0;
+        m1 = 0;
+        prod_alq = [];
+        $("#mytable tbody tr").each(function (index) {
+            if (index != 0) {
+            var campo1, campo2, campo3;
+            $(this).children("td").each(function (index2) {
+              switch (index2) {
+                  case 0:
+                      campo1 = $(this).text();
+                      break;
+                  case 4:
+                      campo2 = $(this).text();
+                      break;
+                  case 6:
+                      campo3 = $(this).text();
+
+                      rtotal = parseInt(rtotal) + parseInt(campo3);
 
 
-                                      }
-                                      m1 = document.getElementById("Inputfact_descuento").value;
+                      break;
+              }
+              $(this).css("background-color", "#ECF8E0");
+            });
+        var text2 = '{ "id_producto":"' + campo1 + '" , "cantidad":"' + campo2 + '", "valor":"' + campo3/campo2 + '" }';
+        prod_alq.push(text2);
+}
+m1 = document.getElementById("Inputfact_descuento").value;
 
-                                      flete = document.getElementById("input_flete").value;
+flete = document.getElementById("input_flete").value;
 
-                                      rtotal2 = 0;
-                                      rtotal2 = parseInt(rtotal) - parseInt(m1) + parseInt(flete);
+rtotal2 = 0;
+rtotal2 = parseInt(rtotal) - parseInt(m1) + parseInt(flete);
 
-                                      document.getElementById("Inputfact_total").value = rtotal2;
+document.getElementById("Inputfact_total").value = rtotal2;
 
 
 
-                                  })
-                              }
-                              ;
+})
+}
+;
 
                               function sumar(valor) {
 
@@ -630,36 +646,32 @@
 
 
 
-                              function buscarcedula() {
+    function buscarcedula() {
+        var basic_text = document.getElementById("Inputpersona_cedula").value;
 
-                                  empresa = document.getElementById("Inputpersona_cedula").value;
-//          alert(empresa);
+        var basic_value = $("#Inputpersona_cedula").siblings('.es-list').find('li.selected').attr('value');
 
-                                  $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': empresa}, function (depa) {
+        empresa = basic_value;
 
-                                      depa = JSON.parse(depa);
-//                        console.log(depa);
-                                      if (depa[1].result == 'error') {
-                                          alert('NO existe debe registra el Cliente ');
-                                          Clientes_Registrar();
-                                      } else {
+        console.log(empresa);
 
-                                          $("#Inputid").val(depa[1].idcliente);
-                                          $("#Inputnombres").val(depa[1].cliente_nombre + " " + depa[1].cliente_apellido);
-                                          $("#Inputcc").val(depa[1].cliente_cc);//direccion
-                                          $("#Inputtelefono").val(depa[1].cliente_telefono);
-                                          $("#Inputcorreo").val(depa[1].cliente_correo);
-                                          $("#Inputdireccion").val(depa[1].cliente_direccion);
-//                    $("#Inputdireccion")..text(depa[1].cliente_direccion); para un label
-
-                                          emp = 0;
-//                    Productos_Vender(emp);
-                                          Activar_tabla();
-//                                          document.getElementById('agregarProd').disabled = false;
-                                      }
-
-                                  });
-                              }
+        $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': empresa}, function (depa) {
+            depa = JSON.parse(depa);
+            if (depa[1].result == 'error') {
+              alert('NO existe debe registra el Cliente ');
+              Clientes_Registrar();
+            } else {
+              $("#Inputid").val(depa[1].idcliente);
+              $("#Inputnombres").val(depa[1].cliente_nombre + " " + depa[1].cliente_apellido);
+              $("#Inputcc").val(depa[1].cliente_cc);//direccion
+              $("#Inputtelefono").val(depa[1].cliente_telefono);
+              $("#Inputcorreo").val(depa[1].cliente_correo);
+              $("#Inputdireccion").val(depa[1].cliente_direccion);
+              emp = 0;
+              Activar_tabla();
+            }
+        });
+    }
 
                               function multiplicar() {
                                   can = 0;
@@ -773,7 +785,7 @@
                                       mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
                                       depa = JSON.parse(depa);
                                       for (var i = 1; i < depa.length; i++) {
-                                          mySelect.appendChild(createOPTION(depa[i].idprod, depa[i].prod_nombre+" - "+depa[i].prod_descripcion));
+                                          mySelect.appendChild(createOPTION(depa[i].idprod, depa[i].prod_nombre));
                                       }
 
                                   });
@@ -786,7 +798,7 @@
 
                                       var mySelect = document.getElementById("InputChoferes");
                                       removeAllChildren(mySelect);
-                                      mySelect.appendChild(createOPTION(0, 'SELECCIONE'));
+                                      mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
                                       depa = JSON.parse(depa);
                                       for (var i = 1; i < depa.length; i++) {
                                           mySelect.appendChild(createOPTION(depa[i].idchoferes, depa[i].nom_chofer));
@@ -914,91 +926,6 @@
                 restar();
             }
         }
-        
-        
-        
-        
-                 function aceptarPersona() {
-
-
-                     swal({
-                         title: "Registro",
-                         text: "Registro Exitoso!",
-                         type: "success",
-                         // showCancelButton: true,
-                         confirmButtonColor: "#1ab394",
-                         confirmButtonText: "Ok",
-                         // cancelButtonText: "No, cancel plx!",
-                         //   closeOnConfirm: false,
-                         closeOnCancel: false},
-                             function (isConfirm) {
-                                 if (isConfirm) {
-
-                                     Conductor_list();
-
-                                 } else {
-                                     swal("Cancelled", "Your imaginary file is safe :)", "error");
-                                 }
-                             });
-
-                 }
-                 ;
-
-
-                 function errorPersonaCampos() {
-
-
-                     swal({
-                         title: "Error",
-                         text: "Complete los Campos!",
-                         type: "error",
-                         // showCancelButton: true,
-                         confirmButtonColor: "#dd6b55",
-                         confirmButtonText: "Ok",
-                         // cancelButtonText: "No, cancel plx!",
-                         //   closeOnConfirm: false,
-                         closeOnCancel: false},
-                             function (isConfirm) {
-                                 if (isConfirm) {
-                                     // alert('mySelect2'+mySelect2);
-                                     //  console.log("mySelect2");
-                                     //  Persona_Listar();
-                                     //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                                 } else {
-                                     swal("Cancelled", "Your imaginary file is safe :)", "error");
-                                 }
-                             });
-
-                 }
-                 ;
-
-                 function errorPersonaInsert() {
-
-
-                     swal({
-                         title: "Error",
-                         text: "No se Pudo Registrar!",
-                         type: "error",
-                         // showCancelButton: true,
-                         confirmButtonColor: "#dd6b55",
-                         confirmButtonText: "Ok",
-                         // cancelButtonText: "No, cancel plx!",
-                         //   closeOnConfirm: false,
-                         closeOnCancel: false},
-                             function (isConfirm) {
-                                 if (isConfirm) {
-                                     // alert('mySelect2'+mySelect2);
-                                     //  console.log("mySelect2");
-                                     //  Persona_Listar();
-                                     //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                                 } else {
-                                     swal("Cancelled", "Your imaginary file is safe :)", "error");
-                                 }
-                             });
-
-                 }
-                 ;
-
     </script>
 
 </html>
