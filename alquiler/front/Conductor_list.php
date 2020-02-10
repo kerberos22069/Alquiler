@@ -45,6 +45,7 @@
 
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>
 
 
 
@@ -159,7 +160,9 @@
     <script>
                 $(document).ready(function () {
 
-
+ var Global_nom_Con;
+ var Global_cc_Con;
+ var Global_ID_Con;
 
 
                     $('.dataTables-example').DataTable({
@@ -230,6 +233,18 @@
             cargarCliente(idp);
             $('#myModalDetalles').addClass(' data-backdrop="static" data-keyboard="false"');
             $('#myModalDetalles').modal({show: true});
+
+        }
+
+        function AbrirRelacionViaje(idp,id2,id3) {
+
+            // console.log(idp);
+//            alert(""+idp+""+id2+""+id3);
+            Global_nom_Con=id3;
+            Global_cc_Con=id2;
+            Global_ID_Con=idp;
+//            cargarCliente(idp);
+         relacion_pago_choferes();
 
         }
 

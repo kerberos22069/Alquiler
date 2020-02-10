@@ -311,6 +311,15 @@ function devoluciones() {  /**  tabla de datos  */
 //  enviar("",'../back/controller/Ventas_fact_listall_xFact.php?emp='+emp,postVentas_factList); 
 }
 
+function relacion_pago_choferes() {  /**  tabla de datos  */
+    var url = "Conductor_pagos.php";
+    var datos = {};
+    var rta = "#mostrarcontenido";
+    ajax(url, datos, rta);
+//enviar(formData, rutaBack ,postClientesList); 
+//  enviar("",'../back/controller/Ventas_fact_listall_xFact.php?emp='+emp,postVentas_factList); 
+}
+
 
     function ActivarEditar(){
         

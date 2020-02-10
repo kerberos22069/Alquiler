@@ -10,16 +10,15 @@
                 <div class="ibox ">
                     <div class="ibox-title"> 
                         <div style="text-align: center; color: white" >
-                            <h1><b>Devoluciones</b></h1>
+                            <h1><b>Relacion de Viajes</b></h1>
 
                         </div>
                         
                     </div>                      
                     <div class="ibox-content">
                         
-                  
+                        <input style="display: none"  type="text" id="InputId_orden" name="Id_orden" class="form-control" readonly>
                         <div class="row">
-                            
                         
                         <div class="col-lg-6">
                             
@@ -50,7 +49,7 @@
                         </div>
   
                       </div>
-                        <hr>
+                          <hr>
                         <div class="row">
                               <div class="col-lg-12">
                             <div class="form-group row has-success">
@@ -93,7 +92,7 @@
                             <hr>
                         </div>
                         </div>
-                        
+                        <hr>
                         <div class="table-responsive">
                             <table id="tabla_facturas" class="table table-striped table-bordered table-hover dataTables-example" >
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
@@ -356,6 +355,29 @@
     <!-- Page-Level Scripts -->
     <script>
 
+        $(document).ready(function () {
+
+        document.getElementById('Inputnombres_orden').value=Global_nom_Con;
+        document.getElementById('InputId_orden').value=Global_ID_Con;
+        document.getElementById('Inputcc_orden').value=Global_cc_Con;
+
+        /**
+         * Metemos las fechas por default
+         *
+         **/
+
+        Date.prototype.toDateInputValue = (function() {
+            var local = new Date(this);
+            local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+            return local.toJSON().slice(0,10);
+        });
+
+        $('#fecha_inicio').val(new Date().toDateInputValue());
+        $('#fecha_fin').val(new Date().toDateInputValue());
+
+
+        });
+
 
 
 
@@ -393,25 +415,6 @@
             
            
          }
-
-        $(document).ready(function () {
-
-        /**
-         * Metemos las fechas por default
-         *
-         **/
-
-        Date.prototype.toDateInputValue = (function() {
-            var local = new Date(this);
-            local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-            return local.toJSON().slice(0,10);
-        });
-
-        $('#fecha_inicio').val(new Date().toDateInputValue());
-        $('#fecha_fin').val(new Date().toDateInputValue());
-
-
-        });
 
     </script> 
 
