@@ -110,7 +110,7 @@ function reciboPorAlquiler() {
 
 function Clientes_Listar() {  /**  tabla de datos  */
     var url = "Clientes_list.php";
-    var datos = {};
+    var datos = {}; 
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);
 //enviar(formData, rutaBack ,postClientesList); 
