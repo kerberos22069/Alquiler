@@ -178,15 +178,15 @@ function Salida_Registrar() {
     
     }
 
-function Salida_listar() {  
-    var url = "Ordenes_list.php";
-    var datos = {};
-    var rta = "#mostrarcontenido";
-    ajax(url, datos, rta);
-    
- enviar("", '../back/controller/Alquiler_list_all.php' ,postFacturasListxall);
-    
-}
+//function Salida_listar() {  
+//    var url = "Ordenes_list.php";
+//    var datos = {};
+//    var rta = "#mostrarcontenido";
+//    ajax(url, datos, rta);
+//    
+// enviar("", '../back/controller/Alquiler_list_all.php' ,postFacturasListxall);
+//    
+//}
 
 
 

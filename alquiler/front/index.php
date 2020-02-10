@@ -74,14 +74,14 @@
                     
                     
                     
-<!--                    
+                    
                     
 
                    <li class="">
                     <a href="#" aria-expanded="false"><i class="fa fa-edit"></i> <span class="nav-label">Ordenes</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
                                          <li>
-                        <a onclick="Salida_listar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
+                        <a onclick="Salida_Registrar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
                           </li>
         
                           <li>
@@ -91,11 +91,10 @@
                     </ul>
                    </li >
                     
-                    -->
-<!--                    
--->                     <li>
+                    
+<!--                                      <li>
                         <a onclick="facturas_by_fecha()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
-                          </li>
+                          </li>-->
                     <li>
                         <a onclick="Clientes_Listar()"><i class="fa fa-users"></i> <span class="nav-label">Clientes </span></a>
                     </li>
