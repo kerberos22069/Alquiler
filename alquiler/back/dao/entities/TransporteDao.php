@@ -38,7 +38,7 @@ $transporte_conductor=$transporte->getTransporte_conductor();
 
       try {
           $sql= "INSERT INTO `transporte`(  `transporte_flete`, `factura_idfactura`, `transporte_conductor`, `choferes_idchoferes`)"
-          ."VALUES ($transporte_flete','$factura_idfactura','$transporte_conductor','$transporte_conductor')";
+          ."VALUES ('$transporte_flete','$factura_idfactura','$transporte_conductor','$transporte_conductor')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');

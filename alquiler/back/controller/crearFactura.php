@@ -6,6 +6,8 @@ require_once realpath('../facade/GlobalController.php');
 $generalDao = GlobalController::getGeneralDaoInstance();
 $generalDao->comenzarTransaccion();
 try {
+    date_default_timezone_set('America/Lima');
+    $fecha = date("Y-m-d H:i:s");
 
     $Cliente_idcliente = strip_tags($_POST['cliente_id']);
 
@@ -20,15 +22,16 @@ try {
         $factura->setIdfactura($factura_id);
         $cliente = new Cliente();
         $cliente->setIdcliente($Cliente_idcliente);
-        FacturaFacade::insert($factura_id, $fecha, $fac_descueto, $cliente);
+        FacturaFacade::insert($factura_id, $fecha, $cliente);
     }
 
-    date_default_timezone_set('America/Lima');
-    $fecha = date("Y-m-d H:i:s");
-    
+
     include_once realpath('../facade/AlquilerFacade.php');
     include_once realpath('../facade/ProductoFacade.php');
     $alquileres = json_decode(strip_tags($_POST['alquileres']));
+
+
+
 
     foreach ($alquileres as $obj => $alquiler) {
         $cantidad = $alquiler->cantidad;
@@ -36,34 +39,28 @@ try {
         $Producto_idprod = $alquiler->id_producto;
         $producto = new Producto();
         $producto->setIdprod($Producto_idprod);
-        
+
+        $i = 0;
         if (count($facturas) > 0) {
             $listByFactura = AlquilerFacade::listByFactura($factura_id);
-            foreach ( $listByFactura as $objx => $alquilerExistente) {
-                if($alquilerExistente->getProducto_idprod() == $Producto_idprod){
+            foreach ($listByFactura as $objx => $alquilerExistente) {
+                if ($alquilerExistente->getProducto_idprod()->getIdprod() == $Producto_idprod) {
                     $alquilerExistente->setCantidad($alquiler->cantidad + $alquilerExistente->getCantidad());
                     AlquilerFacade::editarAlquiler($alquilerExistente);
                     break;
                 }
             }
-        }else{
+        } else {
             AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);
         }
         ProductoFacade::alquilar($Producto_idprod, $cantidad);
     }
-    
-    
-    $fac_descueto = strip_tags($_POST['descuento']);
 
     include_once realpath('../facade/TransporteFacade.php');
     $transporte_flete = strip_tags($_POST['transporte_flete']);
     if ($transporte_flete != NULL && $transporte_flete != "" && $transporte_flete != "0") {
         $transporte_conductor = strip_tags($_POST['conductor_nombre']);
-        TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor,$transporte_conductor);
-    }else{
-        $transporte_flete = '0';
-          $transporte_conductor = '0';
-           TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor,$transporte_conductor);
+        TransporteFacade::insert($transporte_flete, $factura, $transporte_conductor, $transporte_conductor);
     }
 
     $generalDao->confirmarTransaccion();
@@ -72,4 +69,5 @@ try {
     $generalDao->rollback();
     echo '{"factura_id" : -1}';
     echo $e->getMessage();
+    var_dump($e);
 }

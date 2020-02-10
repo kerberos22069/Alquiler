@@ -634,6 +634,7 @@ function llenarEncabezado(factura_id) {
 function orden_devolucion(idFactura) {
     contenedor = document.getElementById('articulosList');
     var factura = obtenerFactura(idFactura);
+    console.log(factura);
     for (var i in factura.alquileres) {
         var alquiler = factura.alquileres[i];
         if (!alquiler.devuelto) {
@@ -649,6 +650,9 @@ function orden_devolucion(idFactura) {
             contenedor.appendChild(mi_tr);
         }
     }
-    firmaCliente.innerHTML = factura.cliente.cliente_nombre + "<br>" + factura.cliente.cliente_cedula;
+    firmaCliente.innerHTML = factura.cliente.cliente_nombre + "<br>NIT: " + factura.cliente.cliente_cedula;
 }
 
+function imprimirFactura(idFactura){
+    
+}
