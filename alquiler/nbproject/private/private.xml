@@ -5,7 +5,10 @@
         <group>
             <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/js/reportesController.js</file>
             <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/index.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/factura_by_fecha.php</file>
             <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/Orden_devolucion.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/factura_by_Cedula.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/Orden_Salida.php</file>
             <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/Conductor_list.php</file>
             <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/Conductor_pagos.php</file>
             <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/js/funciones.js</file>

@@ -115,6 +115,21 @@ class TransporteFacade {
      $transporteDao->close();
      return $result;
   }
+  public static function reporte_transporte($fechaI, $fechaF, $id){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $transporteDao =$FactoryDao->gettransporteDao(self::getDataBaseDefault());
+     $result = $transporteDao->reporte_transporte($fechaI, $fechaF, $id);
+     $transporteDao->close();
+     return $result;
+  }
+  
+  public static function reporte_transporte_Total($fechaI, $fechaF, $id){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $transporteDao =$FactoryDao->gettransporteDao(self::getDataBaseDefault());
+     $result = $transporteDao->reporte_transporte_Total($fechaI, $fechaF, $id);
+     $transporteDao->close();
+     return $result;
+  }
   
   public static function listByFactura($factura_id){
      $FactoryDao=new FactoryDao(self::getGestorDefault());

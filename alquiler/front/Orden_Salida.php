@@ -704,8 +704,7 @@
 
 
 
-                              }
-                              ;
+                              };
 
 
          function Activar_Cho_enviar(){
