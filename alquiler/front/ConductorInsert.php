@@ -17,13 +17,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="Inputcliente_nombre">Nombres y Apellidos</label>
-                                <input type="text" name="nom_chofer" class="form-control" id="Inputcliente_nombre" placeholder="cliente_nombre">
+                                <label for="Inputcliente_nombre">Nombres y apellidos</label>
+                                <input type="text" name="nom_chofer" class="form-control" id="Inputcliente_nombre" placeholder="Nombre y apellido">
                             </div>
                             
                             <div class="form-group">
-                                <label for="Inputcliente_cc">Cedula</label>
-                                <input type="text" name="cc_chofer" class="form-control" id="Inputcliente_cc" placeholder="cliente_cc">
+                                <label for="Inputcliente_cc">Cédula del conductor</label>
+                                <input type="text" name="cc_chofer" class="form-control" id="Inputcliente_cc" placeholder="Cédula">
                             </div>
 
                         </div>
@@ -34,11 +34,11 @@
 
                             <div class="form-group">
                                 <label for="Inputcliente_direccion">Dirección</label>
-                                <input type="text" name="direccion" class="form-control" id="Inputcliente_direccion" placeholder="cliente_direccion">
+                                <input type="text" name="direccion" class="form-control" id="Inputcliente_direccion" placeholder="Dirección (Opcional)">
                             </div>
                             <div class="form-group">
                                 <label for="Inputcliente_telefono">Teléfono</label>
-                                <input type="text" name="chofe_telefono" class="form-control" id="Inputcliente_telefono" placeholder="cliente_telefono">
+                                <input type="text" name="chofe_telefono" class="form-control" id="Inputcliente_telefono" placeholder="Teléfono">
                             </div>
                             
                         </div>

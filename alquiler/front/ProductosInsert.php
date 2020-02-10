@@ -17,41 +17,37 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                          <label for="Inputprod_nombre">producto nombre</label>
-                          <input type="text" name="prod_nombre" class="form-control" id="Inputprod_nombre" placeholder="prod_nombre">
+                          <label for="Inputprod_nombre">Nombre del producto</label>
+                          <input type="text" name="prod_nombre" class="form-control" id="Inputprod_nombre" placeholder="Nombre">
                        </div>
                       <div class="form-group">
-                          <label for="Inputprod_descripcion">producto descripcion</label>
-                          <input type="text" name="prod_descripcion" class="form-control" id="Inputprod_descripcion" placeholder="prod_descripcion">
+                          <label for="Inputprod_descripcion">Descripción del producto</label>
+                          <input type="text" name="prod_descripcion" class="form-control" id="Inputprod_descripcion" placeholder="Descripción" >
                        </div>
                       <div class="form-group">
-                          <label for="Inputprod_precio">producto precio alquiler</label>
-                          <input type="text" name="prod_precio" class="form-control" id="Inputprod_precio" placeholder="prod_precio" value="0">
-                       </div>
-                            <div class="form-group">
-                                <label for="Inputfoto">Foto</label>
-                                <input id="imagen" name="imagen" class="form-control" type="file">
-                            </div>
-                        </div>
+                          <label for="Inputprod_precio">Precio base del producto</label>
+                          <input type="number" name="prod_precio" class="form-control" id="Inputprod_precio" placeholder="Precio" value="0">
+                       </div>                            
+                    </div>
 
 
 
                         <div class="col-lg-6">
                           <div class="form-group">
-                          <label for="Inputprod_stock">producto stock</label>
-                          <input type="text" name="prod_stock" class="form-control" id="Inputprod_stock" placeholder="prod_stock" value="0">
+                          <label for="Inputprod_stock">Stock del producto</label>
+                          <input type="number" name="prod_stock" class="form-control" id="Inputprod_stock" placeholder="prod_stock" value="0">
                        </div>
                       <div class="form-group">
-                          <label for="Inputprod_disponible">producto disponible</label>
-                          <input type="text" name="prod_disponible" class="form-control" id="Inputprod_disponible" placeholder="prod_disponible" value="0">
+                          <label for="Inputprod_disponible" hidden="true">producto disponible</label>
+                          <input type="text" name="prod_disponible" class="form-control" id="Inputprod_disponible" placeholder="prod_disponible" value="0" hidden="true">
                        </div>
                       <div class="form-group">
-                          <label for="Inputprod_reparacion">producto reparacion</label>
-                          <input type="text" name="prod_reparacion" class="form-control" id="Inputprod_reparacion" placeholder="prod_reparacion" value="0">
+                          <label for="Inputprod_reparacion" hidden="true">producto reparacion</label>
+                          <input type="text" name="prod_reparacion" class="form-control" id="Inputprod_reparacion" placeholder="prod_reparacion" value="0" hidden="true">
                        </div>
                       <div class="form-group">
-                          <label for="Inputprod_danado">producto dañado</label>
-                          <input type="text" name="prod_danado" class="form-control" id="Inputprod_danado" placeholder="prod_dañado" value="0">
+                          <label for="Inputprod_danado" hidden="true">producto dañado</label>
+                          <input type="text" name="prod_danado" class="form-control" id="Inputprod_danado" placeholder="prod_dañado" value="0" hidden="true">
                        </div>
                         </div>
                     </div>

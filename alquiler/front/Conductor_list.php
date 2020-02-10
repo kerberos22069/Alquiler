@@ -45,7 +45,7 @@
 
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>
+                                      
 
 
 
@@ -166,6 +166,9 @@
 
 
                     $('.dataTables-example').DataTable({
+                        language : {
+                             "url": "js/Spanish.json"
+                        },
                         pageLength: 25,
                         responsive: true,
                         dom: '<"html5buttons"B>lTfgitp',

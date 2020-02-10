@@ -64,7 +64,8 @@
         </div>
     </div>
 
-    <!-- Modal de Registrar Empleado -->
+    <!-- Modal de Registrar Empleado --> 
+    
     <div class="modal  inmodal fade" id="myModalDetalles" tabindex="-1" role="dialog"  aria-hidden="true">
         <div class="modal-dialog modal-lg mdialTamanio">
             <div id="menumodal1" class="modal-content">
@@ -87,30 +88,30 @@
                        </div>
                       <div class="form-group">
                           <label for="Inputcliente_nombre">cliente_nombre</label>
-                          <input type="text" name="cliente_nombre" class="form-control" id="Inputcliente_nombre" placeholder="cliente_nombre">
+                          <input type="text" name="cliente_nombre" class="form-control" id="Inputcliente_nombre" placeholder="Nombre">
                        </div>
                       <div class="form-group">
                           <label for="Inputcliente_apellido">cliente_apellido</label>
-                          <input type="text" name="cliente_apellido" class="form-control" id="Inputcliente_apellido" placeholder="cliente_apellido">
+                          <input type="text" name="cliente_apellido" class="form-control" id="Inputcliente_apellido" placeholder="Apellido">
                        </div>
                                                                    <div class="form-group">
                           <label for="Inputcliente_correo">cliente_correo</label>
-                          <input type="text" name="cliente_correo" class="form-control" id="Inputcliente_correo" placeholder="cliente_correo">
+                          <input type="email" name="cliente_correo" class="form-control" id="Inputcliente_correo" placeholder="Correo electronico">
                        </div>
-                                        </div>
+                    </div>
                                         
                                         <div class="col-lg-6">
                   <div class="form-group">
                           <label for="Inputcliente_cc">cliente_cc</label>
-                          <input type="text" name="cliente_cc" class="form-control" id="Inputcliente_cc" placeholder="cliente_cc">
+                          <input type="text" name="cliente_cc" class="form-control" id="Inputcliente_cc" placeholder="Cedula">
                        </div>
                       <div class="form-group">
                           <label for="Inputcliente_telefono">cliente_telefono</label>
-                          <input type="text" name="cliente_telefono" class="form-control" id="Inputcliente_telefono" placeholder="cliente_telefono">
+                          <input type="text" name="cliente_telefono" class="form-control" id="Inputcliente_telefono" placeholder="Teléfono">
                        </div>
                       <div class="form-group">
                           <label for="Inputcliente_direccion">cliente_direccion</label>
-                          <input type="text" name="cliente_direccion" class="form-control" id="Inputcliente_direccion" placeholder="cliente_direccion">
+                          <input type="text" name="cliente_direccion" class="form-control" id="Inputcliente_direccion" placeholder="Dirección">
                        </div>
                                         </div>
 
@@ -188,10 +189,10 @@
     <script>
                 $(document).ready(function () {
 
-
-
-
                     $('.dataTables-example').DataTable({
+                        language : {
+                             "url": "js/Spanish.json"
+                        },
                         pageLength: 25,
                         responsive: true,
                         dom: '<"html5buttons"B>lTfgitp',
@@ -216,6 +217,10 @@
                     });
 
                 });
+
+                 $('#example').DataTable({
+    
+  });
 
             </script>
 
