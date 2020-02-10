@@ -57,7 +57,7 @@ class AlquilerFacade {
         date_default_timezone_set('America/Lima');
         $fecha = date("Y-m-d");        
         $alquiler->setFechafin($fecha);
-        $alquiler = self::crear_json_movimiento($alquiler, $cantidad, 0, 1);
+        $alquiler = self::crear_json_movimiento($alquiler, $cantidad, 0, 1,$fecha);
         
         $FactoryDao = new FactoryDao(self::getGestorDefault());
         $alquilerDao = $FactoryDao->getalquilerDao(self::getDataBaseDefault());

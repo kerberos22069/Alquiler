@@ -20,7 +20,7 @@ function armarReporteDeFacturas($facturas) {
         $myFactura = new stdClass();
         $myFactura->id = $Factura->getidfactura();
         $date = date_create($Factura->getfecha());
-        $myFactura->fecha = date_format($date, "d/m/Y");
+        $myFactura->fecha = date_format($date, "d/m/Y H:i:s");
 
         $cliente = ClienteFacade::select($Factura->getcliente_idcliente()->getidcliente()); //por esto es que odio el formato workbench...
         $myCliente = new stdClass();

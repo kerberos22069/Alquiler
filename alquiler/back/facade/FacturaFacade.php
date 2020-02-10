@@ -37,11 +37,10 @@ class FacturaFacade {
    * @param fac_descueto
    * @param cliente_idcliente
    */
-  public static function insert( $idfactura,  $fecha,  $fac_descueto,  $cliente_idcliente){
+  public static function insert( $idfactura,  $fecha,  $cliente_idcliente){
       $factura = new Factura();
       $factura->setIdfactura($idfactura); 
       $factura->setFecha($fecha); 
-      $factura->setFac_descueto($fac_descueto); 
       $factura->setCliente_idcliente($cliente_idcliente); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
