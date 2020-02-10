@@ -675,9 +675,6 @@ function multiplicar() {
     }
 
 }
-;
-
-
 
 
 function Descuento() {
@@ -690,11 +687,7 @@ function Descuento() {
     m2 = document.getElementById("descuento").value;
     r = m1 - m2;
     document.getElementById("Inputprecio_total").value = r;
-
-
-
 }
-;
 
 
 function Activar_Cho_enviar() {
@@ -703,7 +696,7 @@ function Activar_Cho_enviar() {
     document.getElementById('agregarProd').disabled = false;
     document.getElementById('btn_admin_conductor').disabled = false;
 }
-;
+
 
 function Activar_productos() {
 
