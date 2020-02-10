@@ -18,15 +18,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="Inputcliente_nombre">Nombre</label>
-                                <input type="text" name="cliente_nombre" class="form-control" id="Inputcliente_nombre" placeholder="cliente_nombre">
+                                <input type="text" name="cliente_nombre" class="form-control" id="Inputcliente_nombre" placeholder="Nombre">
                             </div>
                             <div class="form-group">
                                 <label for="Inputcliente_apellido">Apellido</label>
-                                <input type="text" name="cliente_apellido" class="form-control" id="Inputcliente_apellido" placeholder="cliente_apellido">
+                                <input type="text" name="cliente_apellido" class="form-control" id="Inputcliente_apellido" placeholder="Apellido">
                             </div>
                             <div class="form-group">
                                 <label for="Inputcliente_cc">NIT</label>
-                                <input type="text" name="cliente_cc" class="form-control" id="Inputcliente_cc" placeholder="cliente_cc">
+                                <input type="text" name="cliente_cc" class="form-control" id="Inputcliente_cc" placeholder="Nit o Cedula">
                             </div>
 
                         </div>
@@ -37,15 +37,15 @@
 
                             <div class="form-group">
                                 <label for="Inputcliente_direccion">Dirección</label>
-                                <input type="text" name="cliente_direccion" class="form-control" id="Inputcliente_direccion" placeholder="cliente_direccion">
+                                <input type="text" name="cliente_direccion" class="form-control" id="Inputcliente_direccion" placeholder="Dirección">
                             </div>
                             <div class="form-group">
                                 <label for="Inputcliente_telefono">Teléfono</label>
-                                <input type="text" name="cliente_telefono" class="form-control" id="Inputcliente_telefono" placeholder="cliente_telefono">
+                                <input type="text" name="cliente_telefono" class="form-control" id="Inputcliente_telefono" placeholder="Teléfono">
                             </div>
                             <div class="form-group">
                                 <label for="Inputcliente_correo">Correo</label>
-                                <input type="text" name="cliente_correo" class="form-control" id="Inputcliente_correo" placeholder="cliente_correo">
+                                <input type="email" name="cliente_correo" class="form-control" id="Inputcliente_correo" placeholder="Correo electrónico">
                             </div>
                         </div>
                     </div>

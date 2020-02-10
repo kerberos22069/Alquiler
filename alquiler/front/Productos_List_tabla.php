@@ -103,11 +103,8 @@
                           <label for="Inputprod_precio">producto precio alquiler</label>
                           <input type="text" name="prod_precio" class="form-control" id="Inputprod_precio" placeholder="prod_precio" value="0">
                        </div>
-                            <div class="form-group">
-                                <label for="Inputfoto">Foto</label>
-                                <input id="imagen" name="imagen" class="form-control" type="file">
-                            </div>
-                        </div>
+                            
+                    </div>
 
 
 
@@ -170,11 +167,10 @@
             <!-- Page-Level Scripts -->
             <script>
                 $(document).ready(function () {
-
-
-
-
                     $('.dataTables-example').DataTable({
+                        language : {
+                             "url": "js/Spanish.json"
+                        },
                         pageLength: 25,
                         responsive: true,
                         dom: '<"html5buttons"B>lTfgitp',
@@ -202,6 +198,12 @@
 
             </script>
             <script>
+
+                function limpiarDataTable(clase) {
+                    var table = $('.'+clase).DataTable();
+                    table.clear().draw();
+                }
+
                 function mostrarTodo(idp) {
 
                     // console.log(idp);
@@ -239,7 +241,7 @@
 
             <script>
                                 function mostrarEliminar(empresa) {
-
+                                    limpiarDataTable("dataTables-example");
                                     swal({
                                         title: "Eliminar",
                                         text: "Desea Eliminar el Registro!",
@@ -252,9 +254,11 @@
                                         closeOnCancel: false},
                                             function (isConfirm) {
                                                 if (isConfirm) {
+                                                    
                                                     $.get('../back/controller/Producto_delete.php', {'empresa': empresa}, function (depa) {
                                                     });
-                                                     Productos_Listar();
+                                                    
+                                                    Productos_Listar();
 
                                                 } else {
                                                     swal("Cancelado", "Se ha cancelado la operación :)", "error");
