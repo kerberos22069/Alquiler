@@ -510,11 +510,11 @@ function enviarFactura() {
 
             },
             success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                $("#resultado").html(response);
+                console.log(response);
                 rta = JSON.parse(response);
-                if (rta.factura_id >= 0) {
-                    alert("Alquilado con éxito");
-                    facturas_by_fecha();
+                if (rta.factura_id >= 0) {                    
+                    //facturas_by_fecha();
+                    modal5();
                 } else {
                     alert("Ha habido un problema con la solicitud");
                 }
@@ -551,7 +551,8 @@ function modal5() {
 function imprimirOrdenSalida() {
     var clienteCc = document.getElementById("Inputcc").value;
     var nun_factura = document.getElementById("Inputnum_factura").value;
-    window.open('reciboOrdenesSalida.html?clienteCc=' + clienteCc + '&nun_factura=' + nun_factura);
+    window.open('reciboOrdenesSalida.html?clienteCc=' + clienteCc + '&nun_factura=' + (nun_factura-1));
+    
 }
 
 
@@ -649,7 +650,7 @@ function buscarcedula() {
 
     empresa = basic_value;
 
-    $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': empresa}, function (depa) {
+    $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': basic_value}, function (depa) {
         depa = JSON.parse(depa);
         if (depa[1].result == 'error') {
             alert('NO existe debe registra el Cliente ');
@@ -693,6 +694,8 @@ function multiplicar() {
 
 }
 
+       
+    
 
 function Descuento() {
     can = 0;

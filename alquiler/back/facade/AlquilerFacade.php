@@ -49,7 +49,7 @@ class AlquilerFacade {
      */
     public static function insert($fecha_inicio, $cantidad, $valor, $producto_idprod, $factura_idfactura) {
         
-        echo 'la gran puta concha de la lora';
+
         
         $alquiler = new Alquiler();
         $alquiler->setFecha_inicio($fecha_inicio);
@@ -62,7 +62,7 @@ class AlquilerFacade {
         $alquiler->setFechafin($fecha);
         $alquiler = self::crear_json_movimiento($alquiler, $cantidad, 0, 1,$fecha);
         
-        var_dump($alquiler);
+      
         
         $FactoryDao = new FactoryDao(self::getGestorDefault());
         $alquilerDao = $FactoryDao->getalquilerDao(self::getDataBaseDefault());
