@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-02-2020 a las 23:52:59
+-- Tiempo de generación: 10-02-2020 a las 00:13:18
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.1
 
@@ -130,19 +130,20 @@ CREATE TABLE `factura` (
   `fac_descueto` int(11) NOT NULL DEFAULT 0,
   `cliente_idcliente` int(11) NOT NULL,
   `abonos` text DEFAULT NULL,
-  `estado` tinyint(4) DEFAULT NULL
+  `estado` tinyint(4) DEFAULT NULL,
+  `fact_observacion` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `factura`
 --
 
-INSERT INTO `factura` (`idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`, `abonos`, `estado`) VALUES
-(1, '2020-01-01 09:14:56', 500, 2, '[{\"fecha\":\"2020-01-05 09:19:13\",\"cantidad\":\"2000\"},{\"fecha\":\"2020-01-30 10:26:57\",\"cantidad\":\"15000\"}]', NULL),
-(3, '2020-02-08 17:55:48', 0, 1, '[]', NULL),
-(4, '0000-00-00 00:00:00', 0, 4, '[]', NULL),
-(5, '0000-00-00 00:00:00', 0, 4, '[]', NULL),
-(6, '0000-00-00 00:00:00', 0, 4, '[]', NULL);
+INSERT INTO `factura` (`idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`, `abonos`, `estado`, `fact_observacion`) VALUES
+(1, '2020-01-01 09:14:56', 500, 2, '[{\"fecha\":\"2020-01-05 09:19:13\",\"cantidad\":\"2000\"},{\"fecha\":\"2020-01-30 10:26:57\",\"cantidad\":\"15000\"}]', NULL, ''),
+(3, '2020-02-08 17:55:48', 0, 1, '[]', NULL, ''),
+(4, '0000-00-00 00:00:00', 0, 4, '[]', NULL, ''),
+(5, '0000-00-00 00:00:00', 0, 4, '[]', NULL, ''),
+(6, '0000-00-00 00:00:00', 0, 4, '[]', NULL, '');
 
 -- --------------------------------------------------------
 
