@@ -1,6 +1,6 @@
 <?php $fcha = date("Y-m-d"); ?>
 
- 
+
 <html>
     <head>  
         <title>Crear alquileres</title>
@@ -22,20 +22,12 @@
                         <div class="row">
                             <div class="col-sm-10">
                                 <div class="form-group">
-                                    <select name="country" id="Inputpersona_cedula" class="form-control">
-                                        
+                                    <select name="country" oninput="getSelectValue()" id="Inputpersona_cedula" class="form-control">
+
                                     </select>
                                 </div> 
                             </div>
                             <div class="col-sm-2" >
-                                <div class="form-group" >
-                                    <label for="Inputpersona_cedula">    </label>
-                                    <button  style="padding-right: 4px;" type="button" class="btn btn-primary" onclick="buscarcedula()">Buscar </button>
-                                </div>
-                                <div class="form-group" >
-                                    <label for="Inputpersona_cedula">    </label>
-                                    <button  style="padding-right: 4px;" type="button" class="btn btn-primary" onclick="modal5()">modal5 </button>
-                                </div>
                             </div>
 
                         </div>
@@ -223,8 +215,8 @@
                                     <div class=" row" style="visibility: hidden;" id="div_conductores">
 
                                         <select class="col-sm-6 form-control"  id="InputChoferes">
-                                            
-                                       </select>  
+
+                                        </select>  
                                         <div class="col-sm-6 p-xs">
                                             <input value="0" id="input_flete" style=" border:1px solid #ffffff;" type="number" min="0" class="form-control" onchange="restar()">
                                         </div>                      
@@ -370,20 +362,20 @@
     </div>
 
     <!-- Modal de confirmacion para generar factura -->
-        <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                                            <h4 class="modal-title" style="font-size: 15px">¿Desea imprimir esta orden de salida?</h4>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" onclick="imprimirOrdenSalida()">Imprimir</button>
-                                            <button type="button" class="btn btn-white center" data-dismiss="modal">Cancelar</button>                                           
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                    <h4 class="modal-title" style="font-size: 15px">¿Desea imprimir esta orden de salida?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="imprimirOrdenSalida()">Imprimir</button>
+                    <button type="button" class="btn btn-white center" data-dismiss="modal">Cancelar</button>                                           
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Fin Modal de confirmacion para generar factura -->
     <script src="js/Ajax.js "></script>
     <script src="js/ViewManager.js "></script>
@@ -391,267 +383,302 @@
 
     <script>
 
-    /////////////////////////////////////////////////
-    /*
-    * Necesito saber cuando agrego o quito el conductor a la factura parcial.
-    * Por esa razon, solamente compruebo si es par agregado, impar no agregado.
-    * Inicia en uno porque es impar, eso significa que aun no se agregado ningun conductor.
-    */
-    is_conductor_agregado = 1;
+/////////////////////////////////////////////////
+/*
+ * Necesito saber cuando agrego o quito el conductor a la factura parcial.
+ * Por esa razon, solamente compruebo si es par agregado, impar no agregado.
+ * Inicia en uno porque es impar, eso significa que aun no se agregado ningun conductor.
+ */
+is_conductor_agregado = 1;
 
-    /*
-    * Contiene todos los clientes registrados en base de datos.
-    * El unico momento en que esto se actualiza es el document on ready. 
-    */
-    clientes = [];
+/*
+ * Contiene todos los clientes registrados en base de datos.
+ * El unico momento en que esto se actualiza es el document on ready. 
+ */
+clientes = [];
 
-    /*
-    * Esta variable definira
-    *
-    */
-    clienteCcOrdenSalida = -1;
-    //////////////////////////////////////////////// 
+/*
+ * Esta variable definira
+ *
+ */
+clienteCcOrdenSalida = -1;
+//////////////////////////////////////////////// 
 
+$(document).ready(function () {
 
+    cargareNum_Factura();
+    cargarClientes();
+    cargarConductos();
 
-    $(document).ready(function () {
+});
 
-      cargareNum_Factura();
-      cargarClientes();
-      cargarConductos();
+    
 
-      $("#Inputpersona_cedula").onChange();
+function cargareNum_Factura() {
+
+    $.get('../back/controller/Factura_id.php', function (depa) {
+
+        depa = JSON.parse(depa);
+
+        $("#Inputnum_factura").val(depa[1].idfactura);//direccion
 
     });
+}
 
+function cargarClientes() {
+    $.ajax({
+        url: '../back/controller/Cliente_list.php',
+        type: 'get',
+        success: function (response) {
+            clientes = JSON.parse(response);
+            clientes.shift();
+            construirOptionComboBuscarClientes(clientes);
+            $('#Inputpersona_cedula')
+                    .editableSelect()
+                        .on('select.editable-select', function (e, li) {
+                            buscarcedula();
+                        });
+        },
+        error: function (response) {
+            console.log("No se ha podido cargar los clientes")
+        }
+    });
+}
 
-  function cargareNum_Factura() {
-
-      $.get('../back/controller/Factura_id.php', function (depa) {
-
-          depa = JSON.parse(depa);
-
-          $("#Inputnum_factura").val(depa[1].idfactura);//direccion
-
-        });
+function construirOptionComboBuscarClientes(misClientes) {
+    mi_select = document.getElementById('Inputpersona_cedula');
+    for (let i in misClientes) {
+        mi_option = document.createElement("option");
+        mi_option.setAttribute("value", misClientes[i].cliente_cc);
+        mi_option.appendChild(document.createTextNode(misClientes[i].cliente_nombre));
+        mi_select.appendChild(mi_option);
     }
+    //Esto hay que arreglarlo. La idea es que los nombres y numeros de cedula no se combinan
+    for (let i in misClientes) {
+        mi_option = document.createElement("option");
+        mi_option.setAttribute("value", misClientes[i].cliente_cc);
+        mi_option.appendChild(document.createTextNode(misClientes[i].cliente_cc));
+        mi_select.appendChild(mi_option);
+    }
+}
 
-    function cargarClientes(){
-        $.ajax({            
-            url: '../back/controller/Cliente_list.php',
-            type: 'get',
-            success: function (response) {                
-                clientes = JSON.parse(response);
-                delete clientes[0];
-                console.log(clientes);
-                construirOptionComboBuscarClientes(clientes);
-                $('#Inputpersona_cedula').editableSelect();
-              },
-            error: function (response) { 
-                console.log("No se ha podido cargar los clientes")
+var prod_alq = [];
+
+function enviarFactura() {
+    var nun_factura = document.getElementById("Inputnum_factura").value;
+    var clienete = document.getElementById("Inputid").value;
+    var flete = document.getElementById("input_flete").value;
+    var conductor = document.getElementById("InputChoferes").value;
+    var fecha = document.getElementById("inputfecha_inicio").value;
+    var descuent = document.getElementById("Inputfact_descuento").value;
+    var alquileres = '[' + prod_alq + ']';
+
+    if (JSON.parse(alquileres).length > 0) {
+
+        var parametros = {
+            "factura_id": nun_factura,
+            "fecha_inicio": fecha,
+            "descuento": descuent,
+            "cliente_id": clienete,
+            "transporte_flete": flete,
+            "conductor_nombre": conductor,
+            "alquileres": alquileres
+        };
+        $.ajax({
+            data: parametros, //datos que se envian a traves de ajax
+            url: '../back/controller/crearFactura.php', //archivo que recibe la peticion
+            type: 'post', //método de envio
+            beforeSend: function () {
+                $("#resultado").html("Procesando, espere por favor...");
+
+            },
+            success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                $("#resultado").html(response);
+                rta = JSON.parse(response);
+                if (rta.factura_id >= 0) {
+                    alert("Alquilado con éxito");
+                    facturas_by_fecha();
+                } else {
+                    alert("Ha habido un problema con la solicitud");
+                }
+            },
+            error: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                $("#resultado").html(response);
             }
         });
+
+    } else {
+        alert("La factura está vacía. \nRegistra algunos productos para alquilar y vuelve a intentarlo.")
     }
+}
 
-    function construirOptionComboBuscarClientes(misClientes){
-        mi_select = document.getElementById('Inputpersona_cedula');
-        for(let i in misClientes){
-            mi_option = document.createElement("option"); 
-            mi_option.setAttribute("value", misClientes[i].cliente_cc);
-            mi_option.appendChild(document.createTextNode(misClientes[i].cliente_nombre));
-            mi_select.appendChild(mi_option);
-        }
-        //Esto hay que arreglarlo. La idea es que los nombres y numeros de cedula no se combinan
-        for(let i in misClientes){
-            mi_option = document.createElement("option"); 
-            mi_option.setAttribute("value", misClientes[i].cliente_cc);
-            mi_option.appendChild(document.createTextNode(misClientes[i].cliente_cc));
-            mi_select.appendChild(mi_option);
-        }
+$('#visibilityHidden').click(function (e) {
+
+    // Resetear, por si acaso has estado jugando con la otra propiedad
+    $('#hide-me').css('display', 'block');
+
+    if ($('#hide-me').css('visibility') != 'hidden') {
+        $('#hide-me').css('visibility', 'hidden');
+    } else {
+        $('#hide-me').css('visibility', 'visible');
     }
+});
+
+
+function modal5() {
+    $('#myModal5').modal({show: true});
+}
+
+
+
+function imprimirOrdenSalida() {
+    var clienteCc = document.getElementById("Inputcc").value;
+    var nun_factura = document.getElementById("Inputnum_factura").value;
+    window.open('reciboOrdenesSalida.html?clienteCc=' + clienteCc + '&nun_factura=' + nun_factura);
+}
 
 
 
 
-    var prod_alq = [];
-
-    function enviarFactura() {
-        var nun_factura = document.getElementById("Inputnum_factura").value;
-        var clienete = document.getElementById("Inputid").value;
-        var flete = document.getElementById("input_flete").value;
-        var conductor = document.getElementById("InputChoferes").value;
-        var fecha = document.getElementById("inputfecha_inicio").value;
-        var descuent = document.getElementById("Inputfact_descuento").value;
-        var alquileres = '[' + prod_alq + ']';
-
-        if (JSON.parse(alquileres).length > 0) {
-
-          var parametros = {
-              "factura_id": nun_factura,
-              "fecha_inicio": fecha,
-              "descuento": descuent,
-              "cliente_id": clienete, 
-              "transporte_flete": flete,
-              "conductor_nombre": conductor,
-              "alquileres": alquileres
-          };
-          $.ajax({
-              data: parametros, //datos que se envian a traves de ajax
-              url: '../back/controller/crearFactura.php', //archivo que recibe la peticion
-              type: 'post', //método de envio
-              beforeSend: function () {
-                  $("#resultado").html("Procesando, espere por favor...");
-
-              },
-              success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                  $("#resultado").html(response);
-                  rta = JSON.parse(response);
-                  if (rta.factura_id >= 0) {
-                      alert("Alquilado con éxito");
-                      facturas_by_fecha();
-                  } else {
-                      alert("Ha habido un problema con la solicitud");
-                  }
-              },
-              error: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                  $("#resultado").html(response);
-              }
-          });
-
-        } else {
-          alert("La factura está vacía. \nRegistra algunos productos para alquilar y vuelve a intentarlo.")
-        }
-        }
-        ;
-
-
-
-                              $('#visibilityHidden').click(function (e) {
-
-                                  // Resetear, por si acaso has estado jugando con la otra propiedad
-                                  $('#hide-me').css('display', 'block');
-
-                                  if ($('#hide-me').css('visibility') != 'hidden') {
-                                      $('#hide-me').css('visibility', 'hidden');
-                                  } else {
-                                      $('#hide-me').css('visibility', 'visible');
-                                  }
-                              });
-
-
-    function modal5(){
-       $('#myModal5').modal({show: true}); 
-    }  
-
-
-
-    function imprimirOrdenSalida(){
-        var clienteCc = document.getElementById("Inputcc").value;
-        var nun_factura = document.getElementById("Inputnum_factura").value;
-         window.open('reciboOrdenesSalida.html?clienteCc='+clienteCc+'&nun_factura='+nun_factura);
-    }
-
-   
-        
-
-    /*
-     * Esta funcion hace muchas cosas que no entiendo, lo unico que me interesa es lo de abajo
-     * Cada vez que le dan agregar producto se inserta en la variable globa prod_alq
-     */
-    function recorrerTabla() { 
-        /*recorro la tabla para calcular las columnas del precio para total y hacer desuento*/
-        rtotal = 0;
-        m1 = 0;
-        prod_alq = [];
-        $("#mytable tbody tr").each(function (index) {
-            if (index != 0) {
+/*
+ * Esta funcion hace muchas cosas que no entiendo, lo unico que me interesa es lo de abajo
+ * Cada vez que le dan agregar producto se inserta en la variable globa prod_alq
+ */
+function recorrerTabla() {
+    /*recorro la tabla para calcular las columnas del precio para total y hacer desuento*/
+    rtotal = 0;
+    m1 = 0;
+    prod_alq = [];
+    $("#mytable tbody tr").each(function (index) {
+        if (index != 0) {
             var campo1, campo2, campo3;
             $(this).children("td").each(function (index2) {
-              switch (index2) {
-                  case 0:
-                      campo1 = $(this).text();
-                      break;
-                  case 4:
-                      campo2 = $(this).text();
-                      break;
-                  case 6:
-                      campo3 = $(this).text();
+                switch (index2) {
+                    case 0:
+                        campo1 = $(this).text();
+                        break;
+                    case 4:
+                        campo2 = $(this).text();
+                        break;
+                    case 6:
+                        campo3 = $(this).text();
 
-                      rtotal = parseInt(rtotal) + parseInt(campo3);
+                        rtotal = parseInt(rtotal) + parseInt(campo3);
 
 
-                      break;
-              }
-              $(this).css("background-color", "#ECF8E0");
+                        break;
+                }
+                $(this).css("background-color", "#ECF8E0");
             });
-        var text2 = '{ "id_producto":"' + campo1 + '" , "cantidad":"' + campo2 + '", "valor":"' + campo3/campo2 + '" }';
-        prod_alq.push(text2);
-}
-m1 = document.getElementById("Inputfact_descuento").value;
+            var text2 = '{ "id_producto":"' + campo1 + '" , "cantidad":"' + campo2 + '", "valor":"' + campo3 / campo2 + '" }';
+            prod_alq.push(text2);
+        }
+        m1 = document.getElementById("Inputfact_descuento").value;
 
-flete = document.getElementById("input_flete").value;
+        flete = document.getElementById("input_flete").value;
 
-rtotal2 = 0;
-rtotal2 = parseInt(rtotal) - parseInt(m1) + parseInt(flete);
+        rtotal2 = 0;
+        rtotal2 = parseInt(rtotal) - parseInt(m1) + parseInt(flete);
 
-document.getElementById("Inputfact_total").value = rtotal2;
+        document.getElementById("Inputfact_total").value = rtotal2;
 
 
 
-})
+    })
 }
 ;
 
-                              function sumar(valor) {
+function sumar(valor) {
 
 
-                                  m1 = valor;
+    m1 = valor;
 
-                                  rtotal = parseInt(rtotal) + parseInt(m1)
-
-
-                                  document.getElementById("Inputfact_total").value = rtotal;
+    rtotal = parseInt(rtotal) + parseInt(m1)
 
 
-
-                              }
-                              ;
-                              function restar() {/*se llama a recorrer para q recalcule con el dato de descuento*/
-
-                                  recorrerTabla();
-
-                              }
-                              ;
-
-                              function recalcular() {
-                                  subtotal = 0;
-
-                                  m11 = document.getElementById("Inputdescuento").value;
-                                  ;
-
-                                  m22 = document.getElementById("Inputprecio_total").value;
-
-                                  subtotal = parseInt(m22) - parseInt(m11)
-
-
-                                  document.getElementById("Inputprecio_total").value = subtotal;
-
-                              }
-                              ;
+    document.getElementById("Inputfact_total").value = rtotal;
 
 
 
+}
+;
+function restar() {/*se llama a recorrer para q recalcule con el dato de descuento*/
+
+    recorrerTabla();
+
+}
+;
+
+function recalcular() {
+    subtotal = 0;
+
+    m11 = document.getElementById("Inputdescuento").value;
+    ;
+
+    m22 = document.getElementById("Inputprecio_total").value;
+
+    subtotal = parseInt(m22) - parseInt(m11)
+
+
+    document.getElementById("Inputprecio_total").value = subtotal;
+
+}
+;
+
+function buscarcedula() {
+    var basic_text = document.getElementById("Inputpersona_cedula").value;
+
+    var basic_value = $("#Inputpersona_cedula").siblings('.es-list').find('li.selected').attr('value');
+
+    empresa = basic_value;
+
+    $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': empresa}, function (depa) {
+        depa = JSON.parse(depa);
+        if (depa[1].result == 'error') {
+            alert('NO existe debe registra el Cliente ');
+            Clientes_Registrar();
+        } else {
+            $("#Inputid").val(depa[1].idcliente);
+            $("#Inputnombres").val(depa[1].cliente_nombre + " " + depa[1].cliente_apellido);
+            $("#Inputcc").val(depa[1].cliente_cc);//direccion
+            $("#Inputtelefono").val(depa[1].cliente_telefono);
+            $("#Inputcorreo").val(depa[1].cliente_correo);
+            $("#Inputdireccion").val(depa[1].cliente_direccion);
+            emp = 0;
+            Activar_tabla();
+        }
+    });
+}
+
+function multiplicar() {
+    can = 0;
+    m1 = 0;
+    canti = 0;
+    stock1 = 0;
+    if (canti > 0) {
+
+    }
+    canti = parseInt(document.getElementById("Inputcanti").value, 10);
+    stock1 = parseInt(document.getElementById("Inputproct_stock").value, 10);
+    if (stock1 < canti) {
+        alert('LA CANTIDAD SUPERA EL STOCK');
+
+        document.getElementById("Inputcanti").value = "" + stock1;
+
+        return;
+    } else {
+        Activar_productos();
+        m1 = document.getElementById("Inputcanti").value;
+        m2 = document.getElementById("Inputprecio_unitario").value;
+        r = parseInt(m1) * parseInt(m2);
+        document.getElementById("Inputprecio_total").value = r;
+    }
+
+}
+;
 
 
 
-
-
-    function buscarcedula() {
-        var basic_text = document.getElementById("Inputpersona_cedula").value;
-
-        var basic_value = $("#Inputpersona_cedula").siblings('.es-list').find('li.selected').attr('value');
-
-        empresa = basic_value;
 
         console.log(basic_value);
 
@@ -671,160 +698,134 @@ document.getElementById("Inputfact_total").value = rtotal2;
               Activar_tabla();
             }
         });
-    }
+    
 
-                              function multiplicar() {
-                                  can = 0;
-                                  m1 = 0;
-                                  canti = 0;
-                                  stock1 = 0;
-                                  if (canti > 0) {
-
-                                  }
-                                  canti = parseInt(document.getElementById("Inputcanti").value, 10);
-                                  stock1 = parseInt(document.getElementById("Inputproct_stock").value, 10);
-                                  if (stock1 < canti) {
-                                      alert('LA CANTIDAD SUPERA EL STOCK');
-
-                                      document.getElementById("Inputcanti").value = "" + stock1;
-
-                                      return;
-                                  } else {
-                                      Activar_productos();
-                                      m1 = document.getElementById("Inputcanti").value;
-                                      m2 = document.getElementById("Inputprecio_unitario").value;
-                                      r = parseInt(m1) * parseInt(m2);
-                                      document.getElementById("Inputprecio_total").value = r;
-                                  }
-
-                              }
-                              ;
-
-
-
-
-                              function Descuento() {
-                                  can = 0;
-                                  m1 = 0;
+function Descuento() {
+    can = 0;
+    m1 = 0;
 //   can=document.getElementById("Inputcantidad").value;  
-                                  m1 = document.getElementById("Inputprecio_total").value;
+    m1 = document.getElementById("Inputprecio_total").value;
 
 
-                                  m2 = document.getElementById("descuento").value;
-                                  r = m1 - m2;
-                                  document.getElementById("Inputprecio_total").value = r;
+    m2 = document.getElementById("descuento").value;
+    r = m1 - m2;
+    document.getElementById("Inputprecio_total").value = r;
 
 
 
-                              }
-                              ;
+}
+;
 
 
-         function Activar_Cho_enviar(){
-        
-       
-      document.getElementById('agregarProd').disabled=false;
-      document.getElementById('btn_admin_conductor').disabled=false;
-        };
-        
-         function Activar_productos(){
-        
-       
-      document.getElementById('adicionar').disabled=false;
+function Activar_Cho_enviar() {
+
+
+    document.getElementById('agregarProd').disabled = false;
+    document.getElementById('btn_admin_conductor').disabled = false;
+}
+;
+
+function Activar_productos() {
+
+
+    document.getElementById('adicionar').disabled = false;
 //      document.getElementById('btn_admin_conductor').disabled=false;
-        };
-        
-         function desactivar_productos(){
-        
-       
-      document.getElementById('adicionar').disabled=true;
+}
+;
+
+function desactivar_productos() {
+
+
+    document.getElementById('adicionar').disabled = true;
 //      document.getElementById('btn_admin_conductor').disabled=false;
-        };
-        
-         function desactivar_Cho_enviar(){
-        
-       
-      document.getElementById('agregarProd').disabled=true;
-      document.getElementById('btn_admin_conductor').disabled=true;
-        };
+}
+;
+
+function desactivar_Cho_enviar() {
+
+
+    document.getElementById('agregarProd').disabled = true;
+    document.getElementById('btn_admin_conductor').disabled = true;
+}
+;
 //      document.getElementById('editar').disabled=true;
 //  $( "input:radio" ).on("click",function(){
 //  $("input[type=submit]").removeAttr("disabled"); 
-  
+
 //     
 //   
 //};
 
-                              function Activar_tabla() {
-                                  // Resetear, por si acaso has estado jugando con la otra propiedad
-                                  $('#mostrarcontenido2').css('display', 'block');
-                                  $('#mostrarcontenido2').css('visibility', 'visible');
+function Activar_tabla() {
+    // Resetear, por si acaso has estado jugando con la otra propiedad
+    $('#mostrarcontenido2').css('display', 'block');
+    $('#mostrarcontenido2').css('visibility', 'visible');
 //  if( $('#mostrarcontenido2').css('visibility') != 'hidden' ) {
 //    $('#mostrarcontenido2').css('visibility', 'hidden');
 //  } else {
 //    $('#mostrarcontenido2').css('visibility', 'visible');
 //  }
 
-                              }
-                              ;
+}
+;
 
-                              function modalProductos() {
+function modalProductos() {
 //               $('#myModalDetalles').addClass(' data-backdrop="static" data-keyboard="false"');
-                                  $('#myModal2').modal({show: true});
+    $('#myModal2').modal({show: true});
 //               $('#myModal2').modal('hide');//cerrarlo
-                                  cargarProductos();
-                              }
+    cargarProductos();
+}
 
-                              function cargarProductos() {
-                                  ActivarEditar();
+function cargarProductos() {
+    ActivarEditar();
 //       alert();
-                                  $.get('../back/controller/Producto_list.php', function (depa) {
+    $.get('../back/controller/Producto_list.php', function (depa) {
 
-                                      var mySelect = document.getElementById("Inputproducto");
-                                      removeAllChildren(mySelect);
-                                      mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
-                                      depa = JSON.parse(depa);
-                                      for (var i = 1; i < depa.length; i++) {
-                                          mySelect.appendChild(createOPTION(depa[i].idprod, depa[i].prod_nombre));
-                                      }
+        var mySelect = document.getElementById("Inputproducto");
+        removeAllChildren(mySelect);
+        mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
+        depa = JSON.parse(depa);
+        for (var i = 1; i < depa.length; i++) {
+            mySelect.appendChild(createOPTION(depa[i].idprod, depa[i].prod_nombre));
+        }
 
-                                  });
-                              }
+    });
+}
 
-                              function cargarConductos() {
+function cargarConductos() {
 //                                  ActivarEditar();
 //       alert();
-                                  $.get('../back/controller/Chofer_list.php', function (depa) {
+    $.get('../back/controller/Chofer_list.php', function (depa) {
 
-                                      var mySelect = document.getElementById("InputChoferes");
-                                      removeAllChildren(mySelect);
-                                      mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
-                                      depa = JSON.parse(depa);
-                                      for (var i = 1; i < depa.length; i++) {
-                                          mySelect.appendChild(createOPTION(depa[i].idchoferes, depa[i].nom_chofer));
-                                      }
+        var mySelect = document.getElementById("InputChoferes");
+        removeAllChildren(mySelect);
+        mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
+        depa = JSON.parse(depa);
+        for (var i = 1; i < depa.length; i++) {
+            mySelect.appendChild(createOPTION(depa[i].idchoferes, depa[i].nom_chofer));
+        }
 
-                                  });
-                              }
+    });
+}
 
-                              function mostrarDatosP(empresa) {
+function mostrarDatosP(empresa) {
 
 //        alert(empresa);
 
-                                  $.get('../back/controller/Producto_detalles.php', {'empresa': empresa}, function (depa) {
+    $.get('../back/controller/Producto_detalles.php', {'empresa': empresa}, function (depa) {
 
 
 
-                                      depa = JSON.parse(depa);
+        depa = JSON.parse(depa);
 
 
 
-                                      $("#Inputprodc_referencia").val(depa[1].idprod);
-                                      $("#Inputproduc_nombre").val(depa[1].prod_nombre);
-                                      $("#Inputprodc_descr").val(depa[1].prod_descripcion);
-                                      $("#Inputprecio_unitario").val(depa[1].prod_precio);
-                                      $("#Inputproct_stock").val(depa[1].prod_stock);
-                                      $("#Inputproc_dias").val(depa[1].foto);
+        $("#Inputprodc_referencia").val(depa[1].idprod);
+        $("#Inputproduc_nombre").val(depa[1].prod_nombre);
+        $("#Inputprodc_descr").val(depa[1].prod_descripcion);
+        $("#Inputprecio_unitario").val(depa[1].prod_precio);
+        $("#Inputproct_stock").val(depa[1].prod_stock);
+        $("#Inputproc_dias").val(depa[1].foto);
 
 
 
@@ -832,18 +833,18 @@ document.getElementById("Inputfact_total").value = rtotal2;
 
 
 
-                                  });
-                              }
+    });
+}
 
 
     </script> 
     <script>
         $(document).ready(function () {
-    //obtenemos el valor de los input
+            //obtenemos el valor de los input
             i = 1;
 
             $('#adicionar').click(function () {
-                
+
                 var idref = document.getElementById("Inputprodc_referencia").value;
                 var nombre = document.getElementById("Inputproduc_nombre").value;
                 var descripcion = document.getElementById("Inputprodc_descr").value;
@@ -861,10 +862,10 @@ document.getElementById("Inputfact_total").value = rtotal2;
                 i++;
 
                 $('#Ventas_factList tr:first').after(fila);
-    //  $('#mytable tr:first').after(fila);
+                //  $('#mytable tr:first').after(fila);
                 recorrerTabla();
                 $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
-    //    var nFilas = $("#mytable tr").length;
+                //    var nFilas = $("#mytable tr").length;
                 var nFilas = $("#Ventas_factList tr").length;
                 $("#adicionados").append(nFilas - 1);
                 //le resto 1 para no contar la fila del header
@@ -882,7 +883,7 @@ document.getElementById("Inputfact_total").value = rtotal2;
                 desactivar_productos();
                 Activar_Cho_enviar();
             });
-            var nFilas=0;
+            var nFilas = 0;
             $(document).on('click', '.btn_remove', function () {
 
                 var button_id = $(this).attr("id");
@@ -891,18 +892,18 @@ document.getElementById("Inputfact_total").value = rtotal2;
 
                 //limpia el para que vuelva a contar las filas de la tabla
                 $("#adicionados").text("");
-                   nFilas = $("#Ventas_factList tr").length;
+                nFilas = $("#Ventas_factList tr").length;
                 $("#adicionados").append(nFilas - 1);
-                
+
 //                    nFilas = $("#Ventas_factList tr").length;
-                         
+
 //                    alert('asasa'+nFilas);
-                    
-                    if(nFilas===1){
+
+                if (nFilas === 1) {
 //                           alert('asasa 2'+nFilas);
-                        desactivar_Cho_enviar();
-                    }
-                   
+                    desactivar_Cho_enviar();
+                }
+
             });
             recorrerTabla();
         });
