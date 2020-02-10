@@ -78,6 +78,16 @@
 
                             <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
                         </div>
+                        <div class="  row">
+                            <label class="col-sm-2 col-form-label"><b>Obra :</b></label>
+
+                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" ></div>
+                        </div>
+                        <div class="  row">
+                            <label class="col-sm-2 col-form-label"><b>Direccion Obra:</b></label>
+
+                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" ></div>
+                        </div>
                         <br>
 
 
@@ -110,7 +120,7 @@
                             <label class="col-sm-2 col-form-label"><b>Observacion:</b></label>
 
                             <div class="col-sm-10 p-xs ">
-                                <textarea  type="text" id="InputObservacion" rows="3"  name="Observacion" class="form-control" readonly></textarea>
+                                <textarea  type="text" id="InputObservacion" rows="6"  name="Observacion" class="form-control" ></textarea>
 </div>
                         </div>
 
