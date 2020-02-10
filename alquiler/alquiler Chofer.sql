@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-02-2020 a las 00:13:18
+-- Tiempo de generación: 10-02-2020 a las 03:45:18
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.1
 
@@ -139,7 +139,7 @@ CREATE TABLE `factura` (
 --
 
 INSERT INTO `factura` (`idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`, `abonos`, `estado`, `fact_observacion`) VALUES
-(1, '2020-01-01 09:14:56', 500, 2, '[{\"fecha\":\"2020-01-05 09:19:13\",\"cantidad\":\"2000\"},{\"fecha\":\"2020-01-30 10:26:57\",\"cantidad\":\"15000\"}]', NULL, ''),
+(1, '2020-01-01 09:14:56', 500, 2, '[{\"fecha\":\"2020-01-05 09:19:13\",\"cantidad\":\"20\"},{\"fecha\":\"2020-01-30 10:26:57\",\"cantidad\":\"15000\"}]', NULL, ''),
 (3, '2020-02-08 17:55:48', 0, 1, '[]', NULL, ''),
 (4, '0000-00-00 00:00:00', 0, 4, '[]', NULL, ''),
 (5, '0000-00-00 00:00:00', 0, 4, '[]', NULL, ''),
@@ -179,12 +179,20 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
-(1, 'asdasda', '84s5d4fsdf', 14, 5, 541, 5212, 554, 0, 7),
-(2, 'zxczczx', 'sdfsdfsdfsdf', 5, 20, 10, 0, 0, 1, 7),
-(3, 'cruceta', 'grande', 1000, 92, 8, 6, 6, 1, 7),
-(4, 'Formaleta', 'Un cuadrado de metal sin valor', 330, 97, 3, 0, 0, 1, 7),
-(5, 'Estructura', 'dfgdfgfdg', 544, 99, 1, 2, 2, 1, 7),
-(6, 'asdasd', 'asdsad', 14, 1, 1, 1, 1, 1, 7);
+(1, 'TABLERO INDUSTRIAL', '1.20 cm x 0.60 cm', 350, 5, 541, 5212, 554, 0, 7),
+(2, 'TABLERO INDUSTRIAL', '1.20 cm x 0.50 cm', 350, 20, 10, 0, 0, 1, 7),
+(3, 'TABLERO INDUSTRIAL', '1.20 cm x 0.40 cm', 350, 92, 8, 6, 6, 1, 7),
+(4, 'TABLERO INDUSTRIAL', '1.20 cm x 0.30 cm', 300, 97, 3, 0, 0, 1, 7),
+(5, 'TABLERO INDUSTRIAL', '1.20 cm x 0.20 cm', 300, 99, 1, 2, 2, 1, 7),
+(6, 'TABLERO INDUSTRIAL', '1.20 cm x 0.10 cm', 250, 1, 1, 1, 1, 1, 7),
+(7, 'ESQUINEROS', '1.20 cm x 0.20 cm x 0.20 cm', 70, NULL, NULL, NULL, NULL, 1, 7),
+(8, 'ANGULOS', '1.20', 250, NULL, NULL, NULL, NULL, 1, 7),
+(9, 'CHAPETAS', NULL, 15, NULL, NULL, NULL, NULL, 1, 7),
+(10, 'MORDAZAS', NULL, 15, NULL, NULL, NULL, NULL, 1, 7),
+(11, 'PINES', NULL, 15, NULL, NULL, NULL, NULL, 1, 7),
+(12, 'CORBATAS', NULL, 15, NULL, NULL, NULL, NULL, 1, 7),
+(13, 'FORMALETAS INDUSTRIAL', 'M2 (5 CHAPETAS)', 650, NULL, NULL, NULL, NULL, 1, 7),
+(14, 'FORMALETAS INDUSTRIAL', 'M2 (5 CHAPETAS 1, CHERCA, 1PARAL)', 800, NULL, NULL, NULL, NULL, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -201,6 +209,21 @@ CREATE TABLE `reporte_chofer` (
 ,`cc_chofer` varchar(45)
 ,`nom_chofer` varchar(250)
 ,`valor` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `reporte_ordenes`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `reporte_ordenes` (
+`fecha` datetime
+,`idfactura` int(11)
+,`cliente_cc` varchar(15)
+,`cliente_nombre` varchar(45)
+,`fact_observacion` text
+,`estado` tinyint(4)
 );
 
 -- --------------------------------------------------------
@@ -241,6 +264,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `reporte_chofer`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reporte_chofer`  AS  select `transporte`.`idtransporte` AS `idtransporte`,`factura`.`fecha` AS `fecha`,`transporte`.`factura_idfactura` AS `factura_idfactura`,`cliente`.`cliente_nombre` AS `cliente_nombre`,`choferes`.`idchoferes` AS `idchoferes`,`choferes`.`cc_chofer` AS `cc_chofer`,`choferes`.`nom_chofer` AS `nom_chofer`,`transporte`.`transporte_flete` AS `valor` from (((`transporte` join `factura` on(`transporte`.`factura_idfactura` = `factura`.`idfactura`)) join `cliente` on(`cliente`.`idcliente` = `factura`.`cliente_idcliente`)) join `choferes` on(`choferes`.`idchoferes` = `transporte`.`choferes_idchoferes`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `reporte_ordenes`
+--
+DROP TABLE IF EXISTS `reporte_ordenes`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reporte_ordenes`  AS  select `factura`.`fecha` AS `fecha`,`factura`.`idfactura` AS `idfactura`,`cliente`.`cliente_cc` AS `cliente_cc`,`cliente`.`cliente_nombre` AS `cliente_nombre`,`factura`.`fact_observacion` AS `fact_observacion`,`factura`.`estado` AS `estado` from (`factura` join `cliente` on(`cliente`.`idcliente` = `factura`.`cliente_idcliente`)) ;
 
 --
 -- Índices para tablas volcadas
@@ -319,7 +351,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idprod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
