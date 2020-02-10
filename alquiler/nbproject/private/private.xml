@@ -3,9 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/js/reportesController.js</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/index.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/factura_by_fecha.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/Orden_devolucion.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/factura_by_Cedula.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/Orden_Salida.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/Conductor_list.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/Conductor_pagos.php</file>
+            <file>file:/C:/xampp1/htdocs/alquiler/alquiler/front/js/funciones.js</file>
+=======
             <file>file:/C:/xampp/htdocs/Alquiler/alquiler/front/js/reportesController.js</file>
             <file>file:/C:/xampp/htdocs/Alquiler/alquiler/front/ordenDevolucion.html</file>
             <file>file:/C:/xampp/htdocs/Alquiler/alquiler/back/controller/crearFactura.php</file>
+>>>>>>> 86f4a30cd403903878ecef31a49e5354e6b704f4
         </group>
     </open-files>
 </project-private>

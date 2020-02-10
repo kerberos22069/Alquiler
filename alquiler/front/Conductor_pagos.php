@@ -17,7 +17,7 @@
                     </div>                      
                     <div class="ibox-content">
                         
-                        <input style="display: none"  type="text" id="InputId_orden" name="Id_orden" class="form-control" readonly>
+                        <input style="display: none" type="text" id="InputId_orden" name="Id_orden" class="form-control" >
                         <div class="row">
                         
                         <div class="col-lg-6">
@@ -60,7 +60,7 @@
                             <label style="text-align: left" class="col-sm-4 col-form-label"><b>Desde:</b></label>
 
                             <div class="col-sm-8 p-xs " >
-                                 <input id="fecha_inicio" name="fecha_inicio" type="date" class="form-control">
+                                 <input id="Imputfecha_inicio_tran" name="fecha_inicio_tran" type="date" class="form-control">
                                 </div>
                                     
                                  
@@ -74,7 +74,7 @@
                             <label style="text-align: left" class="col-sm-4 col-form-label"><b>Hasta:</b></label>
 
                             <div class="col-sm-8 p-xs " >
-                                 <input id="fecha_fin" name="fecha_fin" type="date" class="form-control">
+                                 <input id="Imputfecha_fin_tran" name="fecha_fin_tran" type="date" class="form-control">
                                 </div>
                                     
                                  
@@ -83,7 +83,7 @@
                                
 
                                 <div class="col-sm-2" >
-                                    <button type="button" class="btn btn-primary" onclick="buscar_factura_by_fecha()" >
+                                    <button type="button" class="btn btn-primary" onclick="relacion_viajes()" >
                                         Buscar por fecha
                                     </button>
                                 </div>
@@ -93,25 +93,9 @@
                         </div>
                         </div>
                         <hr>
-                        <div class="table-responsive">
-                            <table id="tabla_facturas" class="table table-striped table-bordered table-hover dataTables-example" >
-                           <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
-                                <thead>
-                                    <tr>
-                                       <th style=" color:#FFFFFF; background-color: #616161  !important">item</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Descripcion</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
-
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devolver</th>
-
-
-                                    </tr>
-                                </thead>
-                                <tbody id="FacturasList">
-                                  
-                                </tbody>
-
-                            </table>
+                        
+                        <div id="mostrarcontenido2">
+                            
                         </div>
                     </div>
                 </div>
@@ -123,107 +107,8 @@
     
     
     <!-- Modal ddetalles del alquiler -->
-    <div class="modal inmodal fade" id="myModalDetalles" tabindex="-1" role="dialog"  aria-hidden="true"  style="overflow-y: scroll;"> 
-        <div class="modal-dialog  mdialTamanio" style="width: 80%; max-width: 80%; margin-left: 10%; margin-right: 10%">
-            <div id="menumodal1" class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                    <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Detalles Productos</h4>
 
-                </div>
-                <div class="modal-body"> <!-- Abrri Contenio-->
-                    <div>
-                        <div id="elementH"></div>
-                        <div id="panelReporte" class="panel panel-default">
-                            <!--        <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>-->
-                            <div align=center class="panel-body">
-                           
-                                        <div class="ibox-content">
-
-
-                        <div class="table-responsive" style="  
-                height: 400px; 
-                overflow-x: hidden; 
-                overflow-x: auto; 
-                text-align:justify; ">
-                            <table class="table table-striped" >
-                                <thead>
-                                    <tr>                                                        
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Nombre</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Valor unitario</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Dias</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devoluciones</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Delvolver productos</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="articulosList">
-                                <tr class="gradeX footable-even" style="">
-                                    <td class="footable-visible">Taladro</td>
-                                    <td class="footable-visible">42"</td>
-                                    <td class="center footable-visible">2</td>
-                                    <td class="center footable-visible">12000</td>
-                                    <td class="center footable-visible">2</td>
-                                    <td class="center footable-visible">12000</td>
-                                    <td class="center footable-visible">12000</td>
-                                </tr>    
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div> <!-- panel -->
-                <div class="ibox-content">
-                    <h3>
-                        <div class="table-responsive">
-                            <p id="total_factura">$0000000</p>
-                        </div>
-                        <div class="table-responsive">
-                            <p id="total_pagar">$0000000</p>
-                        </div>
-                    </h3>
-                </div>
-                                
-                            </div> <!-- panel -->
-                        </div>
-
-                        <div class="modal-footer">                            
-                            <div class="ibox-content" id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 10px; display: none; background: inherit">
-                                <form role="form" >
-                                    <div class="row">                                                           
-                                        <div class="form-group">
-                                            <label >Producto</label>
-                                            <label  id="producto_a_devolver" class="form-control" />
-                                        </div>    
-                                        <div class="form-group" style="margin-left: 15px;">
-                                            <label for="cantidad_devuelta" >Cantidad</label>
-                                            <input type="number" id="cantidad_devuelta" class="form-control" min="1"/>
-                                        </div>
-                                        <div class="form-group" style="margin-left: 15px;">
-                                            <label for="fecha_devolucion">Fecha devolucion</label>
-                                            <input type="date" id="fecha_devolucion" class="form-control"/>
-                                        </div>
-                                        <div class="form-group" style="margin-left: 15px;">
-                                                <label for="estado_objeto" >Estado del objeto</label>
-                                                 <select class="form-control" id="estado_objeto">
-                                                    <option value="0">Buen estado</option>
-                                                    <option value="2">Dañados</option>
-                                                    <option value="3">En reparacion</option>
-                                                </select>                                            
-                                            </div>                                   
-                                        <button type="button" class="btn btn-primary" style="margin-left: 15px; margin-top: auto;margin-bottom: 15px;" onclick="agregar_devolucion()">Agregar</button>
-                                    </div>                                                            
-                                </form> 
-                            </div>
-                        </div>
-                    <button type="button" class="btn btn-primary" id="btn_exportar" style="float: right; border-right: 0px;">Exportar</button>
-                        <button type="button" class="btn btn-light" data-dismiss="modal" style="float: right; border-right: 0px;">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <!-- finaliza modal de Empleado Registrar-->
     
     <!-- Modal ddetalles del abonos -->
@@ -274,65 +159,7 @@
 
 
 <!-- Modal Devolver parcial -->
-    <div class="modal  inmodal fade" id="myModalDevolverParcial" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog modal-lg mdialTamanio">
-            <div id="menumodal1" class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" onclick="cerrarModalDevolverTodo()"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                    <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Devolver parcial</h4>
-
-                </div>
-                <div class="modal-body"> <!-- Abrri Contenio-->
-                    <div>
-                        <div class="panel panel-default">
-                            <!--        <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>-->
-                            <div align=center class="panel-body">
-                           
-                                        <div class="ibox-content">
-
-
-                        <div class="table-responsive" >
-                            <table class="table table-striped" >
-                                <thead>
-                                    <tr>                                                        
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Nombre</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Valor unitario</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Dias</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Devoluciones</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="gradeX footable-even" style="">
-                                    <td class="footable-visible">Taladro</td>
-                                    <td class="footable-visible">42"</td>
-                                    <td class="center footable-visible">2</td>
-                                    <td class="center footable-visible">12000</td>
-                                    <td class="center footable-visible">2</td>
-                                    <td class="center footable-visible">12000</td>
-                                    <td class="center footable-visible">12000</td>
-                                </tr>    
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                                
-                            </div>
-                            <div>                              
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
-                                                       
-                            
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- finaliza modal de Empleado Registrar-->
 
     <script src="js/plugins/dataTables/datatables.min.js"></script>
@@ -361,6 +188,7 @@
         document.getElementById('InputId_orden').value=Global_ID_Con;
         document.getElementById('Inputcc_orden').value=Global_cc_Con;
 
+        
         /**
          * Metemos las fechas por default
          *
@@ -505,8 +333,53 @@
                 }
             });
 
-        }
-        ;
+        };
+        
+   function relacion_viajes() {
+
+//alert();
+//       transpore_pagos();
+        
+
+
+//    var url = "../back/controller/Reporte_transporte.php";
+
+    var Id_chofer= document.getElementById('InputId_orden').value;
+    var fecha_ini_tra= document.getElementById('Imputfecha_inicio_tran').value;
+    var fecha_fin_tra= document.getElementById('Imputfecha_fin_tran').value;
+
+ transpore_pagos(Id_chofer,fecha_ini_tra,fecha_fin_tra);
+
+//
+//       
+//                    var parametros = {
+//                                          "fecha_ini_tra": fecha_ini_tra,
+//                                          "fecha_fin_tra": fecha_fin_tra,
+//                                          "Id_chofer": Id_chofer
+//                                         
+//                                      };
+//        $.ajax({
+//            type: "POST",
+//            url: url,
+//            data: parametros,
+//
+////            success: function (data) {
+//                success: function (response) {                
+//                rta = JSON.parse(response);
+//               
+//                console.log(rta);
+//               
+//            
+//              },
+//            error: function (response) { 
+//                console.log("No se ha podido cargar los clientes")
+//            }
+//        });
+    
+};
+     
+        
+        
 
         function aceptarPersona() {
             $('#myModalDetalles').modal('hide');

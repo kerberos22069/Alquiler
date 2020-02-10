@@ -37,7 +37,7 @@
                             <label class="col-sm-3 col-form-label"><b>Fecha :</b></label>
 
                             <div class="col-sm-9 p-xs ">
-                                <input id="inputfecha_inicio"value="<?php echo $fcha; ?>"style="font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" type="text"  class="form-control" readonly></div>
+                                <input id="inputfecha_inicio"value="<?php echo $fcha; ?>" type="date"  class="form-control" ></div>
                         </div>
 
                     </div>
@@ -55,14 +55,14 @@
 
                         <div class="form-group"  style="display: none">
                             <label for="Inputid">id</label>
-                            <input style="background-color: white; border:1px solid #ffffff;" type="text" name="id" class="form-control" id="Inputid" placeholder="id" required>
+                            <input  type="text" name="id" class="form-control" id="Inputid" placeholder="id" required>
                         </div>
 
                         <div class=" row ">
                             <label style="text-align: left" class="col-sm-4 col-form-label"><b>Nombre y Apellido :</b></label>
 
-                            <div class="col-sm-8 p-xs border-bottom " >
-                                <input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
+                            <div class="col-sm-8 p-xs  " >
+                                <input  type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
                         </div>
 
 
@@ -71,12 +71,12 @@
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Cedula :</b></label>
 
-                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcc" name="cc" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputcc" name="cc" class="form-control" readonly></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Telefono :</b></label>
 
-                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
                         </div>
                         <br>
 
@@ -99,12 +99,19 @@
                         <div class=" row">
                             <label class="col-sm-2 col-form-label"><b>Direccion:</b></label>
 
-                            <div class="col-sm-10 p-xs border-bottom"><input  style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputdireccion" name="direccion" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs "><input   type="text" id="Inputdireccion" name="direccion" class="form-control" readonly></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Correo :</b></label>
 
-                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
+                        </div>
+                        <div class="  row">
+                            <label class="col-sm-2 col-form-label"><b>Observacion:</b></label>
+
+                            <div class="col-sm-10 p-xs ">
+                                <textarea  type="text" id="InputObservacion" rows="3"  name="Observacion" class="form-control" readonly></textarea>
+</div>
                         </div>
 
 
@@ -676,9 +683,6 @@ function multiplicar() {
     }
 
 }
-;
-
-
 
        
     
@@ -693,11 +697,7 @@ function Descuento() {
     m2 = document.getElementById("descuento").value;
     r = m1 - m2;
     document.getElementById("Inputprecio_total").value = r;
-
-
-
 }
-;
 
 
 function Activar_Cho_enviar() {
@@ -706,7 +706,7 @@ function Activar_Cho_enviar() {
     document.getElementById('agregarProd').disabled = false;
     document.getElementById('btn_admin_conductor').disabled = false;
 }
-;
+
 
 function Activar_productos() {
 

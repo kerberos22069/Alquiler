@@ -147,6 +147,57 @@ $choferes_idchoferes=$transporte->getChoferes_idchoferes()->getIdchoferes();
       return null;
       }
   }
+  
+  
+  public function reporte_transporte($fechaI,$fechaF,$id){
+      $lista = array();
+      try {
+          $sql ="SELECT `idtransporte`, `fecha`, `factura_idfactura`, `cliente_nombre`, `valor` FROM `reporte_chofer` WHERE `fecha`   BETWEEN '$fechaI' AND '$fechaF' AND `idchoferes` ='$id'";
+//          var_dump($sql);
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $transporte= new Transporte();
+          $transporte->setIdtransporte($data[$i]['idtransporte']);
+          $transporte->setTransporte_flete($data[$i]['valor']);
+           $factura = new Factura();
+           $factura->setIdfactura($data[$i]['factura_idfactura']);
+           $factura->setFecha($data[$i]['fecha']);
+           $factura->setAbonos($data[$i]['cliente_nombre']);
+           $transporte->setFactura_idfactura($factura);
+
+           array_push($lista,$transporte);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+  
+  public function reporte_transporte_Total($fechaI,$fechaF,$id){
+      $lista = array();
+      try {
+          $sql ="SELECT  SUM(`valor` ) as Total  FROM `reporte_chofer` WHERE `fecha`   BETWEEN '$fechaI' AND '$fechaF' AND `idchoferes` ='$id'";
+//          var_dump($sql);
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $transporte= new Transporte();
+//          $transporte->setIdtransporte($data[$i]['idtransporte']);
+          $transporte->setTransporte_flete($data[$i]['Total']);
+//           $factura = new Factura();
+//           $factura->setIdfactura($data[$i]['factura_idfactura']);
+//           $factura->setFecha($data[$i]['fecha']);
+//           $factura->setAbonos($data[$i]['cliente_nombre']);
+//           $transporte->setFactura_idfactura($factura);
+
+           array_push($lista,$transporte);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
 
 
   
