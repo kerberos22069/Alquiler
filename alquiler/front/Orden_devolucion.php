@@ -20,27 +20,34 @@
                   
                         <div class="row">
                         
-                        <div class="col-lg-12">
-                            <div class="form-group row has-success">
-                                <label class="col-sm-2 col-form-label">
-                                    
-                                </label>
-                                <label class="col-sm-2 col-form-label">
-                                    Cédula:
-                                </label>
-                                <div class="col-sm-4">
-                                    <input id="cliente_cedula" name="cliente_cedula" class="form-control" onkeypress="return runScript(event)">
-                                </div>                    
-                                <div class="col-sm-2">
-                                    <button type="button" class="btn btn-primary" onclick="buscar_factura_by_cliente()" >
-                                        Buscar
-                                    </button>
-                                </div>
-                                <div class="col-sm-2">
+                        <div class="col-lg-6">
+                            
+                               
+                              
                                 
-                                </div>
-                            </div>
+                        <div class=" row ">
+                            <label style="text-align: left" class="col-sm-4 col-form-label"><b>Nombre y Apellidos :</b></label>
+
+                            <div class="col-sm-8 p-xs " >
+                                <input  type="text" id="Inputnombres_orden" name="nombres_orden" class="form-control" readonly></div>
                         </div>
+
+
+
+                               </div>
+                           
+                       
+                        
+                        <div class="col-lg-6">
+                            
+
+                        <div class="  row">
+                            <label class="col-sm-4 col-form-label"><b>Cedula :</b></label>
+
+                            <div class="col-sm-8 p-xs "><input  type="text" id="Inputcc_orden" name="cc_orden" class="form-control" readonly></div>
+                        </div>
+                        </div>
+  
                       </div>
                         <hr>
                         <div class="table-responsive">
@@ -304,6 +311,9 @@
 
     <!-- Page-Level Scripts -->
     <script>
+
+
+
 
         function seleccionarTabla() {
 

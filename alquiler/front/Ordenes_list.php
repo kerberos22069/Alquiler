@@ -37,11 +37,11 @@
                                 <thead>
                                     <tr>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Id</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Nombres y Apellidos</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cédula</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Fecha</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">#Orden de Salida</th>
 
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Correo</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Telefono</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Cliente</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important">Observaciones</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Devolucion</th>
 
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
@@ -51,7 +51,7 @@
 
                                     </tr>
                                 </thead>
-                                <tbody id="ClienteList">
+                                <tbody id="AlquilerListxall">
 
                                 </tbody>
 
@@ -177,6 +177,7 @@
     <script src="js/Ajax.js "></script>
     <script src="js/ViewManager.js "></script>
     <script src="js/HtmlBuilder.js "></script>
+    <script src="js/funciones.js "></script>
     
 
 
@@ -252,11 +253,11 @@
     <script>
         function mostrarTodo(idp) {
 
-            // console.log(idp);
-            cargarCliente(idp);
-            $('#myModalDetalles').addClass(' data-backdrop="static" data-keyboard="false"');
-            $('#myModalDetalles').modal({show: true});
-
+//            // console.log(idp);
+//            cargarCliente(idp);
+//            $('#myModalDetalles').addClass(' data-backdrop="static" data-keyboard="false"');
+//            $('#myModalDetalles').modal({show: true});
+Ordenes_devoluciones();
         }
 
 

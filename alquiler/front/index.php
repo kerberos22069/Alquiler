@@ -47,6 +47,35 @@
                             CRISOL
                         </div>
                     </li>
+                    
+                    
+                   <li class="active">
+                    <a href="#" aria-expanded="true"><i class="fa fa-sitemap"></i> <span class="nav-label">Ordenes</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse in" aria-expanded="true" style="">
+                                  <li>
+                        <a onclick="Salida_listar()"><i class="fa fa-truck"></i> <span class="nav-label">Orden de Salida </span></a>
+                          </li>
+                        <li class="">
+                            <a href="#" aria-expanded="false">Buscar <span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level collapse" aria-expanded="false" style="height: 0px;">
+                                 <li>
+                        <a onclick="facturas_by_fecha()"><i class="fa fa-fax"></i> <span class="nav-label">Buscar Fecha</span></a>
+                    </li>
+                                 <li>
+                        <a onclick="facturas_by_cc()"><i class="fa fa-fax"></i> <span class="nav-label">Buscar CC</span></a>
+                    </li>
+
+                            </ul>
+                        </li>
+                       
+                    </ul>
+                </li> 
+                    
+                    
+                    
+                    
+                    
+                    
 
                    <li class="">
                     <a href="#" aria-expanded="false"><i class="fa fa-edit"></i> <span class="nav-label">Ordenes</span><span class="fa arrow"></span></a>

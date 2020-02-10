@@ -17,48 +17,35 @@
                     </div>                      -->
                     <div class="ibox-content">
                         <div class="row">
-                         <div class="col-lg-12">
+                            <div class="col-lg-12" style="display: none">
                             <div class="form-group row has-success">
-                                <div class="col-sm-1"></div>
-                                <div class="col-sm-4">
-                                    
-                                    <div class=" row ">
-                            <label style="text-align: left" class="col-sm-4 col-form-label"><b>Desde:</b></label>
+                                <label class="col-sm-2 col-form-label">
+                                    Fecha inicio:
+                                </label>
+                                <div class="col-sm-3">
+                                    <input id="fecha_inicio" name="fecha_inicio" type="date" class="form-control">
+                                </div>
 
-                            <div class="col-sm-8 p-xs " >
-                                 <input id="fecha_inicio" name="fecha_inicio" type="date" class="form-control">
-                                </div>
-                                    
-                                 
-                                </div>
-                                                              
-                                    
-                                </div>
-                                
-                                <div class="col-sm-4" >
-                                      <div class=" row ">
-                            <label style="text-align: left" class="col-sm-4 col-form-label"><b>Hasta:</b></label>
+                                <label class="col-sm-2 col-form-label">
+                                    Fecha fin:
+                                </label>
+                                <div class="col-sm-3">
+                                    <input id="fecha_fin" name="fecha_fin" type="date" class="form-control">
+                                </div>                     
 
-                            <div class="col-sm-8 p-xs " >
-                                 <input id="fecha_fin" name="fecha_fin" type="date" class="form-control">
-                                </div>
-                                    
-                                 
-                                </div>
-                                </div>
-                               
-
-                                <div class="col-sm-2" >
+                                <div class="col-sm-2">
                                     <button type="button" class="btn btn-primary" onclick="buscar_factura_by_fecha()" >
                                         Buscar por fecha
                                     </button>
                                 </div>
-                                 <div class="col-sm-1"></div>
                             </div>
                             <hr>
                         </div>
-                            <div class="col-lg-12" style="display: none">
+                        <div class="col-lg-12">
                             <div class="form-group row has-success">
+                                <label class="col-sm-2 col-form-label">
+                                    
+                                </label>
                                 <label class="col-sm-2 col-form-label">
                                     Cédula:
                                 </label>
@@ -69,6 +56,9 @@
                                     <button type="button" class="btn btn-primary" onclick="buscar_factura_by_cliente()" >
                                         Buscar por cliente.
                                     </button>
+                                </div>
+                                <div class="col-sm-2">
+                                    
                                 </div>
                             </div>
                         </div>

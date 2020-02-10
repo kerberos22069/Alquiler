@@ -406,6 +406,26 @@ function postFacturasList(result, state) {
     }
 }
 
+function postFacturasListxall(result, state) {
+    //Maneje aquÃ­ la respuesta del servidor.
+    if (state == "success") {
+        var json = JSON.parse(result);
+        if (json[0].msg == "exito") {
+
+            for (var i = 1; i < Object.keys(json).length; i++) {
+                var Facturas = json[i];
+                //----------------- Para una tabla -----------------------
+                document.getElementById("FacturasListxall").appendChild(createTR(Facturas));
+                //-------- Para otras opciones ver htmlBuilder.js ---------
+            }
+        } else {
+            alert(json[0].msg);
+        }
+    } else {
+        alert("Hubo un errror interno ( u.u)\n" + result);
+    }
+}
+
 ////////// MECANICOS \\\\\\\\\\
 function preMecanicosInsert(idForm) {
     //Haga aquÃ­ las validaciones necesarias antes de enviar el formulario.

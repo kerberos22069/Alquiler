@@ -19,12 +19,32 @@ function facturas_listas() {
     enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
 }
 
+function Ordenes_devoluciones() {   
+    var url = "Orden_devolucion.php";
+    var datos = {};
+    var rta = "#mostrarcontenido";
+    ajax(url, datos, rta);
+//    enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
+}
+
+
+
+
+
 
 
 
 
 function facturas_by_fecha(){
     var url = "factura_by_fecha.php";
+    var datos = {};
+    var rta = "#mostrarcontenido";
+    ajax(url, datos, rta);
+    //enviar("", '../back/controller/Factura_listAll.php', postFacturasList);
+} 
+
+function facturas_by_cc(){
+    var url = "factura_by_Cedula.php";
     var datos = {};
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);
@@ -155,12 +175,17 @@ function Salida_Registrar() {
     var datos = {};
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);
-}
+    
+    }
+
 function Salida_listar() {  
     var url = "Ordenes_list.php";
     var datos = {};
     var rta = "#mostrarcontenido";
     ajax(url, datos, rta);
+    
+ enviar("", '../back/controller/Alquiler_list_all.php' ,postFacturasListxall);
+    
 }
 
 

@@ -131,6 +131,7 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
      * @return ArrayList<Alquiler> Puede contener los objetos consultados o estar vacío
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
+  
   public function listAll(){
       $lista = array();
       try {
@@ -155,6 +156,30 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
           $alquiler->setAlq_stado($data[$i]['alq_stado']);
           $alquiler->setAlq_devuelto($data[$i]['alq_devuelto']);
 
+          array_push($lista,$alquiler);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+  
+  
+  public function listxAll(){
+      $lista = array();
+      try {
+          $sql ="SELECT `fecha`, `idfactura`, `cliente_cc`, `cliente_nombre`, `fact_observacion`, `estado` FROM `reporte_ordenes` WHERE 1";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $alquiler= new Alquiler();
+          $alquiler->setIdalquiler($data[$i]['idfactura']);
+          $alquiler->setFecha_inicio($data[$i]['fecha']);
+          $alquiler->setCantidad($data[$i]['cliente_cc']);
+          $alquiler->setValor($data[$i]['cliente_nombre']);
+          $alquiler->setPagado($data[$i]['fact_observacion']);
+          $alquiler->setFechafin($data[$i]['estado']);
+          
           array_push($lista,$alquiler);
           }
       return $lista;

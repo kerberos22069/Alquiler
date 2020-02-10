@@ -773,7 +773,7 @@
                                       mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
                                       depa = JSON.parse(depa);
                                       for (var i = 1; i < depa.length; i++) {
-                                          mySelect.appendChild(createOPTION(depa[i].idprod, depa[i].prod_nombre));
+                                          mySelect.appendChild(createOPTION(depa[i].idprod, depa[i].prod_nombre+" - "+depa[i].prod_descripcion));
                                       }
 
                                   });

@@ -239,6 +239,32 @@ function preFacturaList(container){
      }
 }
 
+
+ 
+
+function postFacturasListxall(result,state){
+     //Maneje aquÃ­ la respuesta del servidor.
+     if(state=="success"){
+         var json=JSON.parse(result);
+         if(json[0].msg=="exito"){
+
+            for(var i=1; i < Object.keys(json).length; i++) {   
+                var Alquiler = json[i];
+                //----------------- Para una tabla -----------------------
+                
+                Alquiler.viewHrefB = 'mostrarTodo("' + Alquiler.idalquiler + '");';
+                Alquiler.deleteHrefB = 'mostrarEliminar("' + Alquiler.idalquiler + '");';
+                document.getElementById("AlquilerListxall").appendChild(createTR(Alquiler));
+                //-------- Para otras opciones ver htmlBuilder.js ---------
+            }
+         }else{
+            alert(json[0].msg);
+         }
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
+}
+
 ////////// LIBRO_DIARIO \\\\\\\\\\
 function preLibro_diarioInsert(idForm){
      //Haga aquÃ­ las validaciones necesarias antes de enviar el formulario.
