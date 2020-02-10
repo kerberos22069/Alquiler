@@ -1,7 +1,8 @@
 <?php $fcha = date("Y-m-d"); ?>
 
-
+ 
 <html>
+<<<<<<< HEAD
     <!--<head>-->  
         <!--<title>Crear alquileres</title>-->
     <link rel="stylesheet" href="css/jquery-editable-select.min.css" />
@@ -9,6 +10,13 @@
     <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
     <!--</head>-->
+=======
+    <head>  
+        <title>Crear alquileres</title>
+        <link rel="stylesheet" href="css/jquery-editable-select.min.css" />
+        <script src="js/jquery-editable-select.min.js"></script>        
+    </head>
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
     <div>
         <div class="panel panel-default">
@@ -34,7 +42,10 @@
                                     <label for="Inputpersona_cedula">    </label>
                                     <button  style="padding-right: 4px;" type="button" class="btn btn-primary" onclick="buscarcedula()">Buscar </button>
                                 </div>
-
+                                <div class="form-group" >
+                                    <label for="Inputpersona_cedula">    </label>
+                                    <button  style="padding-right: 4px;" type="button" class="btn btn-primary" onclick="modal5()">modal5 </button>
+                                </div>
                             </div>
 
                         </div>
@@ -44,7 +55,7 @@
                             <label class="col-sm-3 col-form-label"><b>Fecha :</b></label>
 
                             <div class="col-sm-9 p-xs ">
-                                <input id="inputfecha_inicio"value="<?php echo $fcha; ?>"  type="date"  class="form-control" ></div>
+                                <input id="inputfecha_inicio"value="<?php echo $fcha; ?>"style="font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" type="text"  class="form-control" readonly></div>
                         </div>
 
                     </div>
@@ -66,10 +77,10 @@
                         </div>
 
                         <div class=" row ">
-                            <label style="text-align: left" class="col-sm-4 col-form-label"><b>Nombre y Apellidos :</b></label>
+                            <label style="text-align: left" class="col-sm-4 col-form-label"><b>Nombre y Apellido :</b></label>
 
-                            <div class="col-sm-8 p-xs " >
-                                <input  type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
+                            <div class="col-sm-8 p-xs border-bottom " >
+                                <input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputnombres" name="nombres" class="form-control" readonly></div>
                         </div>
 
 
@@ -78,12 +89,12 @@
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Cedula :</b></label>
 
-                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputcc" name="cc" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcc" name="cc" class="form-control" readonly></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Telefono :</b></label>
 
-                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputtelefono" name="telefono" class="form-control" readonly></div>
                         </div>
                         <br>
 
@@ -106,11 +117,12 @@
                         <div class=" row">
                             <label class="col-sm-2 col-form-label"><b>Direccion:</b></label>
 
-                            <div class="col-sm-10 p-xs "><input   type="text" id="Inputdireccion" name="direccion" class="form-control" readonly></div>
+                            <div class="col-sm-10 p-xs border-bottom"><input  style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputdireccion" name="direccion" class="form-control" readonly></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Correo :</b></label>
 
+<<<<<<< HEAD
                             <div class="col-sm-10 p-xs "><input type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
                         </div>
                         <div class="  row">
@@ -120,6 +132,10 @@
                                 <textarea class="form-control" id="InputObservacion" name="observacion" rows="3" placeholder="Enter a message ..."></textarea>
                                 <!--<input type="textarea" id="Inputcorreo" name="correo" class="form-control" readonly></div>-->
                             </div>
+=======
+                            <div class="col-sm-10 p-xs border-bottom"><input style="background-color: white; border:1px solid #ffffff;" type="text" id="Inputcorreo" name="correo" class="form-control" readonly></div>
+                        </div>
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
 
                         </div>
@@ -137,7 +153,12 @@
 
         <hr>
 
+<<<<<<< HEAD
         <div id="mostrarcontenido2" style="display: none">
+=======
+    <div id="mostrarcontenido2" style="display: none">
+        <div class="wrapper wrapper-content animated fadeInRight">
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
             <div class=" panel panel-default wrapper wrapper-content animated fadeInRight">
 
@@ -376,10 +397,32 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <script src="js/Ajax.js "></script>
         <script src="js/ViewManager.js "></script>
         <script src="js/HtmlBuilder.js "></script> 
         <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+=======
+    <!-- Modal de confirmacion para generar factura -->
+        <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                                            <h4 class="modal-title" style="font-size: 15px">¿Desea imprimir esta orden de salida?</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" onclick="imprimirOrdenSalida()">Imprimir</button>
+                                            <button type="button" class="btn btn-white center" data-dismiss="modal">Cancelar</button>                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    <!-- Fin Modal de confirmacion para generar factura -->
+    <script src="js/Ajax.js "></script>
+    <script src="js/ViewManager.js "></script>
+    <script src="js/HtmlBuilder.js "></script> 
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
         <script>
 
@@ -391,12 +434,17 @@
  */
 is_conductor_agregado = 1;
 
-/*
- * Contiene todos los clientes registrados en base de datos.
- * El unico momento en que esto se actualiza es el document on ready. 
- */
-clientes = [];
-//////////////////////////////////////////////// 
+    /*
+    * Contiene todos los clientes registrados en base de datos.
+    * El unico momento en que esto se actualiza es el document on ready. 
+    */
+    clientes = [];
+
+    /*
+    * Esta variable definira
+    *
+    */
+    clienteCcOrdenSalida = -1;
 
 
 
@@ -455,11 +503,31 @@ function construirOptionComboBuscarClientes(misClientes) {
     }
 }
 
+<<<<<<< HEAD
+=======
+    function construirOptionComboBuscarClientes(misClientes){
+        mi_select = document.getElementById('Inputpersona_cedula');
+        for(let i in misClientes){
+            mi_option = document.createElement("option"); 
+            mi_option.setAttribute("value", misClientes[i].cliente_cc);
+            mi_option.appendChild(document.createTextNode(misClientes[i].cliente_nombre));
+            mi_select.appendChild(mi_option);
+        }
+        //Esto hay que arreglarlo. La idea es que los nombres y numeros de cedula no se combinan
+        for(let i in misClientes){
+            mi_option = document.createElement("option"); 
+            mi_option.setAttribute("value", misClientes[i].cliente_cc);
+            mi_option.appendChild(document.createTextNode(misClientes[i].cliente_cc));
+            mi_select.appendChild(mi_option);
+        }
+    }
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
 
 
 var prod_alq = [];
 
+<<<<<<< HEAD
 function enviarFactura() {
 
     //        recorrerTabla();       
@@ -516,6 +584,58 @@ function enviarFactura() {
     }
 }
 ;
+=======
+    var prod_alq = [];
+
+    function enviarFactura() {
+        var nun_factura = document.getElementById("Inputnum_factura").value;
+        var clienete = document.getElementById("Inputid").value;
+        var flete = document.getElementById("input_flete").value;
+        var conductor = document.getElementById("InputChoferes").value;
+        var fecha = document.getElementById("inputfecha_inicio").value;
+        var descuent = document.getElementById("Inputfact_descuento").value;
+        var alquileres = '[' + prod_alq + ']';
+
+        if (JSON.parse(alquileres).length > 0) {
+
+          var parametros = {
+              "factura_id": nun_factura,
+              "fecha_inicio": fecha,
+              "descuento": descuent,
+              "cliente_id": clienete, 
+              "transporte_flete": flete,
+              "conductor_nombre": conductor,
+              "alquileres": alquileres
+          };
+          $.ajax({
+              data: parametros, //datos que se envian a traves de ajax
+              url: '../back/controller/crearFactura.php', //archivo que recibe la peticion
+              type: 'post', //método de envio
+              beforeSend: function () {
+                  $("#resultado").html("Procesando, espere por favor...");
+
+              },
+              success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                  $("#resultado").html(response);
+                  rta = JSON.parse(response);
+                  if (rta.factura_id >= 0) {
+                      alert("Alquilado con éxito");
+                      facturas_by_fecha();
+                  } else {
+                      alert("Ha habido un problema con la solicitud");
+                  }
+              },
+              error: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                  $("#resultado").html(response);
+              }
+          });
+
+        } else {
+          alert("La factura está vacía. \nRegistra algunos productos para alquilar y vuelve a intentarlo.")
+        }
+        }
+        ;
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
 
 
@@ -531,6 +651,7 @@ $('#visibilityHidden').click(function (e) {
     }
 });
 
+<<<<<<< HEAD
 function recorrerTabla() { /*recorro la tabla para calcular las columnas del precio para total y hacer desuento*/
     //     alert();
     rtotal = 0;
@@ -566,12 +687,19 @@ function recorrerTabla() { /*recorro la tabla para calcular las columnas del pre
             prod_alq.push(text2);
         }
         m1 = document.getElementById("Inputfact_descuento").value;
+=======
+
+    function modal5(){
+       $('#myModal5').modal({show: true}); 
+    }  
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
         flete = document.getElementById("input_flete").value;
 
         rtotal2 = 0;
         rtotal2 = parseInt(rtotal) - parseInt(m1) + parseInt(flete);
 
+<<<<<<< HEAD
         document.getElementById("Inputfact_total").value = rtotal2;
     })
 }
@@ -584,10 +712,68 @@ function sumar(valor) {
 
     rtotal = parseInt(rtotal) + parseInt(m1)
 
+=======
+    function imprimirOrdenSalida(){
+        var clienteCc = document.getElementById("Inputcc").value;
+        var nun_factura = document.getElementById("Inputnum_factura").value;
+         window.open('reciboOrdenesSalida.html?clienteCc='+clienteCc+'&nun_factura='+nun_factura);
+    }
+
+   
+        
+
+    /*
+     * Esta funcion hace muchas cosas que no entiendo, lo unico que me interesa es lo de abajo
+     * Cada vez que le dan agregar producto se inserta en la variable globa prod_alq
+     */
+    function recorrerTabla() { 
+        /*recorro la tabla para calcular las columnas del precio para total y hacer desuento*/
+        rtotal = 0;
+        m1 = 0;
+        prod_alq = [];
+        $("#mytable tbody tr").each(function (index) {
+            if (index != 0) {
+            var campo1, campo2, campo3;
+            $(this).children("td").each(function (index2) {
+              switch (index2) {
+                  case 0:
+                      campo1 = $(this).text();
+                      break;
+                  case 4:
+                      campo2 = $(this).text();
+                      break;
+                  case 6:
+                      campo3 = $(this).text();
+
+                      rtotal = parseInt(rtotal) + parseInt(campo3);
+
+
+                      break;
+              }
+              $(this).css("background-color", "#ECF8E0");
+            });
+        var text2 = '{ "id_producto":"' + campo1 + '" , "cantidad":"' + campo2 + '", "valor":"' + campo3/campo2 + '" }';
+        prod_alq.push(text2);
+}
+m1 = document.getElementById("Inputfact_descuento").value;
+
+flete = document.getElementById("input_flete").value;
+
+rtotal2 = 0;
+rtotal2 = parseInt(rtotal) - parseInt(m1) + parseInt(flete);
+
+document.getElementById("Inputfact_total").value = rtotal2;
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
     document.getElementById("Inputfact_total").value = rtotal;
 
 
+<<<<<<< HEAD
+=======
+})
+}
+;
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
 }
 ;
@@ -659,6 +845,7 @@ function multiplicar() {
     stock1 = 0;
     if (canti > 0) {
 
+<<<<<<< HEAD
     }
     canti = parseInt(document.getElementById("Inputcanti").value, 10);
     stock1 = parseInt(document.getElementById("Inputproct_stock").value, 10);
@@ -688,6 +875,34 @@ function Descuento() {
     //   can=document.getElementById("Inputcantidad").value;  
     m1 = document.getElementById("Inputprecio_total").value;
 
+=======
+    function buscarcedula() {
+        var basic_text = document.getElementById("Inputpersona_cedula").value;
+
+        var basic_value = $("#Inputpersona_cedula").siblings('.es-list').find('li.selected').attr('value');
+
+        empresa = basic_value;
+
+        console.log(empresa);
+
+        $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': empresa}, function (depa) {
+            depa = JSON.parse(depa);
+            if (depa[1].result == 'error') {
+              alert('NO existe debe registra el Cliente ');
+              Clientes_Registrar();
+            } else {
+              $("#Inputid").val(depa[1].idcliente);
+              $("#Inputnombres").val(depa[1].cliente_nombre + " " + depa[1].cliente_apellido);
+              $("#Inputcc").val(depa[1].cliente_cc);//direccion
+              $("#Inputtelefono").val(depa[1].cliente_telefono);
+              $("#Inputcorreo").val(depa[1].cliente_correo);
+              $("#Inputdireccion").val(depa[1].cliente_direccion);
+              emp = 0;
+              Activar_tabla();
+            }
+        });
+    }
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
     m2 = document.getElementById("descuento").value;
     r = m1 - m2;
@@ -792,11 +1007,31 @@ function cargarConductos() {
 
 function mostrarDatosP(empresa) {
 
+<<<<<<< HEAD
     //        alert(empresa);
+=======
+                                      var mySelect = document.getElementById("Inputproducto");
+                                      removeAllChildren(mySelect);
+                                      mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
+                                      depa = JSON.parse(depa);
+                                      for (var i = 1; i < depa.length; i++) {
+                                          mySelect.appendChild(createOPTION(depa[i].idprod, depa[i].prod_nombre));
+                                      }
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
     $.get('../back/controller/Producto_detalles.php', {'empresa': empresa}, function (depa) {
 
 
+<<<<<<< HEAD
+=======
+                                      var mySelect = document.getElementById("InputChoferes");
+                                      removeAllChildren(mySelect);
+                                      mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
+                                      depa = JSON.parse(depa);
+                                      for (var i = 1; i < depa.length; i++) {
+                                          mySelect.appendChild(createOPTION(depa[i].idchoferes, depa[i].nom_chofer));
+                                      }
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
         depa = JSON.parse(depa);
 
@@ -992,8 +1227,13 @@ function mostrarDatosP(empresa) {
                         });
 
             }
+<<<<<<< HEAD
             ;
 
         </script>
+=======
+        }
+    </script>
+>>>>>>> 25499baf2f294bc22bc5b71627c92a96cecb3eee
 
 </html>
