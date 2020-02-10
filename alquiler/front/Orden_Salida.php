@@ -653,9 +653,9 @@ document.getElementById("Inputfact_total").value = rtotal2;
 
         empresa = basic_value;
 
-        console.log(empresa);
+        console.log(basic_value);
 
-        $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': empresa}, function (depa) {
+        $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': basic_value}, function (depa) {
             depa = JSON.parse(depa);
             if (depa[1].result == 'error') {
               alert('NO existe debe registra el Cliente ');
