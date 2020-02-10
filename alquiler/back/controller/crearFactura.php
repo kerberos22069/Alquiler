@@ -30,6 +30,9 @@ try {
     include_once realpath('../facade/ProductoFacade.php');
     $alquileres = json_decode(strip_tags($_POST['alquileres']));
 
+
+
+
     foreach ($alquileres as $obj => $alquiler) {
         $cantidad = $alquiler->cantidad;
         $valor = $alquiler->valor;
@@ -37,15 +40,14 @@ try {
         $producto = new Producto();
         $producto->setIdprod($Producto_idprod);
 
+        $i = 0;
         if (count($facturas) > 0) {
             $listByFactura = AlquilerFacade::listByFactura($factura_id);
             foreach ($listByFactura as $objx => $alquilerExistente) {
-                if ($alquilerExistente->getProducto_idprod() == $Producto_idprod) {
+                if ($alquilerExistente->getProducto_idprod()->getIdprod() == $Producto_idprod) {
                     $alquilerExistente->setCantidad($alquiler->cantidad + $alquilerExistente->getCantidad());
                     AlquilerFacade::editarAlquiler($alquilerExistente);
                     break;
-                }else{
-                    AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);
                 }
             }
         } else {

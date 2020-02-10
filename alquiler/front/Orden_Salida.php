@@ -497,7 +497,7 @@ function enviarFactura() {
                 $("#resultado").html(response);
                 rta = JSON.parse(response);
                 if (rta.factura_id >= 0) {
-                    alert("Alquilado con éxito");
+                    //alert("Alquilado con éxito");
                     aceptarPersona();
                     facturas_by_fecha();
                     cargareNum_Factura();
