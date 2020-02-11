@@ -20,15 +20,18 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="row">
-                            <div class="col-sm-10">
+                             <div class="col-sm-3" >
+                                                            <label class=" col-form-label"><b>Nit O Razon Social:</b></label>
+
+                            </div>
+                            <div class="col-sm-9">
                                 <div class="form-group">
                                     <select name="country" oninput="getSelectValue()" id="Inputpersona_cedula" class="form-control">
 
                                     </select>
                                 </div> 
                             </div>
-                            <div class="col-sm-2" >
-                            </div>
+                           
 
                         </div>
                     </div>
@@ -141,6 +144,9 @@
     <hr>
 
     <div id="mostrarcontenido2" style="display: none">
+        
+        <div class="panel panel-default">
+   
         <div class="wrapper wrapper-content animated fadeInRight">
 
             <div class="row">
@@ -181,9 +187,10 @@
                                             <th style=" color:#FFFFFF; background-color: #616161  !important">Precio</th>
                                             <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
                                             <th style=" color:#FFFFFF; background-color: #616161  !important">Desc</th>
+                                               <th style=" color:#FFFFFF; background-color: #616161  !important">Dias Prestamo</th>
                                             <th style=" color:#FFFFFF; background-color: #616161  !important">Valor Total</th>
 
-                                            <th style=" color:#FFFFFF; background-color: #616161  !important">Dias Prestamo</th>
+                                        
 
 
 
@@ -239,7 +246,7 @@
                                         </div>                      
                                     </div>                
 
-                                    <div class="  row">
+                                    <div class="  row" style="display: none">
                                         <label class="col-sm-6 col-form-label"><b>DESCUENTO $</b></label>
                                         <div class="col-sm-6 p-xs">
                                             <input value="0" style=" border:1px solid #ffffff;" type="text" id="Inputfact_descuento" name="fact_descuento" class="form-control" onchange="restar();">
@@ -265,6 +272,8 @@
                 </div>
             </div>
         </div> 
+            
+            </div>
     </div>
 
     <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
@@ -341,17 +350,18 @@
                                             <label for="Inputproct_stock">Stock</label>
                                             <input type="text" name="proct_stock" class="form-control" id="Inputproct_stock"  required>
                                         </div>       
-
-
+                                        
+                                       
+                                        <div class="form-group" style="display: none">
+                                            <label for="Inputdescuento">Descuento</label>
+                                            <input type="text" name="descuento" class="form-control" id="Inputdescuento"  value="0"  onChange="recalcular();" readonly="true">
+                                        </div>
+                                        
                                         <div class="form-group">
                                             <label for="Inputpersona_cedula">Precio</label>
                                             <input type="text" name="precio_unitario" class="form-control" id="Inputprecio_unitario"  value=0 onChange="multiplicar();" >
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="Inputdescuento">Descuento</label>
-                                            <input type="text" name="descuento" class="form-control" id="Inputdescuento"  value="0"  onChange="recalcular();">
-                                        </div>
                                         <div class="form-group">
                                             <label for="Inputprecio_total">precio Total</label>
                                             <input type="text" name="precio_total" class="form-control" id="Inputprecio_total"  value="0">
@@ -578,7 +588,7 @@ function recorrerTabla() {
                     case 4:
                         campo2 = $(this).text();
                         break;
-                    case 6:
+                    case 7:
                         campo3 = $(this).text();
 
                         rtotal = parseInt(rtotal) + parseInt(campo3);
@@ -671,6 +681,7 @@ function buscarcedula() {
 function multiplicar() {
     can = 0;
     m1 = 0;
+    diasp=0;
     canti = 0;
     stock1 = 0;
     if (canti > 0) {
@@ -678,6 +689,7 @@ function multiplicar() {
     }
     canti = parseInt(document.getElementById("Inputcanti").value, 10);
     stock1 = parseInt(document.getElementById("Inputproct_stock").value, 10);
+//    diasp = parseInt(document.getElementById("Inputproc_dias").value, 10);
     if (stock1 < canti) {
         alert('LA CANTIDAD SUPERA EL STOCK');
 
@@ -686,9 +698,10 @@ function multiplicar() {
         return;
     } else {
         Activar_productos();
+       diasp =document.getElementById("Inputproc_dias").value;
         m1 = document.getElementById("Inputcanti").value;
         m2 = document.getElementById("Inputprecio_unitario").value;
-        r = parseInt(m1) * parseInt(m2);
+        r = parseInt(m1) * parseInt(m2) * parseInt(diasp);
         document.getElementById("Inputprecio_total").value = r;
     }
 
@@ -779,7 +792,7 @@ function cargarProductos() {
         mySelect.appendChild(createOPTION(-1, 'SELECCIONE'));
         depa = JSON.parse(depa);
         for (var i = 1; i < depa.length; i++) {
-            mySelect.appendChild(createOPTION(depa[i].idprod, depa[i].prod_nombre));
+            mySelect.appendChild(createOPTION(depa[i].idprod, depa[i].prod_nombre+" - "+depa[i].prod_descripcion));
         }
 
     });
@@ -817,6 +830,7 @@ function mostrarDatosP(empresa) {
         $("#Inputproduc_nombre").val(depa[1].prod_nombre);
         $("#Inputprodc_descr").val(depa[1].prod_descripcion);
         $("#Inputprecio_unitario").val(depa[1].prod_precio);
+//        $("#Inputdescuento").val(depa[1].prod_precio);
         $("#Inputproct_stock").val(depa[1].prod_stock);
         $("#Inputproc_dias").val(depa[1].foto);
 
@@ -849,7 +863,7 @@ function mostrarDatosP(empresa) {
 
                 var fila = '<tr id="row' + i + '">\n\
     <td>' + idref + '</td><td>' + nombre + '</td><td>' + descripcion + '</td>\n\
-    <td>' + v_unit + '</td><td>' + canti + '</td><td>' + descuen + '</td><td>' + precio_total + '</td><td>' + alquiler + '</td>\n\
+    <td>' + v_unit + '</td><td>' + canti + '</td><td>' + descuen + '</td><td>' + alquiler + '</td><td>' + precio_total  + '</td>\n\
     <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
 
                 i++;
@@ -896,9 +910,9 @@ function mostrarDatosP(empresa) {
 //                           alert('asasa 2'+nFilas);
                     desactivar_Cho_enviar();
                 }
-
+recorrerTabla();
             });
-            recorrerTabla();
+//            recorrerTabla();
         });
 
 
