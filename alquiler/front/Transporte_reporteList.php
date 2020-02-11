@@ -9,7 +9,7 @@
                                     <tr>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">#Orden</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Fecha Orden</th>
-                                        <th style=" color:#FFFFFF; background-color: #616161  !important"># Factura</th>
+                                        <th style=" color:#FFFFFF; background-color: #616161  !important"># Orden de SAlida</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Cliente</th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Valor</th>
                                      
@@ -60,7 +60,7 @@
                                     <div class="  row">
                                         <label class="col-sm-6 col-form-label"><b>TOTAL $</b></label>
                                         <div class="col-sm-6 p-xs">
-                                            <input style=" border:1px solid #ffffff;" type="text" id="Inputfact_total_Tra" name="fact_total" class="form-control" readonly>
+                                            <input style=" border:1px solid #ffffff;" type="text" id="Inputfact_total_Tra" name="fact_total" class="form-control" value="0" readonly>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -87,12 +87,13 @@
     
     function  cargarTotales(){
           
-          alert();
+//          alert();
     var Id_chofer2= document.getElementById('InputId_orden').value;
     var fecha_ini_tra2= document.getElementById('Imputfecha_inicio_tran').value;
     var fecha_fin_tra2= document.getElementById('Imputfecha_fin_tran').value;
-    var empresa=Id_chofer2+"-"+fecha_ini_tra2+"-"+fecha_fin_tra2;
-          alert(empresa);
+     document.getElementById('Inputfact_total_Tra').value='0';
+    var empresa=Id_chofer2+" "+fecha_ini_tra2+" "+fecha_fin_tra2;
+//          alert(empresa);
                   $.get('../back/controller/Reporte_transporte_Total.php', {'empresa': empresa}, function (depa) {
                                   depa = JSON.parse(depa);
                                       $("#Inputfact_total_Tra").val(depa[1].transporte_flete);

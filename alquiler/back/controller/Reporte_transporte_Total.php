@@ -10,24 +10,38 @@ include_once realpath('../facade/TransporteFacade.php');
 //
 
 
-//$empresa = $_GET['empresa'];
+$empresa = $_GET['empresa'];
 
 
 //$arr = explode('-', $empresa, 4);
 
-
-$fechaI ='2020-01-01';
-$fechaF = '2020-02-01';
 //
-//$fechaI =$arr[1];
-//$fechaF = $arr[2];
+//$fechaI ='2020-01-01';
+//$fechaF = '2020-02-01';
+////
+////$fechaI =$arr[1];
+////$fechaF = $arr[2];
+////$id = '1';
+////
+////$id = $arr[0];
 //$id = '1';
-//
-//$id = $arr[0];
-$id = '1';
 //$fechaI = $_GET['fecha_ini_tra'];
 //$fechaF = $_GET['fecha_fin_tra'];
 
+$empresa = $_GET['empresa'];
+
+//var_dump($empresa);
+
+$arr = explode(' ',$empresa,4);
+
+
+//$fechaI ='2020-01-01';
+//$fechaF = '2020-02-01';
+//$id = '1';
+//
+$id = $arr[1];
+$fechaI =$arr[2];
+$fechaF =$arr[3];
 
 
 
@@ -53,8 +67,8 @@ $list=TransporteFacade::reporte_transporte_Total($fechaI, $fechaF, $id);
 	       $rta = substr($rta, 0, -1);
 	       $msg="{\"msg\":\"exito\"}";
         }else{
-	       $msg="{\"msg\":\"MANEJO DE EXCEPCIONES AQUÍ\"}";
-	       $rta="{\"result\":\"No se encontraron registros.\"}";	
+             $msg="{\"msg\":\"error\"}";
+	       $rta="{\"result\":\"error\"}";		
         }
         echo "[{$msg},{$rta}]";
    

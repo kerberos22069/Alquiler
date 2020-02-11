@@ -337,44 +337,12 @@
         
    function relacion_viajes() {
 
-//alert();
-//       transpore_pagos();
-        
-
-
-//    var url = "../back/controller/Reporte_transporte.php";
-
     var Id_chofer= document.getElementById('InputId_orden').value;
     var fecha_ini_tra= document.getElementById('Imputfecha_inicio_tran').value;
     var fecha_fin_tra= document.getElementById('Imputfecha_fin_tran').value;
 
  transpore_pagos(Id_chofer,fecha_ini_tra,fecha_fin_tra);
 
-//
-//       
-//                    var parametros = {
-//                                          "fecha_ini_tra": fecha_ini_tra,
-//                                          "fecha_fin_tra": fecha_fin_tra,
-//                                          "Id_chofer": Id_chofer
-//                                         
-//                                      };
-//        $.ajax({
-//            type: "POST",
-//            url: url,
-//            data: parametros,
-//
-////            success: function (data) {
-//                success: function (response) {                
-//                rta = JSON.parse(response);
-//               
-//                console.log(rta);
-//               
-//            
-//              },
-//            error: function (response) { 
-//                console.log("No se ha podido cargar los clientes")
-//            }
-//        });
     
 };
      

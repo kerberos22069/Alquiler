@@ -320,13 +320,15 @@ function relacion_pago_choferes() {  /**  tabla de datos  */
 //  enviar("",'../back/controller/Ventas_fact_listall_xFact.php?emp='+emp,postVentas_factList); 
 }
 
-function transpore_pagos(Id_chofer,fecha_ini_tra,fecha_fin_tra) {  /**  tabla de datos  */
+function transpore_pagos(Id_chofe,fecha_ini_tra,fecha_fin_tra) {  /**  tabla de datos  */
+    var Id_datos =Id_chofe+" "+fecha_ini_tra+" "+fecha_fin_tra;
+    
     var url = "Transporte_reporteList.php";
     var datos = {};
     var rta = "#mostrarcontenido2";
     ajax(url, datos, rta);
 //enviar(formData, rutaBack ,postClientesList); 
-  enviar("",'../back/controller/Reporte_transporte.php?Id_chofer='+Id_chofer,postTransporteList); 
+  enviar("",'../back/controller/Reporte_transporte.php?Id_datos='+Id_datos,postTransporteList); 
 }
 
 

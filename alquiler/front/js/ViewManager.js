@@ -172,7 +172,7 @@ function preChoferesList(container){
 
             for(var i=1; i < Object.keys(json).length; i++) {   
                 var Choferes = json[i];
-           // Choferes.updateHrefB = 'AbrirRelacionViaje("' + Choferes.idchoferes+ '","' + Choferes.cc_chofer + '","'+ Choferes.nom_chofer+'");';
+            Choferes.updateHrefB = 'AbrirRelacionViaje("' + Choferes.idchoferes+ '","' + Choferes.cc_chofer + '","'+ Choferes.nom_chofer+'");';
 //                Choferes.updateHrefB='AbrirRelacionViaje("'+Choferes.idchoferes +'" "'+ Choferes.cc_chofer+'" "'+ Choferes.nom_chofer+'");';
                 Choferes.viewHrefB = 'mostrarTodo("' + Choferes.idchoferes + '");';
                 Choferes.deleteHrefB = 'mostrarEliminar("' + Choferes.idchoferes + '");';

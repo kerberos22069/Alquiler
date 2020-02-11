@@ -7,15 +7,25 @@
  */
 //    In Anarchy we trust  \\
 include_once realpath('../facade/TransporteFacade.php');
-//
-$fechaI ='2020-01-01';
-$fechaF = '2020-02-01';
+
+$empresa = $_GET['Id_datos'];
+
+//var_dump($empresa);
+
+$arr = explode(' ',$empresa,4);
+
+
+//$fechaI ='2020-01-01';
+//$fechaF = '2020-02-01';
 //$id = '1';
 //
-$id = $_GET['Id_chofer'];
-//$fechaI = $_GET['fecha_ini_tra'];
-//$fechaF = $_GET['fecha_fin_tra'];
+$id = $arr[1];
+$fechaI =$arr[2];
+$fechaF =$arr[3];
 
+//var_dump($fechaF);
+
+//die();
 
 
 
@@ -44,7 +54,7 @@ $list=TransporteFacade::reporte_transporte($fechaI, $fechaF, $id);
 	       $rta = substr($rta, 0, -1);
 	       $msg="{\"msg\":\"exito\"}";
         }else{
-	       $msg="{\"msg\":\"MANEJO DE EXCEPCIONES AQUÍ\"}";
+	       $msg="{\"msg\":\"NO HAY REGISTROS\"}";
 	       $rta="{\"result\":\"No se encontraron registros.\"}";	
         }
         echo "[{$msg},{$rta}]";

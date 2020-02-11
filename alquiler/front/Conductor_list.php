@@ -44,6 +44,7 @@
                                         <th style=" color:#FFFFFF; background-color: #616161  !important">Direccion</th>
 
                                         <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
+                                        <th  style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-eye"></i></th>
                                         <th style=" color:#FFFFFF; background-color: #616161  !important"><i class="fa fa-trash"></i></th>
                                       
 
