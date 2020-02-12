@@ -40,7 +40,7 @@
                             <label class="col-sm-3 col-form-label"><b>Fecha :</b></label>
 
                             <div class="col-sm-9 p-xs ">
-                                <input id="inputfecha_inicio"value="<?php echo $fcha; ?>" type="date"  class="form-control" ></div>
+                                <input id="inputfecha_inicio" value="<?php echo $fcha; ?>" type="date"  class="form-control" ></div>
                         </div>
 
                     </div>
