@@ -21,7 +21,7 @@
                     <div class="col-lg-6">
                         <div class="row">
                              <div class="col-sm-3" >
-                                                            <label class=" col-form-label"><b>Nit O Razon Social:</b></label>
+                                                            <label class=" col-form-label"><b>Nit:</b></label>
 
                             </div>
                             <div class="col-sm-9">
