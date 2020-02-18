@@ -33,10 +33,13 @@ class FacturaDao implements IFacturaDao {
         $fecha = $factura->getFecha();
         $fac_descueto = $factura->getFac_descueto();
         $idCliente = $factura->getCliente_idcliente()->getIdcliente();
+        $obra = $factura->getObra();
+        $direcion = $factura->getDireccionObra();
+        $observacion = $factura->getObservacion();
 
         try {
-            $sql = "INSERT INTO `factura`( `idfactura`, `fecha`, `fac_descueto`, `abonos`, `cliente_idcliente`)"
-                    . "VALUES ('$idfactura','$fecha','$fac_descueto','[]','$idCliente')";
+            $sql = "INSERT INTO `factura`( `idfactura`, `fecha`, `fac_descueto`, `abonos`, `cliente_idcliente`, `nombre_obra`, `direccion_obra`, `fact_observacion`)"
+                    . "VALUES ('$idfactura','$fecha','$fac_descueto','[]','$idCliente', '$obra', '$direcion', '$observacion')";
             return $this->insertarConsulta($sql);
         } catch (SQLException $e) {
             throw new Exception('Primary key is null');

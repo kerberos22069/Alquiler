@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-02-2020 a las 15:03:32
--- Versión del servidor: 10.1.30-MariaDB
--- Versión de PHP: 7.2.2
+-- Tiempo de generación: 19-02-2020 a las 00:27:56
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,15 +31,24 @@ SET time_zone = "+00:00";
 CREATE TABLE `alquiler` (
   `idalquiler` int(11) NOT NULL,
   `fecha_inicio` datetime NOT NULL,
-  `cantidad` int(11) NOT NULL DEFAULT '1',
+  `cantidad` int(11) NOT NULL DEFAULT 1,
   `valor` int(11) NOT NULL,
-  `pagado` tinyint(4) NOT NULL DEFAULT '0',
+  `pagado` tinyint(4) NOT NULL DEFAULT 0,
   `fechafin` date DEFAULT NULL,
   `producto_idprod` int(11) NOT NULL,
   `factura_idfactura` int(11) NOT NULL,
   `alq_stado` int(11) DEFAULT NULL,
-  `alq_devuelto` text
+  `alq_devuelto` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `alquiler`
+--
+
+INSERT INTO `alquiler` (`idalquiler`, `fecha_inicio`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`) VALUES
+(54, '2020-02-18 16:51:33', 3, 2450, 0, NULL, 3, 0, 0, '[{\"fecha\":\"2020-02-18\",\"cantidad\":\"3\",\"estado\":0,\"tipo\":1}]'),
+(55, '2020-02-18 17:57:08', 2, 2100, 0, NULL, 5, 0, 0, '[{\"fecha\":\"2020-02-18\",\"cantidad\":\"1\",\"estado\":0,\"tipo\":1},{\"fecha\":\"2020-02-18\",\"cantidad\":\"1\",\"estado\":0,\"tipo\":1}]'),
+(56, '2020-02-18 18:23:07', 1, 2100, 0, NULL, 4, 0, 0, '[{\"fecha\":\"2020-02-18\",\"cantidad\":\"1\",\"estado\":0,\"tipo\":1}]');
 
 -- --------------------------------------------------------
 
@@ -56,6 +65,13 @@ CREATE TABLE `choferes` (
   `stado` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `choferes`
+--
+
+INSERT INTO `choferes` (`idchoferes`, `cc_chofer`, `nom_chofer`, `chofe_telefono`, `direccion`, `stado`) VALUES
+(3, '15487852', 'Elcon ductor', '311441424', '', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -70,8 +86,15 @@ CREATE TABLE `cliente` (
   `cliente_correo` varchar(45) DEFAULT NULL,
   `cliente_telefono` varchar(25) NOT NULL,
   `cliente_direccion` varchar(45) DEFAULT NULL,
-  `cliente_stado` int(1) DEFAULT '1'
+  `cliente_stado` int(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`idcliente`, `cliente_nombre`, `cliente_apellido`, `cliente_cc`, `cliente_correo`, `cliente_telefono`, `cliente_direccion`, `cliente_stado`) VALUES
+(6, 'Diego', 'Carrascal', '100499745', 'diego@nortcoding.com', '3114454545', 'Mz 5 Lt 40 Urbanización Panamericana', 1);
 
 -- --------------------------------------------------------
 
@@ -99,12 +122,21 @@ CREATE TABLE `clientebyfacturaselect` (
 CREATE TABLE `factura` (
   `idfactura` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
-  `fac_descueto` int(11) NOT NULL DEFAULT '0',
+  `fac_descueto` int(11) NOT NULL DEFAULT 0,
   `cliente_idcliente` int(11) NOT NULL,
-  `abonos` text,
+  `abonos` text DEFAULT NULL,
   `estado` tinyint(4) DEFAULT NULL,
+  `nombre_obra` varchar(100) NOT NULL DEFAULT '''NO APLICA''',
+  `direccion_obra` varchar(200) NOT NULL DEFAULT '"NO APLICA"',
   `fact_observacion` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `factura`
+--
+
+INSERT INTO `factura` (`idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`, `abonos`, `estado`, `nombre_obra`, `direccion_obra`, `fact_observacion`) VALUES
+(0, '2020-02-18 16:51:33', 0, 6, '[]', NULL, '\'NO APLICA\'', '\"NO APLICA\"', '');
 
 -- --------------------------------------------------------
 
@@ -121,8 +153,8 @@ CREATE TABLE `producto` (
   `prod_alquilado` int(11) DEFAULT NULL,
   `prod_reparacion` int(11) DEFAULT NULL,
   `prod_danado` int(11) DEFAULT NULL,
-  `prod_stado` int(11) NOT NULL DEFAULT '1',
-  `foto` int(10) NOT NULL DEFAULT '7'
+  `prod_stado` int(11) NOT NULL DEFAULT 1,
+  `foto` int(10) NOT NULL DEFAULT 7
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -132,9 +164,9 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
 (1, 'TABLERO INDUSTRIAL', '1.20 cm x 0.60 cm', 350, 5, 541, 5212, 554, 0, 7),
 (2, 'TABLERO INDUSTRIAL', '1.20 cm x 0.50 cm', 350, 100, 34, 0, 0, 1, 7),
-(3, 'TABLERO INDUSTRIAL', '1.20 cm x 0.40 cm', 350, 88, 12, 6, 6, 1, 7),
-(4, 'TABLERO INDUSTRIAL', '1.20 cm x 0.30 cm', 300, 84, 16, 0, 0, 1, 7),
-(5, 'TABLERO INDUSTRIAL', '1.20 cm x 0.20 cm', 300, 95, 5, 2, 2, 1, 7),
+(3, 'TABLERO INDUSTRIAL', '1.20 cm x 0.40 cm', 350, 85, 15, 6, 6, 1, 7),
+(4, 'TABLERO INDUSTRIAL', '1.20 cm x 0.30 cm', 300, 83, 17, 0, 0, 1, 7),
+(5, 'TABLERO INDUSTRIAL', '1.20 cm x 0.20 cm', 300, 93, 7, 2, 2, 1, 7),
 (6, 'TABLERO INDUSTRIAL', '1.20 cm x 0.10 cm', 250, 100, 5, 1, 1, 1, 7),
 (7, 'ESQUINEROS', '1.20 cm x 0.20 cm x 0.20 cm', 70, 100, 2, 0, 0, 1, 7),
 (8, 'ANGULOS', '1.20', 250, 97, 5, 0, 0, 1, 7),
@@ -185,10 +217,10 @@ CREATE TABLE `reporte_ordenes` (
 
 CREATE TABLE `transporte` (
   `idtransporte` int(11) NOT NULL,
-  `transporte_flete` int(11) DEFAULT '0',
+  `transporte_flete` int(11) DEFAULT 0,
   `factura_idfactura` int(11) NOT NULL,
   `transporte_conductor` varchar(45) DEFAULT NULL,
-  `choferes_idchoferes` int(11) NOT NULL DEFAULT '0'
+  `choferes_idchoferes` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -198,7 +230,7 @@ CREATE TABLE `transporte` (
 --
 DROP TABLE IF EXISTS `clientebyfacturaselect`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `clientebyfacturaselect`  AS  select `factura`.`idfactura` AS `idfactura`,`factura`.`fecha` AS `fecha`,`factura`.`fac_descueto` AS `fac_descueto`,`factura`.`cliente_idcliente` AS `cliente_idcliente`,`factura`.`abonos` AS `abonos`,`factura`.`estado` AS `estado`,`cliente`.`cliente_cc` AS `cliente_cc`,`cliente`.`cliente_nombre` AS `cliente_nombre` from (`factura` join `cliente` on((`cliente`.`idcliente` = `factura`.`cliente_idcliente`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `clientebyfacturaselect`  AS  select `factura`.`idfactura` AS `idfactura`,`factura`.`fecha` AS `fecha`,`factura`.`fac_descueto` AS `fac_descueto`,`factura`.`cliente_idcliente` AS `cliente_idcliente`,`factura`.`abonos` AS `abonos`,`factura`.`estado` AS `estado`,`cliente`.`cliente_cc` AS `cliente_cc`,`cliente`.`cliente_nombre` AS `cliente_nombre` from (`factura` join `cliente` on(`cliente`.`idcliente` = `factura`.`cliente_idcliente`)) ;
 
 -- --------------------------------------------------------
 
@@ -207,7 +239,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `reporte_chofer`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reporte_chofer`  AS  select `transporte`.`idtransporte` AS `idtransporte`,`factura`.`fecha` AS `fecha`,`transporte`.`factura_idfactura` AS `factura_idfactura`,`cliente`.`cliente_nombre` AS `cliente_nombre`,`choferes`.`idchoferes` AS `idchoferes`,`choferes`.`cc_chofer` AS `cc_chofer`,`choferes`.`nom_chofer` AS `nom_chofer`,`transporte`.`transporte_flete` AS `valor` from (((`transporte` join `factura` on((`transporte`.`factura_idfactura` = `factura`.`idfactura`))) join `cliente` on((`cliente`.`idcliente` = `factura`.`cliente_idcliente`))) join `choferes` on((`choferes`.`idchoferes` = `transporte`.`choferes_idchoferes`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reporte_chofer`  AS  select `transporte`.`idtransporte` AS `idtransporte`,`factura`.`fecha` AS `fecha`,`transporte`.`factura_idfactura` AS `factura_idfactura`,`cliente`.`cliente_nombre` AS `cliente_nombre`,`choferes`.`idchoferes` AS `idchoferes`,`choferes`.`cc_chofer` AS `cc_chofer`,`choferes`.`nom_chofer` AS `nom_chofer`,`transporte`.`transporte_flete` AS `valor` from (((`transporte` join `factura` on(`transporte`.`factura_idfactura` = `factura`.`idfactura`)) join `cliente` on(`cliente`.`idcliente` = `factura`.`cliente_idcliente`)) join `choferes` on(`choferes`.`idchoferes` = `transporte`.`choferes_idchoferes`)) ;
 
 -- --------------------------------------------------------
 
@@ -216,7 +248,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `reporte_ordenes`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reporte_ordenes`  AS  select `factura`.`fecha` AS `fecha`,`factura`.`idfactura` AS `idfactura`,`cliente`.`cliente_cc` AS `cliente_cc`,`cliente`.`cliente_nombre` AS `cliente_nombre`,`factura`.`fact_observacion` AS `fact_observacion`,`factura`.`estado` AS `estado` from (`factura` join `cliente` on((`cliente`.`idcliente` = `factura`.`cliente_idcliente`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reporte_ordenes`  AS  select `factura`.`fecha` AS `fecha`,`factura`.`idfactura` AS `idfactura`,`cliente`.`cliente_cc` AS `cliente_cc`,`cliente`.`cliente_nombre` AS `cliente_nombre`,`factura`.`fact_observacion` AS `fact_observacion`,`factura`.`estado` AS `estado` from (`factura` join `cliente` on(`cliente`.`idcliente` = `factura`.`cliente_idcliente`)) ;
 
 --
 -- Índices para tablas volcadas
@@ -271,19 +303,19 @@ ALTER TABLE `transporte`
 -- AUTO_INCREMENT de la tabla `alquiler`
 --
 ALTER TABLE `alquiler`
-  MODIFY `idalquiler` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `idalquiler` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `choferes`
 --
 ALTER TABLE `choferes`
-  MODIFY `idchoferes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idchoferes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`

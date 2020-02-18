@@ -46,9 +46,9 @@
                     </div>
                     <div class="col-lg-2">  
 
-                        <div class="form-group row"><label class="col-lg-2 col-form-label" style="color: red; font-size: 24"><b>Num</b></label>
+                        <div class="form-group row"><label class="col-lg-2 col-form-label" style="color: red; font-size: 24; visibility: hidden;"><b>Num</b></label>
 
-                            <div class="col-lg-6"><input  name="num_factura" id="Inputnum_factura" type="text" placeholder="0" class="form-control" style="color: red; font-size: 28 ; font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" readonly>
+                            <div class="col-lg-6"><input display="none" name="num_factura" id="Inputnum_factura" type="text" placeholder="0" class="form-control" style="color: red; font-size: 28 ; font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;visibility: hidden;" readonly>
                             </div>
                         </div>         
                     </div></div>
@@ -84,12 +84,12 @@
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Obra :</b></label>
 
-                            <div class="col-sm-10 p-xs "><input  type="text" id="obra" name="obra" class="form-control" ></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="obra" name="obra" class="form-control" maxlength="100"></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Direccion Obra:</b></label>
 
-                            <div class="col-sm-10 p-xs "><input  type="text" id="direccionObra" name="obra" class="form-control" ></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="direccionObra" maxlength="200" name="obra" class="form-control" ></div>
                         </div>
                         <br>
 
@@ -164,9 +164,11 @@
                                 <div class="col-sm"></div>
                                 <div class="col-sm"></div>
                                 <div class="col-sm">                    
-                                    <button type="button" id="btn_admin_conductor" class="btn btn-primary" onclick="administrarConductor()" disabled>
+                                   <!-- 
+                                        <button type="button" id="btn_admin_conductor" class="btn btn-primary" onclick="administrarConductor()" disabled>
                                         Añadir Transporte
-                                    </button>
+                                        </button>
+                                    -->
                                 </div>
                             </div>
 
@@ -494,8 +496,8 @@ var prod_alq = [];
 function enviarFactura() {
     var nun_factura = document.getElementById("Inputnum_factura").value;
     var clienete = document.getElementById("Inputid").value;
-    var flete = document.getElementById("input_flete").value;
-    var conductor = document.getElementById("InputChoferes").value;
+    //var flete = document.getElementById("input_flete").value;
+    //var conductor = document.getElementById("InputChoferes").value;
     //var descuent = document.getElementById("Inputfact_descuento").value;
     var alquileres = '[' + prod_alq + ']';
     //nuevos datos para el recibo
@@ -511,13 +513,14 @@ function enviarFactura() {
             "fecha_inicio": fecha,
             //"descuento": descuent,
             "cliente_id": clienete,
-            "transporte_flete": flete,
-            "conductor_nombre": conductor,
+            //"transporte_flete": flete,
+            //"conductor_nombre": conductor,
             "alquileres": alquileres,
             "obra" : obra,
             "direccionObra" :  direccObra,
             "observacion" : observacion
         };
+        console.log(parametros);
         $.ajax({
             data: parametros, //datos que se envian a traves de ajax
             url: '../back/controller/crearFactura.php', //archivo que recibe la peticion
