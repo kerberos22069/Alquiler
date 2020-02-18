@@ -51,24 +51,9 @@ function armarReporteDeFacturas($facturas) {
             $myAlquiler->devoluciones = $Alquiler->getAlq_devuelto();
 
             $myAlquiler->subTotal = 0;
-            $jsonDev = $Alquiler->getAlq_devuelto();
-            //Se mira si tiene una lista de devoluciones válida y si se formatea para recorrerla y saber el total de productos devueltos
 
-            if ($jsonDev != NULL && $jsonDev != "") {
-                $arrayDevoluciones = json_decode($jsonDev);
-                $totalDevuelto = 0;
-                foreach ($arrayDevoluciones as $key => $devuelto) {
-                    $totalDevuelto += $devuelto->cantidad;
-                    //Calcula los días de activos antes de una devolución y obtiene el total $ del producto para esa cantidad de días
-                    $datetime1 = date_create($Alquiler->getFecha_inicio());
-                    $datetime2 = date_create($devuelto->fecha);
-                    $interval = date_diff($datetime1, $datetime2);
-                    $myAlquiler->subTotal += $interval->format('%d') * $Alquiler->getValor() * $devuelto->cantidad;
-                }
-            }
-            $myAlquiler->cantidad = $Alquiler->getCantidad() + $totalDevuelto;
-            $myAlquiler->totalDevuelto = $totalDevuelto;
-            $myAlquiler->devuelto = $Alquiler->getCantidad() <= 0;
+            $myAlquiler = manejarMovimientos($myAlquiler, $Alquiler);
+
             if (!$myAlquiler->devuelto) {
                 $myFactura->devuelto = false;
             }
@@ -117,4 +102,78 @@ function armarReporteDeFacturas($facturas) {
     }
 
     return json_encode($rta);
+}
+
+function manejarMovimientos($myAlquiler, $Alquiler) {
+    //Se mira si tiene una lista de devoluciones válida y si se formatea para recorrerla y saber el total de productos devueltos
+    $arrayMovimientos = array();
+    $jsonMovimientos = $Alquiler->getAlq_devuelto();
+    if ($jsonMovimientos != NULL && $jsonMovimientos != "") {
+        $movimientos = json_decode($jsonMovimientos);
+        $totalDevuelto = 0;
+        $totalAlquilado = 0;
+        $cola_alquileres = [];
+        foreach ($movimientos as $key => $movimiento) {
+
+            $movimiento->dias = 0;
+            $movimiento->valor = 0;
+
+            if ($movimiento->tipo == 0) {
+                //Devolución
+                $totalDevuelto += $movimiento->cantidad;
+                $movimiento = iterarSobreColaAlquileres($movimiento, $Alquiler->getValor(), $cola_alquileres);
+                $myAlquiler->subTotal += $movimiento->valor;
+            } else {
+                //Alquiler
+                $totalAlquilado += $movimiento->cantidad;
+                array_push($cola_alquileres, $movimiento);
+            }
+
+            array_push($arrayMovimientos, $myMov);
+        }
+    }
+    $myAlquiler->movimientos = $arrayMovimientos;
+    $myAlquiler->cantidad = $totalAlquilado;
+    $myAlquiler->totalDevuelto = $totalDevuelto;
+    $myAlquiler->devuelto = ($totalAlquilado == $totalDevuelto);
+    return $myAlquiler;
+}
+
+function iterarSobreColaAlquileres($movimiento, $valor, $cola_alquileres) {
+    //Calcula los días de activos antes de una devolución y obtiene el total $ del producto para esa cantidad de días
+    
+    $cantidadVirtual = $movimiento->cantidad;
+    while($cantidadVirtual >0){
+        $alquilerMasViejo = array_shift($cola_alquileres);
+        if($alquilerMasViejo->cantidad > $cantidadVirtual){
+            $movimiento = calcularSubTotalMovimiento($movimiento, $alquilerMasViejo->fecha, $valor, $cantidadVirtual);
+            $cantidadVirtual = 0;
+            $alquilerMasViejo->cantidad -= $cantidadVirtual;
+            array_unshift($cola_alquileres, $alquilerMasViejo);
+            
+        }else if($alquilerMasViejo->cantidad == $cantidadVirtual){
+            $movimiento = calcularSubTotalMovimiento($movimiento, $alquilerMasViejo->fecha, $valor, $cantidadVirtual);
+            $cantidadVirtual = 0;
+            //Son virtualmente iguales, pero en este no se vuelve a meter el alquiler viejo en la cola
+        }else{
+            $movimiento = calcularSubTotalMovimiento($movimiento, $alquilerMasViejo->fecha, $valor, $alquilerMasViejo->cantidad);
+            $cantidadVirtual -= $alquilerMasViejo->cantidad;
+            //Saca lo que tenga que sacar del alquiler más viejo, reduce su cantidad y sigue iterando alv
+        }
+    }
+    return $movimiento;
+}
+
+function calcularSubTotalMovimiento($movimiento, $fecha_alquiler, $valor, $cantidad) {
+    $datetime1 = date_create($fecha_alquiler);
+    $datetime2 = date_create($movimiento->fecha);
+    $interval = date_diff($datetime1, $datetime2);
+    $dias = $interval->format('%d');
+    $movimiento->valor += $dias * $valor * $cantidad;
+    
+    if($dias > $movimiento->dias ){
+        $movimiento->dias = $dias;
+    }
+    
+    return $movimiento;
 }
