@@ -25,13 +25,9 @@ try {
         FacturaFacade::insert($factura_id, $fecha, $cliente);
     }
 
-
     include_once realpath('../facade/AlquilerFacade.php');
     include_once realpath('../facade/ProductoFacade.php');
     $alquileres = json_decode(strip_tags($_POST['alquileres']));
-
-
-
 
     foreach ($alquileres as $obj => $alquiler) {
         $cantidad = $alquiler->cantidad;
@@ -43,12 +39,17 @@ try {
         $i = 0;
         if (count($facturas) > 0) {
             $listByFactura = AlquilerFacade::listByFactura($factura_id);
+            $found = false;
             foreach ($listByFactura as $objx => $alquilerExistente) {
                 if ($alquilerExistente->getProducto_idprod()->getIdprod() == $Producto_idprod) {
-                    $alquilerExistente->setCantidad($alquiler->cantidad + $alquilerExistente->getCantidad());
-                    AlquilerFacade::editarAlquiler($alquilerExistente);
+                    $alquilerExistente->setCantidad($cantidad + $alquilerExistente->getCantidad());
+                    AlquilerFacade::editarAlquiler($alquilerExistente, $cantidad);
+                    $found = true;
                     break;
                 }
+            }
+            if (!$found) {
+                AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);
             }
         } else {
             AlquilerFacade::insert($fecha, $cantidad, $valor, $producto, $factura);

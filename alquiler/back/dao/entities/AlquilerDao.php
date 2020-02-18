@@ -40,7 +40,6 @@ $movimientos = $alquiler->getAlq_devuelto();
       try {
           $sql= "INSERT INTO `alquiler`(`fecha_inicio`, `cantidad`, `valor`, `producto_idprod`, `factura_idfactura`,`alq_devuelto`,`alq_stado`)"
           ."VALUES ('$fecha_inicio','$cantidad','$valor','$producto_idprod','$factura_idfactura','$movimientos',0)";
-  var_dump($sql);
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null \n' . $e->getMessage());
@@ -228,9 +227,10 @@ $alq_devuelto=$alquiler->getAlq_devuelto();
       $idalquiler = $alquiler->getIdalquiler();
       $cantidad = $alquiler->getCantidad();
       $valor = $alquiler->getValor();
+      $movimientos = $alquiler->getAlq_devuelto();
       try {
 
-          $sql= "UPDATE `alquiler` SET `cantidad`='$cantidad' ,`valor`='$valor' WHERE `idalquiler`='$idalquiler' ";
+          $sql= "UPDATE `alquiler` SET `cantidad`='$cantidad' ,`valor`='$valor', `alq_devuelto` = '$movimientos' WHERE `idalquiler`='$idalquiler' ";
           $this->insertarConsulta($sql);
           return true;
       } catch (SQLException $e) {
