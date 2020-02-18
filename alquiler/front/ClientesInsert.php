@@ -10,7 +10,11 @@
 
     <div>
         <div class="panel panel-default">
-            <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>
+            <div align=center class="panel-heading">
+                <div style="text-align: center; color: white" >
+                    <h1><b>Registrar clientes</b></h1>
+                </div>
+            </div>
             <div align=center class="panel-body">
 
                 <form role="form" id="ClienteInsert">

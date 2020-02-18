@@ -1,4 +1,4 @@
-
+<?php $fcha = date("Y-m-d"); ?>
     <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <!-- Sweet Alert -->
     <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
@@ -60,7 +60,7 @@
                             <label style="text-align: left" class="col-sm-4 col-form-label"><b>Desde:</b></label>
 
                             <div class="col-sm-8 p-xs " >
-                                 <input id="Imputfecha_inicio_tran" name="fecha_inicio_tran" type="date" class="form-control">
+                                 <input id="Imputfecha_inicio_tran" value="<?php echo $fcha; ?>" name="fecha_inicio_tran" type="date" class="form-control">
                                 </div>
                                     
                                  
@@ -74,7 +74,7 @@
                             <label style="text-align: left" class="col-sm-4 col-form-label"><b>Hasta:</b></label>
 
                             <div class="col-sm-8 p-xs " >
-                                 <input id="Imputfecha_fin_tran" name="fecha_fin_tran" type="date" class="form-control">
+                                 <input id="Imputfecha_fin_tran" value="<?php echo $fcha; ?>" name="fecha_fin_tran" type="date" class="form-control">
                                 </div>
                                     
                                  

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-02-2020 a las 23:12:27
+-- Tiempo de generación: 12-02-2020 a las 04:58:26
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.1
 
@@ -47,7 +47,9 @@ CREATE TABLE `alquiler` (
 
 INSERT INTO `alquiler` (`idalquiler`, `fecha_inicio`, `cantidad`, `valor`, `pagado`, `fechafin`, `producto_idprod`, `factura_idfactura`, `alq_stado`, `alq_devuelto`) VALUES
 (17, '2020-01-01 09:14:56', 20, 544, 0, '2020-01-11', 5, 1, 0, '[{\"fecha\":\"2020-01-11 09:29:35\",\"cantidad\":\"2\",\"estado\":0}]'),
-(18, '2020-01-01 09:14:56', 10, 1000, 0, '2020-01-11', 3, 1, 0, '[{\"fecha\":\"2020-01-04 09:17:47\",\"cantidad\":\"3\",\"estado\":\"0\"},{\"fecha\":\"2020-01-11 09:35:56\",\"cantidad\":\"2\",\"estado\":0}]');
+(18, '2020-01-01 09:14:56', 10, 1000, 0, '2020-01-11', 3, 1, 0, '[{\"fecha\":\"2020-01-04 09:17:47\",\"cantidad\":\"3\",\"estado\":\"0\"},{\"fecha\":\"2020-01-11 09:35:56\",\"cantidad\":\"2\",\"estado\":0}]'),
+(21, '2020-02-10 22:06:25', 6, 2100, 0, NULL, 5, 7, 0, '[{\"fecha\":\"2020-02-10\",\"cantidad\":\"2\",\"estado\":0,\"tipo\":1}]'),
+(22, '2020-02-10 22:06:25', 15, 2100, 0, NULL, 4, 7, 0, '[{\"fecha\":\"2020-02-10\",\"cantidad\":\"5\",\"estado\":0,\"tipo\":1}]');
 
 -- --------------------------------------------------------
 
@@ -143,7 +145,8 @@ INSERT INTO `factura` (`idfactura`, `fecha`, `fac_descueto`, `cliente_idcliente`
 (3, '2020-02-08 17:55:48', 0, 1, '[]', NULL, ''),
 (4, '2020-02-01 00:00:00', 0, 4, '[]', NULL, ''),
 (5, '2020-02-02 00:00:00', 0, 4, '[]', NULL, ''),
-(6, '2020-02-04 00:00:00', 0, 4, '[]', NULL, '');
+(6, '2020-02-04 00:00:00', 0, 4, '[]', NULL, ''),
+(7, '2020-02-10 22:06:25', 0, 3, '[]', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -181,9 +184,9 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` (`idprod`, `prod_nombre`, `prod_descripcion`, `prod_precio`, `prod_stock`, `prod_alquilado`, `prod_reparacion`, `prod_danado`, `prod_stado`, `foto`) VALUES
 (1, 'TABLERO INDUSTRIAL', '1.20 cm x 0.60 cm', 350, 5, 541, 5212, 554, 0, 7),
 (2, 'TABLERO INDUSTRIAL', '1.20 cm x 0.50 cm', 350, 20, 10, 0, 0, 1, 7),
-(3, 'TABLERO INDUSTRIAL', '1.20 cm x 0.40 cm', 350, 92, 8, 6, 6, 1, 7),
-(4, 'TABLERO INDUSTRIAL', '1.20 cm x 0.30 cm', 300, 79, 21, 0, 0, 1, 7),
-(5, 'TABLERO INDUSTRIAL', '1.20 cm x 0.20 cm', 300, 99, 1, 2, 2, 1, 7),
+(3, 'TABLERO INDUSTRIAL', '1.20 cm x 0.40 cm', 350, 89, 11, 6, 6, 1, 7),
+(4, 'TABLERO INDUSTRIAL', '1.20 cm x 0.30 cm', 300, 64, 36, 0, 0, 1, 7),
+(5, 'TABLERO INDUSTRIAL', '1.20 cm x 0.20 cm', 300, 93, 7, 2, 2, 1, 7),
 (6, 'TABLERO INDUSTRIAL', '1.20 cm x 0.10 cm', 250, 1, 1, 1, 1, 1, 7),
 (7, 'ESQUINEROS', '1.20 cm x 0.20 cm x 0.20 cm', 70, NULL, NULL, NULL, NULL, 1, 7),
 (8, 'ANGULOS', '1.20', 250, NULL, NULL, NULL, NULL, 1, 7),
@@ -240,19 +243,20 @@ CREATE TABLE `transporte` (
   `choferes_idchoferes` int(11) NOT NULL DEFAULT 0,
   `stado_trans` tinyint(4) NOT NULL DEFAULT 0,
   `obra_transporte` varchar(500) NOT NULL,
-  `direccion_transporte` varchar(500) NOT NULL
+  `direccion_transporte` varchar(500) NOT NULL,
+  `observacion_transp` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `transporte`
 --
 
-INSERT INTO `transporte` (`idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`, `choferes_idchoferes`, `stado_trans`, `obra_transporte`, `direccion_transporte`) VALUES
-(3, 1000, 1, '1', 1, 0, '', ''),
-(4, 25000, 3, '1', 1, 0, '', ''),
-(5, 300000, 4, '1', 1, 0, '', ''),
-(6, 300, 3, '1', 2, 0, '', ''),
-(7, 450000, 6, '1', 2, 0, '', '');
+INSERT INTO `transporte` (`idtransporte`, `transporte_flete`, `factura_idfactura`, `transporte_conductor`, `choferes_idchoferes`, `stado_trans`, `obra_transporte`, `direccion_transporte`, `observacion_transp`) VALUES
+(3, 1000, 1, '1', 1, 0, '', '', ''),
+(4, 25000, 3, '1', 1, 0, '', '', ''),
+(5, 300000, 4, '1', 1, 0, '', '', ''),
+(6, 300, 3, '1', 2, 0, '', '', ''),
+(7, 450000, 6, '1', 2, 0, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -340,7 +344,7 @@ ALTER TABLE `transporte`
 -- AUTO_INCREMENT de la tabla `alquiler`
 --
 ALTER TABLE `alquiler`
-  MODIFY `idalquiler` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idalquiler` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `choferes`
