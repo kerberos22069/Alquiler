@@ -1,4 +1,4 @@
-<?php $fcha = date("Y-m-d"); ?>
+ <?php $fcha = date("Y-m-d"); ?>
 
 
 <html>
@@ -84,12 +84,12 @@
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Obra :</b></label>
 
-                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" ></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="obra" name="obra" class="form-control" ></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Direccion Obra:</b></label>
 
-                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" ></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="direccionObra" name="obra" class="form-control" ></div>
                         </div>
                         <br>
 
@@ -496,20 +496,27 @@ function enviarFactura() {
     var clienete = document.getElementById("Inputid").value;
     var flete = document.getElementById("input_flete").value;
     var conductor = document.getElementById("InputChoferes").value;
-    var fecha = document.getElementById("inputfecha_inicio").value;
-    var descuent = document.getElementById("Inputfact_descuento").value;
+    //var descuent = document.getElementById("Inputfact_descuento").value;
     var alquileres = '[' + prod_alq + ']';
+    //nuevos datos para el recibo
+    var fecha = document.getElementById("inputfecha_inicio").value;
+    var obra = document.getElementById("obra").value;
+    var direccObra = document.getElementById("direccionObra").value;
+    var observacion = document.getElementById("InputObservacion").value;
 
     if (JSON.parse(alquileres).length > 0) {
 
         var parametros = {
             "factura_id": nun_factura,
             "fecha_inicio": fecha,
-            "descuento": descuent,
+            //"descuento": descuent,
             "cliente_id": clienete,
             "transporte_flete": flete,
             "conductor_nombre": conductor,
-            "alquileres": alquileres
+            "alquileres": alquileres,
+            "obra" : obra,
+            "direccionObra" :  direccObra,
+            "observacion" : observacion
         };
         $.ajax({
             data: parametros, //datos que se envian a traves de ajax
