@@ -9,6 +9,7 @@ factura_id_select = -1
 alquiler_devolucion_select = -1
 //Esta variable es la cantidad de articulos alquilados, esta variable se utiliza en el proceso de devolucion parcial 
 currentAlquiler = {};
+ultimaBusquedafuction = 0;
 //////////////////////////////////////////////////
 
 function buscar_factura_by_fecha() {
@@ -155,13 +156,15 @@ function td_icono(id_factura, onclick, icono, disabled = false) {
 }
 
 
-var ultimaBusquedafuction = 0;
+
 
 function rebuscarUltimaBusqueda() {
     if (ultimaBusquedafuction == 0) {
         buscar_factura_by_fecha();
     } else {
+        console.log(facturas_global);
         buscar_factura_by_cliente();
+        console.log(facturas_global);
     }
 }
 
@@ -384,14 +387,16 @@ function postAbono(result, state) {
     if (state == "success") {
         if (result == "exito") {
             alert("Abono realizado con éxito");
-            rebuscarUltimaBusqueda();
             document.getElementById("cerrarAbonos").click();
+            rebuscarUltimaBusqueda();
         } else {
             alert("Hubo un errror en la petición ( u.u)\n" + result);
             console.log(result);
+            rebuscarUltimaBusqueda();
         }
     } else {
         alert("Hubo un errror interno ( u.u)\n" + result);
+        rebuscarUltimaBusqueda();
     }
 }
 
