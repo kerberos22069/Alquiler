@@ -495,6 +495,9 @@ var prod_alq = [];
 
 function enviarFactura() {
     var nun_factura = document.getElementById("Inputnum_factura").value;
+    if(nun_factura === ""){
+        nun_factura = 0;
+    }
     var clienete = document.getElementById("Inputid").value;
     //var flete = document.getElementById("input_flete").value;
     //var conductor = document.getElementById("InputChoferes").value;
