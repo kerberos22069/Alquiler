@@ -27,7 +27,7 @@ try {
         $obra = $_POST['obra']; 
         $direccion_obra = $_POST['direccionObra']; 
         $observacion = $_POST['observacion'];
-        FacturaFacade::insert($factura_id, $fecha, $cliente, $obra, $direccionObra, $observacion);
+        FacturaFacade::insert($factura_id, $fecha, $cliente, $obra, $direccion_obra, $observacion);
     }
 
     include_once realpath('../facade/AlquilerFacade.php');

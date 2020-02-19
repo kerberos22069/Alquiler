@@ -688,6 +688,10 @@ function buscarcedula() {
     });
 }
 
+function consultarUltimaOrdenAbiertaByClienteCedula(clienteCedula){
+    //consultarUltimaOrdenAbiertaByClienteCedula/
+}
+
 function multiplicar() {
     can = 0;
     m1 = 0;
