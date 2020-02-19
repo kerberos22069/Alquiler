@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-lg-2">  
 
-                        <div class="form-group row"><label class="col-lg-2 col-form-label" style="color: red; font-size: 24; visibility: hidden;"><b>Num</b></label>
+                        <div class="form-group row"><label id="labelOrdenAbierta" class="col-lg-2 col-form-label" style="color: red; font-size: 24; visibility: hidden;"><b>Orden abierta</b></label>
 
                             <div class="col-lg-6"><input display="none" name="num_factura" id="Inputnum_factura" type="text" placeholder="0" class="form-control" style="color: red; font-size: 28 ; font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;visibility: hidden;" readonly>
                             </div>
@@ -435,7 +435,7 @@ clienteCcOrdenSalida = -1;
 
 $(document).ready(function () {
 
-    cargareNum_Factura();
+    //cargareNum_Factura();
     cargarClientes();
     cargarConductos();
 
@@ -673,6 +673,8 @@ function buscarcedula() {
 
     empresa = basic_value;
 
+    consultarUltimaOrdenAbiertaByClienteCedula(empresa);
+
     $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': basic_value}, function (depa) {
         depa = JSON.parse(depa);
         if (depa[1].result == 'error') {
@@ -692,8 +694,61 @@ function buscarcedula() {
 }
 
 function consultarUltimaOrdenAbiertaByClienteCedula(clienteCedula){
-    //consultarUltimaOrdenAbiertaByClienteCedula/
+     $.post('../back/controller/consultarUltimaOrdenAbiertaByClienteCedula.php', 
+        {'cliente_cedula': clienteCedula}, 
+        function (depa) {
+        depa = JSON.parse(depa);
+        console.log(depa);
+        myfactura = depa[1].factura; 
+        if(myfactura != -1){
+            document.getElementById("labelOrdenAbierta").style.visibility = "visible";
+            aparearElValueAunConjuntoDeElementos(["obra", "direccionObra","InputObservacion"],[myfactura.obra, myfactura.direccion_obra,myfactura.observacion]);
+            insertarElMismoAtributoAunConjuntoDeElementos(["obra", "direccionObra","InputObservacion"],"readonly",true);
+            $('#inputfecha_inicio').val(myfactura.fecha.split(" ")[0]);
+        }else{
+            document.getElementById("labelOrdenAbierta").style.visibility = "hidden";
+            setFechaElement("inputfecha_inicio");
+            aparearElValueAunConjuntoDeElementos(["obra", "direccionObra","InputObservacion"],["","",""]);
+            eliminarElMismoAtributoAunConjuntoDeElementosConMusicaLinkingParkDeFondo(["obra", "direccionObra","InputObservacion"],"readonly");
+        }
+    });
+
 }
+
+//--- Conjunto de funciones maricas que al final del dia son utiles
+
+    function aparearElValueAunConjuntoDeElementos(idElementos, innerHTMLs) {
+        for(let i in idElementos){
+            document.getElementById(idElementos[i]).value = innerHTMLs[i];
+        }
+    }
+
+    function insertarElMismoAtributoAunConjuntoDeElementos(idElementos, atributo, value){
+        for(let i in idElementos){
+            document.getElementById(idElementos[i]).setAttribute(atributo, value);
+        }
+    }
+
+    function eliminarElMismoAtributoAunConjuntoDeElementosConMusicaLinkingParkDeFondo(idElementos, atributo){
+        for(let i in idElementos){
+            document.getElementById(idElementos[i]).removeAttribute(atributo);
+        }
+        /*It starts with one thing I don't know why It doesn't even matter how hard you try Keep that in mind*/
+    }
+
+    function setFechaElement(idElement){
+        Date.prototype.toDateInputValue = (function() {
+            var local = new Date(this);
+            local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+            return local.toJSON().slice(0,10);
+        });
+
+        $('#'+idElement).val(new Date().toDateInputValue());
+    }
+
+//---
+
+    
 
 function multiplicar() {
     can = 0;

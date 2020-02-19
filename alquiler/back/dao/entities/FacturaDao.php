@@ -202,7 +202,14 @@ class FacturaDao implements IFacturaDao {
     public function listAbiertasByCliente($Cliente_idcliente) {
         $lista = array();
         try {
-            $sql = "SELECT f.`idfactura`, f.`fecha`, f.`fac_descueto`, f.`abonos`, f.`cliente_idcliente`"
+            $sql = "SELECT  f.`idfactura`, 
+                            f.`fecha`, 
+                            f.`fac_descueto`, 
+                            f.`abonos`, 
+                            f.`cliente_idcliente`, 
+                            f.`nombre_obra`, 
+                            f.`direccion_obra`, 
+                            f.`fact_observacion`"
                     . "FROM `factura` f "
                     . "INNER JOIN `alquiler` a ON f.`idfactura` = a.`factura_idfactura`"
                     . "WHERE f.`cliente_idcliente` = " . $Cliente_idcliente ." AND a.`alq_stado` = 0 "
@@ -214,6 +221,11 @@ class FacturaDao implements IFacturaDao {
                 $factura->setFecha($data[$i]['fecha']);
                 $factura->setFac_descueto($data[$i]['fac_descueto']);
                 $factura->setAbonos($data[$i]['abonos']);
+                //--- nuevo
+                $factura->setObra($data[$i]['nombre_obra']);
+                $factura->setDireccionObra($data[$i]['direccion_obra']);
+                $factura->setObservacion($data[$i]['fact_observacion']);
+                //---
                 $cliente = new Cliente();
                 $cliente->setIdcliente($data[$i]['cliente_idcliente']);
                 $factura->setCliente_idcliente($cliente);

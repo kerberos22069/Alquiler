@@ -89,7 +89,13 @@ class Factura {
   public function get_data_formated(){
     return  array('idfactura' => $this->idfactura,
                   'fecha' => $this->fecha,
-                  'fac_descueto' => $this->fac_descueto);
+                  'fac_descueto' => $this->fac_descueto,
+                  'cliente_idcliente' => $this->cliente_idcliente,
+                  'abonos' => $this->abonos,
+                  'obra' => $this->obra,
+                  'direccion_obra'=> $this->direccion_obra,
+                  'observacion'=> $this->observacion,
+                );
   }
 
   public function getAbonos(){
