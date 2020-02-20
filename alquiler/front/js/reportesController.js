@@ -15,16 +15,13 @@ ultimaBusquedafuction = 0;
 function buscar_factura_by_fecha() {
 
     ultimaBusquedafuction = 0;
-
     var url = "../back/controller/reportePorTiempo.php";
-
     var fechas = {"fecha_ini": $('#fecha_inicio').val(), "fecha_fin": $('#fecha_fin').val()}
 
     $.ajax({
         type: "POST",
         url: url,
         data: fechas,
-
         success: function (data) {
             facturas_global = JSON.parse(data);
             //console.log(JSON.parse(data));
@@ -36,15 +33,12 @@ function buscar_factura_by_fecha() {
 
         }
     });
-
 }
 
 function buscar_factura_by_cliente() {
 
     ultimaBusquedafuction = 1;
-
     var url = "../back/controller/reportePorCliente.php";
-
     var cedula = $('#cliente_cedula').val();
     if (cedula == null || cedula == "") {
         alert("Debe proporcionar un número de cédula para buscar");
@@ -54,7 +48,6 @@ function buscar_factura_by_cliente() {
             type: "POST",
             url: url,
             data: params,
-
             success: function (data) {
                 facturas_global = JSON.parse(data);
                 //console.log($.isEmptyObject(facturas_global));
@@ -73,7 +66,6 @@ function buscar_factura_by_cliente() {
 function mostrar_reporte(data) {
     contenedor = document.getElementById('FacturasList');
     contenedor.innerHTML = "";
-
     for (let i in data) {
         mi_tr = tr("gradeX footable-even");
         //id
@@ -90,19 +82,18 @@ function mostrar_reporte(data) {
         } else {
             mi_tr.appendChild(td_icono(data[i].id, "mostrar_alquileres", "times"));
         }
-        //devuelto
+//devuelto
         if (data[i].devuelto) {
             mi_tr.appendChild(td_icono(data[i].id, "mostrar_alquileres", "check"));
         } else {
             mi_tr.appendChild(td_icono(data[i].id, "mostrar_alquileres", "times"));
         }
-        //detalles
+//detalles
         mi_tr.appendChild(td_icono(data[i].id, "mostrar_alquileres", "search-plus"));
         //devolver todo
         mi_tr.appendChild(td_icono(data[i].id, "devolverTodo", "hand-o-left", data[i].devuelto));
         //abonar
         mi_tr.appendChild(td_icono(data[i].id, "mostrar_abonos", "money", data[i].pagado));
-
         contenedor.appendChild(mi_tr);
     }
 
@@ -241,7 +232,6 @@ function mostrar_alquileres(id_factura, flag_repaint = true, imprimir = false) {
     var factura = obtenerFactura(id_factura);
     document.getElementById('total_factura').innerHTML = "Total factura: " + formatearDinero(factura.total);
     document.getElementById('total_pagar').innerHTML = "Total a pagar: " + formatearDinero(factura.total - factura.totalAbonado);
-
     if (!imprimir) {
         aux = "abrirImpresion('" + id_factura + "')";
         btn_exportar.setAttribute("onClick", aux);
@@ -275,7 +265,6 @@ function setConductores(id_factura) {
             mi_td.setAttribute("colspan", 2);
             mi_tr.appendChild(mi_td);
             mi_tr.appendChild(td(formatearDinero(conductores[i].flete), "footable-visible"));
-
             contenedor.appendChild(mi_tr);
         }
     } else {
@@ -318,7 +307,6 @@ function setAbonos(id_factura) {
             mi_td = td(abonos[i].fecha, "footable-visible");
             mi_td.setAttribute("colspan", 2);
             mi_tr.appendChild(mi_td);
-
             contenedor.appendChild(mi_tr);
         }
     } else {
@@ -360,17 +348,14 @@ function setDescuento(id_factura) {
 function mostrar_abonos(id_factura) {
 
     factura = obtenerFactura(id_factura);
-
     document.getElementById('txt_abonos_detalles').innerHTML = "";
     document.getElementById('txt_abonos_detalles').appendChild(parsearAbonos(JSON.parse(factura.abonos)));
-
     document.getElementById('txt_abonos_total').innerHTML = 'Total: ' + formatearDinero(factura.total);
     document.getElementById('txt_abonos_abonado').innerHTML = 'Abonado: ' + formatearDinero(factura.totalAbonado);
     document.getElementById('txt_abonos_faltante').innerHTML = 'Faltante: ' + formatearDinero(factura.total - factura.totalAbonado);
     document.getElementById('input_abonos').value = factura.total - factura.totalAbonado;
     aux = "abonar(" + id_factura + ")";
     document.getElementById('btn_abonos_abonar').setAttribute("onclick", aux);
-
     $('#myModalAbonos').modal({show: true});
 }
 
@@ -519,28 +504,24 @@ function deshabilitarFormularioDevolucion() {
 
 function agregar_devolucion() {
 
-    //Validamos si la cantidad a devolver no supera a la cantidad alquilada
+//Validamos si la cantidad a devolver no supera a la cantidad alquilada
     if ($('#cantidad_devuelta').val() <= currentAlquiler.cantidad - currentAlquiler.totalDevuelto) {
 
         var url = "../back/controller/devolverParcial.php";
-
         //Cliente by factura seleccionada
         cliente = obtenerClienteByFactura(factura_id_select);
         cantidad = $('#cantidad_devuelta').val();
         estado = $('#estado_objeto').val();
         fecha = $('#fecha_devolucion').val();
-
         var alquileres = {};
         alquileres["alquiler_id"] = alquiler_devolucion_select;
         alquileres["cantidad"] = cantidad;
         alquileres["estado"] = estado;
         alquileres["fecha"] = fecha;
-
         $.ajax({
             type: "POST",
             url: url,
             data: alquileres,
-
             success: function (data) {
                 if (data == "exito") {
                     actualizarFactura(factura_id_select);
@@ -593,7 +574,6 @@ function actualizarAlquiler(factura_id, alquileres) {
 
 function cerrarModalDevolverTodo() {
     $('#myModalDevolverParcial').modal('hide');
-
     // 
     //$('body').removeClass('modal-open');
 }
@@ -608,16 +588,12 @@ function number_format(amount, decimals) {
     // si no es un numero o es igual a cero retorno el mismo cero
     if (isNaN(amount) || amount === 0)
         return parseFloat(0).toFixed(decimals);
-
     // si es mayor o menor que cero retorno el valor formateado como numero
     amount = '' + amount.toFixed(decimals);
-
     var amount_parts = amount.split('.'),
             regexp = /(\d+)(\d{3})/;
-
     while (regexp.test(amount_parts[0]))
         amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
-
     return amount_parts.join('.');
 }
 
@@ -629,7 +605,6 @@ function llenarEncabezado(factura_id) {
     cliente_direccion.innerHTML = factura.cliente.cliente_direccion;
     cliente_telefono.innerHTML = factura.cliente.cliente_telefono;
     cliente_correo.innerHTML = factura.cliente.cliente_correo;
-
     var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     var f = new Date();
     fecha.innerHTML = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
@@ -639,7 +614,6 @@ function llenarEncabezado(factura_id) {
 function orden_devolucion(idFactura) {
     contenedor = document.getElementById('articulosList');
     var factura = obtenerFactura(idFactura);
-    console.log(factura);
     for (var i in factura.alquileres) {
         var alquiler = factura.alquileres[i];
         if (!alquiler.devuelto) {
@@ -648,7 +622,7 @@ function orden_devolucion(idFactura) {
             mi_tr.appendChild(td(alquiler.producto_nombre, "footable-visible"));
             //Cantidad
             mi_td = td(alquiler.cantidad - alquiler.totalDevuelto, "footable-visible");
-            mi_td.style= "text-align: center";
+            mi_td.style = "text-align: center";
             mi_tr.appendChild(mi_td);
             //Campo vacío para llenar a mano
             mi_tr.appendChild(document.createElement("td"));
@@ -658,6 +632,33 @@ function orden_devolucion(idFactura) {
     firmaCliente.innerHTML = factura.cliente.cliente_nombre + "<br>NIT: " + factura.cliente.cliente_cedula;
 }
 
-function imprimirFactura(idFactura){
-    
+function imprimirFactura(idFactura) {
+    contenedor = document.getElementById('articulosList');
+    var factura = obtenerFactura(idFactura);
+    for (var i in factura.alquileres) {
+        var alquiler = factura.alquileres[i];
+        for (var i in alquiler.movimientos) {
+            var movimiento = alquiler.movimientos[i];
+            mi_tr = tr("gradeX footable-even");
+            //Nombre
+            mi_tr.appendChild(td(alquiler.producto_nombre, "footable-visible"));
+            //Valor
+            mi_tr.appendChild(td(formatearDinero(alquiler.valor), "footable-visible center"));
+            //Cantidad
+            mi_tr.appendChild(td(movimiento.cantidad, "footable-visible center"));
+            //Fecha
+            mi_tr.appendChild(td(movimiento.fecha, "footable-visible center"));
+            //Días
+            mi_tr.appendChild(td(movimiento.dias, "footable-visible center"));
+            //tipo
+            if (movimiento.tipo) {
+                mi_tr.appendChild(td("Alq", "footable-visible center"));
+            } else {
+                mi_tr.appendChild(td("Dev", "footable-visible center"));
+            }
+            //SubTotal
+            mi_tr.appendChild(td(formatearDinero(movimiento.valor), "footable-visible center"));
+            contenedor.appendChild(mi_tr);
+        }
+    }
 }
