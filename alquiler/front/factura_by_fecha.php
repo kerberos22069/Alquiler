@@ -1,4 +1,11 @@
 
+<html>
+    <head>  
+        <title>factura Por fecha</title>
+        <link rel="stylesheet" href="css/jquery-editable-select.min.css" />
+        <script src="js/jquery-editable-select.min.js"></script>        
+    </head>
+
     <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <!-- Sweet Alert -->
     <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
@@ -65,8 +72,10 @@
                                 <label class="col-sm-2 col-form-label">
                                     Cédula:
                                 </label>
-                                <div class="col-sm-4">
-                                    <input id="cliente_cedula" name="cliente_cedula" class="form-control" onkeypress="return runScript(event)">
+                                <div class="col-sm-4">                                    
+                                    <select name="country"  id="cliente_cedula" oninput="getSelectValue()" class="form-control">
+
+                                    </select>
                                 </div>                    
                                 <div class="col-sm-2">
                                     <button type="button" class="btn btn-primary" onclick="buscar_factura_by_cliente()" >
@@ -354,6 +363,9 @@
             }
             else {
                 table =  $('#tabla_facturas').DataTable({
+                    language : {
+                             "url": "js/Spanish.json"
+                        },
                     pageLength: 25,
                     responsive: true,
                     dom: '<"html5buttons"B>lTfgitp',
@@ -398,14 +410,61 @@
         $('#fecha_inicio').val(new Date().toDateInputValue());
         $('#fecha_fin').val(new Date().toDateInputValue());
 
-
+        /**
+        *   Cargamos los clientes del combo editable 
+        *
+        **/
+        cargarClientes();
         });
+
+        
+
 
     </script> 
 
     
 
     <script>
+
+        function cargarClientes() {
+            $.ajax({
+                url: '../back/controller/Cliente_list.php',
+                type: 'get',
+                success: function (response) {
+                    clientes = JSON.parse(response);
+                    clientes.shift();
+                    construirOptionComboBuscarClientes(clientes);
+                    $('#cliente_cedula')
+                            .editableSelect()
+                                .on('select.editable-select', function (e, li) {
+                                    buscar_factura_by_cliente();
+                                });
+                },
+                error: function (response) {
+                    console.log("No se ha podido cargar los clientes")
+                }
+            });
+        }
+
+function construirOptionComboBuscarClientes(misClientes) {
+    mi_select = document.getElementById('cliente_cedula');
+    for (let i in misClientes) {
+        mi_option = document.createElement("option");
+        mi_option.setAttribute("value", misClientes[i].cliente_cc);
+        mi_option.appendChild(document.createTextNode(misClientes[i].cliente_nombre));
+        mi_select.appendChild(mi_option);
+    }
+    //Esto hay que arreglarlo. La idea es que los nombres y numeros de cedula no se combinan
+    for (let i in misClientes) {
+        mi_option = document.createElement("option");
+        mi_option.setAttribute("value", misClientes[i].cliente_cc);
+        mi_option.appendChild(document.createTextNode(misClientes[i].cliente_cc));
+        mi_select.appendChild(mi_option);
+    }
+}
+
+
+
 
         function mostrarEliminar(empresa) {
 
@@ -598,12 +657,13 @@
             return url;
         }
 
-        function runScript(e) {
+      /*  function runScript(e) {
     //See notes about 'which' and 'key'
     if (e.keyCode == 13) {
         buscar_factura_by_cliente();
     }
-}
+}*/
     </script>
     
-    <!-- That´s all folks! --
+    <!-- That´s all folks! -->
+    </html>

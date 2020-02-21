@@ -59,9 +59,9 @@ function armarReporteDeFacturas($facturas) {
             }
 
             $datetime1 = date_create($Alquiler->getFecha_inicio());
-            if($myAlquiler->devuelto){
+            if ($myAlquiler->devuelto) {
                 $datetime2 = date_create($Alquiler->getFechafin());
-            }else{
+            } else {
                 $datetime2 = date_create();
             }
             $interval = date_diff($datetime1, $datetime2);
@@ -123,47 +123,57 @@ function manejarMovimientos($myAlquiler, $Alquiler) {
             if ($movimiento->tipo == 0) {
                 //Devolución
                 $totalDevuelto += $movimiento->cantidad;
-                $movimiento = iterarSobreColaAlquileres($movimiento, $Alquiler->getValor(), $cola_alquileres);
-                $myAlquiler->subTotal += $movimiento->valor;
+                $array = iterarSobreColaAlquileres($movimiento, $Alquiler->getValor(), $cola_alquileres);
+                foreach ($array as $key => $mov) {
+                    $myAlquiler->subTotal += $mov->valor;
+                    array_push($arrayMovimientos, $mov);
+                }
             } else {
                 //Alquiler
                 $totalAlquilado += $movimiento->cantidad;
                 array_push($cola_alquileres, clone $movimiento);
+                array_push($arrayMovimientos, $movimiento);
             }
-
-            array_push($arrayMovimientos, $movimiento);
         }
     }
     $myAlquiler->movimientos = $arrayMovimientos;
     $myAlquiler->cantidad = $totalAlquilado;
     $myAlquiler->totalDevuelto = $totalDevuelto;
     $myAlquiler->devuelto = ($totalAlquilado == $totalDevuelto);
+    //var_dump($myAlquiler);
     return $myAlquiler;
 }
 
 function iterarSobreColaAlquileres($movimiento, $valor, $cola_alquileres) {
+    $rtn = array();
     //Calcula los días de activos antes de una devolución y obtiene el total $ del producto para esa cantidad de días
     $cantidadVirtual = intval($movimiento->cantidad);
-    while($cantidadVirtual >0){
+    while ($cantidadVirtual > 0) {
         $alquilerMasViejo = array_shift($cola_alquileres);
         $alquilerMasViejo->cantidad = intval($alquilerMasViejo->cantidad);
-        if($alquilerMasViejo->cantidad > $cantidadVirtual){
+        if ($alquilerMasViejo->cantidad > $cantidadVirtual) {
             $cantidadASacar = $cantidadVirtual;
             $alquilerMasViejo->cantidad -= $cantidadVirtual;
             array_unshift($cola_alquileres, $alquilerMasViejo);
             $cantidadVirtual = 0;
-        }else if($alquilerMasViejo->cantidad == $cantidadVirtual){
+        } else if ($alquilerMasViejo->cantidad == $cantidadVirtual) {
             $cantidadASacar = $cantidadVirtual;
             $cantidadVirtual = 0;
             //Son virtualmente iguales, pero en este no se vuelve a meter el alquiler viejo en la cola
-        }else{
+        } else {
             $cantidadASacar = $alquilerMasViejo->cantidad;
             $cantidadVirtual -= $alquilerMasViejo->cantidad;
             //Saca lo que tenga que sacar del alquiler más viejo, reduce su cantidad y sigue iterando alv
+            $movimiento->cantidad -= $alquilerMasViejo->cantidad;
+            
+            $nuevoMov = calcularSubTotalMovimiento(clone $movimiento, $alquilerMasViejo->fecha, $valor, $cantidadASacar);
+            $nuevoMov->cantidad =$cantidadASacar;
+            array_push($rtn, $nuevoMov);
         }
         $movimiento = calcularSubTotalMovimiento($movimiento, $alquilerMasViejo->fecha, $valor, $cantidadASacar);
+        array_push($rtn, $movimiento);
     }
-    return $movimiento;
+    return $rtn;
 }
 
 function calcularSubTotalMovimiento($movimiento, $fecha_alquiler, $valor, $cantidad) {
@@ -172,10 +182,9 @@ function calcularSubTotalMovimiento($movimiento, $fecha_alquiler, $valor, $canti
     $interval = date_diff($datetime1, $datetime2);
     $dias = $interval->format('%d');
     $movimiento->valor += $dias * $valor * $cantidad;
-    
-    if($dias > $movimiento->dias ){
+    $movimiento->fecha_alquiler = $fecha_alquiler;
+    if ($dias > $movimiento->dias) {
         $movimiento->dias = $dias;
     }
-    
     return $movimiento;
 }

@@ -34,12 +34,13 @@ function buscar_factura_by_fecha() {
         }
     });
 }
-
+ 
 function buscar_factura_by_cliente() {
 
     ultimaBusquedafuction = 1;
     var url = "../back/controller/reportePorCliente.php";
-    var cedula = $('#cliente_cedula').val();
+    var cedula = $("#cliente_cedula").siblings('.es-list').find('li.selected').attr('value');
+    console.log(cedula);
     if (cedula == null || cedula == "") {
         alert("Debe proporcionar un número de cédula para buscar");
     } else {
@@ -637,28 +638,31 @@ function imprimirFactura(idFactura) {
     var factura = obtenerFactura(idFactura);
     for (var i in factura.alquileres) {
         var alquiler = factura.alquileres[i];
+        console.log(alquiler.movimientos);
         for (var i in alquiler.movimientos) {
             var movimiento = alquiler.movimientos[i];
-            mi_tr = tr("gradeX footable-even");
-            //Nombre
-            mi_tr.appendChild(td(alquiler.producto_nombre, "footable-visible"));
-            //Valor
-            mi_tr.appendChild(td(formatearDinero(alquiler.valor), "footable-visible center"));
-            //Cantidad
-            mi_tr.appendChild(td(movimiento.cantidad, "footable-visible center"));
-            //Fecha
-            mi_tr.appendChild(td(movimiento.fecha, "footable-visible center"));
-            //Días
-            mi_tr.appendChild(td(movimiento.dias, "footable-visible center"));
-            //tipo
-            if (movimiento.tipo) {
-                mi_tr.appendChild(td("Alq", "footable-visible center"));
-            } else {
-                mi_tr.appendChild(td("Dev", "footable-visible center"));
+            if (movimiento.tipo == 0) {
+                mi_tr = tr("gradeX footable-even");
+                //Nombre
+                mi_tr.appendChild(td(alquiler.producto_nombre, "footable-visible"));
+                //Valor
+                mi_tr.appendChild(td(formatearDinero(alquiler.valor), "footable-visible center"));
+                //Cantidad
+                mi_tr.appendChild(td(movimiento.cantidad, "footable-visible center"));
+                //Fecha
+                mi_tr.appendChild(td(movimiento.fecha_alquiler + " -> " + movimiento.fecha, "footable-visible center"));
+                //Días
+                mi_tr.appendChild(td(movimiento.dias, "footable-visible center"));
+                //tipo
+                if (movimiento.tipo) {
+                    mi_tr.appendChild(td("Alq", "footable-visible center"));
+                } else {
+                    mi_tr.appendChild(td("Dev", "footable-visible center"));
+                }
+                //SubTotal
+                mi_tr.appendChild(td(formatearDinero(movimiento.valor), "footable-visible center"));
+                contenedor.appendChild(mi_tr);
             }
-            //SubTotal
-            mi_tr.appendChild(td(formatearDinero(movimiento.valor), "footable-visible center"));
-            contenedor.appendChild(mi_tr);
         }
     }
 }
