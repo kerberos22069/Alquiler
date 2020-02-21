@@ -363,6 +363,9 @@
             }
             else {
                 table =  $('#tabla_facturas').DataTable({
+                    language : {
+                             "url": "js/Spanish.json"
+                        },
                     pageLength: 25,
                     responsive: true,
                     dom: '<"html5buttons"B>lTfgitp',

@@ -34,12 +34,13 @@ function buscar_factura_by_fecha() {
         }
     });
 }
-
+ 
 function buscar_factura_by_cliente() {
 
     ultimaBusquedafuction = 1;
     var url = "../back/controller/reportePorCliente.php";
-    var cedula = $('#cliente_cedula').val();
+    var cedula = $("#cliente_cedula").siblings('.es-list').find('li.selected').attr('value');
+    console.log(cedula);
     if (cedula == null || cedula == "") {
         alert("Debe proporcionar un número de cédula para buscar");
     } else {
