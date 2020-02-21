@@ -323,7 +323,7 @@ function relacion_pago_choferes() {  /**  tabla de datos  */
 function transpore_pagos(Id_chofe,fecha_ini_tra,fecha_fin_tra) {  /**  tabla de datos  */
     var Id_datos =Id_chofe+" "+fecha_ini_tra+" "+fecha_fin_tra;
     
-    var url = "Transporte_reporteList.php";
+    var url = "Conductor_relacion_transporte_list.php";
     var datos = {};
     var rta = "#mostrarcontenido2";
     ajax(url, datos, rta);
