@@ -1,4 +1,4 @@
-<?php $fcha = date("Y-m-d"); ?>
+ <?php $fcha = date("Y-m-d"); ?>
 
 
 <html>
@@ -21,7 +21,7 @@
                     <div class="col-lg-6">
                         <div class="row">
                              <div class="col-sm-3" >
-                                                            <label class=" col-form-label"><b>Nit O Razon Social:</b></label>
+                                                            <label class=" col-form-label"><b>Nit:</b></label>
 
                             </div>
                             <div class="col-sm-9">
@@ -46,9 +46,9 @@
                     </div>
                     <div class="col-lg-2">  
 
-                        <div class="form-group row"><label class="col-lg-2 col-form-label" style="color: red; font-size: 24"><b>Num</b></label>
+                        <div class="form-group row"><label id="labelOrdenAbierta" class="col-lg-2 col-form-label" style="color: red; font-size: 24; visibility: hidden;"><b>Orden abierta</b></label>
 
-                            <div class="col-lg-6"><input  name="num_factura" id="Inputnum_factura" type="text" placeholder="0" class="form-control" style="color: red; font-size: 28 ; font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;" readonly>
+                            <div class="col-lg-6"><input display="none" name="num_factura" id="Inputnum_factura" type="text" placeholder="0" class="form-control" style="color: red; font-size: 28 ; font-weight: bold; border: 1px solid #ffffff;    background-color: #ffffff;visibility: hidden;" readonly>
                             </div>
                         </div>         
                     </div></div>
@@ -84,12 +84,12 @@
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Obra :</b></label>
 
-                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" ></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="obra" name="obra" class="form-control" maxlength="100"></div>
                         </div>
                         <div class="  row">
                             <label class="col-sm-2 col-form-label"><b>Direccion Obra:</b></label>
 
-                            <div class="col-sm-10 p-xs "><input  type="text" id="Inputtelefono" name="telefono" class="form-control" ></div>
+                            <div class="col-sm-10 p-xs "><input  type="text" id="direccionObra" maxlength="200" name="obra" class="form-control" ></div>
                         </div>
                         <br>
 
@@ -164,9 +164,11 @@
                                 <div class="col-sm"></div>
                                 <div class="col-sm"></div>
                                 <div class="col-sm">                    
-                                    <button type="button" id="btn_admin_conductor" class="btn btn-primary" onclick="administrarConductor()" disabled>
+                                   <!-- 
+                                        <button type="button" id="btn_admin_conductor" class="btn btn-primary" onclick="administrarConductor()" disabled>
                                         Añadir Transporte
-                                    </button>
+                                        </button>
+                                    -->
                                 </div>
                             </div>
 
@@ -433,7 +435,7 @@ clienteCcOrdenSalida = -1;
 
 $(document).ready(function () {
 
-    cargareNum_Factura();
+    //cargareNum_Factura();
     cargarClientes();
     cargarConductos();
 
@@ -493,24 +495,35 @@ var prod_alq = [];
 
 function enviarFactura() {
     var nun_factura = document.getElementById("Inputnum_factura").value;
+    if(nun_factura === ""){
+        nun_factura = 0;
+    }
     var clienete = document.getElementById("Inputid").value;
-    var flete = document.getElementById("input_flete").value;
-    var conductor = document.getElementById("InputChoferes").value;
-    var fecha = document.getElementById("inputfecha_inicio").value;
-    var descuent = document.getElementById("Inputfact_descuento").value;
+    //var flete = document.getElementById("input_flete").value;
+    //var conductor = document.getElementById("InputChoferes").value;
+    //var descuent = document.getElementById("Inputfact_descuento").value;
     var alquileres = '[' + prod_alq + ']';
+    //nuevos datos para el recibo
+    var fecha = document.getElementById("inputfecha_inicio").value;
+    var obra = document.getElementById("obra").value;
+    var direccObra = document.getElementById("direccionObra").value;
+    var observacion = document.getElementById("InputObservacion").value;
 
     if (JSON.parse(alquileres).length > 0) {
 
         var parametros = {
             "factura_id": nun_factura,
             "fecha_inicio": fecha,
-            "descuento": descuent,
+            //"descuento": descuent,
             "cliente_id": clienete,
-            "transporte_flete": flete,
-            "conductor_nombre": conductor,
-            "alquileres": alquileres
+            //"transporte_flete": flete,
+            //"conductor_nombre": conductor,
+            "alquileres": alquileres,
+            "obra" : obra,
+            "direccionObra" :  direccObra,
+            "observacion" : observacion
         };
+        console.log(parametros);
         $.ajax({
             data: parametros, //datos que se envian a traves de ajax
             url: '../back/controller/crearFactura.php', //archivo que recibe la peticion
@@ -660,6 +673,8 @@ function buscarcedula() {
 
     empresa = basic_value;
 
+    consultarUltimaOrdenAbiertaByClienteCedula(empresa);
+
     $.get('../back/controller/Cliente_Detalles_1.php', {'empresa': basic_value}, function (depa) {
         depa = JSON.parse(depa);
         if (depa[1].result == 'error') {
@@ -677,6 +692,63 @@ function buscarcedula() {
         }
     });
 }
+
+function consultarUltimaOrdenAbiertaByClienteCedula(clienteCedula){
+     $.post('../back/controller/consultarUltimaOrdenAbiertaByClienteCedula.php', 
+        {'cliente_cedula': clienteCedula}, 
+        function (depa) {
+        depa = JSON.parse(depa);
+        console.log(depa);
+        myfactura = depa[1].factura; 
+        if(myfactura != -1){
+            document.getElementById("labelOrdenAbierta").style.visibility = "visible";
+            aparearElValueAunConjuntoDeElementos(["obra", "direccionObra","InputObservacion"],[myfactura.obra, myfactura.direccion_obra,myfactura.observacion]);
+            insertarElMismoAtributoAunConjuntoDeElementos(["obra", "direccionObra","InputObservacion"],"readonly",true);
+            $('#inputfecha_inicio').val(myfactura.fecha.split(" ")[0]);
+        }else{
+            document.getElementById("labelOrdenAbierta").style.visibility = "hidden";
+            setFechaElement("inputfecha_inicio");
+            aparearElValueAunConjuntoDeElementos(["obra", "direccionObra","InputObservacion"],["","",""]);
+            eliminarElMismoAtributoAunConjuntoDeElementosConMusicaLinkingParkDeFondo(["obra", "direccionObra","InputObservacion"],"readonly");
+        }
+    });
+
+}
+
+//--- Conjunto de funciones maricas que al final del dia son utiles
+
+    function aparearElValueAunConjuntoDeElementos(idElementos, innerHTMLs) {
+        for(let i in idElementos){
+            document.getElementById(idElementos[i]).value = innerHTMLs[i];
+        }
+    }
+
+    function insertarElMismoAtributoAunConjuntoDeElementos(idElementos, atributo, value){
+        for(let i in idElementos){
+            document.getElementById(idElementos[i]).setAttribute(atributo, value);
+        }
+    }
+
+    function eliminarElMismoAtributoAunConjuntoDeElementosConMusicaLinkingParkDeFondo(idElementos, atributo){
+        for(let i in idElementos){
+            document.getElementById(idElementos[i]).removeAttribute(atributo);
+        }
+        /*It starts with one thing I don't know why It doesn't even matter how hard you try Keep that in mind*/
+    }
+
+    function setFechaElement(idElement){
+        Date.prototype.toDateInputValue = (function() {
+            var local = new Date(this);
+            local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+            return local.toJSON().slice(0,10);
+        });
+
+        $('#'+idElement).val(new Date().toDateInputValue());
+    }
+
+//---
+
+    
 
 function multiplicar() {
     can = 0;

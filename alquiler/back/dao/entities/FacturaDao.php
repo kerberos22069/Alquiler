@@ -33,10 +33,13 @@ class FacturaDao implements IFacturaDao {
         $fecha = $factura->getFecha();
         $fac_descueto = $factura->getFac_descueto();
         $idCliente = $factura->getCliente_idcliente()->getIdcliente();
+        $obra = $factura->getObra();
+        $direcion = $factura->getDireccionObra();
+        $observacion = $factura->getObservacion();
 
         try {
-            $sql = "INSERT INTO `factura`( `idfactura`, `fecha`, `fac_descueto`, `abonos`, `cliente_idcliente`)"
-                    . "VALUES ('$idfactura','$fecha','$fac_descueto','[]','$idCliente')";
+            $sql = "INSERT INTO `factura`( `idfactura`, `fecha`, `fac_descueto`, `abonos`, `cliente_idcliente`, `nombre_obra`, `direccion_obra`, `fact_observacion`)"
+                    . "VALUES ('$idfactura','$fecha','$fac_descueto','[]','$idCliente', '$obra', '$direcion', '$observacion')";
             return $this->insertarConsulta($sql);
         } catch (SQLException $e) {
             throw new Exception('Primary key is null');
@@ -199,7 +202,14 @@ class FacturaDao implements IFacturaDao {
     public function listAbiertasByCliente($Cliente_idcliente) {
         $lista = array();
         try {
-            $sql = "SELECT f.`idfactura`, f.`fecha`, f.`fac_descueto`, f.`abonos`, f.`cliente_idcliente`"
+            $sql = "SELECT  f.`idfactura`, 
+                            f.`fecha`, 
+                            f.`fac_descueto`, 
+                            f.`abonos`, 
+                            f.`cliente_idcliente`, 
+                            f.`nombre_obra`, 
+                            f.`direccion_obra`, 
+                            f.`fact_observacion`"
                     . "FROM `factura` f "
                     . "INNER JOIN `alquiler` a ON f.`idfactura` = a.`factura_idfactura`"
                     . "WHERE f.`cliente_idcliente` = " . $Cliente_idcliente ." AND a.`alq_stado` = 0 "
@@ -211,6 +221,11 @@ class FacturaDao implements IFacturaDao {
                 $factura->setFecha($data[$i]['fecha']);
                 $factura->setFac_descueto($data[$i]['fac_descueto']);
                 $factura->setAbonos($data[$i]['abonos']);
+                //--- nuevo
+                $factura->setObra($data[$i]['nombre_obra']);
+                $factura->setDireccionObra($data[$i]['direccion_obra']);
+                $factura->setObservacion($data[$i]['fact_observacion']);
+                //---
                 $cliente = new Cliente();
                 $cliente->setIdcliente($data[$i]['cliente_idcliente']);
                 $factura->setCliente_idcliente($cliente);

@@ -87,20 +87,20 @@
                         <div class="col-lg-6">
                             
                             <div class="form-group">
-                          <label for="Inputidprod">idalquiler</label>
+                          <label for="Inputidprod"># Alquiler</label>
                           <input type="text" name="idprod" class="form-control" id="Inputidprod" placeholder="idalquiler" required>
                        </div>
                             
                             <div class="form-group">
-                          <label for="Inputprod_nombre">producto nombre</label>
+                          <label for="Inputprod_nombre">Nombre</label>
                           <input type="text" name="prod_nombre" class="form-control" id="Inputprod_nombre" placeholder="prod_nombre">
                        </div>
                       <div class="form-group">
-                          <label for="Inputprod_descripcion">producto descripcion</label>
+                          <label for="Inputprod_descripcion">Descripción</label>
                           <input type="text" name="prod_descripcion" class="form-control" id="Inputprod_descripcion" placeholder="prod_descripcion">
                        </div>
                       <div class="form-group">
-                          <label for="Inputprod_precio">producto precio alquiler</label>
+                          <label for="Inputprod_precio">Costo unidad</label>
                           <input type="text" name="prod_precio" class="form-control" id="Inputprod_precio" placeholder="prod_precio" value="0">
                        </div>
                             
@@ -110,19 +110,19 @@
 
                         <div class="col-lg-6">
                           <div class="form-group">
-                          <label for="Inputprod_stock">producto stock</label>
+                          <label for="Inputprod_stock">Cantidad en stock</label>
                           <input type="text" name="prod_stock" class="form-control" id="Inputprod_stock" placeholder="prod_stock" value="0">
                        </div>
                       <div class="form-group">
-                          <label for="Inputprod_disponible">producto disponible</label>
+                          <label for="Inputprod_disponible">Cantidad disponible</label>
                           <input type="text" name="prod_disponible" class="form-control" id="Inputprod_disponible" placeholder="prod_disponible" value="0">
                        </div>
                       <div class="form-group">
-                          <label for="Inputprod_reparacion">producto reparacion</label>
+                          <label for="Inputprod_reparacion">Cantidad en reparación</label>
                           <input type="text" name="prod_reparacion" class="form-control" id="Inputprod_reparacion" placeholder="prod_reparacion" value="0">
                        </div>
                       <div class="form-group">
-                          <label for="Inputprod_danado">producto dañado</label>
+                          <label for="Inputprod_danado">Cantidad dañados</label>
                           <input type="text" name="prod_danado" class="form-control" id="Inputprod_danado" placeholder="prod_dañado" value="0">
                        </div>
                         </div>
@@ -226,7 +226,7 @@
                         $("#Inputidprod").val(depa[1].idprod);
                         $("#Inputprod_nombre").val(depa[1].prod_nombre);
                         $("#Inputprod_descripcion").val(depa[1].prod_descripcion);
-                        $("#Inputprod_precio").val(depa[1].prod_precio);
+                        $("#Inputprod_precio").val(formatearDinero(depa[1].prod_precio));
                         $("#Inputprod_stock").val(depa[1].prod_stock);
                         $("#Inputprod_disponible").val(depa[1].prod_alquilado);
                         $("#Inputprod_reparacion").val(depa[1].prod_reparacion);
@@ -275,12 +275,14 @@
 
                     var url1 = "../back/controller/Producto_update.php";
 
-                   console.log($("#Product_update_2").serialize()) ;
+                    myform = $("#Product_update_2").serialize();
+                    myform = myform.replace('%24%20','');
+                   //console.log(myform);
 
                     $.ajax({
                         type: "POST",
                         url: url1,
-                        data: $("#Product_update_2").serialize(),
+                        data: myform,
                        
 
                         success: function (data) {

@@ -15,6 +15,9 @@ class Factura {
   private $fac_descueto;
   private $cliente_idcliente;
   private $abonos;
+  private $obra;
+  private $direccion_obra;
+  private $observacion;
 
     /**
      * Constructor de Factura
@@ -86,7 +89,13 @@ class Factura {
   public function get_data_formated(){
     return  array('idfactura' => $this->idfactura,
                   'fecha' => $this->fecha,
-                  'fac_descueto' => $this->fac_descueto);
+                  'fac_descueto' => $this->fac_descueto,
+                  'cliente_idcliente' => $this->cliente_idcliente,
+                  'abonos' => $this->abonos,
+                  'obra' => $this->obra,
+                  'direccion_obra'=> $this->direccion_obra,
+                  'observacion'=> $this->observacion,
+                );
   }
 
   public function getAbonos(){
@@ -98,5 +107,30 @@ class Factura {
 
   }
 
+
+  public function getObra(){
+      return $this->obra;
+  }
+
+  public function setObra($obra){
+      $this->obra = $obra;
+  }
+
+  public function getDireccionObra(){
+      return $this->direccion_obra;
+  }
+
+  public function setDireccionObra($direccion_obra){
+      $this->direccion_obra = $direccion_obra;
+  }
+
+  public function getObservacion(){
+      return $this->observacion;
+  }
+
+  public function setObservacion($observacion){
+      $this->observacion = $observacion;
+  }
+ 
 }
 //That`s all folks!

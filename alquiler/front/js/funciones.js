@@ -1,7 +1,7 @@
 //metodo carga una imagen cargando
 function loading(rta) {
     $(rta).html("<span class='fa fa-refresh fa-refresh-animate fa-2x'></span> Validando...");
-}
+} 
 
 //metodo para creacion de objecto ajax
 function ajax(url, datos, rta) {

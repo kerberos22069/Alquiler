@@ -18,7 +18,11 @@ class FacturaController {
         $Cliente_idcliente = strip_tags($_POST['cliente_idcliente']);
         $cliente= new Cliente();
         $cliente->setIdcliente($Cliente_idcliente);
-        FacturaFacade::insert($idfactura, $fecha, $fac_descueto, $cliente);
+        //Si en un futuro muy lejano, estas tres variables representan un problema, recuerde que es porque se crearon despues de definir el modelo y muy seguramente fueron un accidente al igual que usted. Para solucionarlo puede suicidarse o llamar el post por el name
+        $obra = "NO APLICA"; 
+        $direccion_obra = "NO APLICA"; 
+        $observacion = "NO APLICA";
+        FacturaFacade::insert($idfactura, $fecha, $fac_descueto, $cliente, $obra, $direccion_obra, $observacion);
 return true;
     }
 

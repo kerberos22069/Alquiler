@@ -37,11 +37,14 @@ class FacturaFacade {
    * @param fac_descueto
    * @param cliente_idcliente
    */
-  public static function insert( $idfactura,  $fecha,  $cliente_idcliente){
+  public static function insert( $idfactura,  $fecha,  $cliente_idcliente, $obra, $direccion_obra, $observacion){
       $factura = new Factura();
       $factura->setIdfactura($idfactura); 
       $factura->setFecha($fecha); 
       $factura->setCliente_idcliente($cliente_idcliente); 
+      $factura->setObra($obra);
+      $factura->setDireccionObra($direccion_obra);
+      $factura->setObservacion($observacion);
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $facturaDao =$FactoryDao->getfacturaDao(self::getDataBaseDefault());
@@ -49,6 +52,7 @@ class FacturaFacade {
      $facturaDao->close();
      return $rtn;
   }
+
 
   /**
    * Selecciona un objeto Factura de la base de datos a partir de su(s) llave(s) primaria(s).
