@@ -3,7 +3,7 @@
   <div class="ibox-content">
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <table id="mytable"  class="table table-striped table-bordered table-hover dataTables-example" >
                            <!-- <table class="table table-striped table-bordered table-hover dataTables-example" >-->
                                 <thead>
                                     <tr>
@@ -103,4 +103,41 @@
                               
 
     }
+    
+    
+    function recorrerTabla_conduc() {
+    /*recorro la tabla para calcular las columnas del precio para total y hacer desuento*/
+//    rtotal = 0;
+//    m1 = 0;
+    prod_alq2 = [];
+    $("#mytable tbody tr").each(function (index) {
+        if (index != -1) {
+            var campo1, campo2, campo3, campo4, campo5;
+            $(this).children("td").each(function (index2) {
+                switch (index2) {
+                    case 0:
+                        campo1 = $(this).text();
+                        break;
+                    case 1:
+                        campo2 = $(this).text();
+                        break;
+                    case 2:
+                        campo3 = $(this).text();
+                    case 3:
+                        campo4 = $(this).text();
+                    case 4:
+                        campo5 = $(this).text();
+                        break;
+                }
+                $(this).css("background-color", "#ECF8E0");
+            });
+            var text2 = campo1 + "," + campo2 + "," + campo3 +","+ campo4+","+ campo5 ;
+            console.log(text2);
+            prod_alq2.push(text2);
+        }
+     
+
+    })
+}
+;
 </script>
