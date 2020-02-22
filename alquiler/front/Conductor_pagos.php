@@ -87,11 +87,16 @@
                                         Buscar por fecha
                                     </button>
                                 </div>
-                                 <div class="col-sm-1"></div>
+                                <div class="col-sm-1">
+                                      <button type="button" class="btn btn-primary" onclick="ver()" >
+                                        Ver
+                                    </button>
+                                </div>
                             </div>
                             <hr>
                         </div>
                         </div>
+                         
                         <hr>
                         
                         <div id="mostrarcontenido2">
@@ -112,49 +117,7 @@
     <!-- finaliza modal de Empleado Registrar-->
     
     <!-- Modal ddetalles del abonos -->
-    <div class="modal inmodal fade" id="myModalAbonos" tabindex="-1" role="dialog"  aria-hidden="true"  style="overflow-y: scroll;"> 
-        <div class="modal-dialog modal-lg mdialTamanio">
-            <div id="menumodal1" class="modal-content">
-                <div class="modal-header">
-                    <button type="button" id="cerrarAbonos" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                    <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Abonos</h4>
-
-                </div>
-                <div class="modal-body"> <!-- Abrri Contenio-->
-                    <div>
-                        <div class="panel panel-default">
-                            <!--        <div align=center class="panel-heading"><h3 class="panel-title">Registrar clientes</h3></div>-->
-                            <div align=center class="panel-body">
-                           
-                              <div class="ibox-content">
-                                  <table class="table table-striped">
-                                      <thead><th style=" color:#FFFFFF; background-color: #616161  !important">Detalles de abonos</th></thead>
-                                      <tbody id="txt_abonos_detalles"></tbody>
-                                  </table>
-                                  <h3><label id="txt_abonos_total"><b>Total:</b></label>
-                                  <br>
-                                  <label id="txt_abonos_abonado"><b>Abonado:</b></label>
-                                  <br>
-                                  <label id="txt_abonos_faltante">Faltante:</label></h3>
-                                  <hr>
-                                  <input id="input_abonos" />
-                                  <button id="btn_abonos_abonar" class="btn btn-primary"> Abonar</button>
-                              </div>
-                                
-                            </div> <!-- panel -->
-                        </div>
-
-
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- finaliza modal de abonos-->
 
 
@@ -244,6 +207,33 @@
            
          }
 
+    </script> 
+    <script> 
+    function ver() {
+                                  var nun_factura = document.getElementById("InputId_orden").value;
+                                  var nom_cliente = document.getElementById("Inputnombres_orden").value;
+                                  var cc_cliente = document.getElementById("Inputcc_orden").value;
+//                                  var tel_clien = document.getElementById("Inputtelefono").value;
+                                  var fecha_ini = document.getElementById("Imputfecha_inicio_tran").value;
+                                  var fecha_fin = document.getElementById("Imputfecha_fin_tran").value;
+                                  var total = document.getElementById("Inputfact_total_Tra").value;
+//
+          recorrerTabla_conduc();
+        
+         var client = []
+client.push(nun_factura);
+client.push(nom_cliente);
+client.push(cc_cliente);
+client.push(fecha_ini);
+client.push(fecha_fin);
+client.push(total);
+
+
+         window.location.href="formatos/recibo_flete.php?usuario="+client+"&productos="+prod_alq2,"'_blank" ; 
+    }
+        
+      
+//          
     </script> 
 
     
