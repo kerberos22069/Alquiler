@@ -645,20 +645,14 @@ function imprimirFactura(idFactura) {
                 mi_tr = tr("gradeX footable-even");
                 //Nombre
                 mi_tr.appendChild(td(alquiler.producto_nombre, "footable-visible"));
+                //Fecha
+                mi_tr.appendChild(td(movimiento.fecha_alquiler + " -> " + movimiento.fecha, "footable-visible center"));
                 //Valor
                 mi_tr.appendChild(td(formatearDinero(alquiler.valor), "footable-visible center"));
                 //Cantidad
                 mi_tr.appendChild(td(movimiento.cantidad, "footable-visible center"));
-                //Fecha
-                mi_tr.appendChild(td(movimiento.fecha_alquiler + " -> " + movimiento.fecha, "footable-visible center"));
                 //Días
                 mi_tr.appendChild(td(movimiento.dias, "footable-visible center"));
-                //tipo
-                if (movimiento.tipo) {
-                    mi_tr.appendChild(td("Alq", "footable-visible center"));
-                } else {
-                    mi_tr.appendChild(td("Dev", "footable-visible center"));
-                }
                 //SubTotal
                 mi_tr.appendChild(td(formatearDinero(movimiento.valor), "footable-visible center"));
                 contenedor.appendChild(mi_tr);

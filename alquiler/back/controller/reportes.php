@@ -126,6 +126,7 @@ function manejarMovimientos($myAlquiler, $Alquiler) {
                 $array = iterarSobreColaAlquileres($movimiento, $Alquiler->getValor(), $cola_alquileres);
                 foreach ($array as $key => $mov) {
                     $myAlquiler->subTotal += $mov->valor;
+                    //var_dump($mov);
                     array_push($arrayMovimientos, $mov);
                 }
             } else {
@@ -156,22 +157,24 @@ function iterarSobreColaAlquileres($movimiento, $valor, $cola_alquileres) {
             $alquilerMasViejo->cantidad -= $cantidadVirtual;
             array_unshift($cola_alquileres, $alquilerMasViejo);
             $cantidadVirtual = 0;
+            $movimiento = calcularSubTotalMovimiento($movimiento, $alquilerMasViejo->fecha, $valor, $cantidadASacar);
+            array_push($rtn, $movimiento);
         } else if ($alquilerMasViejo->cantidad == $cantidadVirtual) {
             $cantidadASacar = $cantidadVirtual;
             $cantidadVirtual = 0;
             //Son virtualmente iguales, pero en este no se vuelve a meter el alquiler viejo en la cola
+            $movimiento = calcularSubTotalMovimiento($movimiento, $alquilerMasViejo->fecha, $valor, $cantidadASacar);
+            array_push($rtn, $movimiento);
         } else {
             $cantidadASacar = $alquilerMasViejo->cantidad;
             $cantidadVirtual -= $alquilerMasViejo->cantidad;
             //Saca lo que tenga que sacar del alquiler más viejo, reduce su cantidad y sigue iterando alv
             $movimiento->cantidad -= $alquilerMasViejo->cantidad;
-            
+
             $nuevoMov = calcularSubTotalMovimiento(clone $movimiento, $alquilerMasViejo->fecha, $valor, $cantidadASacar);
-            $nuevoMov->cantidad =$cantidadASacar;
+            $nuevoMov->cantidad = $cantidadASacar;
             array_push($rtn, $nuevoMov);
         }
-        $movimiento = calcularSubTotalMovimiento($movimiento, $alquilerMasViejo->fecha, $valor, $cantidadASacar);
-        array_push($rtn, $movimiento);
     }
     return $rtn;
 }
@@ -183,8 +186,6 @@ function calcularSubTotalMovimiento($movimiento, $fecha_alquiler, $valor, $canti
     $dias = $interval->format('%d');
     $movimiento->valor += $dias * $valor * $cantidad;
     $movimiento->fecha_alquiler = $fecha_alquiler;
-    if ($dias > $movimiento->dias) {
-        $movimiento->dias = $dias;
-    }
+    $movimiento->dias = $dias;
     return $movimiento;
 }
