@@ -91,6 +91,9 @@
                                       <button type="button" class="btn btn-primary" onclick="ver()" >
                                         Ver
                                     </button>
+                                    
+                                   <button id="btnImprimir">Imprimir</button>   
+                                    
                                 </div>
                             </div>
                             <hr>
@@ -169,7 +172,21 @@
 
         });
 
-
+ $(document).ready(function(){
+        $('#btnImprimir').click(function(){
+           $.ajax({
+               url: 'ticket.php',
+               type: 'POST',
+               success: function(response){
+                   if(response==1){
+                       alert('Imprimiendo....');
+                   }else{
+                       alert('Error');
+                   }
+               }
+           }); 
+        });
+    });
 
 
         function seleccionarTabla() {
