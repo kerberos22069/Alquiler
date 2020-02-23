@@ -1,4 +1,4 @@
-
+ 
 <html>
     <head>  
         <title>factura Por fecha</title>
@@ -9,6 +9,7 @@
     <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <!-- Sweet Alert -->
     <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    
     
     <div class="wrapper wrapper-content animated fadeInRight">
 
@@ -190,7 +191,7 @@
                         </div>
 
                         <div class="modal-footer">                            
-                            <div class="ibox-content" id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 10px; display: none; background: inherit">
+                           <!-- <div class="ibox-content" id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 10px; display: none; background: inherit">
                                 <form role="form" >
                                     <div class="row">                                                           
                                         <div class="form-group">
@@ -216,9 +217,9 @@
                                         <button type="button" class="btn btn-primary" style="margin-left: 15px; margin-top: auto;margin-bottom: 15px;" onclick="agregar_devolucion()">Agregar</button>
                                     </div>                                                            
                                 </form> 
-                            </div>
+                            </div> -->
                         </div>
-                    <button type="button" class="btn btn-primary" id="btn_exportar" style="float: right; border-right: 0px;">Exportar</button>
+                    <!--<button type="button" class="btn btn-primary" id="btn_exportar" style="float: right; border-right: 0px;">Exportar</button>-->
                         <button type="button" class="btn btn-light" data-dismiss="modal" style="float: right; border-right: 0px;">Cerrar</button>
                     </div>
                 </div>
@@ -335,6 +336,92 @@
         </div>
     </div>
     <!-- finaliza modal de Empleado Registrar-->
+
+    <!-- Inicio modal alquileres devolucion -->
+<div class="modal inmodal fade" id="myModalDevolucion" tabindex="-1" role="dialog"  aria-hidden="true"  style="overflow-y: scroll;"> 
+    <div class="modal-dialog  mdialTamanio" style="width: 80%; max-width: 80%; margin-left: 10%; margin-right: 10%">
+        <div id="menumodal1" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Cerrar</span>
+                </button>
+                <h4 class="modal-title" style="color: white  ; text-shadow: 5px 5px 5px #aaa;">Devolucion de Productos</h4>
+            </div>
+            <!-- Inicio del contenido -->
+            <div class="modal-body"> 
+                <div>
+                    <div id="elementH"></div>
+                    <div id="panelReporte" class="panel panel-default">                            
+                        <div align=center class="panel-body">
+                           <div class="ibox-content">
+                                <div class="table-responsive" style="height: 400px;overflow-x: hidden; overflow-x: auto;text-align:justify;">
+                                    <table class="table table-striped" >
+                                        <thead>
+                                            <tr>                                                        
+                                                <th style=" color:#FFFFFF; background-color: #616161  !important">Nombre</th>
+                                                <th style=" color:#FFFFFF; background-color: #616161  !important">Valor unitario</th>
+                                                <th style=" color:#FFFFFF; background-color: #616161  !important">Cantidad</th>
+                                                <th style=" color:#FFFFFF; background-color: #616161  !important">Dias</th>
+                                                <th style=" color:#FFFFFF; background-color: #616161  !important">Total</th>
+                                                <th style=" color:#FFFFFF; background-color: #616161  !important">Devoluciones</th>
+                                                <th style=" color:#FFFFFF; background-color: #616161  !important">Delvolver productos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="articulosListDevolucion"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <h3>
+                                <div class="table-responsive">
+                                    <p id="total_factura">$0000000</p>
+                                </div>
+                                <div class="table-responsive">
+                                    <p id="total_pagar">$0000000</p>
+                                </div>
+                            </h3>
+                        </div>
+                                
+                    </div> <!-- panel -->
+                </div>
+                <div class="modal-footer">                            
+                    <div class="ibox-content" id="contenedor_add_devoluciones" align="left" style="float: left; border-left: 10px; display: none; background: inherit">
+                            <form role="form" >
+                                <div class="row">                                                           
+                                    <div class="form-group">
+                                        <label >Producto</label>
+                                        <label  id="producto_a_devolver" class="form-control" />
+                                    </div>    
+                                    <div class="form-group" style="margin-left: 15px;">
+                                        <label for="cantidad_devuelta" >Cantidad</label>
+                                        <input type="number" id="cantidad_devuelta" class="form-control" min="1"/>
+                                    </div>
+                                    <div class="form-group" style="margin-left: 15px;">
+                                        <label for="fecha_devolucion">Fecha devolucion</label>
+                                        <input type="date" id="fecha_devolucion" class="form-control"/>
+                                    </div>
+                                    <div class="form-group" style="margin-left: 15px;">
+                                        <label for="estado_objeto" >Estado del objeto</label>
+                                            <select class="form-control" id="estado_objeto">
+                                                <option value="0">Buen estado</option>
+                                                <option value="2">Dañados</option>
+                                                <option value="3">En reparacion</option>
+                                            </select>                                            
+                                    </div>                                   
+                                    <button type="button" class="btn btn-primary" style="margin-left: 15px; margin-top: auto;margin-bottom: 15px;" onclick="agregar_devolucion()">Agregar</button>
+                                </div>                                                            
+                            </form> 
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="btn_exportar" style="float: right; border-right: 0px;">Exportar</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal" style="float: right; border-right: 0px;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin modal alquileres devolucion-->
 
     <script src="js/plugins/dataTables/datatables.min.js"></script>
     <script src="js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>

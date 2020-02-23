@@ -79,26 +79,31 @@ function mostrar_reporte(data) {
         mi_tr.appendChild(td(formatearDinero(data[i].total), "footable-visible"));
         //pagado
         if (data[i].pagado) {
-            mi_tr.appendChild(td_icono(data[i].id, "mostrar_alquileres", "check"));
+            mi_tr.appendChild(td_icono(data[i].id, "funcion_vacia", "check"));
         } else {
-            mi_tr.appendChild(td_icono(data[i].id, "mostrar_alquileres", "times"));
+            mi_tr.appendChild(td_icono(data[i].id, "funcion_vacia", "times"));
         }
 //devuelto
         if (data[i].devuelto) {
-            mi_tr.appendChild(td_icono(data[i].id, "mostrar_alquileres", "check"));
+            mi_tr.appendChild(td_icono(data[i].id, "funcion_vacia", "check"));
         } else {
-            mi_tr.appendChild(td_icono(data[i].id, "mostrar_alquileres", "times"));
+            mi_tr.appendChild(td_icono(data[i].id, "funcion_vacia", "times"));
         }
-//detalles
+        //detalles
         mi_tr.appendChild(td_icono(data[i].id, "mostrar_alquileres", "search-plus"));
+
         //devolver todo
-        mi_tr.appendChild(td_icono(data[i].id, "devolverTodo", "hand-o-left", data[i].devuelto));
+        mi_tr.appendChild(td_icono(data[i].id, "mostrar_alquileres_devolucion", "hand-o-left", data[i].devuelto));
         //abonar
         mi_tr.appendChild(td_icono(data[i].id, "mostrar_abonos", "money", data[i].pagado));
         contenedor.appendChild(mi_tr);
     }
 
     seleccionarTabla();
+}
+
+function funcion_vacia(){
+    alert("Funcion no implementada");
 }
 
 function mostrar_datos_vacios() {
@@ -240,6 +245,46 @@ function mostrar_alquileres(id_factura, flag_repaint = true, imprimir = false) {
             $('#myModalDetalles').modal({show: true});
         }
 }
+}
+
+function mostrar_alquileres_devolucion(id_factura, flag_repaint = true, imprimir = false){
+    contenedor = document.getElementById('articulosListDevolucion');
+    contenedor.innerHTML = "";
+    alquiler = obtenerFactura(id_factura).alquileres;
+    factura_id_select = id_factura;
+    for (let i in alquiler) {
+        mi_tr = tr("gradeX footable-even");
+        //Nombre
+        mi_tr.appendChild(td(alquiler[i].producto_nombre, "footable-visible"));
+        //Valor unitario
+        mi_tr.appendChild(td(formatearDinero(alquiler[i].valor), "footable-visible"));
+        //Cantidad
+        mi_tr.appendChild(td(alquiler[i].cantidad, "footable-visible"));
+        //Dias
+        mi_tr.appendChild(td(alquiler[i].dias, "footable-visible"));
+        //Total
+        mi_tr.appendChild(td(formatearDinero(alquiler[i].subTotal), "footable-visible"));
+        //Devoluciones
+        mi_tr.appendChild(parsearDevoluciones(JSON.parse(alquiler[i].devoluciones)));
+        //Devolver parcial
+        if (!imprimir) {
+            mi_tr.appendChild(td_icono(alquiler[i].alquiler_id, "habilitarFormularioDevolucion", "hand-o-left", alquiler[i].devuelto));
+        } else {
+            anchoTabla = 6;
+        }
+
+        contenedor.appendChild(mi_tr);
+    }
+    var factura = obtenerFactura(id_factura);
+    document.getElementById('total_factura').innerHTML = "Total factura: " + formatearDinero(factura.total);
+    document.getElementById('total_pagar').innerHTML = "Total a pagar: " + formatearDinero(factura.total - factura.totalAbonado);
+    if (!imprimir) {
+        aux = "abrirImpresion('" + id_factura + "')";
+        document.getElementById('btn_exportar').setAttribute("onClick", aux);
+        if (flag_repaint) {
+            $('#myModalDevolucion').modal({show: true});
+        }
+    }
 }
 
 function setConductores(id_factura) {
@@ -448,6 +493,45 @@ function parsearDevoluciones(devoluciones) {
     td.setAttribute("class", "footable-visible");
     if (devoluciones.length > 0) {
         var ul = document.createElement("ul");
+        ul.setAttribute("class","list-group clear-list m-t");
+        ul.setAttribute("style", "margin-top: 0px;")
+        for (let i in devoluciones) {
+            var li = document.createElement("li");            
+            li.setAttribute("class","list-group-item");
+            li.appendChild(span_texto_devolucion(devoluciones[i].fecha));
+            li.appendChild(span_caja_devolucion(devoluciones[i].cantidad, devoluciones[i].estado));            
+            ul.appendChild(li)
+        }
+        td.appendChild(ul);
+    } else {
+        txt = document.createTextNode("No se ha efectuado ninguna devolución del producto");
+        td.appendChild(txt);
+    }
+    return td;
+}
+
+function span_caja_devolucion(cantidad, estado){
+    var span = document.createElement("span");
+    span.setAttribute("class", "label");
+    console.log(estado);
+    span.setAttribute("style", "background-color:" + obtenerColorEstado(estado));
+    span.appendChild(document.createTextNode(cantidad));
+    return span;
+}
+
+function span_texto_devolucion(text){
+    var span = document.createElement("span");
+    span.setAttribute("class", "float-right");
+    span.appendChild(document.createTextNode(text));
+    return span;
+}
+
+/*
+function parsearDevoluciones(devoluciones) {
+    var td = document.createElement("td");
+    td.setAttribute("class", "footable-visible");
+    if (devoluciones.length > 0) {
+        var ul = document.createElement("ul");
         for (let i in devoluciones) {
             var li = document.createElement("li");
             rta = "Fecha: " + devoluciones[i].fecha + ", Cantidad: " + devoluciones[i].cantidad + ", Estado: " + obtenerEstado(devoluciones[i].estado);
@@ -461,7 +545,7 @@ function parsearDevoluciones(devoluciones) {
     }
     return td;
 }
-
+*/
 function obtenerEstado(estado) {
     switch (String(estado)) {
         case "0":
@@ -478,6 +562,25 @@ function obtenerEstado(estado) {
             break;
         default:
             return "Sin definir";
+    }
+}
+
+function obtenerColorEstado(estado) {
+    switch (String(estado)) {
+        case "0":
+            return "#A3E4D7";
+            break;
+        case "1":
+            return "#A9CCE3";
+            break;
+        case "2":
+            return "#E6B0AA"
+            break;
+        case "3":
+            return "#F9E79F"
+            break;
+        default:
+            return "#AEB6BF";
     }
 }
 
